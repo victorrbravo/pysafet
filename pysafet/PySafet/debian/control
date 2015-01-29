@@ -1,0 +1,21 @@
+Source: pysafet
+Section: python
+Priority: optional
+Maintainer: Victor Bravo <vbravo@cenditel.gob.ve>
+Build-Depends: debhelper (>= 9.0.0)
+ , python-sip-dev
+ , python-qt4
+ , python-qt4-dev
+ , pkg-config
+Standards-Version: 3.9.4
+
+Package: pysafet
+Architecture: any
+Depends: ${shlibs:Depends}
+ , ${python:Depends}
+ , ${sip:Depends}
+ , ${misc:Depends}
+ , python-qt4
+ , python-qt4-sql
+ , libsafet
+Description: Python binding to Libsafet Library (Workflow library)

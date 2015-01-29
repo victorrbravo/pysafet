@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+    Document   : safetexample3.xml
+    Created on : 23 de enero de 2008, 9:39
+    Author     : vbravo
+    Description:
+        Purpose of the document follows.
+-->
+<!DOCTYPE yawl SYSTEM "http://trac-safet.cenditel.gob.ve/dtd/yawlworkflow.dtd">
+<!--
+    Agregar un elemento token, que defina la definición del token en cada
+    uno de las actividades (tasks) o condiciones (condition)
+    por ejemplo:
+    fieldtoken, fieldrelation
+-->
+
+<yawl  version="0.01">
+<workflow id="Flujo Principal de la Solicitud de Pago" desc="alguna descripcion">
+    <condition id="inicial" type="start">
+        <port side="forward" type="split" >
+        <connection  source="Factura" query="select proveedor_ingreso FROM proveedor" options="&lt;2008-07-16" >            
+        </connection>
+        </port>
+    </condition>    
+    <task id="Factura" title="Tarea para datos de la Factura">
+	    <port side="forward" type="split"   pattern="and">
+		    <connection  source="Gerencia" tokenlink="[solicitud_numerofactura,factura_numero:factura][factura_cedulaproveedor]" 
+		   query="select solicitud_tipo from solicitud"
+		  options="gerencia">
+		    </connection>
+		    <connection  source="Presupuesto" tokenlink="[solicitud_numerofactura,factura_numero:factura][factura_cedulaproveedor]" 
+		   query="select solicitud_tipo from solicitud"
+		  options="presupuesto">
+		    </connection>
+	    </port>
+	    <variable id="Facturas" scope="task"  type="sql" config="1" 
+		      tokenlink="[factura_cedulaproveedor]" documentsource="SELECT proveedor_cedula,apellidos,factura_numero,proveedor_ingreso from factura">
+	    </variable> 
+    </task>
+    <task id="Gerencia" title="Tarea para la solicitud del Recurso Humano">
+	    <port side="forward" type="split"  >
+		    <connection  source="Pago" tokenlink="[solicitud_numerofactura,factura_numero:factura][factura_cedulaproveedor]" 
+		  query="select solicitud_gerencia from solicitud" options="true">
+		    </connection>
+	    </port>
+	    <variable id="Gerencias" scope="task"  type="sql" config="1" source="Cheque" 
+		      tokenlink="[solicitud_numerofactura,factura_numero:factura][factura_cedulaproveedor]" documentsource="SELECT apellidos,nombres,proveedor_ingreso from solicitud where solicitud_tipo='gerencia'">
+	    </variable>
+    </task>
+    <task id="Presupuesto" title="Tarea para la solicitud del Almacen">
+	    <port side="forward" type="split" pattern="or" >
+		    <connection  source="Corriente" tokenlink="[presupuesto_id:presupuesto,solicitud_presupuestotipo:solicitud][solicitud_numerofactura,factura_numero:factura][factura_cedulaproveedor]" 
+		  query="select presupuesto_tipo from presupuesto" options="corriente:alterno">
+		    </connection>
+		    <connection  source="Alterno" tokenlink="[presupuesto_id:presupuesto,solicitud_presupuestotipo:solicitud][solicitud_numerofactura,factura_numero:factura][factura_cedulaproveedor]" 
+		  query="select presupuesto_tipo from presupuesto" options="corriente:alterno">
+		    </connection>
+	    </port>
+	    <variable id="Presupuestos" scope="task"  type="sql" config="1" source="Cheque" 
+		      tokenlink="[solicitud_numerofactura,factura_numero:factura][factura_cedulaproveedor]" documentsource="SELECT solicitud_numero,solicitud_consignado from solicitud where solicitud_tipo='presupuesto'">
+	    </variable>
+    </task>
+    <task id="Corriente" title="Tarea para la solicitud del Presupuesto Corriente">
+	    <port side="forward" type="split" >
+		    <connection  source="Pago" tokenlink="[solicitud_numerofactura,factura_numero:factura][factura_cedulaproveedor]" 
+		  query="select solicitud_presupuesto from solicitud" options="true">
+		    </connection>
+	    </port>
+	    <variable id="Corrientes" scope="task"  type="sql" config="1" source="Cheque" 
+		      tokenlink="[solicitud_numerofactura,factura_numero:factura][factura_cedulaproveedor]" documentsource="SELECT solicitud_numero,solicitud_consignado from solicitud where solicitud_tipo='presupuesto'">
+	    </variable>
+    </task>
+    <task id="Alterno" title="Tarea para la solicitud del Presupuesto Alterno">
+	    <port side="forward" type="split" >
+		    <connection  source="Pago" tokenlink="[solicitud_numerofactura,factura_numero:factura][factura_cedulaproveedor]" 
+		  query="select solicitud_presupuesto from solicitud" options="true">
+		    </connection>
+	    </port>
+	    <variable id="Alternos" scope="task"  type="sql" config="1" source="Cheque" 
+		      tokenlink="[solicitud_numerofactura,factura_numero:factura][factura_cedulaproveedor]" documentsource="SELECT solicitud_numero,solicitud_consignado from solicitud where solicitud_tipo='presupuesto'">
+	    </variable>
+    </task>
+    <task id="Pago" title="Tarea donde se emitió el cheque">
+	    <port side="forward" type="split" >
+		    <connection  source="final" query="true">
+		    </connection>
+	    </port>
+	    <variable id="Pagos" scope="task"  type="sql" config="1"  source="end"
+		      tokenlink="[cheque_numero,numero_cheque:solicitudcheque][numero_solicitud,solicitud_numero:solicitud][solicitud_numerofactura,factura_numero:factura][factura_cedulaproveedor]" documentsource="SELECT proveedor_cedula,apellidos,nombres,cheque_numero,cheque_monto,fecha FROM cheque" >
+	    </variable>
+    </task>
+    <condition id="final" type="end">
+	    <port side="forward" type="split">
+		    <connection  source="">            
+		    </connection>
+	    </port>
+    </condition>    
+    <token key="proveedor_cedula"  keysource="proveedor">    
+    </token>
+</workflow>
+<configuration id="1" connectstring="psql:localhost:pagos:vbravo:vbravo_">
+</configuration>
+</yawl>
+

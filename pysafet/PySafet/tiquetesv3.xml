@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Documento  : tickets.xml
+Creado     : 16/10/08 09:27 AM
+Autor      : nombre_autor
+Descripcion: Archivo generado por plantilla de la Libreria SAFET
+-->
+
+<!DOCTYPE yawl SYSTEM "http://trac-safet.cenditel.gob.ve/dtd/yawlworkflow.dtd">
+<!--<!DOCTYPE yawl SYSTEM "file:///home/vbravo/trac/seguridad/safet/libsafet/trunk/doc/yawlworkflow.dtd">-->
+<yawl  version="0.01">
+<workflow id="NuevoFlujo" desc="Nuevo Flujo">
+	<condition id="inicial" type="start">
+                <port side="forward" type="split"  >
+                        <connection   source="Nuevo" query="select estado from lista"  options="nuevo" tokenlink="">
+			</connection>
+		</port>
+	</condition>
+	<task id="Nuevo"  title="Tarea1">
+                <port side="forward" type="split"  >
+                        <connection source="Asignado" query="select estado from lista" options="asignado" >
+			</connection>
+		</port>
+		<variable id="VariableNuevo" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select titulo,estado,asignado,propietario from lista" >
+		</variable>
+	</task>
+	<task id="Asignado"  title="Tarea1">
+                <port side="forward" type="split" pattern="or">
+                        <connection source="Resuelto" query="select estado from lista" options="resuelto" >
+			</connection>
+                        <connection source="Pospuesto" query="select estado from lista" options="pospuesto" >
+			</connection>
+		</port>
+		<variable id="VariableAsignado" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select titulo,estado,asignado,propietario from lista" >
+		</variable>
+	</task>
+	<task id="Resuelto"  title="Tarea1">
+                <port side="forward" type="split" >
+			<connection source="FirmaResuelto" query="select id,titulo,estado,asignado,propietario from lista SIGN Victor Bravo" tokenlink="">
+			</connection>
+		</port>
+		<variable id="VariableResuelto" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select id,titulo,estado,asignado,propietario from lista" >
+		</variable>
+	</task>
+	<task id="Pospuesto"  title="Tarea1">
+		<port side="forward" type="split" query="select id,titulo,estado,asignado,propietario from lista SIGN Victor Bravo">
+			<connection source="FirmaPospuesto">
+			</connection>
+		</port>
+		<variable id="VariablePospuesto" scope="task"  type="sql" config="1"  tokenlink="" documentsource="select  id,titulo,estado,asignado,propietario from lista" >
+		</variable>
+	</task>
+	<task id="FirmaResuelto"  title="Tarea1">
+		<port side="forward" type="split" query="true">
+                        <connection source="Finalizado">
+			</connection>
+		</port>
+		<variable id="VariableFirmaResuelto" scope="task"  type="sql" config="1"  tokenlink="" documentsource="select titulo,estado,asignado,propietario from lista" >
+		</variable>
+	</task>
+	<task id="FirmaPospuesto"  title="Tarea1">
+		<port side="forward" type="split" query="true">
+                        <connection source="Finalizado">
+			</connection>
+		</port>
+		<variable id="VariableFirmaPospuesto" scope="task"  type="sql" config="1"  tokenlink="" documentsource="select titulo,estado,asignado,propietario from lista" >
+		</variable>
+        </task>
+        <task id="Finalizado"  title="Tarea1">
+                <port side="forward" type="split" >
+                        <connection source="Calificado"  query="select estado from lista"  options="calificado" tokenlink="" >
+                        </connection>
+                </port>
+                <variable id="VariableFinalizado" scope="task"  type="sql" config="1"  tokenlink="" documentsource="select titulo,estado,asignado,propietario from lista" >
+                </variable>
+        </task>
+           <task id="Calificado"  title="Tarea1">
+                <port side="forward" type="split" query="true">
+                        <connection source="final" >
+                        </connection>
+                </port>
+                <variable id="VariableCalificado" scope="task"  type="sql" config="1"  tokenlink="" documentsource="select titulo,estado,asignado,propietario from lista" >
+                </variable>
+        </task>
+	<condition id="final">
+		<port side="forward" type="split">
+			<connection source="">
+			</connection>
+		</port>
+	</condition>
+	<token key="id"  keysource="lista">
+	</token>
+</workflow>
+	<configuration id="1" connectstring="psql:localhost:tiquetes:vbravo:vbravo_">
+	</configuration>
+</yawl>

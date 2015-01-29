@@ -1,0 +1,7 @@
+InFlow
+
+Aplicación de entrada de datos para el sistema SAFET.
+
+Fundación CENDITEL
+Nodo Mérida
+

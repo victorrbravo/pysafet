@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Documento  : deftrac.xml
+Creado     : Víctor Bravo
+Autor      : Victor Bravo
+Descripcion: Archivo de Entrada para SAFET - Inflow
+-->
+<!DOCTYPE operations SYSTEM "file://$USER/.safet/dtd/yawlinput.dtd">
+<operations suffix=":" commandname="operacion"  >  
+<operation  name="Opciones de listado"  desc="Reportes, Listas, Formas" icon="firmadoc.png">
+</operation>
+
+<operation  name="Listar_datos" >
+<command id ="1" type="agregar" table="lista">
+	<fields>
+		<field type="filename" mandatory="yes" title="Cargar_archivo_flujo" desc="Cargar un archivo de flujo para generar un reporte" filter="Archivos de flujo (*.xml);;Todos (*)" >
+			Cargar_archivo_flujo
+		</field>
+		<field type="combovar" mandatory="yes" validation="\w+">
+			Variable
+		</field>
+	</fields>
+</command>
+</operation>
+<operation  name="Listar_datos_con_autofiltro" >
+<command id ="1" type="agregar" table="lista">
+	<fields>
+		<field type="filename" mandatory="yes" title="Cargar_archivo_flujo" desc="Cargar un archivo de flujo para generar un reporte" filter="Archivos de flujo (*.xml);;Todos (*)" >
+			Cargar_archivo_flujo
+		</field>
+		<field type="comboautofilter"  mandatory="no"  >
+			Autofiltro
+		</field>
+		<field type="combovar" mandatory="yes" >
+			Variable
+		</field>
+	</fields>
+</command>
+</operation>
+<operation  name="Listar_datos_con_filtrorecursivo" >
+<command id ="1" type="agregar" table="lista">
+	<fields>
+		<field type="filename" mandatory="yes" title="Cargar_archivo_flujo" desc="Cargar un archivo de flujo para generar un reporte" filter="Archivos de flujo (*.xml);;Todos (*)" >
+			Cargar_archivo_flujo
+		</field>
+		<field type="comborecursivefilter"  mandatory="yes"  >
+			Filtro_recursivo
+		</field>
+		<field type="combovar" mandatory="yes" >
+			Variable
+		</field>
+	</fields>
+</command>
+</operation>
+
+<operation  name="Gráficos básicos"  desc="Flujos de trabajo básicos" icon="">
+</operation>
+<operation  name="Generar_gráfico_coloreado" >
+	<command id ="1" type="agregar" table="lista">
+		<fields>
+			<field type="filename" mandatory="yes" title="Cargar_archivo_flujo" desc="Cargar un archivo de flujo para generar un reporte" filter="Archivos de flujo (*.xml);;Todos (*)">
+				Cargar_archivo_flujo
+			</field>
+		</fields>
+	</command>
+</operation>
+<operation  name="Generar_gráfico_para_clave" >
+	<command id ="1" type="agregar" table="ticket">
+		<fields>
+			<field type="filename" mandatory="yes" title="Cargar_archivo_flujo" desc="Cargar un archivo de flujo para generar un reporte" filter="Archivos de flujo (*.xml);;Todos (*)">
+				Cargar_archivo_flujo
+			</field>
+			<field type="combolisttable" options="id:ticket" mandatory="yes" primarykey="yes" title="Clave">
+				Clave
+			</field>
+		</fields>
+	</command>
+</operation>
+<operation  name="Gráficos con filtro"  desc="Flujos de trabajo básicos" icon="">
+</operation>
+
+<operation  name="Generar_gráfico_con_autofiltro" >
+	<command id ="1" type="agregar" table="lista">
+		<fields>
+			<field type="filename" mandatory="yes" title="Cargar_archivo_flujo" desc="Cargar un archivo de flujo para generar un reporte" filter="Archivos de flujo (*.xml);;Todos (*)">
+				Cargar_archivo_flujo
+			</field>
+			<field type="comboautofilter"  mandatory="yes" validation="\w+" >
+				Autofiltro
+			</field>
+			
+		</fields>
+	</command>
+</operation>
+<operation  name="Generar_gráfico_con_filtrorecursivo" >
+	<command id ="1" type="agregar" table="lista">
+		<fields>
+			<field type="filename" mandatory="yes" title="Cargar_archivo_flujo" desc="Cargar un archivo de flujo para generar un reporte" filter="Archivos de flujo (*.xml);;Todos (*)">
+				Cargar_archivo_flujo
+			</field>
+			<field type="comborecursivefilter"  mandatory="yes" validation="\w+" >
+				Filtro_recursivo
+			</field>
+			
+		</fields>
+	</command>
+</operation>
+
+</operations>

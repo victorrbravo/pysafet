@@ -1,0 +1,31 @@
+This package was debianized by Antonio Araujo Brett <aaraujo@cenditel.gob.ve> on
+Fri, 20 Jun 2014 09:51:24 -0430.
+
+It was downloaded from <http://seguridad.cenditel.gob.ve/safet/downloads>
+
+Upstream Author: 
+
+	Victor Bravo Bravo <vbravo@cenditel.gob.ve>
+	Antonio Araujo Brett <aaraujo@cenditel.gob.ve>
+
+SAFET Sistema Automatizado para la Firma Electrónica y Estampado de Tiempo
+Copyright: (C) 2012 Víctor Bravo (vbravo@cenditel.gob.ve), Antonio Araujo (aaraujo@cenditel.gob.ve)
+
+License:
+   
+Victor Bravo. CENDITEL  
+  
+Este programa es software libre; Usted puede usarlo bajo los términos de la licencia de 
+software GPL versión 2.0 de la Free Software Foundation. 
+ 
+Este programa se distribuye con la esperanza de que sea útil, pero SI NINGUNA GARANTÍA;
+tampoco las implícitas garantías de MERCANTILIDAD o ADECUACIÓN A UN PROPÓSITO PARTICULAR.
+Consulte la licencia GPL para más detalles. Usted debe recibir una copia de la GPL junto 
+con este programa; si no, escriba a la Free Software Foundation Inc. 51 Franklin Street,
+5º Piso, Boston, MA 02110-1301, USA.
+
+The Debian packaging is (C) 2012, Antonio Araujo Brett <aaraujo@cenditel.gob.ve> and
+is licensed under the GPL, see `/usr/share/common-licenses/GPL'.
+
+
+

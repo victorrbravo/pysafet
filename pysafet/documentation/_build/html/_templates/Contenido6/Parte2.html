@@ -1,0 +1,786 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Operaciones CRUD+(flujo) utilizando PySafet &mdash; PySafet</title>
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="PySafet" href="../../index.html" />
+    <link rel="next" title="Crear el flujo de trabajo utilizando un archivo XML" href="Parte4.html" />
+    <link rel="prev" title="Creación de las tablas en base de datos" href="manual_Parte1.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="Parte4.html" title="Crear el flujo de trabajo utilizando un archivo XML"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="manual_Parte1.html" title="Creación de las tablas en base de datos"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../../index.html">PySafet</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="operaciones-crud-flujo-utilizando-pysafet">
+<h1><span class="target" id="index-0"></span>Operaciones CRUD+(flujo) utilizando PySafet<a class="headerlink" href="#operaciones-crud-flujo-utilizando-pysafet" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Las operaciones <a class="reference external" href="http://es.wikipedia.org/wiki/CRUD">CRUD</a>, son acciones generales que representan un modelo basíco para la creación de sistema de información. Puede ser una descripción más detallada en el siguiente enlace <a class="reference external" href="http://www.dotnettwitter.com/2012/04/curd-operations-on-xml-file.html">SOBRE CRUD</a>.</p>
+<p>El simbolo <strong>&#8220;+&#8221;</strong> indica las adición de operaciones asociada a flujo de trabajo.</p>
+<p><strong>A continuación comenzaremos a ver los pasos de las operaciones CRUB con un archivo que se llama deftrac.xml la cual va a estar en el directorio **&lt;HOME&gt;.safet/input/*</strong></p>
+<div class="section" id="primer-paso">
+<h2>1° PRIMER PASO<a class="headerlink" href="#primer-paso" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="section" id="escribimos-el-encabezado-informacion-de-autor">
+<h3>Escribimos el encabezado (información de Autor).<a class="headerlink" href="#escribimos-el-encabezado-informacion-de-autor" title="Enlazar permanentemente con este título">¶</a></h3>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-html"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
+<span class="c">&lt;!--</span>
+<span class="c">Documento  : deftrac.xml</span>
+<span class="c">Creado     : Fulano de tal</span>
+<span class="c">Autor      : Fulano de tal</span>
+<span class="c">Descripcion: Archivo de Entrada para SAFET - Inflow</span>
+<span class="c">--&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><strong>Escribimos la ruta al validador XML(formato DTD)</strong></li>
+</ul>
+<blockquote>
+<div><div class="highlight-html"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE operations SYSTEM &quot;file:///home/cenditel/.safet/dtd/yawlinput.dtd&quot;&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><strong>Ahora podemos empezar a escribir las operaciones siguientes:</strong></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>C(Insertar)</li>
+<li>R(Listar*)</li>
+<li>U(Actualizar)</li>
+<li>D(Borrar o eliminar)</li>
+<li>+(Flujo de trabajo)</li>
+</ul>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;operations</span> <span class="na">suffix=</span><span class="s">&quot;:&quot;</span> <span class="na">commandname=</span><span class="s">&quot;operacion&quot;</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;operation</span>  <span class="na">name=</span><span class="s">&quot;Productos&quot;</span>  <span class="na">desc=</span><span class="s">&quot;Agregar,Modificar,Eliminar,Listar&quot;</span> <span class="na">icon=</span><span class="s">&quot;firmadoc.png&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;/operation&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>2.- Operation Insertar &#8220;Productos&#8221; C(Insertar)</strong></p>
+<p>Las operaciones en PySafet consiste en una lista de comandos que se ejecutan secuencialmente.</p>
+<p>Los comandos se componen de campos <strong>&#8220;Fields&#8221;</strong> que corresponden a los diferentes  tipos de datos básicos y complejos.  Por ejemplo analicemos el código <strong>XML</strong> del archivo <strong>deftrac.xml</strong> (operación agregar pruducto). Se define los siguiente:</p>
+<blockquote>
+<div><p><strong>1.-</strong> El tipo de comando es <strong>&#8220;agregar&#8221;.(type)</strong>, los tipos posibles son <strong>&#8220;agregar&#8221;,&#8221;actualizar&#8221; y &#8220;eliminar&#8221;</strong>.</p>
+<p><strong>2.-</strong> La tabla de la base de datos donde se realizará el comando <strong>&#8220;command&#8221;</strong> es <strong>&#8220;productos&#8221;</strong>.</p>
+<p><strong>3.-</strong> Luego se especificar la lista de campos <strong>&#8220;fields&#8221;</strong>. Para este campo se especificaran dos campos, el nombre del producto <strong>&#8220;Nombre&#8221;</strong>, y el estado del producto que tomará el valor literal <strong>&#8220;literal&#8221;, &#8220;Registrado&#8221;</strong>.</p>
+<p><strong>4.-</strong> El segundo comando de la operación <strong>&#8220;Agregar_producto&#8221;</strong>  también es del tipo <strong>&#8220;Agregar&#8221;</strong> y ojo los campos que son necesarios para registrar el eventos <strong>&#8220;Agregar_producto&#8221;</strong> en la tabla <strong>&#8220;productos_registro&#8221;</strong>.</p>
+<p><strong>5.-</strong> La palabra de PySafet <strong>&#8220;_USERNAME&#8221;</strong> se utiliza para obtener el usuario actual</p>
+</div></blockquote>
+<p>A continuación se mostrara el archivo <strong>deftrac.xml</strong>:</p>
+<blockquote>
+<div><div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;operation</span>  <span class="na">name=</span><span class="s">&quot;agregar_producto&quot;</span>  <span class="na">desc=</span><span class="s">&quot;&quot;</span> <span class="na">icon=</span><span class="s">&quot;plus.png&quot;</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;command</span> <span class="na">id =</span><span class="s">&quot;1&quot;</span> <span class="na">type=</span><span class="s">&quot;agregar&quot;</span> <span class="na">table=</span><span class="s">&quot;productos&quot;</span> <span class="nt">&gt;</span>
+
+ <span class="nt">&lt;fields&gt;</span>
+
+   <span class="nt">&lt;field</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span> <span class="na">icon=</span><span class="s">&quot;resumen.png&quot;</span> <span class="na">mandatory=</span><span class="s">&quot;yes&quot;</span>      <span class="na">validation=</span><span class="s">&quot;&quot;</span>
+                                   <span class="na">title=</span><span class="s">&quot;Nombre&quot;</span> <span class="na">desc=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
+           nombre
+   <span class="nt">&lt;/field&gt;</span>
+
+    <span class="nt">&lt;field</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span> <span class="na">literal=</span><span class="s">&quot;Registrado&quot;</span> <span class="na">mandatory=</span><span class="s">&quot;yes&quot;</span> <span class="nt">&gt;</span>
+        status
+    <span class="nt">&lt;/field&gt;</span>
+
+ <span class="nt">&lt;/fields&gt;</span>
+
+<span class="nt">&lt;/command&gt;</span>
+
+<span class="nt">&lt;command</span> <span class="na">id =</span><span class="s">&quot;1&quot;</span> <span class="na">type=</span><span class="s">&quot;agregar&quot;</span> <span class="na">table=</span><span class="s">&quot;productos_registro&quot;</span> <span class="nt">&gt;</span>
+
+<span class="nt">&lt;fields&gt;</span>
+
+  <span class="nt">&lt;field</span> <span class="na">type=</span><span class="s">&quot;datetime&quot;</span> <span class="na">mandatory=</span><span class="s">&quot;yes&quot;</span>
+  <span class="na">function=</span><span class="s">&quot;seq from sqlite_sequence where name=&#39;productos&#39;&quot;</span>  <span class="na">input=</span><span class="s">&quot;no&quot;</span><span class="nt">&gt;</span>
+  productoid
+  <span class="nt">&lt;/field&gt;</span>
+
+  <span class="nt">&lt;field</span> <span class="na">type=</span><span class="s">&quot;datetime&quot;</span> <span class="na">mandatory=</span><span class="s">&quot;yes&quot;</span>  <span class="na">function=</span><span class="s">&quot;datetime(&#39;now&#39;)&quot;</span>
+                      <span class="na">format=</span><span class="s">&quot;time_t&quot;</span> <span class="na">input=</span><span class="s">&quot;no&quot;</span><span class="nt">&gt;</span>
+  fecha
+  <span class="nt">&lt;/field&gt;</span>
+
+  <span class="nt">&lt;field</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span> <span class="na">literal=</span><span class="s">&quot;_USERNAME&quot;</span> <span class="na">mandatory=</span><span class="s">&quot;yes&quot;</span> <span class="nt">&gt;</span>
+  rol
+  <span class="nt">&lt;/field&gt;</span>
+
+  <span class="nt">&lt;field</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span> <span class="na">literal=</span><span class="s">&quot;Registrado&quot;</span> <span class="na">mandatory=</span><span class="s">&quot;yes&quot;</span> <span class="nt">&gt;</span>
+  regstatus
+  <span class="nt">&lt;/field&gt;</span>
+
+  <span class="nt">&lt;/fields&gt;</span>
+
+  <span class="nt">&lt;/command&gt;</span>
+
+  <span class="nt">&lt;/operation&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first"><strong>Ejecutamos el Script para Insertar un producto</strong></p>
+<blockquote>
+<div><p>Seguidamente vamos a utilizar esta operación <strong>&#8220;agregar_producto&#8221;</strong> en un Script de python como se muestra a continuación:</p>
+</div></blockquote>
+</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><strong>Operación:</strong> agregar_producto</li>
+<li><strong>Nombre:</strong> El nombre del Producto agregar</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># D(Borrar o eliminar)</span>
+<span class="c"># myconsult = u&quot;operacion:borrar_producto id:5&quot;</span>
+
+<span class="c"># U(Actualizar)</span>
+<span class="c">#myconsult = u&quot;operacion:modificar_producto id:3 Nombre:Amoxicilina&quot;</span>
+
+<span class="c"># +(Flujo de trabajo)</span>
+<span class="c"># myconsult = u&quot;operacion:Actualizar_producto id:3 Estado_producto:Pedido&quot;</span>
+
+
+<span class="c"># Importación de la librería Safet y os</span>
+<span class="kn">import</span> <span class="nn">Safet</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<span class="c"># Aqui obtengo mi home,media y url</span>
+<span class="n">myhome</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;HOME&quot;</span><span class="p">)</span>
+<span class="n">mymedia</span> <span class="o">=</span> <span class="n">myhome</span> <span class="o">+</span> <span class="s">&quot;/tmp&quot;</span>
+<span class="n">myurl</span> <span class="o">=</span> <span class="s">&quot;http://localhost&quot;</span>
+
+ <span class="c"># Constructor principal</span>
+<span class="n">myinflow</span> <span class="o">=</span> <span class="n">Safet</span><span class="o">.</span><span class="n">MainWindow</span><span class="p">(</span><span class="n">myhome</span><span class="p">)</span>
+
+<span class="n">myinflow</span><span class="o">.</span><span class="n">setMediaPath</span><span class="p">(</span><span class="n">mymedia</span><span class="p">)</span>
+<span class="n">myinflow</span><span class="o">.</span><span class="n">setHostURL</span><span class="p">(</span><span class="n">myurl</span><span class="p">)</span>
+
+
+ <span class="c"># Si no es un usuario registrado el metodo &quot;login&quot; retorna False</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">myinflow</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="s">&quot;admin&quot;</span><span class="p">,</span><span class="s">&quot;admin&quot;</span><span class="p">)</span>
+
+<span class="c"># C(Insertar)</span>
+<span class="c"># Agregamos el poducto a ingresar por ejemplo &quot;Champu Olorin&quot;,</span>
+<span class="c">#                    &quot;ComplejoB&quot;,&quot;Aspirina&quot;,&quot;Acetaminofén&quot;,&quot;Ibuprofeno&quot;.</span>
+
+<span class="n">myconsult</span> <span class="o">=</span> <span class="s">u&quot;operacion:agregar_producto  Nombre: ComplejoB&quot;</span>
+
+<span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">myinflow</span><span class="o">.</span><span class="n">toInputForm</span><span class="p">(</span><span class="n">myconsult</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s"> ---Usuario autenticado---</span><span class="se">\n</span><span class="s">&quot;</span>
+        <span class="nb">exit</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s"> --Se Actualizo correctamente el producto---</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s"> No se Actualizo el producto....!!!</span><span class="se">\n</span><span class="s">&quot;</span>
+
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">Consulta failed error: </span><span class="si">%s</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">myinflow</span><span class="o">.</span><span class="n">currentError</span><span class="p">())</span>
+        <span class="nb">exit</span><span class="p">()</span>
+
+<span class="k">print</span> <span class="s">u&quot;  </span><span class="si">%s</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">myinflow</span><span class="o">.</span><span class="n">currentJSON</span><span class="p">())</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt>Crearemos un archivo <strong>&#8221;.py&#8221;</strong> con cualquier nombre y copiamos el <strong>Script</strong> y lo ejecutamos de la siguiente manera:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre>$ python Script_Insertar_producto.py
+</pre></div>
+</div>
+</dd>
+</dl>
+<ul>
+<li><p class="first"><strong>Observen la siguiente imagen:</strong></p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/insertar1.png"><img alt="../../_images/insertar1.png" src="../../_images/insertar1.png" style="width: 1200px; height: 200px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 25:</th><td class="field-body">Insertar producto.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p class="first"><strong>Observen la base de datos en la siguiente imagen:</strong></p>
+<blockquote>
+<div><div class="figure align-center" id="figura1">
+<a class="reference internal image-reference" href="../../_images/lista_producto3.png"><img alt="../../_images/lista_producto3.png" src="../../_images/lista_producto3.png" style="width: 850px; height: 480px;" /></a>
+<p class="caption"><strong>Figura 26: Tabla productos</strong></p>
+</div>
+</div></blockquote>
+<a class="reference internal image-reference" href="../../_images/lista_producto4.png"><img alt="../../_images/lista_producto4.png" class="align-center" src="../../_images/lista_producto4.png" style="width: 850px; height: 480px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 27:</th><td class="field-body">Tabla productos_registro.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<p><strong>3.- Operation Eliminar &#8220;Productos&#8221; D(Borrar o eliminar)</strong></p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre>&lt;operation  name=&quot;borrar_producto&quot;  desc=&quot;Elimina un ticket por id&quot; icon=&quot;clear.png&quot;&gt;
+
+        &lt;command id =&quot;1&quot; type=&quot;eliminar&quot; table=&quot;productos&quot;&gt;
+
+                &lt;fields&gt;
+
+                        &lt;field type=&quot;combolisttable&quot; options=&quot;id:productos::id || &#39; - &#39; || nombre&quot;
+                                                                mandatory=&quot;yes&quot; primarykey=&quot;yes&quot; title=&quot;id&quot; &gt;
+                        id
+                        &lt;/field&gt;
+
+                &lt;/fields&gt;
+
+        &lt;/command&gt;
+
+        &lt;command id =&quot;1&quot; type=&quot;eliminar&quot; table=&quot;productos_registro&quot;&gt;
+
+                &lt;fields&gt;
+
+                        &lt;field type=&quot;string&quot;  mandatory=&quot;yes&quot; title=&quot;id&quot; &gt;
+                        productoid
+                        &lt;/field&gt;
+
+                &lt;/fields&gt;
+
+        &lt;/command&gt;
+
+&lt;/operation&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first"><strong>Ejecutamos el Script para elimiar el producto</strong></p>
+<blockquote>
+<div><p>Seguidamente vamos a utilizar esta operación <strong>&#8220;borrar_producto&#8221;</strong> en un Script de python como se muestra a continuación:</p>
+</div></blockquote>
+</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><strong>Operación:</strong> borrar_producto</li>
+<li><strong>id:</strong> Aqui colocaremos el valor de <strong>id</strong> del producto por ejemplo borraremos el producto <strong>Ibuprofeno</strong> y su <strong>id</strong> es <strong>5</strong>. Observe la <a class="reference internal" href="#figura1"><em>Figura 26: Tabla productos</em></a></li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># C(Insertar)</span>
+<span class="c"># Agregamos el poducto a ingresar por ejemplo &quot;Champu Olorin&quot;,</span>
+<span class="c">#                    &quot;ComplejoB&quot;,&quot;Aspirina&quot;,&quot;Acetaminofén&quot;,&quot;Ibuprofeno&quot;.</span>
+<span class="c">#myconsult = u&quot;operacion:agregar_producto  Nombre: ComplejoB&quot;</span>
+
+<span class="c"># U(Actualizar)</span>
+<span class="c">#myconsult = u&quot;operacion:modificar_producto id:3 Nombre:Amoxicilina&quot;</span>
+
+<span class="c"># +(Flujo de trabajo)</span>
+<span class="c"># myconsult = u&quot;operacion:Actualizar_producto id:3 Estado_producto:Pedido&quot;</span>
+
+
+<span class="c"># Importación de la librería Safet y os</span>
+<span class="kn">import</span> <span class="nn">Safet</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<span class="c"># Aqui obtengo mi home,media y url</span>
+<span class="n">myhome</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;HOME&quot;</span><span class="p">)</span>
+<span class="n">mymedia</span> <span class="o">=</span> <span class="n">myhome</span> <span class="o">+</span> <span class="s">&quot;/tmp&quot;</span>
+<span class="n">myurl</span> <span class="o">=</span> <span class="s">&quot;http://localhost&quot;</span>
+
+ <span class="c"># Constructor principal</span>
+<span class="n">myinflow</span> <span class="o">=</span> <span class="n">Safet</span><span class="o">.</span><span class="n">MainWindow</span><span class="p">(</span><span class="n">myhome</span><span class="p">)</span>
+
+<span class="n">myinflow</span><span class="o">.</span><span class="n">setMediaPath</span><span class="p">(</span><span class="n">mymedia</span><span class="p">)</span>
+<span class="n">myinflow</span><span class="o">.</span><span class="n">setHostURL</span><span class="p">(</span><span class="n">myurl</span><span class="p">)</span>
+
+
+ <span class="c"># Si no es un usuario registrado el metodo &quot;login&quot; retorna False</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">myinflow</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="s">&quot;admin&quot;</span><span class="p">,</span><span class="s">&quot;admin&quot;</span><span class="p">)</span>
+
+<span class="c"># D(Borrar o eliminar)</span>
+<span class="c"># Eliminamos el porducto numero 5</span>
+<span class="n">myconsult</span> <span class="o">=</span> <span class="s">u&quot;operacion:borrar_producto id:5&quot;</span>
+
+<span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">myinflow</span><span class="o">.</span><span class="n">toInputForm</span><span class="p">(</span><span class="n">myconsult</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s"> ---Usuario autenticado---</span><span class="se">\n</span><span class="s">&quot;</span>
+        <span class="nb">exit</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s"> --Se Actualizo correctamente el producto---</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s"> No se Actualizo el producto....!!!</span><span class="se">\n</span><span class="s">&quot;</span>
+
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">Consulta failed error: </span><span class="si">%s</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">myinflow</span><span class="o">.</span><span class="n">currentError</span><span class="p">())</span>
+        <span class="nb">exit</span><span class="p">()</span>
+
+<span class="k">print</span> <span class="s">u&quot;  </span><span class="si">%s</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">myinflow</span><span class="o">.</span><span class="n">currentJSON</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>python Eliminar_producto.py
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Observen la siguiente imagen:</strong></p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/Eliminar.png"><img alt="../../_images/Eliminar.png" class="align-center" src="../../_images/Eliminar.png" style="width: 800px; height: 300px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 27:</th><td class="field-body">Script Eliminar producto.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<ul>
+<li><p class="first"><strong>Observen en la db en la siguiente imagen:</strong> Observe la <a class="reference internal" href="#figura2"><em>Figura 26: Tabla productos</em></a></p>
+<blockquote>
+<div><div class="figure align-center" id="figura2">
+<a class="reference internal image-reference" href="../../_images/Eliminar1.png"><img alt="../../_images/Eliminar1.png" src="../../_images/Eliminar1.png" style="width: 850px; height: 480px;" /></a>
+<p class="caption"><strong>Figura 26: Tabla productos</strong></p>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first"><strong>Observen en la db en la siguiente imagen:</strong> Observe la <a class="reference internal" href="#figura3"><em>Figura 27: Tabla productos_registro</em></a></p>
+<blockquote>
+<div><div class="figure align-center" id="figura3">
+<a class="reference internal image-reference" href="../../_images/Eliminar2.png"><img alt="../../_images/Eliminar2.png" src="../../_images/Eliminar2.png" style="width: 850px; height: 480px;" /></a>
+<p class="caption"><strong>Figura 27: Tabla productos_registro</strong></p>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<p><strong>4.- Operation Actualizar &#8220;Nombre del Producto&#8221; U(Actualizar)</strong></p>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre>&lt;operation  name=&quot;modificar_producto&quot;  desc=&quot;&quot; icon=&quot;plus.png&quot;&gt;
+
+        &lt;command id =&quot;1&quot; type=&quot;actualizar&quot; table=&quot;productos&quot; &gt;
+
+                &lt;fields&gt;
+
+                        &lt;field type=&quot;combolisttable&quot; options=&quot;id:productos::id || &#39; - &#39; || nombre&quot;
+                                                mandatory=&quot;yes&quot; primarykey=&quot;yes&quot; title=&quot;id&quot; order=&quot;desc&quot;&gt;
+                        id
+                        &lt;/field&gt;
+
+                        &lt;field type=&quot;string&quot; icon=&quot;resumen.png&quot; mandatory=&quot;yes&quot; validation=&quot;&quot;
+                                                                title=&quot;Nombre&quot; desc=&quot;&quot;&gt;
+                        nombre
+                        &lt;/field&gt;
+
+                &lt;/fields&gt;
+
+        &lt;/command&gt;
+
+&lt;/operation&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first"><strong>Ejecutamos el Script para Actualizar el nombre producto</strong></p>
+<blockquote>
+<div><p>Seguidamente vamos a utilizar esta operación <strong>&#8220;Actualizar_producto&#8221;</strong> en un Script de python como se muestra a continuación:</p>
+</div></blockquote>
+</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><strong>Operación:</strong> modificar_producto</li>
+<li><strong>id:</strong> Aqui colocaremos el valor de <strong>id</strong> del producto por ejemplo vamos a actualizar el producto <strong>Aspirina</strong> y su <strong>id</strong> es <strong>3</strong>. Observe la <a class="reference internal" href="#figura1"><em>Figura 26: Tabla productos</em></a></li>
+<li><strong>Nombre:</strong> Aqui se coloca el nombre al que le vamos a modificar por ejemplo <strong>Amoxacilina</strong> por <strong>Aspirina</strong>.</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># C(Insertar)</span>
+<span class="c"># Agregamos el poducto a ingresar por ejemplo &quot;Champu Olorin&quot;,</span>
+<span class="c">#                    &quot;ComplejoB&quot;,&quot;Aspirina&quot;,&quot;Acetaminofén&quot;,&quot;Ibuprofeno&quot;.</span>
+<span class="c">#myconsult = u&quot;operacion:agregar_producto  Nombre: ComplejoB&quot;</span>
+
+<span class="c"># D(Borrar o eliminar)</span>
+<span class="c"># Eliminamos el porducto numero 5</span>
+<span class="c">#myconsult = u&quot;operacion:borrar_producto id:5&quot;</span>
+
+
+<span class="c"># +(Flujo de trabajo)</span>
+<span class="c"># myconsult = u&quot;operacion:Actualizar_producto id:3 Estado_producto:Pedido&quot;</span>
+
+
+<span class="c"># Importación de la librería Safet y os</span>
+<span class="kn">import</span> <span class="nn">Safet</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<span class="c"># Aqui obtengo mi home,media y url</span>
+<span class="n">myhome</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;HOME&quot;</span><span class="p">)</span>
+<span class="n">mymedia</span> <span class="o">=</span> <span class="n">myhome</span> <span class="o">+</span> <span class="s">&quot;/tmp&quot;</span>
+<span class="n">myurl</span> <span class="o">=</span> <span class="s">&quot;http://localhost&quot;</span>
+
+ <span class="c"># Constructor principal</span>
+<span class="n">myinflow</span> <span class="o">=</span> <span class="n">Safet</span><span class="o">.</span><span class="n">MainWindow</span><span class="p">(</span><span class="n">myhome</span><span class="p">)</span>
+
+<span class="n">myinflow</span><span class="o">.</span><span class="n">setMediaPath</span><span class="p">(</span><span class="n">mymedia</span><span class="p">)</span>
+<span class="n">myinflow</span><span class="o">.</span><span class="n">setHostURL</span><span class="p">(</span><span class="n">myurl</span><span class="p">)</span>
+
+
+<span class="c"># Si no es un usuario registrado el metodo &quot;login&quot; retorna False</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">myinflow</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="s">&quot;admin&quot;</span><span class="p">,</span><span class="s">&quot;admin&quot;</span><span class="p">)</span>
+
+<span class="c"># U(Actualizar)</span>
+<span class="c"># Se actualizara el nombre del producto número 3</span>
+<span class="n">myconsult</span> <span class="o">=</span> <span class="s">u&quot;operacion:modificar_producto id:3 Nombre:Amoxicilina&quot;</span>
+
+<span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">myinflow</span><span class="o">.</span><span class="n">toInputForm</span><span class="p">(</span><span class="n">myconsult</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s"> ---Usuario autenticado---</span><span class="se">\n</span><span class="s">&quot;</span>
+        <span class="nb">exit</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s"> --Se Actualizo correctamente el producto---</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s"> No se Actualizo el producto....!!!</span><span class="se">\n</span><span class="s">&quot;</span>
+
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">Consulta failed error: </span><span class="si">%s</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">myinflow</span><span class="o">.</span><span class="n">currentError</span><span class="p">())</span>
+        <span class="nb">exit</span><span class="p">()</span>
+
+<span class="k">print</span> <span class="s">u&quot;  </span><span class="si">%s</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">myinflow</span><span class="o">.</span><span class="n">currentJSON</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>$ python Modificar_producto.py
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Observen la siguiente imagen:</strong></p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/Modificar.png"><img alt="../../_images/Modificar.png" class="align-center" src="../../_images/Modificar.png" style="width: 800px; height: 300px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 29:</th><td class="field-body">Script Actualizar producto.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<ul>
+<li><p class="first"><strong>Observen en la db en la siguiente imagen:</strong> Observe la <a class="reference internal" href="#figura6"><em>Figura 26: Tabla productos</em></a></p>
+<blockquote>
+<div><div class="figure align-center" id="figura6">
+<a class="reference internal image-reference" href="../../_images/Modificar1.png"><img alt="../../_images/Modificar1.png" src="../../_images/Modificar1.png" style="width: 850px; height: 480px;" /></a>
+<p class="caption"><strong>Figura 26: Tabla productos</strong></p>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p><strong>5.- Operation Actualizar &#8220;Productos&#8221; +(Flujo de trabajo)</strong></p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre>&lt;operation  name=&quot;Actualizar_producto&quot; desc=&quot;Pasa de estado un determinado ticket&quot; icon=&quot;padlock.png&quot;&gt;
+
+        &lt;command id =&quot;1&quot; type=&quot;actualizar&quot; table=&quot;productos&quot;&gt;
+
+                &lt;fields&gt;
+
+                        &lt;field type=&quot;combolisttable&quot; options=&quot;id:productos::&#39;(&#39; || id || &#39;)&#39; ||  nombre&quot;
+                                                        mandatory=&quot;yes&quot; primarykey=&quot;yes&quot; order=&quot;desc&quot;&gt;
+                        id
+                        &lt;/field&gt;
+
+                        &lt;field type=&quot;comboflow&quot; mandatory=&quot;yes&quot; options=&quot;next&quot;
+                                path=&quot;/home/cenditel/.safet/flowfiles/productos.xml&quot; title=&quot;Status_producto&quot;&gt;
+                        status
+                        &lt;/field&gt;
+
+                &lt;/fields&gt;
+        &lt;/command&gt;
+
+        &lt;command id =&quot;1&quot; type=&quot;agregar&quot; table=&quot;productos_registro&quot; &gt;
+
+                &lt;fields&gt;
+
+                        &lt;field type=&quot;datetime&quot; mandatory=&quot;yes&quot;  function=&quot;seq from sqlite_sequence where name=&#39;productos&#39;&quot;
+                                                                                                                input=&quot;no&quot;&gt;
+                         productoid
+                        &lt;/field&gt;
+
+                         &lt;field type=&quot;datetime&quot; mandatory=&quot;yes&quot;  function=&quot;datetime(&#39;now&#39;)&quot;
+                                                                format=&quot;time_t&quot; input=&quot;no&quot;&gt;
+                          fecha
+                         &lt;/field&gt;
+
+                         &lt;field type=&quot;string&quot; literal=&quot;_USERNAME&quot; mandatory=&quot;yes&quot; &gt;
+                          rol
+                         &lt;/field&gt;
+
+                         &lt;field type=&quot;string&quot; title=&quot;Status&quot;  mandatory=&quot;yes&quot; &gt;
+                         regstatus
+                         &lt;/field&gt;
+
+          &lt;/fields&gt;
+
+        &lt;/command&gt;
+
+&lt;/operation&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first"><strong>Ejecutamos el Script para Actualizar el Status del producto</strong></p>
+<blockquote>
+<div><p>Seguidamente vamos a utilizar esta operación <strong>&#8220;Actualizar_producto&#8221;</strong> en un Script de python como se muestra a continuación:</p>
+</div></blockquote>
+</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><strong>Operación:</strong> Actualizar_producto</li>
+<li><strong>id:</strong> Aqui colocaremos el valor de <strong>id</strong> del producto por ejemplo vamos a actualizar el producto <strong>Aspirina</strong> y su <strong>id</strong> es <strong>3</strong>. Observe la <a class="reference internal" href="#figura1"><em>Figura 26: Tabla productos</em></a></li>
+<li><strong>Estado_producto:</strong> Aqui se coloca el estado del producto es decir si es por llegar,Agotarse,Pedido,En Espera. En este caso esta <strong>Registrado</strong> vamos a modificarlo a <strong>pedido</strong>.</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># C(Insertar)</span>
+<span class="c"># Agregamos el poducto a ingresar por ejemplo &quot;Champu Olorin&quot;,</span>
+<span class="c">#                    &quot;ComplejoB&quot;,&quot;Aspirina&quot;,&quot;Acetaminofén&quot;,&quot;Ibuprofeno&quot;.</span>
+<span class="c">#myconsult = u&quot;operacion:agregar_producto  Nombre: ComplejoB&quot;</span>
+
+<span class="c"># D(Borrar o eliminar)</span>
+<span class="c"># Eliminamos el porducto numero 5</span>
+<span class="c">#myconsult = u&quot;operacion:borrar_producto id:5&quot;</span>
+
+<span class="c"># U(Actualizar)</span>
+<span class="c"># Se actualizara el nombre del producto número 3</span>
+<span class="c">#myconsult = u&quot;operacion:modificar_producto id:3 Nombre:Amoxicilina&quot;</span>
+
+<span class="c"># Importación de la librería Safet y os</span>
+<span class="kn">import</span> <span class="nn">Safet</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<span class="c"># Aqui obtengo mi home,media y url</span>
+<span class="n">myhome</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;HOME&quot;</span><span class="p">)</span>
+<span class="n">mymedia</span> <span class="o">=</span> <span class="n">myhome</span> <span class="o">+</span> <span class="s">&quot;/tmp&quot;</span>
+<span class="n">myurl</span> <span class="o">=</span> <span class="s">&quot;http://localhost&quot;</span>
+
+ <span class="c"># Constructor principal</span>
+<span class="n">myinflow</span> <span class="o">=</span> <span class="n">Safet</span><span class="o">.</span><span class="n">MainWindow</span><span class="p">(</span><span class="n">myhome</span><span class="p">)</span>
+
+<span class="n">myinflow</span><span class="o">.</span><span class="n">setMediaPath</span><span class="p">(</span><span class="n">mymedia</span><span class="p">)</span>
+<span class="n">myinflow</span><span class="o">.</span><span class="n">setHostURL</span><span class="p">(</span><span class="n">myurl</span><span class="p">)</span>
+
+
+<span class="c"># Si no es un usuario registrado el metodo &quot;login&quot; retorna False</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">myinflow</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="s">&quot;admin&quot;</span><span class="p">,</span><span class="s">&quot;admin&quot;</span><span class="p">)</span>
+
+
+<span class="c"># +(Flujo de trabajo)</span>
+<span class="c"># Se actualizara su estado</span>
+<span class="n">myconsult</span> <span class="o">=</span> <span class="s">u&quot;operacion:Actualizar_producto id:3 Estado_producto:Pedido&quot;</span>
+
+
+<span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">myinflow</span><span class="o">.</span><span class="n">toInputForm</span><span class="p">(</span><span class="n">myconsult</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s"> ---Usuario autenticado---</span><span class="se">\n</span><span class="s">&quot;</span>
+        <span class="nb">exit</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s"> --Se Actualizo correctamente el producto---</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s"> No se Actualizo el producto....!!!</span><span class="se">\n</span><span class="s">&quot;</span>
+
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">Consulta failed error: </span><span class="si">%s</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">myinflow</span><span class="o">.</span><span class="n">currentError</span><span class="p">())</span>
+        <span class="nb">exit</span><span class="p">()</span>
+
+<span class="k">print</span> <span class="s">u&quot;  </span><span class="si">%s</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">myinflow</span><span class="o">.</span><span class="n">currentJSON</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>$ python Actualizar_Status_producto.py
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Observen la siguiente imagen:</strong></p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/Actualizar.png"><img alt="../../_images/Actualizar.png" class="align-center" src="../../_images/Actualizar.png" style="width: 800px; height: 300px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 29:</th><td class="field-body">Script Actualizar producto.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<ul>
+<li><p class="first"><strong>Observen en la db en la siguiente imagen:</strong> Observe la <a class="reference internal" href="#figura4"><em>Figura 26: Tabla producto</em></a></p>
+<blockquote>
+<div><div class="figure align-center" id="figura4">
+<a class="reference internal image-reference" href="../../_images/Actualizar1.png"><img alt="../../_images/Actualizar1.png" src="../../_images/Actualizar1.png" style="width: 850px; height: 480px;" /></a>
+<p class="caption"><strong>Figura 26: Tabla producto</strong></p>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first"><strong>Observen en la db en la siguiente imagen:</strong> Observe la <a class="reference internal" href="#figura5"><em>Figura 27: Tabla producto_registro</em></a></p>
+<blockquote>
+<div><div class="figure align-center" id="figura5">
+<a class="reference internal image-reference" href="../../_images/Actualizar2.png"><img alt="../../_images/Actualizar2.png" src="../../_images/Actualizar2.png" style="width: 850px; height: 480px;" /></a>
+<p class="caption"><strong>Figura 27: Tabla producto_registro</strong></p>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<dl class="docutils">
+<dt><strong>Nota:</strong></dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre>Si tienen error aquí están los archivos
+</pre></div>
+</div>
+</dd>
+</dl>
+<ul>
+<li><p class="first">Archivo deftrac:</p>
+<blockquote>
+<div><p><strong>DOWNLOAD:</strong></p>
+<img alt="../../_images/download1.png" src="../../_images/download1.png" />
+<p><a class="reference download internal" href="../../_downloads/deftrac.xml.tar.gz"><tt class="xref download docutils literal"><span class="pre">deftrac.xml</span></tt></a></p>
+</div></blockquote>
+</li>
+<li><p class="first">Archivo Script:</p>
+<blockquote>
+<div><p><strong>DOWNLOAD:</strong></p>
+<img alt="../../_images/download1.png" src="../../_images/download1.png" />
+<p><a class="reference download internal" href="../../_downloads/Script.py"><tt class="xref download docutils literal"><span class="pre">Script.py</span></tt></a></p>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Tabla de Contenidos</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Operaciones CRUD+(flujo) utilizando PySafet</a><ul>
+<li><a class="reference internal" href="#primer-paso">1° PRIMER PASO</a><ul>
+<li><a class="reference internal" href="#escribimos-el-encabezado-informacion-de-autor">Escribimos el encabezado (información de Autor).</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="manual_Parte1.html"
+                        title="capítulo anterior">Creación de las tablas en base de datos</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="Parte4.html"
+                        title="próximo capítulo">Crear el flujo de trabajo utilizando un archivo XML</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/_templates/Contenido6/Parte2.txt"
+           rel="nofollow">Mostrar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un nombre de módulo, clase o función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="Parte4.html" title="Crear el flujo de trabajo utilizando un archivo XML"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="manual_Parte1.html" title="Creación de las tablas en base de datos"
+             >anterior</a> |</li>
+        <li><a href="../../index.html">PySafet</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Cenditel.
+      Creado con <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Documento  : tickets.xml
+Creado     : 16/10/08 09:27 AM
+Autor      : nombre_autor
+Descripcion: Archivo generado por plantilla de la Libreria SAFET
+-->
+
+<!--<!DOCTYPE yawl SYSTEM "http://trac-safet.cenditel.gob.ve/dtd/yawlworkflow.dtd">-->
+<!DOCTYPE yawl SYSTEM "file://$USER/.safet/dtd/yawlworkflow.dtd">
+<yawl  version="0.01">
+<workflow id="TicketsTrac" desc="Tickets usados por Trac">
+	<token key="ticket.id"  keysource="ticket">
+	</token>
+	<condition id="inicial" type="start">
+                <port side="forward" type="split"  >
+                        <connection   source="PorTareas" query="select status from ticket_change"  options="closed" tokenlink="[ticket_change.ticket]">
+			</connection>		</port>		
+	</condition>
+	<task id="PorTareas"  title="Division" report="no">
+                <port side="forward" type="split"  pattern="none" >
+                        <connection source="final" query="select status from ticket_change"  options="closed" tokenlink="[ticket_change.ticket]" >
+			</connection>
+		</port>
+		<variable id="VariablePorTareas" scope="task"  type="sql" config="1"   tokenlink="[ticket_change.ticket]" documentsource="select summary as resumen,description as descripcion,type as tipo,milestone as hito,owner as propietario from ticket_change" >
+		</variable>		<recursivefilter id="PorSubTarea" type="split" source="final" 
+filter="select  ticket,substring(summary from 1 for 15) from ticket_change where newvalue = 'subtarea_{{ticket}}_'" 		tokenlink="[ticket_change.ticket]" report="yes" 
+query="" options="" initial="0"> </recursivefilter> 
+	</task>
+	<condition id="final">
+		<port side="forward" type="split">
+			<connection source="">
+			</connection>
+		</port>
+	</condition>
+</workflow>
+	<configuration id="1" connectstring="psql:seguridad.cenditel.gob.ve:ticket:vbravo:vbravo_">
+	</configuration>
+</yawl>

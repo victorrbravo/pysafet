@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+  <title></title>
+  <meta name="GENERATOR" content="Quanta Plus">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h1>15.- Archivo de Configuraci&oacute;n safet.conf</h1>
+<br>
+
+<p>
+<div align="justify">Este archivo permite configurar la librería libsafet, este archivo esta compuesto por varias secciones
+entre las que se encuentra:</div><br>
+
+<ul>
+<LI>
+<strong>[Log]:</strong> en esta secci&oacute;n se agrega la ruta absoluta donde esta el archivo se registra los eventos de la aplicaci&oacute;n, y donde se habilita las diferentes opciones de registro (depuraci&oacute;n, errores, advertencia) ejemplo:<br>
+	<code>
+        log.filepath = /home/pbuitrago/.safet/log -> direcci&oacute;n absoluta
+	</code>
+</LI><br>
+
+<LI>
+<strong>[Widgets]:</strong> en esta secci&oacute;n se agrega la ruta absoluta donde se encuentra almacenado los documentos de flujo de trabajo ejemplo:<br>
+	<code>
+        widgets.getfilewidget.* = /home/pbuitrago/.safet/flowfiles/ticketstrac.xml<br>
+        widgets.getfilewidget.* = /home/pbuitrago/.safet/flowfiles/ticketstracavanzado.xml<br>
+	</code>
+</LI><br>
+
+<LI>
+<strong>[Database]:</strong> en esta secci&oacute;n se encuentra la informaci&oacute;n de configuraci&oacute;n de base de datos relacional, entre las informaciones se encuentra:<br>
+
+	<code>
+        Puerto de conexión (database.port.1 = 5432)<br>
+        Nombre de usuario (database.user.1 = nombre_usuario)<br>
+        Contraseña del usuario (database.password.1 = xxxxxx)<br>
+	</code>
+</LI>
+
+
+</ul>
+</p>
+</body>
+</html>

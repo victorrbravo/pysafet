@@ -1,0 +1,135 @@
+<operations suffix=":" commandname="operacion">
+<operation  name="agregar_ticket"  >
+<command id ="1" type="agregar" table="ticket">
+	<fields>
+		<field type="string" mandatory="yes" primarykey="yes" sequence="ticket_id_seq">
+			id
+		</field>
+		<field type="string" mandatory="yes" literal="new">
+			status
+		</field>
+		<field type="datetime" mandatory="yes"  options="calendar,datetime" title="hora_ingreso" function="" format="time_t" input="yes">
+			time
+		</field>
+		<field type="datetime" mandatory="yes"  function="now()" format="time_t" input="no">
+			changetime
+		</field>
+		<field type="string" mandatory="yes" validation="\w+" title="resumen" desc="Escribir un titulo corto del ticket">
+			summary
+		</field>
+		<field type="stringbox" mandatory="yes" validation="\w+" title="descripcion" desc="La explicación más detallada">
+			description
+		</field>
+		<field type="combolisttable" mandatory="yes" options="name:component" title="componente" desc="Seleccione el componente a cual corresponde el ticket">
+			component
+		</field>			
+		<field type="combolisttable" mandatory="yes" options="name:milestone" title="hito">
+			milestone
+		</field>			
+		<field type="combolisttable" mandatory="yes" options="name:version" title="version">
+			version
+		</field>			
+		<field type="combolisttable" mandatory="yes" options="name:enum:where type='ticket_type'" title="tipo">
+			type
+		</field>			
+		<field type="combolisttable" mandatory="yes" options="name:enum:where type='priority'" title="prioridad">
+			priority
+		</field>			
+		<field type="linesc" mandatory="no" validation="\w+" >
+			captura
+		</field>		
+		<field type="string" literal="_USERNAME" mandatory="yes" >
+			owner
+		</field>
+		<field type="string" literal="_USERNAME" mandatory="yes" >
+			reporter
+		</field>
+	</fields>
+</command>
+</operation>
+<operation  name="modificar"  >
+	<command id ="1" type="actualizar" table="ticket">
+		<fields>
+			<field type="combolisttable" options="id:ticket" mandatory="yes" primarykey="yes" title="id">
+				id
+			</field>
+			<field type="string" mandatory="yes" validation="\w+" title="resumen" desc="Escribir un titulo corto del ticket">
+				summary
+			</field>
+			<field type="stringbox" mandatory="yes" validation="\w+" title="descripcion" desc="La explicación más detallada">
+				description
+			</field>
+			<field type="combolisttable" mandatory="yes" options="name:component" title="componente" desc="Seleccione el componente a cual corresponde el ticket">
+				component
+			</field>			
+			<field type="combolisttable" mandatory="yes" options="name:milestone" title="hito">
+				milestone
+			</field>			
+			<field type="combolisttable" mandatory="yes" options="name:version" title="version">
+				version
+			</field>			
+			<field type="combolisttable" mandatory="yes" options="name:enum:where type='ticket_type'" title="tipo">
+				type
+			</field>			
+			<field type="combolisttable" mandatory="yes" options="name:enum:where type='priority'" title="prioridad">
+				priority
+			</field>			
+		</fields>
+	</command>
+</operation>
+<operation  name="agregar_wiki"  >
+<command id ="1" type="agregar" table="ticket_change">
+	<fields>
+		<field type="combolisttable" options="id:ticket" mandatory="yes" primarykey="yes" title="id">
+				ticket
+		</field>
+		<field type="datetime" mandatory="yes"  function="now()" format="time_t" input="no">
+			time
+		</field>
+		<field type="string" literal="_USERNAME" mandatory="yes" >
+			author
+		</field>
+		<field type="string" literal="comment" mandatory="yes" >
+			field
+		</field>
+		<field type="string" literal="1" mandatory="yes" >
+			oldvalue
+		</field>
+		<field type="wiki" mandatory="yes" validation="\w+" title="descripcion">
+			newvalue
+		</field>
+	</fields>
+</command>
+</operation>
+<operation  name="siguiente" > 
+	<command id ="1" type="actualizar" table="ticket">
+		<fields>
+			<field type="combolisttable" options="id:ticket" mandatory="yes" primarykey="yes">
+				id
+			</field>		
+		<field type="comboflow" mandatory="yes" options="next" 
+                                  path="/home/vbravo/.safet/flowfiles/ticketstrac.xml" title="Siguiente_Estado">
+				status
+			</field>			
+		<field type="combolisttable" mandatory="no" options="name:enum:where type='resolution'" visible="closed" 
+		       path="/home/vbravo/.safet/flowfiles/ticketstrac.xml" title="Resolucion">
+				resolution
+			</field>			
+		<field type="string" literal="_USERNAME" mandatory="yes" >
+			owner
+		</field>
+		</fields>
+	</command>
+</operation>
+<operation  name="borrar" > 
+	<command id ="1" type="eliminar" table="ticket">
+		<fields>
+			<field type="combolisttable" options="id:ticket" mandatory="yes" primarykey="yes">
+				id
+			</field>		
+		</fields>
+	</command>
+</operation>
+
+</operations>
+

@@ -1,0 +1,557 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>safet.conf (Archivo de configuración inicial) &mdash; PySafet</title>
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="PySafet" href="../../index.html" />
+    <link rel="next" title="Clase MainWindow(Safet.MainWindow)" href="../Contenido5/Api.html" />
+    <link rel="prev" title="auth.conf (Archivo de autenticación y autorización)" href="libsafet_auth_conft.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../Contenido5/Api.html" title="Clase MainWindow(Safet.MainWindow)"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="libsafet_auth_conft.html" title="auth.conf (Archivo de autenticación y autorización)"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../../index.html">PySafet</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="safet-conf-archivo-de-configuracion-inicial">
+<h1><strong class="command">safet.conf</strong> (Archivo de configuración inicial)<a class="headerlink" href="#safet-conf-archivo-de-configuracion-inicial" title="Enlazar permanentemente con este título">¶</a></h1>
+<blockquote>
+<div><blockquote>
+<div>En este archivo se especifican los parámetros generales para el funcionamiento de la librería PySafet.</div></blockquote>
+<dl class="docutils">
+<dt><strong class="command">1.- [Workflow]:</strong> (Sección de flujo de trabjo)</dt>
+<dd>En esta sección se define el color del flujo y Sección para la interfaz Web.</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre>[Workflow]
+
+# Establece el color por defecto
+defaultcolor = white            ------&gt; # Admite white,black,blue y formato RGB #000000
+
+# Establece el color activo
+activecolor = white
+
+# Establece el color pasivo
+traccolor =  white
+</pre></div>
+</div>
+<p><strong class="command">2.- [Operators]:</strong> (Operadores de flujo de trabajo)</p>
+<blockquote>
+<div>En esta sección se establecen las variables de la imágenes de los operadores que son definido en un flujo de trabajo, entre las variables se encuentra:</div></blockquote>
+<ul class="simple">
+<li><strong class="command">split.xor =</strong> Se activa un enlace saliente una vez terminada la tarea.</li>
+<li><strong class="command">split.and =</strong> Activa todos los vínculos salientes una vez terminada esta tarea</li>
+<li><strong class="command">split.or =</strong> Se utiliza para desencadenar algunos, pero no necesariamente todos los flujos salientes a otras tareas.</li>
+<li><strong class="command">join.xor =</strong> Esta tarea se activa cada vez que un nuevo enlace se ha activado.</li>
+<li><strong class="command">join.and =</strong> Esta tarea se activa cuando todos los vínculos se han activado.</li>
+<li><strong class="command">join.or =</strong> Esta tarea se activa cuando almeno un vinculo se ha activado.</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre>[Operators]
+
+# Operador split.xor
+split.xor = imgs/xor.png   -----&gt; # Archivo de imagen en el directorio &lt;HOME&gt;.safet/imgs
+
+# Operador split.and
+split.and = imgs/and.png
+
+# Operador split.or
+split.or = imgs/or.png
+
+# Operador join.xor
+join.xor = imgs/join-xor.png
+
+# Operador join.and
+join.and = imgs/join-and.png
+
+# Operador join.or
+join.or = imgs/join-or.png
+
+# Ningun operador
+none =  imgs/none.png
+</pre></div>
+</div>
+<p><strong class="command">3.- [Log]:</strong> (Registro de eventos)</p>
+<blockquote>
+<div>En esta sección se configura las diferentes opciones de la información sobre el registro de los eventos. Entre las opciones tenemos:</div></blockquote>
+<ul class="simple">
+<li><strong class="command">log.filepath =</strong> Establece la ruta absoluta donde reside el archivo de registro ejemplo: &lt;HOME&gt;.safet/.log</li>
+<li><strong class="command">log.debug =</strong> Habilita la opción de registro de mensajes de depuración (on/off)</li>
+<li><strong class="command">log.action =</strong> Habilita la opción de registro de de mensajes de acciones (on/off)</li>
+<li><strong class="command">log.warning =</strong> Habilita la opción de registro de de mensajes de advertencia  (on/off)</li>
+<li><strong class="command">log.error =</strong> Habilita la opción de registro de de mensajes de error (on/off)</li>
+<li><strong class="command">log.output =</strong> Salida del registro de ejecución, las opciones son: default (file), file y screen para pantalla.</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre>[Log]
+
+# Establece la ruta absoluta donde reside el archivo de registro
+log.filepath = /home/pbuitrago/.safet/log
+
+# Habilita la opción de registro de mensajes de depuración
+log.debug = on
+
+# Habilita la opción de registro de mensajes de acciones
+log.action = on
+
+# Habilita la opción de registro de mensajes de advertencia
+log.warning = on
+
+# Habilita la opción de registro de mensajes de error
+log.error = on
+
+# Salida del registro de ejecución, las opciones son: default (file), file y screen
+log.output = file
+</pre></div>
+</div>
+<p><strong class="command">4.- [XmlRepository]:</strong> (Repositorio xml)</p>
+<blockquote>
+<div>Información sobre repositorio de documentos firmados electrónica mente bajo el formato <strong>&#8220;bdoc&#8221;</strong> (firma electrónica xml) asociados a flujos de trabajos.</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre>[XmlRepository]
+# En caso de utilizar un repositorio de documentos XML remoto se debe
+# especificar la informacion de acceso al mismo a traves de un servicio web
+xmlrepository.remote.ip = 150.187.36.6
+xmlrepository.remote.urlwebservice = http://150.187.36.6/cgi-bin/safet
+
+# Establece el tipo de repositorio de documenfet_auth_conftos XML. Valores posibles:
+# dir: para repositorio basado en un directorio local
+# dbxml: para repositorio DBXML
+xmlrepository.type = dir
+
+# Establece la ruta absoluta al repositorio XML
+
+xmlrepository.path = &lt;HOME&gt;.safet/xmlrepository
+
+# Establece el nombre del repositorio XML
+xmlrepository.name = container1
+</pre></div>
+</div>
+<p><strong class="command">5.- [Input]:</strong> (Entrada de datos)</p>
+<blockquote>
+<div>Opciones para la entrada/modificación de datos</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre>[Input]
+# Establece la ruta absoluta para el directorio en la entrada/modificacion de datos
+input.path = &lt;HOME&gt;.safet/input
+#input.file = deflista.xml
+input.file = deftrac.xml
+</pre></div>
+</div>
+<p><strong class="command">6.- [System]:</strong> (Opciones generales para la aplicación Inflow)</p>
+<blockquote>
+<div>Opciones generales referentes al funcionamiento del tipo de aplicación : Consola/Web/Gráfica.</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre>[System]
+system.evalexit = on  -----&gt; # Preguntar al salir de la aplicación &quot;inflow&quot;
+
+# Información referente a la base de datos o repositorio
+# para el acceso de la librería
+</pre></div>
+</div>
+<p><strong class="command">7.- [Widgets]:</strong> (objetos para entrada de datos)</p>
+<div class="highlight-python"><div class="highlight"><pre>[Widgets]
+
+# Lector de archivo en el sistema
+# lista de archivos de acceso rápido
+widgets.getfilewidget.* = &lt;HOME&gt;.safet/flowfiles/mensajes.xml
+
+
+widgets.texteditwidget.wiki.leftbold = &#39;&#39;&#39;              ---&gt; # Introducción para el widget &quot;wiki&quot;
+widgets.texteditwidget.wiki.rightbold = &#39;&#39;&#39;                     &quot;&quot;              &quot;&quot;        &quot;&quot;
+widgets.texteditwidget.wiki.leftitalic = &#39;&#39;                     &quot;&quot;              &quot;&quot;        &quot;&quot;
+widgets.texteditwidget.wiki.rightitalic = &#39;&#39;                    &quot;&quot;              &quot;&quot;        &quot;&quot;
+widgets.texteditwidget.wiki.leftunderline = __                  &quot;&quot;              &quot;&quot;        &quot;&quot;
+widgets.texteditwidget.wiki.rightunderline = __                 &quot;&quot;              &quot;&quot;        &quot;&quot;
+</pre></div>
+</div>
+<p><strong class="command">8.- [GeneralOptions]:</strong> (Opciones generales)</p>
+<blockquote>
+<div>Esta sección incluye  parámetro de uso generar.</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre>[GeneralOptions]
+
+generaloptions.consoleactions.* = Gráfico Mensajes;operacion:Generar_gráfico_coloreado   ---------&gt; # Consultas guardadas
+Cargar_archivo_flujo: &lt;HOME&gt;.safet/flowfiles/mensajes.xml
+
+generaloptions.consoleactions.* = Grafico por clave;operacion:Generar_gráfico_para_clave
+Cargar_archivo_flujo: &lt;HOME&gt;.safet/flowfiles/mensajes.xml Clave: 9      ---------&gt; # Consultas guardadas
+
+# Titulo para el gráfico de flujo de trabajo
+
+generaloptions.currentflowtitle = Tareas Proyecto SAFET
+
+# Opciones On (Incluir en el gráfico, No incluir), Off si no se quiere incluir
+
+generaloptions.currentflowtitle.font = Dejavu Sans
+
+# Tamaño de la fuente para el texto de informacin en cada flujo de trabajo
+generaloptions.currentflowtitle.size = 18
+
+# Separación de la fuente para el texto de informacin en cada flujo de trabajo
+generaloptions.currentflowtitle.separation = 10
+
+# Directorio donde sealmacenan los archivos  de salida grafos(.png,svg)
+generaloptions.dir.media = &lt;HOME&gt;PySafet
+
+generaloptions.currentflowtitle.include = off
+# Ver http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+# Zona horaria
+generaloptions.timezone = America/Caracas
+
+# mostrar información estadística en el grafo
+generaloptions.extrainfo.showonly = off
+generaloptions.extrainfo.showhumanize = on
+
+# Mostrar el dialogo para los parámetros para cada documento de flujo de trabajo
+
+# Se colocan las opciones generales del sistema SAFET (Lista de acciones guardadas, entre otros)
+</pre></div>
+</div>
+<p><strong class="command">9.- [Stats]:</strong> ( Uso de las estadística para los grafos)</p>
+<blockquote>
+<div>Valores para el calculo de estadísticas</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre>[Stats]
+
+#Activar la recolección de estadísticas
+stats.actived = off
+#Fecha de inicio de calculo de estadística, * significa que no hay fecha colocada
+stats.fromdate = *
+#Fecha de fin de calculo de estadística, * significa que no hay fecha colocada
+stats.todate = *
+</pre></div>
+</div>
+<p><strong class="command">10.- [Libdigidoc]:</strong> (Parámetro para la firma electrónica)</p>
+<blockquote>
+<div>Establece variables de configuración para la librería Libdigidoc utilizada por Libsafet.</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre>[Libdigidoc]
+# Ruta del archivo de configuración digidoc para usarlo con protocolo OCSP
+libdigidoc.configfi:q
+lepath = &lt;HOME&gt;.safet/digidoc.conf
+
+# directorio donde se almacenan los certificados de validación
+libdigidoc.x509storepath =  &lt;HOME&gt;.safet/certs
+
+# Tipo de validación de firma de Digidoc &quot;ocsp&quot; : via protocolo OCSP, &quot;keystore&quot;: Repositorio
+# de claves del navegador Mozilla / Firefox
+#libdigidoc.validationtype = keystore
+
+# Tipo de archivos &quot;MIME&quot; permitidos
+libdigidoc.mimestypes.* = application/vnd.sun.xml.writer sxw
+libdigidoc.mimestypes.* = application/vnd.sun.xml.writer.template stw
+libdigidoc.mimestypes.* = application/vnd.sun.xml.writer.global sxg
+libdigidoc.mimestypes.* = application/vnd.stardivision.writer sdw vor
+libdigidoc.mimestypes.* = application/vnd.stardivision.writer-global sgl
+libdigidoc.mimestypes.* = application/vnd.sun.xml.calc sxc
+libdigidoc.mimestypes.* = application/vnd.sun.xml.calc.template stc
+libdigidoc.mimestypes.* = application/vnd.stardivision.calc sdc
+libdigidoc.mimestypes.* = application/vnd.sun.xml.impress sxi
+libdigidoc.mimestypes.* = application/vnd.sun.xml.impress.template sti
+libdigidoc.mimestypes.* = application/vnd.stardivision.impress sdd sdp
+libdigidoc.mimestypes.* = application/vnd.sun.xml.draw sxd
+libdigidoc.mimestypes.* = application/vnd.sun.xml.draw.template std
+libdigidoc.mimestypes.* = application/vnd.stardivision.draw sda
+libdigidoc.mimestypes.* = application/vnd.sun.xml.math sxm
+libdigidoc.mimestypes.* = application/vnd.stardivision.math smf
+libdigidoc.mimestypes.* = application/vnd.oasis.opendocument.text odt
+libdigidoc.mimestypes.* = application/vnd.oasis.opendocument.text-template ott
+libdigidoc.mimestypes.* = application/vnd.oasis.opendocument.text-web oth
+libdigidoc.mimestypes.* = application/vnd.oasis.opendocument.text-master odm
+libdigidoc.mimestypes.* = application/vnd.oasis.opendocument.graphics odg
+libdigidoc.mimestypes.* = application/vnd.oasis.opendocument.graphics-template otg
+libdigidoc.mimestypes.* = application/vnd.oasis.opendocument.presentation odp
+libdigidoc.mimestypes.* = application/vnd.oasis.opendocument.presentation-template otp
+libdigidoc.mimestypes.* = application/vnd.oasis.opendocument.spreadsheet ods
+libdigidoc.mimestypes.* = application/vnd.oasis.opendocument.spreadsheet-template ots
+libdigidoc.mimestypes.* = application/vnd.oasis.opendocument.chart odc
+libdigidoc.mimestypes.* = application/vnd.oasis.opendocument.formula odf
+libdigidoc.mimestypes.* = application/vnd.oasis.opendocument.database odb
+libdigidoc.mimestypes.* = application/vnd.oasis.opendocument.image odi
+libdigidoc.mimestypes.* = application/pdf pdf
+libdigidoc.mimestypes.* = application/xml xml
+libdigidoc.mimestypes.* = text/plain txt
+libdigidoc.mimestypes.* = text/css css
+libdigidoc.mimestypes.* = text/xml xml
+libdigidoc.mimestypes.* = text/html html
+libdigidoc.mimestypes.* = application/x-gzip tgz
+libdigidoc.mimestypes.* = application/zip zip
+</pre></div>
+</div>
+<p><strong class="command">11.- [Autofilter]:</strong> (Opciones para los Auto filtros)</p>
+<blockquote>
+<div>Sirve para realizar clasificaciones automáticas.</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="n">Autofilter</span><span class="p">]</span>
+<span class="n">autofilter</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">period</span> <span class="o">=</span> <span class="mi">672</span>
+</pre></div>
+</div>
+<p><strong class="command">12.- [DefaultValues]:</strong> (Valores por defecto)</p>
+<blockquote>
+<div>Opciones que se toman por defecto.</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre>[DefaultValues]
+
+defaultvalues.report = yes
+defaultvalues.digidoc.manifest = Investigador
+defaultvalues.digidoc.city = Mérida
+defaultvalues.digidoc.state = Mérida
+defaultvalues.digidoc.country = VE
+defaultvalues.digidoc.zip = 5101
+defaultvalues.panel.info.secondstohide = 4000
+</pre></div>
+</div>
+<p><strong class="command">13.- [Reports]:</strong> (Reportes)</p>
+<blockquote>
+<div>Opcion que es para la generación de reportes.</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre>[Reports]
+# Configuraciones para mostrar información en la aplicación Inflow
+
+# tipo de protocolo (file,http,ftp,entre otros)
+reports.protocol = file
+
+# ruta para obtener la plantilla (HTML)
+reports.path = &lt;HOME&gt;.safet/reports
+
+# nombre de la plantilla HTML + AJAX
+reports.general.template = &lt;HOME&gt;.safet/reports/sf_plantillaLista01.html
+
+# nombre de la plantilla para documento a firmar
+reports.documenttosign.template = &lt;HOME&gt;.safet/reports/sf_plantillaFirma01.html
+
+# transformar fecha numerica a formato de fecha
+reports.options.datetransform = on
+reports.options.dateformat = dd/MM/yyyy
+</pre></div>
+</div>
+<p><strong class="command">14.- [Graphs]:</strong> (Grafos)</p>
+<blockquote>
+<div>Opciones Para los gráficos de flujo de trabajo</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre>[Graphs]
+
+# opciones para el texto de información en cada flujo de trabajo
+# opciones on/off
+graphs.infotext.include = on
+
+# Formato  para el texto de informacin en cada flujo de trabajo (el %date indica Fecha y %time Hora, %datetime Hora y Fecha)
+graphs.infotext.format = Generado en %datetime
+
+# Nombre de la fuente para el texto de información en cada flujo de trabajo
+graphs.infotext.font = Book Antiqua
+
+# Tamaño de la fuente para el texto de información en cada flujo de trabajo
+graphs.infotext.size = 14
+
+
+# Separación de la fuente para el texto de información en cada flujo de trabajo
+graphs.infotext.separation = 30
+</pre></div>
+</div>
+<p><strong class="command">15.- [Ftp]:</strong> (Transferencia FTP)</p>
+<blockquote>
+<div>Opción para la trasferencia de archivos utilizando el protocolo <a class="reference external" href="http://es.wikipedia.org/wiki/File_Transfer_Protocol">FTP</a>.</div></blockquote>
+</div></blockquote>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="n">Ftp</span><span class="p">]</span>
+
+<span class="n">ftp</span><span class="o">.</span><span class="n">default</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">victorbravo</span><span class="o">.</span><span class="n">info</span>
+<span class="n">ftp</span><span class="o">.</span><span class="n">default</span><span class="o">.</span><span class="n">account</span> <span class="o">=</span> <span class="n">victorrbravo</span>
+</pre></div>
+</div>
+<p><strong class="command">16.- [ExtraInfo]:</strong> (Información estadísticas de los grafos)</p>
+<blockquote>
+<div>Parametros de la información extra de cada nodo</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre>[ExtraInfo]
+
+extrainfo.infotext.fields = owner,porcentage,completed
+extrainfo.infotext.separator =
+
+extrainfo.infotext.completed = [*]
+
+# Mostrar campos coloreados (lo ya pasados)
+extrainfo.coloured = yes
+
+# Mostrar estadísticas al final del grafo (resumen)
+extrainfo.summarize = yes
+
+extrainfo.title = Porcentaje:
+
+extrainfo.formula = sumall
+
+extrainfo.pattern = #PAR0#CLA00-9#CLA1+#PAR1#SLA%
+</pre></div>
+</div>
+<p><strong class="command">17.- [Plugins]:</strong> (Complementos o componentes)</p>
+<blockquote>
+<div>Opciones para las librerias adicionales Plugins.</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre>[Plugins]
+# Ruta donde se encuentra las librerías adicionales (plugins)
+plugins.path = /usr/lib/libsafet
+</pre></div>
+</div>
+<p><strong class="command">18.- [Plugins.Graphviz]:</strong> (Componentes Graphviz)</p>
+<blockquote>
+<div>Opciónes para la generación de grafos utilizando la biblioteca  <a class="reference external" href="http://www.graphviz.org/">Graphviz</a>.</div></blockquote>
+</div></blockquote>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre>[Plugins.Graphviz]
+
+# Formato de archivo de salida de grafo, valores posibles: svg/png/gif
+plugins.graphviz.graphtype = svg
+
+# Información a mostrar en cuadro de información extra Porc,Tokens,Total,InfoText,InfoDate
+plugins.graphviz.extrainfo.show = Porc,Tokens,Total,InfoText,InfoDate
+
+
+#Color activo de para ser utilizado en los gráficos
+plugins.graphviz.task.fillcolor = #f1f1f1
+
+#Color activo de la lnea para ser utilizado en los gráficos
+plugins.graphviz.task.color = black
+
+
+# Atributo utilizado en la estadística Opciones posibles (Color/Size/Line/Custom)
+plugins.graphviz.stats.attribute = Color
+
+# Tamaño máximo para la estadística de (Tamaño Máximo)
+plugins.graphviz.stats.sizemax = 2
+
+# Tamaño mínimo  para la estadística de (Tamaño Mínimo)
+plugins.graphviz.stats.sizemin = 1
+
+# Color para dibujar estadística
+plugins.graphviz.stats.colorgradient = yellow
+
+# Color del texto para cuadro de estadística
+plugins.graphviz.stats.fontcolor = black
+
+# Color de fondo  para cuadro de estadística
+plugins.graphviz.stats.fillcolor = antiquewhite
+
+# Estilo de la línea del cuadro de estadística
+plugins.graphviz.stats.style = dashed
+
+# Mostrar cuadro de estadística
+plugins.graphviz.showstats = yes
+
+
+#Dirección del grafo  TB (Arriba-Abajo) LR (Izquierda-Derecha)
+plugins.graphviz.graph.rankdir = TB
+
+# Tamao del fuente para todos los nodos
+plugins.graphviz.graph.fontsize = 12
+
+# Separador del rank
+plugins.graphviz.graph.ranksep = 0.5 equally
+
+
+# Figura para la tarea (Task)
+plugins.graphviz.task.shape = box
+
+# Estilo de la Figura para la tarea (Task) filled,bold,dotted,empty
+plugins.graphviz.task.style = filled
+
+#Color activo de para ser utilizado en los gráficos
+plugins.graphviz.condition.fillcolor = #FFFFFF
+
+#Color activo de la línea para ser utilizado en los gráficos
+plugins.graphviz.condition.color = black
+
+# Figura para la (Condition) (box, ellipse, circle, etc.)
+plugins.graphviz.condition.shape = ellipse
+
+# Estilo de la Figura para la tarea (Condition)
+plugins.graphviz.condition.style = filled
+
+# Mostrar la información extra solo donde existan tokens (fichas)
+plugins.graphviz.extrainfo.showwheretokens = on
+
+#Mostrar la estadística en el nodo &quot;FINAL&quot;, valores admitidos (on/off)
+plugins.graphviz.extrainfo.showfinal = on
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="libsafet_auth_conft.html"
+                        title="capítulo anterior"><strong class="command">auth.conf</strong> (Archivo de autenticación y autorización)</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="../Contenido5/Api.html"
+                        title="próximo capítulo">Clase MainWindow(Safet.MainWindow)</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/_templates/Contenido2/safet_conf.txt"
+           rel="nofollow">Mostrar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un nombre de módulo, clase o función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../Contenido5/Api.html" title="Clase MainWindow(Safet.MainWindow)"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="libsafet_auth_conft.html" title="auth.conf (Archivo de autenticación y autorización)"
+             >anterior</a> |</li>
+        <li><a href="../../index.html">PySafet</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Cenditel.
+      Creado con <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

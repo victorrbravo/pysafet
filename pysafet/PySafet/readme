@@ -1,0 +1,8 @@
+
+ Colocar la variable de librerías dinámicas de manera que apunte a la ruta del archivo libsafet.so:
+
+Por ejemplo:
+
+	export LD_LIBRARY_PATH=/home/vbravo/trac/seguridad/safet/libsafet/trunk/lib:$LD_LIBRARY_PATH
+
+-->	export LD_LIBRARY_PATH=/home/duzcategui/envoltorio/trunk/lib:$LD_LIBRARY_PATH

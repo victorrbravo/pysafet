@@ -1,0 +1,14 @@
+Package: libsafet
+Version: 1.0-1
+Architecture: amd64
+Maintainer: Victor Bravo Bravo <victorrbravo@gmail.com>
+Installed-Size: 2129
+Depends: libc6 (>= 2.2.5), libgcc1 (>= 1:4.1.1), libqt4-network (>= 4:4.5.3), libqt4-script (>= 4:4.5.3), libqt4-sql (>= 4:4.5.3), libqt4-svg (>= 4:4.5.3), libqt4-xml (>= 4:4.5.3), libqtcore4 (>= 4:4.8.0), libstdc++6 (>= 4.1.1), libtar0, libtar, libqt4-sql-psql (>= 4.4.3), libqt4-sql-sqlite (>= 4.4.3)
+Section: libs
+Priority: optional
+Description: Biblioteca Libsafet parte del proyecto SAFET
+ Gestion de flujos de trabajo, firma electronica y estampillado de tiempo.
+ La biblioteca libsafet es parte del proyecto SAFET e implementa un conjunto de
+ funcionalidades para gestion de flujos de trabajos de acuerdo al modelo YAWL
+ y firmas electronicas y estampillado de tiempo a traves de la biblioteca
+ libdigidoc.

@@ -1,0 +1,538 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Clase MainWindow(Safet.MainWindow) &mdash; PySafet</title>
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="PySafet" href="../../index.html" />
+    <link rel="next" title="Clase SafetXmlObject (Safet.SafetXmlObject)" href="Clase2.html" />
+    <link rel="prev" title="safet.conf (Archivo de configuración inicial)" href="../Contenido2/safet_conf.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="Clase2.html" title="Clase SafetXmlObject (Safet.SafetXmlObject)"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="../Contenido2/safet_conf.html" title="safet.conf (Archivo de configuración inicial)"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../../index.html">PySafet</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="clase-mainwindow-safet-mainwindow">
+<h1><span class="target" id="index-0"></span>Clase MainWindow(Safet.MainWindow)<a class="headerlink" href="#clase-mainwindow-safet-mainwindow" title="Enlazar permanentemente con este título">¶</a></h1>
+<p><strong>Clase MainWindow:</strong></p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>Constructor:</strong></dt>
+<dd><dl class="first last docutils">
+<dt><strong>MainWindow</strong> (home-usurio)</dt>
+<dd><p class="first"><strong>home-usuario:</strong> Directorio del usuario donde se encuentra la carpeta <strong>.safet/</strong></p>
+<p><strong>Ejemplo</strong></p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">Safet</span>
+<span class="gp">... </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">... </span><span class="n">myhome</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;HOME&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">mymedia</span> <span class="o">=</span> <span class="n">myhome</span> <span class="o">+</span> <span class="s">&quot;/tmp&quot;</span>
+<span class="gp">... </span><span class="n">myurl</span> <span class="o">=</span> <span class="s">&quot;http://localhost&quot;</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">myinflow</span> <span class="o">=</span> <span class="n">Safet</span><span class="o">.</span><span class="n">MainWindow</span><span class="p">(</span><span class="n">myhome</span><span class="p">)</span> <span class="c">#---&gt; MainWindow</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><strong>Listado de myinflow:</strong></p>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt><strong>setHostURL</strong> (u) [Procedimiento]</dt>
+<dd><p class="first">Coloca el url del servidor web actual.</p>
+<p><strong>Ejemplo:</strong></p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">Safet</span>
+<span class="gp">... </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">... </span><span class="n">myhome</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;HOME&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">mymedia</span> <span class="o">=</span> <span class="n">myhome</span> <span class="o">+</span> <span class="s">&quot;/tmp&quot;</span>
+<span class="gp">... </span><span class="n">myurl</span> <span class="o">=</span> <span class="s">&quot;http://localhost&quot;</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">myinflow</span> <span class="o">=</span> <span class="n">Safet</span><span class="o">.</span><span class="n">MainWindow</span><span class="p">(</span><span class="n">myhome</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">myinflow</span><span class="o">.</span><span class="n">setHostURL</span><span class="p">(</span><span class="n">myurl</span><span class="p">)</span> <span class="c">#---&gt; setHostURL</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>setMediaPath</strong> (m) [Procedimiento]</dt>
+<dd><p class="first">Coloca la ruta del directorio de los archivos gráficos.</p>
+<p><strong>Ejemplo:</strong></p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">Safet</span>
+<span class="gp">... </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">... </span><span class="n">myhome</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;HOME&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">mymedia</span> <span class="o">=</span> <span class="n">myhome</span> <span class="o">+</span> <span class="s">&quot;/tmp&quot;</span>
+<span class="gp">... </span><span class="n">myurl</span> <span class="o">=</span> <span class="s">&quot;http://localhost&quot;</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">myinflow</span> <span class="o">=</span> <span class="n">Safet</span><span class="o">.</span><span class="n">MainWindow</span><span class="p">(</span><span class="n">myhome</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">myinflow</span><span class="o">.</span><span class="n">setMediaPath</span><span class="p">(</span><span class="n">mymedia</span><span class="p">)</span>  <span class="c">#---&gt; setMediaPath</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>addInfoGraphDateText</strong> () [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Agregar la información de fechas al grafo.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>addNodeToXMLWorkflow</strong> (fname,beforenode = &#8220;&#8221;,nodename = &#8220;newnode&#8221;,isparallel = false,options&#8221;&#8221;,query = &#8220;&#8221;,nodetitle = &#8220;&#8221;,documentsource = &#8220;&#8221;) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Agregar un nodo al grafo.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>autoComplete</strong> (path) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Retorna la lista de autocompletación.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>changeConnXMLWorkflow</strong> (fname,currnode,nextnode,newnode,newoptions = &#8220;&#8221;,newquery =&#8221;&#8221; ) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Cambia una conexión entre nodo.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>checkUserRegister</strong> (fullname,account,email,passone,passtwo) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Realiza el registro de un nuevo usuario.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>createBdoc</strong> (content) [Retorna verdadero si se ejecuto la acción, en caso contrario retorna falso]</dt>
+<dd><p class="first last">Crea un documento &#8220;bdoc&#8221; vacío.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>currentDATA</strong> () [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Devuelve los datos (DATA) actual.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>currentError</strong> () [Retorna cadenas (String)]</dt>
+<dd><p class="first">Devuelve el error actual.</p>
+<p><strong>Ejemplo:</strong></p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">Safet</span>
+<span class="gp">... </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">... </span><span class="n">myhome</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;HOME&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">mymedia</span> <span class="o">=</span> <span class="n">myhome</span> <span class="o">+</span> <span class="s">&quot;/tmp&quot;</span>
+<span class="gp">... </span><span class="n">myurl</span> <span class="o">=</span> <span class="s">&quot;http://localhost&quot;</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">myinflow</span> <span class="o">=</span> <span class="n">Safet</span><span class="o">.</span><span class="n">MainWindow</span><span class="p">(</span><span class="n">myhome</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">myinflow</span><span class="o">.</span><span class="n">setMediaPath</span><span class="p">(</span><span class="n">mymedia</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">myinflow</span><span class="o">.</span><span class="n">setHostURL</span><span class="p">(</span><span class="n">myurl</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">myconsult</span> <span class="o">=</span> <span class="s">u&quot;operacion:Listar_datos Cargar_archivo_flujo:/home/cenditel/.safet/flowfiles/mensajes.xml Variable: vIniciado&quot;</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">result</span> <span class="o">=</span> <span class="n">myinflow</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="s">&quot;usuario&quot;</span><span class="p">,</span><span class="s">&quot;usuario&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span> <span class="s">&quot;Consult failed error: </span><span class="si">%s</span><span class="s">&quot;</span>  <span class="o">%</span> <span class="p">(</span><span class="n">myinflow</span><span class="o">.</span><span class="n">currentError</span><span class="p">())</span> <span class="c">###----&gt;&gt;currentError()</span>
+<span class="gp">... </span>    <span class="nb">exit</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>currentGraphTitle</strong> () [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Devuelve  el titulo del último gráfo generado.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>currentJSON</strong> () [Retorna cadenas (String)]</dt>
+<dd><p class="first">Devuelve la imformación en formato JSON de la última acción generada</p>
+<p><strong>Ejemplo:</strong></p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">Safet</span>
+<span class="gp">... </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">... </span><span class="n">myhome</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;HOME&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">mymedia</span> <span class="o">=</span> <span class="n">myhome</span> <span class="o">+</span> <span class="s">&quot;/tmp&quot;</span>
+<span class="gp">... </span><span class="n">myurl</span> <span class="o">=</span> <span class="s">&quot;http://localhost&quot;</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">myinflow</span> <span class="o">=</span> <span class="n">Safet</span><span class="o">.</span><span class="n">MainWindow</span><span class="p">(</span><span class="n">myhome</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">myinflow</span><span class="o">.</span><span class="n">setMediaPath</span><span class="p">(</span><span class="n">mymedia</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">myinflow</span><span class="o">.</span><span class="n">setHostURL</span><span class="p">(</span><span class="n">myurl</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">myconsult</span> <span class="o">=</span> <span class="s">u&quot;operacion:Listar_datos Cargar_archivo_flujo:/home/cenditel/.safet/flowfiles/mensajes.xml Variable: vIniciado&quot;</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">result</span> <span class="o">=</span> <span class="n">myinflow</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="s">&quot;usuario&quot;</span><span class="p">,</span><span class="s">&quot;usuario&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span> <span class="s">&quot;Consult failed error: </span><span class="si">%s</span><span class="s">&quot;</span>  <span class="o">%</span> <span class="p">(</span><span class="n">myinflow</span><span class="o">.</span><span class="n">currentError</span><span class="p">())</span>
+<span class="gp">... </span>    <span class="nb">exit</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="k">print</span> <span class="s">u&quot;</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">myinflow</span><span class="o">.</span><span class="n">currentJSON</span><span class="p">())</span> <span class="c">###----&gt;&gt;currentJSON()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>currentTable</strong> () [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene los datos en forma de tabla del último gráfo generado.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>delNodeToXMLWorkflow</strong> (fname,nodename) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Elimina un nodo de un gráfo.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>doLoadConfiguration</strong> (fileName)[Procedimiento]</dt>
+<dd><p class="first">Carga un archivo de proyecto.</p>
+<p><strong>Ejemplo</strong></p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">Safet</span>
+<span class="gp">... </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">... </span><span class="n">myhome</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;HOME&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">mymedia</span> <span class="o">=</span> <span class="n">myhome</span> <span class="o">+</span> <span class="s">&quot;/tmp&quot;</span>
+<span class="gp">... </span><span class="n">myurl</span> <span class="o">=</span> <span class="s">&quot;http://localhost&quot;</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">myinflow</span> <span class="o">=</span> <span class="n">Safet</span><span class="o">.</span><span class="n">MainWindow</span><span class="p">(</span><span class="n">myhome</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">myinflow</span><span class="o">.</span><span class="n">doLoadConfiguration</span><span class="p">(</span><span class="s">&quot;Proyecto.tar&quot;</span><span class="p">)</span>  <span class="c">###----&gt;&gt; doLoadConfiguration</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>doSaveConfiguration</strong> (fileName)[Procedimiento]</dt>
+<dd><p class="first">Guarda un archivo de proyecto (en el directorio <strong>.safet/</strong> del usuario actual).</p>
+<p><strong>Ejemplo</strong></p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">Safet</span>
+<span class="gp">... </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">... </span><span class="n">myhome</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;HOME&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">mymedia</span> <span class="o">=</span> <span class="n">myhome</span> <span class="o">+</span> <span class="s">&quot;/tmp&quot;</span>
+<span class="gp">... </span><span class="n">myurl</span> <span class="o">=</span> <span class="s">&quot;http://localhost&quot;</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">myinflow</span> <span class="o">=</span> <span class="n">Safet</span><span class="o">.</span><span class="n">MainWindow</span><span class="p">(</span><span class="n">myhome</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">myinflow</span><span class="o">.</span><span class="n">doSaveConfiguration</span><span class="p">(</span><span class="s">&quot;usuario.tar&quot;</span><span class="p">)</span> <span class="c">####---------&gt;&gt; doSaveConfiguration</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>doSaveGraph</strong> (mypars) [Retorna verdadero si se ejecuto la acción, en caso contrario retorna falso]</dt>
+<dd><p class="first last">Guarda los parámetros de último gráfo generado.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>generateFormFooter</strong> (o) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Imprime el HTML del pie de pagina general para <strong>websafet</strong>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>generateFormHead</strong> (o) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Imprime el HTML de la cabecera general para <strong>websafet</strong>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>generateModifyHTML</strong> (operation,fieldname,key,secondkey,form) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Genera una consulta <strong>&#8220;AJAX&#8221;</strong> para los campos de combos de selección.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>getFlowParameters</strong> (flowfilename) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene una lista de parámetros dado un nombre de gráfo.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>getInfoOfUser</strong> (user) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene la información de un usuario.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>hostMediaPath</strong> () [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene la ruta del directorio de archivos multimedia.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>hostURL</strong> () [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene el url del host <strong>(websafet)</strong>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>inputPath</strong> () [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene el directorio (ruta) de las aplicaciónes actual <strong>(.safet)</strong>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>lastInfoGraph</strong> () [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene información sobre el último gráfo generado.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>loadReportTemplate</strong> (json,filename = &#8220;&#8221;,nameoperation = &#8220;Listar_datos&#8221;) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Carga una plantilla para generar una salida HTML <strong>(websafet)</strong>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>log</strong> (message)[Procedimiento]</dt>
+<dd><p class="first last">Escribe en el &#8220;log&#8221; de safet  <strong>&lt;HOME&gt;.safet/log/safet.log</strong>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>login</strong> (name,pass) [Retorna verdadero si se ejecuto la acción, en caso contrario retorna falso]</dt>
+<dd><p class="first">Inicia una sesión <strong>PySafet</strong>.</p>
+<p><strong>Ejemplo:</strong></p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">Safet</span>
+<span class="gp">... </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">... </span><span class="n">myhome</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;HOME&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">mymedia</span> <span class="o">=</span> <span class="n">myhome</span> <span class="o">+</span> <span class="s">&quot;/tmp&quot;</span>
+<span class="gp">... </span><span class="n">myurl</span> <span class="o">=</span> <span class="s">&quot;http://localhost&quot;</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">myinflow</span> <span class="o">=</span> <span class="n">Safet</span><span class="o">.</span><span class="n">MainWindow</span><span class="p">(</span><span class="n">myhome</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">myinflow</span><span class="o">.</span><span class="n">setMediaPath</span><span class="p">(</span><span class="n">mymedia</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">myinflow</span><span class="o">.</span><span class="n">setHostURL</span><span class="p">(</span><span class="n">myurl</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">myconsult</span> <span class="o">=</span> <span class="s">u&quot;operacion:Listar_datos Cargar_archivo_flujo:/home/cenditel/.safet/flowfiles/mensajes.xml Variable: vIniciado&quot;</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">result</span> <span class="o">=</span> <span class="n">myinflow</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="s">&quot;usuario&quot;</span><span class="p">,</span><span class="s">&quot;usuario&quot;</span><span class="p">)</span> <span class="c">###---&gt; login</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>logout</strong> () [Retorna verdadero si se ejecuto la acción, en caso contrario retorna falso]</dt>
+<dd><p class="first last">Sale una de las sesión <strong>PySafet</strong>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>mediaPath</strong> () [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene las rutas del directorio &#8220;media&#8221; utilizando para generar los gráfos <strong>(.svg/.png)</strong>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>menuCommands</strong> () [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene la lista de acciones en formato HTML.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>menuForm</strong> (o) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene un formulario escrito en HTML correspondiente a una acción en el archivo <strong>&lt;HOME&gt;.safet/input/deftrac.xml</strong>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>postAction</strong> () [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene la acción posterior a ejecutar en uan operación.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>registerLogin</strong> (user) [Procedimiento]</dt>
+<dd><p class="first last">Escribe en el registro de <strong>PySafet</strong> el inicio de una seción.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>registerLogout</strong> (user) [Procedimiento]</dt>
+<dd><p class="first last">Escribe en el registro de <strong>PySafet</strong> el inicio de la salida de una sesión.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>sendCheckEmail</strong> (user,plink) [Retorna verdadero si se ejecuto la acción, en caso contrario retorna falso]</dt>
+<dd><p class="first last">Envía un correo de chequeo para el resgistro de un usuario.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>setConffileValues</strong> (values) [Procedimiento]</dt>
+<dd><p class="first last">Coloca los valores de configuración.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>setHostMediaPath</strong> (m) [Procedimiento]</dt>
+<dd><p class="first last">Coloca la ruta para los archivo de medias.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>setTemplatePath</strong> (t) [Procedimiento]</dt>
+<dd><p class="first last">Coloca el directorio de los archivos de plantilla (templates).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>templatePath</strong> () [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene el directorio para los archivos de plantilla (templates).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>toInputConsole</strong> (action, withpermises = true) [Retorna verdadero si se ejecuto la acción, en caso contrario retorna falso]</dt>
+<dd><p class="first">Ejecuta una operación de consulta <strong>**</strong> en el archivo <strong>defconsole.xml</strong>.</p>
+<p><strong>Ejemplo:</strong></p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">Safet</span>
+<span class="gp">... </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">... </span><span class="n">myhome</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;HOME&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">mymedia</span> <span class="o">=</span> <span class="n">myhome</span> <span class="o">+</span> <span class="s">&quot;/tmp&quot;</span>
+<span class="gp">... </span><span class="n">myurl</span> <span class="o">=</span> <span class="s">&quot;http://localhost&quot;</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">myinflow</span> <span class="o">=</span> <span class="n">Safet</span><span class="o">.</span><span class="n">MainWindow</span><span class="p">(</span><span class="n">myhome</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">myinflow</span><span class="o">.</span><span class="n">setMediaPath</span><span class="p">(</span><span class="n">mymedia</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">myinflow</span><span class="o">.</span><span class="n">setHostURL</span><span class="p">(</span><span class="n">myurl</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">myconsult</span> <span class="o">=</span> <span class="s">u&quot;operacion:Listar_datos Cargar_archivo_flujo:/home/cenditel/.safet/flowfiles/mensajes.xml Variable: vIniciado&quot;</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">result</span> <span class="o">=</span> <span class="n">myinflow</span><span class="o">.</span><span class="n">toInputConsole</span><span class="p">(</span><span class="n">myconsult</span><span class="p">)</span> <span class="c">###------&gt;&gt;&gt; toInputConsole</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>toInputForm</strong> (action, withpermises = true) [Retorna cadenas (String)]</dt>
+<dd><p class="first">Ejecuta una operación de entrada de datos (Formulario) descrita en el archivo de <strong>deftrac.xml</strong>.</p>
+<p><strong>Ejemplo:</strong></p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">Safet</span>
+<span class="gp">... </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">... </span><span class="n">myhome</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;HOME&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">mymedia</span> <span class="o">=</span> <span class="n">myhome</span> <span class="o">+</span> <span class="s">&quot;/tmp&quot;</span>
+<span class="gp">... </span><span class="n">myurl</span> <span class="o">=</span> <span class="s">&quot;http://localhost&quot;</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">myinflow</span> <span class="o">=</span> <span class="n">Safet</span><span class="o">.</span><span class="n">MainWindow</span><span class="p">(</span><span class="n">myhome</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">myinflow</span><span class="o">.</span><span class="n">setMediaPath</span><span class="p">(</span><span class="n">mymedia</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">myinflow</span><span class="o">.</span><span class="n">setHostURL</span><span class="p">(</span><span class="n">myurl</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">myconsult</span> <span class="o">=</span> <span class="s">u&quot;operacion:agregar_mensaje Titulo: hola mundo&quot;</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">result</span> <span class="o">=</span> <span class="n">myinflow</span><span class="o">.</span><span class="n">toInputForm</span><span class="p">(</span><span class="n">myconsult</span><span class="p">)</span> <span class="c">###------&gt;&gt;&gt; toInputForm</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>toInputUsers</strong> (action) [Retorna verdadero si se ejecuto la acción, en caso contrario retorna falso]</dt>
+<dd><p class="first last">Ejecuta una acción de gestión de usuarios descrita en el archivo <strong>defusers.xml</strong>.</p>
+</dd>
+</dl>
+</li>
+</ol>
+</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="../Contenido2/safet_conf.html"
+                        title="capítulo anterior"><strong class="command">safet.conf</strong> (Archivo de configuración inicial)</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="Clase2.html"
+                        title="próximo capítulo">Clase SafetXmlObject (Safet.SafetXmlObject)</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/_templates/Contenido5/Api.txt"
+           rel="nofollow">Mostrar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un nombre de módulo, clase o función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="Clase2.html" title="Clase SafetXmlObject (Safet.SafetXmlObject)"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="../Contenido2/safet_conf.html" title="safet.conf (Archivo de configuración inicial)"
+             >anterior</a> |</li>
+        <li><a href="../../index.html">PySafet</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Cenditel.
+      Creado con <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QHelpCollectionProject version="1.0">
+    <assistant>
+        <title>SAFET: InFlow</title>
+        <applicationIcon>images/handbook.png</applicationIcon>
+        <startPage>qthelp://ve.gob.cenditel.safet.inflow/doc/index.html</startPage>
+        <aboutMenuText>
+            <text>About InFlow</text>
+        </aboutMenuText>
+        <aboutDialog>
+            <file>about.txt</file>
+            <icon>images/icon.png</icon>
+        </aboutDialog>
+        <enableDocumentationManager>false</enableDocumentationManager>
+        <enableAddressBar>false</enableAddressBar>
+        <enableFilterFunctionality>false</enableFilterFunctionality>
+    </assistant>
+    <docFiles>
+        <generate>
+            <file>
+                <input>inflowDoc.qhp</input>
+                <output>inflowDoc.qch</output>
+                </file>
+            </generate>
+        <register>
+            <file>inflowDoc.qch</file>
+            </register>
+        </docFiles>
+    </QHelpCollectionProject>

@@ -1,0 +1,698 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Ver datos usando flujos de trabajo &mdash; PySafet</title>
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="PySafet" href="../../index.html" />
+    <link rel="next" title="Ver fichas usuando flujos de trabajo" href="Parte5.html" />
+    <link rel="prev" title="Crear el flujo de trabajo utilizando un archivo XML" href="Parte4.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="Parte5.html" title="Ver fichas usuando flujos de trabajo"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="Parte4.html" title="Crear el flujo de trabajo utilizando un archivo XML"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../../index.html">PySafet</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ver-datos-usando-flujos-de-trabajo">
+<h1><span class="target" id="index-0"></span>Ver datos usando flujos de trabajo<a class="headerlink" href="#ver-datos-usando-flujos-de-trabajo" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>En esta sección de explicar las acciones necesarias para obtener reportes asociados a la configuración de datos del directorio <strong>.safet/ (PySafet)</strong>. Tomando como ejemplo el caso inventario explicaremos las acciones a realizar para obtener un listado de todos los datos.</p>
+<p><strong>A continuaciones mostraremos las siguientes acciones:</strong></p>
+<div class="section" id="primera-accion-tarea-vregistrado">
+<h2>1° PRIMERA ACCION (Tarea &#8220;vRegistrado&#8221;)<a class="headerlink" href="#primera-accion-tarea-vregistrado" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Listaremos los productos que se encuentran registrados <strong>(en estado registrado)</strong>, con la tarea <strong>vRegistrado</strong> la cual conocimos en los pasos anteriores:</p>
+<div class="admonition seealso">
+<p class="first admonition-title">Ver también</p>
+<div class="last highlight-html"><div class="highlight"><pre><span class="c">&lt;!--</span>
+<span class="c">**************</span>
+<span class="c">| Registrado |</span>
+<span class="c">**************</span>
+<span class="c">--&gt;</span>
+<span class="nt">&lt;task</span> <span class="na">title=</span><span class="s">&quot;en inventario&quot;</span> <span class="na">id=</span><span class="s">&quot;Registrado&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;port</span> <span class="na">side=</span><span class="s">&quot;forward&quot;</span> <span class="na">type=</span><span class="s">&quot;split&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;connection</span> <span class="na">query=</span><span class="s">&quot;true&quot;</span> <span class="na">options=</span><span class="s">&quot;&quot;</span> <span class="na">source=</span><span class="s">&quot;final&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/port&gt;</span>
+             <span class="c">&lt;!-- nombre de las columnas(id,nombre,status),  variable(id=&quot;vRegistrado&quot;)--&gt;</span>
+<span class="nt">&lt;variable</span> <span class="na">config=</span><span class="s">&quot;1&quot;</span> <span class="na">documentsource=</span><span class="s">&quot;select id,nombre,status from productos&quot;</span>
+<span class="na">type=</span><span class="s">&quot;sql&quot;</span> <span class="na">tokenlink=</span><span class="s">&quot;&quot;</span> <span class="na">id=</span><span class="s">&quot;vRegistrado&quot;</span> <span class="na">rolfield=</span><span class="s">&quot;(select rol from productos_registro</span>
+<span class="s">where productoid=productos.id and regstatus=&#39;Registrado&#39;) as rol&quot;</span> <span class="na">scope=</span><span class="s">&quot;task&quot;</span>
+<span class="na">timestampfield=</span><span class="s">&quot;(select fecha from productos_registro</span>
+<span class="s">where productoid=productos.id and regstatus=&#39;Registrado&#39;) as fecha&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/task&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="primer-paso">
+<h3>1° PRIMER PASO<a class="headerlink" href="#primer-paso" title="Enlazar permanentemente con este título">¶</a></h3>
+<ul class="simple">
+<li>Crearemos un directorio en nuestro <strong>&lt;HOME&gt;/JsonInterfaz</strong></li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>mkdir <span class="nv">$HOME</span>/JsonInterfaz
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Crearemos un directorio  que creamos <strong>JsonInterfaz/</strong></li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> <span class="nv">$HOME</span>/JsonInterfaz
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="segundo-paso">
+<h3>2°  SEGUNDO PASO<a class="headerlink" href="#segundo-paso" title="Enlazar permanentemente con este título">¶</a></h3>
+<ul>
+<li><p class="first">Crearemos un archivo <strong>.py</strong> por ejemplo <strong>ListarProducto.py</strong> en el directorio <strong>JsonInterfaz/</strong>:</p>
+<div class="highlight-bash"><div class="highlight"><pre>JsonInterfaz<span class="nv">$ </span>touch ListarProducto.py
+</pre></div>
+</div>
+</li>
+<li><p class="first">Abrimos el archivo <strong>ListarProducto.py</strong>, insertamos el siguiente código:</p>
+</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre><span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">Safet</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">myhome</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;HOME&quot;</span><span class="p">)</span>
+<span class="n">mymedia</span> <span class="o">=</span> <span class="n">myhome</span> <span class="o">+</span> <span class="s">&quot;/tmp&quot;</span>
+<span class="n">myurl</span> <span class="o">=</span> <span class="s">&quot;http://localhost&quot;</span>
+
+<span class="n">myinflow</span> <span class="o">=</span> <span class="n">Safet</span><span class="o">.</span><span class="n">MainWindow</span><span class="p">(</span><span class="n">myhome</span><span class="p">)</span>
+
+<span class="n">myinflow</span><span class="o">.</span><span class="n">setMediaPath</span><span class="p">(</span><span class="n">mymedia</span> <span class="p">)</span>
+<span class="n">myinflow</span><span class="o">.</span><span class="n">setHostURL</span><span class="p">(</span><span class="n">myurl</span><span class="p">)</span>
+
+
+<span class="n">myconsult</span> <span class="o">=</span> <span class="s">u&quot;operacion:Listar_datos_general </span><span class="se">\</span>
+<span class="s">Cargar_archivo_flujo: /home/cenditel/.safet/flowfiles/productos.xml </span><span class="se">\</span>
+<span class="s">Variable: vRegistrado&quot;</span>
+
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">myinflow</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="s">&quot;admin&quot;</span><span class="p">,</span><span class="s">&quot;admin&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&quot;Authentication failed&quot;</span>
+    <span class="nb">exit</span><span class="p">()</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">myinflow</span><span class="o">.</span><span class="n">toInputConsole</span><span class="p">(</span><span class="n">myconsult</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&quot;Consult failed error: </span><span class="si">%s</span><span class="s">&quot;</span>  <span class="o">%</span> <span class="p">(</span><span class="n">myinflow</span><span class="o">.</span><span class="n">currentError</span><span class="p">())</span>
+    <span class="nb">exit</span><span class="p">()</span>
+
+<span class="k">print</span> <span class="s">u&quot;</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">myinflow</span><span class="o">.</span><span class="n">currentJSON</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">La operación seleccionada es <strong>&#8220;Listar_datos&#8221;</strong>, el archivo donde se realiza la operación es <strong>&#8220;productos.xml&#8221;</strong> y el directorio donde se encuentra es <strong>&lt;HOMR&gt;.safet/flowfiles/</strong>.</p>
+</div>
+<p>La variable seleccionada <strong>&#8220;vRegistrado&#8221;</strong> se define los siguiente:</p>
+<ul class="simple">
+<li>La variable debe estar definida en el archivo <strong>&#8220;productos.xml&#8221;</strong>.</li>
+<li>La operación <strong>Listar_datos</strong> esta definida en el archivo <strong>defconsole.xml</strong> que se encuentra en el directorio <strong>&lt;HOME&gt;.safet/input/</strong></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="tercer-paso">
+<h3>3° TERCER PASO<a class="headerlink" href="#tercer-paso" title="Enlazar permanentemente con este título">¶</a></h3>
+<ul class="simple">
+<li>Ejecutamos el archivo <strong>ListarProducto.py</strong> desde la consola de comando como usuario normal:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre>JsonInterfaz<span class="nv">$ </span>python ListarProducto.py
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p>Al llamar el método <strong>toInputConsole</strong> con las opciones dicha anteriormente se generaría el siguiente mensaje <strong>Json</strong>.</p>
+<div class="last highlight-bash"><div class="highlight"><pre>QFSFileEngine::open: No file name specified
+
+ <span class="c"># Aquí nos indica que se esta conectando a la base de datos</span>
+ <span class="c"># que esta en el directorio &lt;HOME&gt;.sefet/</span>
+QSqlDatabasePrivate::removeDatabase:
+connection <span class="s1">&#39;/home/cenditel/.safet/mydb.db&#39;</span> is still in use,
+                              all queries will cease to work.
+QSqlDatabasePrivate::removeDatabase:
+ connection <span class="s1">&#39;/home/cenditel/.safet/mydb.db&#39;</span> is still in use,
+                              all queries will cease to work.
+QSqlDatabasePrivate::removeDatabase:
+ connection <span class="s1">&#39;/home/cenditel/.safet/mydb.db&#39;</span> is still in use,
+                               all queries will cease to work.
+
+   <span class="c"># La variable que esta utilizando</span>
+<span class="o">{</span> <span class="s2">&quot;safetvariable&quot;</span> : <span class="s2">&quot;vRegistrado&quot;</span>,
+
+ <span class="s2">&quot;safetkey&quot;</span> : <span class="s2">&quot;&quot;</span>,
+
+ <span class="s2">&quot;safettitle&quot;</span> : <span class="s2">&quot;vRegistrado&quot;</span>,
+ <span class="s2">&quot;safetreport&quot;</span> : <span class="s2">&quot;operacion:Listar_datos_general \</span>
+<span class="s2">  Cargar_archivo_flujo:/home/cenditel/.safet/flowfiles/productos.xml \</span>
+<span class="s2">  Variable: vRegistrado&quot;</span>,
+
+  <span class="c"># Aquí nos dice que hay dos registro en la db</span>
+<span class="s2">&quot;safetlistcount&quot;</span> : <span class="s2">&quot;2&quot;</span>,
+
+ <span class="c"># Nos mostrara los datos en una lista</span>
+<span class="s2">&quot;safetlist&quot;</span> :
+<span class="o">[</span>
+ <span class="c"># Aqui nos aparece el nombre de las columnas(id,nombre,status) y</span>
+ <span class="c"># sus datos</span>
+<span class="o">{</span><span class="s2">&quot;id&quot;</span>:<span class="s2">&quot;1&quot;</span>, <span class="s2">&quot;id&quot;</span>:<span class="s2">&quot;1&quot;</span>, <span class="s2">&quot;nombre&quot;</span>:<span class="s2">&quot;Jabón Protex&quot;</span>,  <span class="s2">&quot;status&quot;</span>:<span class="s2">&quot;Registrado&quot;</span><span class="o">}</span>,
+<span class="o">{</span><span class="s2">&quot;id&quot;</span>:<span class="s2">&quot;2&quot;</span>, <span class="s2">&quot;id&quot;</span>:<span class="s2">&quot;2&quot;</span>, <span class="s2">&quot;nombre&quot;</span>:<span class="s2">&quot;Pañales Pamper&quot;</span>,<span class="s2">&quot;status&quot;</span>:<span class="s2">&quot;Registrado&quot;</span><span class="o">}</span>
+<span class="o">]</span>,
+
+<span class="c">#Nos mostrara la columnas es decir el keys</span>
+<span class="s2">&quot;safetcolumns&quot;</span>  :
+<span class="o">[</span>
+
+      <span class="o">{</span> <span class="s2">&quot;key&quot;</span>: <span class="s2">&quot;id&quot;</span>,<span class="s2">&quot;label&quot;</span>:<span class="s2">&quot;id&quot;</span>,<span class="s2">&quot;width&quot;</span>:<span class="s2">&quot;10&quot;</span>,
+      <span class="s2">&quot;resizeable&quot;</span>:<span class="s2">&quot;true&quot;</span>,<span class="s2">&quot;sortable&quot;</span>:<span class="s2">&quot;true&quot;</span><span class="o">}</span>,
+
+      <span class="o">{</span> <span class="s2">&quot;key&quot;</span>: <span class="s2">&quot;id&quot;</span>,<span class="s2">&quot;label&quot;</span>:<span class="s2">&quot;id&quot;</span>,<span class="s2">&quot;width&quot;</span>:<span class="s2">&quot;10&quot;</span>,
+      <span class="s2">&quot;resizeable&quot;</span>:<span class="s2">&quot;true&quot;</span>,<span class="s2">&quot;sortable&quot;</span>:<span class="s2">&quot;true&quot;</span><span class="o">}</span>,
+
+      <span class="o">{</span> <span class="s2">&quot;key&quot;</span>: <span class="s2">&quot;nombre&quot;</span>,<span class="s2">&quot;label&quot;</span>:<span class="s2">&quot;nombre&quot;</span>,<span class="s2">&quot;width&quot;</span>:<span class="s2">&quot;90&quot;</span>,
+      <span class="s2">&quot;resizeable&quot;</span>:<span class="s2">&quot;true&quot;</span>,<span class="s2">&quot;sortable&quot;</span>:<span class="s2">&quot;true&quot;</span><span class="o">}</span>,
+
+      <span class="o">{</span> <span class="s2">&quot;key&quot;</span>: <span class="s2">&quot;status&quot;</span>,<span class="s2">&quot;label&quot;</span>:<span class="s2">&quot;status&quot;</span>,<span class="s2">&quot;width&quot;</span>:<span class="s2">&quot;90&quot;</span>,
+      <span class="s2">&quot;resizeable&quot;</span>:<span class="s2">&quot;true&quot;</span>,<span class="s2">&quot;sortable&quot;</span>:<span class="s2">&quot;true&quot;</span><span class="o">}</span>
+<span class="o">]</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="combinacion-de-json-con-html-javascript">
+<h2>Combinación de Json con HTML(javascript)<a class="headerlink" href="#combinacion-de-json-con-html-javascript" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Listaremos los datos con interfaz gráfica de nuestro <strong>Json</strong>, con los siguientes pasos:</p>
+<div class="section" id="id1">
+<h3>1° PRIMER PASO<a class="headerlink" href="#id1" title="Enlazar permanentemente con este título">¶</a></h3>
+<ul class="simple">
+<li>Crearemos un archivo <strong>.py</strong> por ejemplo <strong>(ScriptJson.py)</strong>, en el directorio <strong>JsonInterfaz/</strong>:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre>JsonInterfaz<span class="nv">$ </span>touch ScriptJson.py
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="segundopaso">
+<span id="id2"></span><h3>2° SEGUNDO PASO<a class="headerlink" href="#segundopaso" title="Enlazar permanentemente con este título">¶</a></h3>
+<ul class="simple">
+<li>Abrimos el archivo que creamos <strong>.py(ScriptJson.py)</strong> insertamos el siguiente código:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre><span class="c">#!/user/bin python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># importamos la librerías a utilizar</span>
+<span class="kn">import</span> <span class="nn">Safet</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="c">#función para convertir el json en datos con listas</span>
+<span class="k">def</span> <span class="nf">jsonToJquery</span><span class="p">(</span><span class="n">myoldarray</span><span class="p">):</span>
+
+    <span class="c"># Variables que me van a almacenar listar o arreglos</span>
+    <span class="n">mynewarray</span>  <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">currcolumns</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">currkeys</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c"># Una variable para almacenar</span>
+    <span class="n">stringcolumn</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+
+    <span class="c"># Estructura de repetición para obtener</span>
+    <span class="c"># Las keys es decir los dato de</span>
+    <span class="c">#      las columnas (id,nombre,status)</span>
+    <span class="k">for</span> <span class="n">reg</span> <span class="ow">in</span> <span class="n">myoldarray</span><span class="p">:</span>
+        <span class="c"># reg.keys() me obtiene una en una la columnas</span>
+        <span class="n">currkeys</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="n">myvalue</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+        <span class="n">regarray</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c"># Estructura de repetición anidada</span>
+        <span class="c"># Se obtienen los datos de la columnas</span>
+        <span class="c">#      es decir del (id,nombre,status)</span>
+        <span class="k">for</span> <span class="n">currkey</span> <span class="ow">in</span> <span class="n">currkeys</span><span class="p">:</span>
+            <span class="c"># optienes el datos</span>
+            <span class="n">myvalue</span>  <span class="o">=</span> <span class="n">reg</span><span class="p">[</span><span class="n">currkey</span><span class="p">]</span>
+            <span class="c"># Insertamos el dato dentro de la lista regarray[]</span>
+            <span class="n">regarray</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">myvalue</span><span class="p">)</span>
+
+        <span class="c"># Se añade la lista regarray[] es decir datos de las tablas</span>
+        <span class="n">mynewarray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">regarray</span><span class="p">)</span>
+
+
+    <span class="c">#Estructura de repetición para obtener las columnas para javascript</span>
+    <span class="k">for</span> <span class="n">currkey</span> <span class="ow">in</span> <span class="n">currkeys</span><span class="p">:</span>
+        <span class="c"># Optenemos las columnas que se almacenan en un diccionario</span>
+        <span class="n">currcolumn</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&quot;sTitle&quot;</span> <span class="p">:</span> <span class="n">currkey</span> <span class="p">}</span>
+        <span class="c"># Se inserta en la lista currcolumn[] el diccionario</span>
+        <span class="n">currcolumns</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">currcolumn</span><span class="p">)</span>
+
+    <span class="c"># Retornamos la función con 2 listas</span>
+    <span class="c"># mynewarray[] que son los datos de la tablas o columnas</span>
+    <span class="c"># currcolumns[] que es un diccionario que contienes las columnas de</span>
+    <span class="c">#                                          la tablas de los datos</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">mynewarray</span><span class="p">,</span><span class="n">currcolumns</span><span class="p">)</span>
+
+
+<span class="c"># función para escribir los datos obtenido en un archivo .js(javascript)</span>
+<span class="k">def</span> <span class="nf">writeJsonData</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">columns</span><span class="p">,</span><span class="n">Variable</span><span class="p">,</span><span class="n">filename</span><span class="p">):</span>
+
+    <span class="c"># u&quot;%s&quot; para almacenan los datos y las columnas</span>
+    <span class="n">stringnewarray</span> <span class="o">=</span> <span class="s">u&quot;</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span>  <span class="n">data</span>
+    <span class="n">stringcolumns</span> <span class="o">=</span> <span class="s">u&quot;</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">columns</span>
+
+    <span class="c"># se abre el archivo de tipo escritura</span>
+    <span class="nb">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span>
+
+    <span class="c"># Escribimos el nombre de lista para datos y para las columnas</span>
+    <span class="n">datatowrite</span> <span class="o">=</span> <span class="s">u&quot;dataInventory </span><span class="se">\</span>
+<span class="s">       = </span><span class="si">%s</span><span class="se">\n\n</span><span class="s">columnInventory = </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span> <span class="n">stringnewarray</span><span class="p">,</span> <span class="n">stringcolumns</span> <span class="p">)</span>
+
+    <span class="c"># Se obtiene el valor de la variable</span>
+    <span class="n">variablewrite</span> <span class="o">=</span> <span class="s">&quot;Variable = </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">Variable</span><span class="p">)</span>
+
+    <span class="c"># datatowrite.replace para que en el archivo</span>
+    <span class="c">#                  .js se me eliminar &quot;u&#39;&quot;por &quot;&#39;&quot;</span>
+    <span class="n">datatowrite</span> <span class="o">=</span>  <span class="n">datatowrite</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;u&#39;&quot;</span><span class="p">,</span><span class="s">&quot;&#39;&quot;</span><span class="p">)</span>
+    <span class="n">variablewrite</span> <span class="o">=</span>  <span class="n">variablewrite</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;u&#39;&quot;</span><span class="p">,</span><span class="s">&quot;&#39;&quot;</span><span class="p">)</span>
+
+    <span class="c"># salto de linea</span>
+    <span class="n">datatowrite</span> <span class="o">=</span> <span class="n">datatowrite</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+
+    <span class="c"># Escribimos en archivo las dos listas</span>
+    <span class="nb">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">datatowrite</span><span class="p">)</span>
+    <span class="nb">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">variablewrite</span><span class="p">)</span>
+
+    <span class="c"># Cerramos el archivo</span>
+    <span class="nb">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="c"># Mi función principal</span>
+<span class="k">def</span> <span class="nf">Principal</span><span class="p">():</span>
+
+    <span class="c"># Se localiza en el directorio &lt;HOME&gt;</span>
+    <span class="n">myhome</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;HOME&quot;</span><span class="p">)</span>
+    <span class="n">mymedia</span> <span class="o">=</span> <span class="n">myhome</span> <span class="o">+</span> <span class="s">&quot;/tmp&quot;</span>
+    <span class="n">myurl</span> <span class="o">=</span> <span class="s">&quot;http://localhost&quot;</span>
+
+    <span class="c"># Mi constructor MainWindow</span>
+    <span class="n">myinflow</span> <span class="o">=</span> <span class="n">Safet</span><span class="o">.</span><span class="n">MainWindow</span><span class="p">(</span><span class="n">myhome</span><span class="p">)</span>
+
+    <span class="n">myinflow</span><span class="o">.</span><span class="n">setMediaPath</span><span class="p">(</span><span class="n">mymedia</span> <span class="p">)</span>
+    <span class="n">myinflow</span><span class="o">.</span><span class="n">setHostURL</span><span class="p">(</span><span class="n">myurl</span><span class="p">)</span>
+
+    <span class="c"># Mi consulta de vRegistrado y su operación listar datos</span>
+    <span class="c">#que se encuentra en el directorio &lt;HOME&gt;.safe/flowfiles/</span>
+    <span class="n">myconsult</span> <span class="o">=</span> <span class="s">u&quot;operacion:Listar_datos </span><span class="se">\</span>
+<span class="s">       Cargar_archivo_flujo: </span><span class="si">%s</span><span class="s">/.safet/flowfiles/productos.xml </span><span class="se">\</span>
+<span class="s">       Variable: vRegistrado &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">myhome</span><span class="p">)</span>
+
+    <span class="c"># Nombre de usuario y si password</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">myinflow</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="s">&quot;admin&quot;</span><span class="p">,</span><span class="s">&quot;admin&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;Authentication failed&quot;</span>
+        <span class="nb">exit</span><span class="p">()</span>
+
+    <span class="c"># Obtiene los el json de archivo toInputConsole.xml</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">myinflow</span><span class="o">.</span><span class="n">toInputConsole</span><span class="p">(</span><span class="n">myconsult</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;Consult failed error: </span><span class="si">%s</span><span class="s">&quot;</span>  <span class="o">%</span> <span class="p">(</span><span class="n">myinflow</span><span class="o">.</span><span class="n">currentError</span><span class="p">())</span>
+        <span class="nb">exit</span><span class="p">()</span>
+
+    <span class="c"># Se obtiene mis datos json</span>
+    <span class="n">mystringdata</span> <span class="o">=</span> <span class="s">u&quot;</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">myinflow</span><span class="o">.</span><span class="n">currentJSON</span><span class="p">();</span>
+
+    <span class="c"># Me carga los datos json</span>
+    <span class="n">mydata</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">mystringdata</span><span class="p">)</span>
+
+    <span class="c"># Llámanos a la función con el nombre jsonToJquery()</span>
+    <span class="c"># para modificar el json</span>
+    <span class="c"># Se le pasa 1 parámetro</span>
+        <span class="c"># primero mydata con el nombre de la lista</span>
+
+    <span class="c"># Se almacenan los datos en 2 variable</span>
+    <span class="c"># La cual la función esta retornando 2 resultados</span>
+        <span class="c">#               el array y las columnas del json</span>
+    <span class="p">(</span><span class="n">mynewarray</span><span class="p">,</span><span class="n">currcolumns</span><span class="p">)</span> <span class="o">=</span> <span class="n">jsonToJquery</span><span class="p">(</span><span class="n">mydata</span><span class="p">[</span><span class="s">&quot;safetlist&quot;</span><span class="p">])</span>
+
+    <span class="c">#Llámanos a la función que la llámanos writeJsonData()</span>
+    <span class="c">#            para insertar los datos en un archivo</span>
+    <span class="c">#Se le pasan 3 parámetro:</span>
+        <span class="c">#primero mynewarray</span>
+        <span class="c">#Segundo currcolumns</span>
+        <span class="c">#Tercero el nombre del archivo .js</span>
+    <span class="n">writeJsonData</span><span class="p">(</span><span class="n">mynewarray</span><span class="p">,</span><span class="n">currcolumns</span><span class="p">,[</span><span class="n">mydata</span><span class="p">[</span><span class="s">&quot;safetvariable&quot;</span><span class="p">]],</span><span class="s">&quot;dataInventory.js&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="c"># Mi función principal</span>
+    <span class="n">Principal</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last"><strong>Este Script se utiliza para poder ver los datos con la libreria jquery de manara más dinamica.</strong></p>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="tercerpaso">
+<span id="id3"></span><h3>3° TERCER PASO<a class="headerlink" href="#tercerpaso" title="Enlazar permanentemente con este título">¶</a></h3>
+<ul class="simple">
+<li>Ejecutamos el archivo <strong>.py(ScriptJson.py)</strong> desde la consola de comando como usuario normal:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre>JsonInterfaz<span class="nv">$ </span>python ScriptJson.py
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p><strong>Nos mostrara el siguiente mensaje, significando que funciono correctamente el Script</strong></p>
+<div class="last highlight-bash"><div class="highlight"><pre> QFSFileEngine::open: No file name specified
+ QSqlDatabasePrivate::removeDatabase: connection <span class="s1">&#39;/home/cenditel/</span>
+<span class="s1">.safet/mydb.db&#39;</span> is still in use, all queries will cease to work.
+ QSqlDatabasePrivate::removeDatabase: connection <span class="s1">&#39;/home/cenditel/</span>
+<span class="s1">.safet/mydb.db&#39;</span> is still in use, all queries will cease to work.
+ QSqlDatabasePrivate::removeDatabase: connection <span class="s1">&#39;/home/cenditel/</span>
+<span class="s1">.safet/mydb.db&#39;</span> is still in use, all queries will cease to work.
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">AL ejecutar Script <strong>(ScriptJson.py)</strong> se genera un archivo <strong>javascript</strong> llamado <strong>dataInventory.js</strong> que contiene las columnas de la tabla y sus datos</p>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="cuarto-paso">
+<h3>4° CUARTO PASO<a class="headerlink" href="#cuarto-paso" title="Enlazar permanentemente con este título">¶</a></h3>
+<ul class="simple">
+<li>Crearemos un archivo <strong>.html</strong> por ejemplo <strong>(InventarioJson.html)</strong>, en el directorio <strong>JsonInterfaz/</strong>:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre>JsonInterfaz<span class="nv">$ </span>touch InventarioJson.html
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Abrimos el archivo que creamos <strong>.html(InventarioJson.html)</strong>, insertamos el siguiente código:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+
+
+  <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span>
+  <span class="na">href=</span><span class="s">&quot;http://ajax.aspnetcdn.com/ajax/</span>
+<span class="s">      jquery.dataTables/1.9.4/css/jquery.dataTables.css&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="nt">&lt;body&gt;</span>
+
+<span class="c">&lt;!-- Aqui se crea la tabla dentro de la etiqueta &lt;body&gt;--&gt;</span>
+<span class="nt">&lt;table</span> <span class="na">cellpadding=</span><span class="s">&quot;0&quot;</span> <span class="na">cellspacing=</span><span class="s">&quot;0&quot;</span> <span class="na">border=</span><span class="s">&quot;0&quot;</span>
+      <span class="na">class=</span><span class="s">&quot;display&quot;</span> <span class="na">name=</span><span class="s">&quot;safettable0&quot;</span> <span class="na">id=</span><span class="s">&quot;safettable0&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;dataInventory.js&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;/script&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">charset=</span><span class="s">&quot;utf8&quot;</span>
+ <span class="na">src=</span><span class="s">&quot;http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/script&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">charset=</span><span class="s">&quot;utf8&quot;</span>
+ <span class="na">src=</span><span class="s">&quot;http://ajax.aspnetcdn.com/ajax/</span>
+<span class="s">              jquery.dataTables/1.9.4/jquery.dataTables.min.js&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/script&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+
+  <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+     <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#safettable0&quot;</span><span class="p">).</span><span class="nx">dataTable</span><span class="p">({</span>
+     <span class="s2">&quot;aaData&quot;</span><span class="o">:</span> <span class="nx">dataInventory</span><span class="p">,</span>
+     <span class="s2">&quot;aoColumns&quot;</span><span class="o">:</span> <span class="nx">columnInventory</span>
+     <span class="p">});</span>
+  <span class="p">})</span>
+<span class="nt">&lt;/script&gt;</span>
+
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last"><strong>En este código HTML se utilizó la librería (jquery) y la librería (jquery.dataTables) de manera interna. Para ver los datos mas dinámicos utilizando (javascript y  json).</strong></p>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="quinto-paso">
+<h3>5° QUINTO PASO<a class="headerlink" href="#quinto-paso" title="Enlazar permanentemente con este título">¶</a></h3>
+<ul class="simple">
+<li>Abrimos con cualquier navegador web el archivo Json.html y no mostrara de la siguiente forma: <a class="reference internal" href="#figura40"><em>Figura 28: Json</em></a></li>
+</ul>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div><div class="figure align-center" id="figura40">
+<a class="reference internal image-reference" href="../../_images/json.png"><img alt="../../_images/json.png" src="../../_images/json.png" style="width: 800px; height: 300px;" /></a>
+<p class="caption"><strong>Figura 28: Json</strong></p>
+</div>
+</div></blockquote>
+<p><strong>La siguiente</strong> <a class="reference internal" href="#figura40"><em>Figura 28: Json</em></a> <strong>indica lo siguiente:</strong></p>
+<ul class="last simple">
+<li>Nos mostrara el nombre de las columnas.</li>
+<li>Nos mostrara los datos de cada columna.</li>
+<li>Nos mostrara un buscador <strong>Search</strong>.</li>
+<li>Nos mostrara <strong>Show</strong> que nos indicara
+cuantos datos quiere que se muestren en la tabla.</li>
+</ul>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Aquí esta el ejemplo, damos <strong>Clik</strong> a <a class="reference external" href="Json.html">JSON.HTML</a></li>
+</ul>
+</div>
+<div class="section" id="sexto-paso">
+<h3>6° SEXTO PASO<a class="headerlink" href="#sexto-paso" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>En el script de <strong>Combinación de Json con HTML(javascript)</strong> del <a class="reference internal" href="#segundopaso"><em>2° SEGUNDO PASO</em></a> en la función principal tenemos la consulta, la cual nos sirve para consultar los datos de las más variables, es decir, de las variables <strong>(&#8220;vPedido&#8221;,&#8221;vDisponible&#8221;,&#8221;vPor_llegar&#8221;,&#8221;vPor_agotarse&#8221;,&#8221;vAgotado&#8221;)</strong>, con solo cambiarle el nombre de la variable.</p>
+<p>Por ejemplo habíamos colocado anteriormente la variable <strong>&#8220;vRegistrado&#8221;</strong>, la cambiamos por <strong>&#8220;vDisponible&#8221;</strong> o la que sea.</p>
+<p>Ya cambiado la variable solo se ejecuta el <strong>Script</strong> como en el <a class="reference internal" href="#tercerpaso"><em>3° TERCER PASO</em></a>, la cual al ejecutarlo nos generara el archivo <strong>.js(ScriptJson.py)</strong> con los datos y las columnas, como lo hacia con la variable <strong>&#8220;vRegistrado&#8221;</strong>, igualmente vemos en el navegador con el mismo código <strong>HTML</strong> del archivo <strong>(InventarioJson.html)</strong>, que nos muestra el contenido con el mismo formato de la librerías <strong>(jquery y jquery.dataTables)</strong>.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">Ver también</p>
+<div class="last admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last"><strong>Si vamos a utilizar la variable &#8220;vPedido&#8221; tómese en cuenta lo siguiente:</strong></p>
+</div>
+</div>
+<ol class="arabic">
+<li><p class="first">La varible <strong>&#8220;vPedio&#8221;</strong> necesita saber la <strong>cantidad</strong> de pedidos, para poder mostrar los datos.</p>
+</li>
+<li><p class="first">Abrimos el archivo <strong>.xml(productos.xml)</strong> de directorio <strong>&lt;HOME&gt;.safet/flowfiles/</strong>:</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p>Vemos el código y tenemos los atributos <strong>(id,nombre,status)</strong>:</p>
+<div class="last highlight-html"><div class="highlight"><pre><span class="c">&lt;!--</span>
+<span class="c">**********</span>
+<span class="c">| Pedido |</span>
+<span class="c">**********</span>
+<span class="c">--&gt;</span>
+<span class="nt">&lt;task</span> <span class="na">title=</span><span class="s">&quot;&quot;</span> <span class="na">id=</span><span class="s">&quot;Pedido&quot;</span> <span class="na">textualinfo=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;port</span> <span class="na">pattern=</span><span class="s">&quot;none&quot;</span> <span class="na">side=</span><span class="s">&quot;forward&quot;</span> <span class="na">type=</span><span class="s">&quot;split&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;connection</span> <span class="na">query=</span><span class="s">&quot;true&quot;</span> <span class="na">options=</span><span class="s">&quot;&quot;</span> <span class="na">source=</span><span class="s">&quot;final&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/port&gt;</span>
+
+                      <span class="c">&lt;!-- atributos (id,nombre,status) --&gt;</span>
+<span class="nt">&lt;variable</span> <span class="na">config=</span><span class="s">&quot;1&quot;</span> <span class="na">documentsource=</span><span class="s">&quot;select id,nombre,status from productos&quot;</span>
+<span class="na">type=</span><span class="s">&quot;sql&quot;</span> <span class="na">tokenlink=</span><span class="s">&quot;&quot;</span>
+<span class="na">id=</span><span class="s">&quot;vPedido&quot;</span> <span class="na">rolfield=</span><span class="s">&quot;(select rol from&amp;#xa;productos_registro</span>
+<span class="s">where productoid=productos.id and regstatus=&#39;Pedido&#39;) as rol&quot;</span> <span class="na">scope=</span><span class="s">&quot;task&quot;</span>
+<span class="na">timestampfield=</span><span class="s">&quot;(select fecha from productos_registro</span>
+<span class="s">where productoid=productos.id and regstatus=&#39;Pedido&#39;) as fecha&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/task&gt;</span>
+</pre></div>
+</div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Se le decimos que nos muestre el atributo <strong>cantidad</strong> de la siguiente manera:</p>
+<blockquote>
+<div><div class="admonition seealso">
+<p class="first admonition-title">Ver también</p>
+<div class="last highlight-html"><div class="highlight"><pre><span class="c">&lt;!--</span>
+<span class="c">**********</span>
+<span class="c">| Pedido |</span>
+<span class="c">**********</span>
+<span class="c">--&gt;</span>
+<span class="nt">&lt;task</span> <span class="na">title=</span><span class="s">&quot;&quot;</span> <span class="na">id=</span><span class="s">&quot;Pedido&quot;</span> <span class="na">textualinfo=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;port</span> <span class="na">pattern=</span><span class="s">&quot;none&quot;</span> <span class="na">side=</span><span class="s">&quot;forward&quot;</span> <span class="na">type=</span><span class="s">&quot;split&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;connection</span> <span class="na">query=</span><span class="s">&quot;true&quot;</span> <span class="na">options=</span><span class="s">&quot;&quot;</span> <span class="na">source=</span><span class="s">&quot;final&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/port&gt;</span>
+
+                                <span class="c">&lt;!-- atributos (id,nombre,cantidad,status) --&gt;</span>
+     <span class="nt">&lt;variable</span> <span class="na">config=</span><span class="s">&quot;1&quot;</span> <span class="na">documentsource=</span><span class="s">&quot;select id,nombre,cantidad,status from productos&quot;</span>
+     <span class="na">type=</span><span class="s">&quot;sql&quot;</span> <span class="na">tokenlink=</span><span class="s">&quot;&quot;</span>
+     <span class="na">id=</span><span class="s">&quot;vPedido&quot;</span> <span class="na">rolfield=</span><span class="s">&quot;(select rol from&amp;#xa;productos_registro</span>
+<span class="s">     where productoid=productos.id and regstatus=&#39;Pedido&#39;) as rol&quot;</span> <span class="na">scope=</span><span class="s">&quot;task&quot;</span>
+     <span class="na">timestampfield=</span><span class="s">&quot;(select fecha from productos_registro</span>
+<span class="s">     where productoid=productos.id and regstatus=&#39;Pedido&#39;) as fecha&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/task&gt;</span>
+</pre></div>
+</div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Listo ya podemos utilizar la variable <strong>&#8220;vPedido&#8221;</strong> para consultar, por ejemplo cuantos productos se han pedido. Claro colocanod la varible <strong>vPedido</strong> y luego ejecutando el Script del <a class="reference internal" href="#segundopaso"><em>2° SEGUNDO PASO</em></a>, como en la <a class="reference internal" href="#figura43"><em>Figura 29: Json</em></a></p>
+</li>
+</ol>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div><div class="figure align-center" id="figura43">
+<a class="reference internal image-reference" href="../../_images/json1.png"><img alt="../../_images/json1.png" src="../../_images/json1.png" style="width: 800px; height: 300px;" /></a>
+<p class="caption"><strong>Figura 29: Json</strong></p>
+</div>
+</div></blockquote>
+<p><strong>La siguiente</strong> <a class="reference internal" href="#figura43"><em>Figura 29: Json</em></a> <strong>indica lo siguiente:</strong></p>
+<ul class="last simple">
+<li>Nos mostrara el nombre de las columnas, más el atributo <strong>cantidad</strong>.</li>
+<li>Nos mostrara los datos de cada columna.</li>
+<li>Nos mostrara un buscador <strong>Search</strong>.</li>
+<li>Nos mostrara <strong>Show</strong> que nos indicara
+cuantos datos quiere que se muestren en la tabla.</li>
+</ul>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Aquí esta el ejemplo, damos <strong>Clik</strong> a <a class="reference external" href="json1.html">JSON.(HTML)</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Tabla de Contenidos</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Ver datos usando flujos de trabajo</a><ul>
+<li><a class="reference internal" href="#primera-accion-tarea-vregistrado">1° PRIMERA ACCION (Tarea &#8220;vRegistrado&#8221;)</a><ul>
+<li><a class="reference internal" href="#primer-paso">1° PRIMER PASO</a></li>
+<li><a class="reference internal" href="#segundo-paso">2°  SEGUNDO PASO</a></li>
+<li><a class="reference internal" href="#tercer-paso">3° TERCER PASO</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#combinacion-de-json-con-html-javascript">Combinación de Json con HTML(javascript)</a><ul>
+<li><a class="reference internal" href="#id1">1° PRIMER PASO</a></li>
+<li><a class="reference internal" href="#segundopaso">2° SEGUNDO PASO</a></li>
+<li><a class="reference internal" href="#tercerpaso">3° TERCER PASO</a></li>
+<li><a class="reference internal" href="#cuarto-paso">4° CUARTO PASO</a></li>
+<li><a class="reference internal" href="#quinto-paso">5° QUINTO PASO</a></li>
+<li><a class="reference internal" href="#sexto-paso">6° SEXTO PASO</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="Parte4.html"
+                        title="capítulo anterior">Crear el flujo de trabajo utilizando un archivo XML</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="Parte5.html"
+                        title="próximo capítulo">Ver fichas usuando flujos de trabajo</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/_templates/Contenido6/Parte3.txt"
+           rel="nofollow">Mostrar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un nombre de módulo, clase o función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="Parte5.html" title="Ver fichas usuando flujos de trabajo"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="Parte4.html" title="Crear el flujo de trabajo utilizando un archivo XML"
+             >anterior</a> |</li>
+        <li><a href="../../index.html">PySafet</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Cenditel.
+      Creado con <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

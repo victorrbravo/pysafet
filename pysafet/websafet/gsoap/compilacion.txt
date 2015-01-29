@@ -1,0 +1,14 @@
+compilacion cliente safetclient:
+
+g++ -o safetclient safetclient.cpp /usr/local/src/gsoap-2.7/gsoap/stdsoap2.cpp soapC.cpp soapClient.cpp -I /usr/local/src/gsoap-2.7/gsoap -I /home/antonio/desarrollo/safet/trunk/src/ -I/usr/local/Trolltech/Qt-4.3.3/mkspecs/linux-g++ -I. -I/usr/local/Trolltech/Qt-4.3.3/include/QtCore -I/usr/local/Trolltech/Qt-4.3.3/include/QtCore -I/usr/local/Trolltech/Qt-4.3.3/include/QtXml -I/usr/local/Trolltech/Qt-4.3.3/include/QtXml -I/usr/local/Trolltech/Qt-4.3.3/include/QtSql -I/usr/local/Trolltech/Qt-4.3.3/include/QtSql -I/usr/local/Trolltech/Qt-4.3.3/include -I/usr/local/include -I/usr/local/libdigidocModificada/include/libdigidoc -I/usr/include/graphviz -I/usr/include/libxml2 -L/usr/lib -lsafet
+
+
+
+
+compilacion servicio web safet:
+
+g++ -o safet safetserver.cpp stdsoap2.cpp soapC.cpp soapServer.cpp -I /home/antonio/desarrollo/safet/trunk/src/ -I/usr/local/Trolltech/Qt-4.3.3/mkspecs/linux-g++ -I. -I/usr/local/Trolltech/Qt-4.3.3/include/QtCore -I/usr/local/Trolltech/Qt-4.3.3/include/QtCore -I/usr/local/Trolltech/Qt-4.3.3/include/QtXml -I/usr/local/Trolltech/Qt-4.3.3/include/QtXml -I/usr/local/Trolltech/Qt-4.3.3/include/QtSql -I/usr/local/Trolltech/Qt-4.3.3/include/QtSql -I/usr/local/Trolltech/Qt-4.3.3/include -I/usr/local/include -I/usr/local/libdigidocModificada/include/libdigidoc -I/usr/include/graphviz -I/usr/include/libxml2 -L/usr/lib -lsafet
+
+Otra forma para el servidor (servicio web) safet:
+
+g++ -o safet safetserver.cpp /usr/local/src/gsoap-2.7/gsoap/stdsoap2.cpp soapC.cpp soapServer.cpp -I /usr/local/src/gsoap-2.7/gsoap -I /home/usuario/desarrollo/safet/trunk/src/ -I/usr/local/Trolltech/Qt-4.4.2/mkspecs/linux-g++ -I. -I/usr/local/Trolltech/Qt-4.4.2/include/QtCore -I/usr/local/Trolltech/Qt-4.4.2/include/QtCore -I/usr/local/Trolltech/Qt-4.4.2/include/QtXml -I/usr/local/Trolltech/Qt-4.4.2/include/QtXml -I/usr/local/Trolltech/Qt-4.4.2/include/QtSql -I/usr/local/Trolltech/Qt-4.4.2/include/QtSql -I/usr/local/Trolltech/Qt-4.4.2/include -I/usr/local/include -I/usr/local/libdigidoc/include/libdigidoc/ -I/usr/include/graphviz -I/usr/include/libxml2 -L/home/usuario/desarrollo/safet/trunk/src/ -lsafet -L/usr/local/libdigidoc/lib/ -L/usr/local/Trolltech/Qt-4.4.2/lib -L/usr/local/lib -ldigidoc -lxml2 -lQtSql -L/usr/local/Trolltech/Qt-4.4.2/lib -lxslt  -lQtXml  -lQtCore

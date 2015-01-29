@@ -1,0 +1,44 @@
+Source: libsafet
+Priority: extra
+Maintainer: Victor Bravo Bravo <victorrbravo@gmail.com>
+Build-Depends: debhelper (>= 5)
+Standards-Version: 3.8.0
+Section: libs
+
+Package: libsafet-dev
+Section: libdevel
+Priority: optional
+Architecture: any
+Depends: libsafet (= ${Source-Version}), libgraphviz-dev, libtar-dev
+Description: Biblioteca Libsafet parte del proyecto SAFET (desarrollo)
+ Gestion de flujos de trabajo, firma electronica y estampillado de tiempo 
+ (archivos de desarrollo). La biblioteca Libsafet es parte del proyecto SAFET
+ e implementa un conjunto de funcionalidades para gestion de flujos de 
+ trabajos de acuerdo al modelo YAWL y firmas electronicas y estampillado de
+ tiempo a traves de la biblioteca libdigidoc.
+ .
+ http://seguridad.cenditel.gob.ve/safet
+
+Package: libsafet
+Section: libs
+Priority: optional
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libtar, libqt4-sql-psql (>= 4.4.3), libqt4-sql-sqlite (>= 4.4.3)
+Description: Biblioteca Libsafet parte del proyecto SAFET
+ Gestion de flujos de trabajo, firma electronica y estampillado de tiempo.
+ La biblioteca libsafet es parte del proyecto SAFET e implementa un conjunto de
+ funcionalidades para gestion de flujos de trabajos de acuerdo al modelo YAWL 
+ y firmas electronicas y estampillado de tiempo a traves de la biblioteca 
+ libdigidoc.
+
+Package: libsafet-plugins
+Section: libs
+Priority: optional
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libsafet
+Description: Plugins de la libreria Libsafet
+ Conjunto de plugins utilitarios para la libreria Libsafet.
+ Se incluye un plugin para generar graficos a traves de la libreria graphviz,
+ un plugin para exportar las salidas en formato LaTeX
+
+

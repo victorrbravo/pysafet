@@ -1,0 +1,36 @@
+This package was debianized by Ryan Kavanagh <rak@debian.org> on
+Thur, 22 Jun 2014 20:17:00 -0500.
+
+It was downloaded from http://code.google.com/p/python-poppler-qt4/
+
+Upstream Author: 
+
+    Wilbert Berendsen <wbsoft@xs4all.nl>
+
+Copyright: 
+
+    Copyright (C) 2009-2010 Wilbert Berendsen <wbsoft@xs4all.nl>
+
+License:
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with this library; if not, write to the Free Software Foundation,
+    Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+
+On Debian systems, the complete text of the GNU Lesser General Public License
+version 2.1 can be found in `/usr/share/common-licenses/LGPL-2.1'.
+
+The Debian packaging is Copyright (C) 2011–2013 Ryan Kavanagh <rak@debian.org>
+and is licensed under the GPL license version 2. On Debian systems, the complete
+text of the GNU General Public License version 2 can be found in
+`/usr/share/common-licenses/GPL-2'.

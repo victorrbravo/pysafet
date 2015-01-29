@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+  <title>SAFET: Operaci&oacute;n Generar Gr&aacute;fico Para Clave</title>
+  <meta name="GENERATOR" content="Quanta Plus">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h3>12.4.4.- operacion:Generar_gráfico_para_clave:</h3><br>
+
+<p>
+<div align="justify">Esta operaci&oacute;n permite visualizar el flujo de trabajo, donde indica, en que parte del flujo de trabajo (estado) se encuentra el documento con un determinada n&uacute;mero de identificaci&oacute;n (id). Para realizar esta operaci&oacute;n se requiere hacer click sobre la operaci&oacute;n <code>Generar_gr&aacute;fico_para_clave</code> del men&uacute; inteligente, en el &aacute;rea de edici&oacute;n debe aparecer la linea de texto <code>operacion:Generar_gr&aacute;fico_para_clave</code>, (ver figura S3.2.4-1) y aparte debe aparecer el men&uacute; inteligente con los campos relacionados con esta operaci&oacute;n (ver figura S3.2.4-2)
+</div>
+</p><br>
+<br>
+<p align="center"><IMG src="images/operacion-generar-grafico-para-clave.png" width="700" height="196" border="0"></p>
+<div align="center">Figura S3.2.4-1. &Aacute;rea cuadro de edici&oacute;n, selecci&oacute;n de la <code>operacion:Generar_gr&aacute;fico_para_clave</code></div><br>
+<br>
+<p align="center"><IMG src="images/operacion-generar-grafico-para-clave-menu.png" width="607" height="324" border="0"></p>
+<div align="center">Figura S3.2.4-2. Men&uacute; inteligente, campos de la operaci&oacute;n <code>Generar_gr&aacute;fico_para_clave</code></div><br>
+<br>
+<p>
+<div align="justify">se requiere montar el documento de flujo de trabajo (este documento debe estar almacenado en el directorio <code>/[home/pbuitrago]/.safet/flowfiles</code> y agregado en el archivo <code>safet.conf</code> en la secci&oacute;n <code>[Widgets]</code>), para la misma se debe hacer click sobre el campo <code>Cargar_archivo_flujo*</code> del men&uacute; inteligente, debe aparecer en el cuadro de edici&oacute;n la linea de texto <code>Cargar_archivo_flujo:</code> junto con un bot&oacute;n de selecci&oacute;n donde se debe marcar el documento de flujo de trabajo a visualizar. (ver figura S3.2.4-3)
+</div>
+</p><br>
+<br>
+<p align="center"><IMG src="images/operacion-generar-grafico-clave-cargar-xml.png" width="700" height="223" border="0"></p>
+<div align="center">Figura S3.2.4-3. Cargar el documento de flujo de trabajo</div><br>
+<br>
+<p>
+<div align="justify">Luego se procede a seleccionar el n&uacute;mero de identificaci&oacute;n (id) que vamos a consultar su ubicaci&oacute;n en el flujo de trabajo (estado), para la misma se hace click el campo <oce>clave*:</oce> del men&uacute; inteligente debe aparecer la linea de texto <code>Clave:</code> junto que un bot&oacute;n de selecci&oacute;n donde debe indicar el n&uacute;mero de identificaci&oacute;n (id) del ticket a consultar. (Ver figura S3.2.4-4)
+</div>
+</p><br>
+<br>
+<p align="center"><IMG src="images/operacion-generar-grafico-clave-id.png" width="700" height="483" border="0"></p>
+<div align="center">Figura S3.2.4-4. Seleccionar el n&uacute;mero de identificaci&oacute;n del ticket consultar</div><br>
+<br>
+<p>
+<div align="left">luego se hace click en el botón enviar, si no presento problema, se muestra en la parte inferior izquierda<br>
+del cuadro de dialogo el mensaje:<br>
+Consulta fue exitosa....ok!<br>
+Ver gr&aacute;fico de flujo de trabajo<br>
+(ver figura S3.2.4-5)<br>
+</div>
+</p><br>
+<br>
+<p align="center"><IMG src="images/resultado-generar-grafico.png" width="654" height="227" border="0"></p>
+<div align="center">Figura S3.2.4-5. Resultado de Generar el gr&aacute;fico para clave</div><br>
+<br>
+<p>
+<div align="justify">Este procedimiento genera el flujo de trabajo donde muestra la ubicaci&oacute;n (estado) del ticket dentro del flujo de trabajo, al colocar el puntero sobre el estado que esta coloreado, aparece un cuadro de dialogo que indica: “el ticket se encuentra aquí” (ver figura S3.2.4-6) el color del flujo de trabajo, se puede cambiar configurado en el archivo <code>safet.conf</code> o en la secci&oacute;n de configuraci&oacute;n del sistema.</div>
+</p><br>
+<br>
+<p align="center"><IMG src="images/operacion-generar-grafico-clave-diagrama.png" width="700" height="240" border="0"></p>
+<div align="center">Figura S3.2.4-6. flujo de trabajo por clave</div><br>
+<br>
+
+</body>
+</html>

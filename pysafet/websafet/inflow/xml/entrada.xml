@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<commands>
+<agregarusuario>
+	<fields>
+		<field type="string" mandatory="yes">
+			nombres
+		</field>
+		<field type="string" mandatory="yes" validation="reg:\w{2,}(\s+\w{2,})?">apellidos</field>
+                <field type="filename" mandatory="no">foto</field>
+		<field type="string" mandatory="yes">correo-e</field>
+		<field type="date" mandatory="no">fechanacimiento</field>
+	</fields>
+</agregarusuario>
+<modificarorganizacion>
+<fields>
+<field type="string">
+nombre
+</field>
+</fields>
+</modificarorganizacion>
+<agregarorganizacion>
+<fields>
+<field type="string">
+nombre
+</field>
+</fields>
+</agregarorganizacion>
+<modificarusuario>
+<fields>
+	<field type="string">
+		nombre
+	</field>
+	<field type="string">
+		id
+	</field>
+</fields>
+</modificarusuario>
+</commands>

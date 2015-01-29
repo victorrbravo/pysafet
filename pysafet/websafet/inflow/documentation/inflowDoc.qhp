@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QtHelpProject version="1.0">
+<namespace>ve.gob.cenditel.safet.inflow</namespace>
+<virtualFolder>doc</virtualFolder>
+<filterSection>
+
+	<toc>
+	<section title="Inicio" ref="index.html">
+		<section title="Introdución" ref="./safet-introduccion.html"></section>
+		<section title="SAFET Instalación" ref="./safet-instalacion.html"></section>
+		<section title="SAFET Acceso y Salida" ref="./safet-acceso-salida.html">
+			<section title="SAFET Módulo Agregar Modificar Información" ref="./safet-modulo-agregar-modificar-informacion.html">
+				<section title="SAFET Operación Agregar Ticket" ref="./safet-operacion-agregar-ticket.html"></section>	
+				<section title="SAFET Operación Modificar" ref="./safet-operacion-modificar.html"></section>
+				<section title="SAFET Operación Agregar Wiki" ref="./safet-operacion-agregar-wiki.html"></section>
+				<section title="SAFET Operación Siguiente" ref="./safet-operacion-siguiente.html"></section>
+				<section title="SAFET Operación Borrar" ref="./safet-operacion-borrar.html"></section>
+			</section>			
+			<section title="SAFET Módulo Realizar Consulta" ref="./safet-modulo-realizar-consultas.html">		<section title="SAFET Operación Listar Datos" ref="./safet-operacion-listar-datos.html"></section>
+				<section title="SAFET Operación Listar Datos con Autofiltro" ref="./safet-operacion-listar-datos-con-autofiltro.html"></section>
+				<section title="SAFET Operación Generar Gráfico Coloreado" ref="./safet-operacion-generar-grafico-coloreado.html"></section>
+				<section title="SAFET Operación Generar Gráfico para Cláve" ref="./safet-operacion-generar-grafico-para-clave.html"></section>
+				<section title="SAFET Operación Generar Gráfico con Autofiltro" ref="./safet-operacion-generar-grafico-con-autofiltro.html"></section>
+				<section title="SAFET Operación Generar Gráfico con Filtrorecursivo" ref="./safet-operacion-generar-grafico-con-filtrorecursivo.html"></section>
+			</section>
+			<section title="SAFET Módulo Firmar/Verificar Documentos" ref="./safet-modulo-firmar-verificar-documento.html">
+				<section title="SAFET Operación Firmar Electrónicamente un Archivo" ref="./safet-operacion-firmar-electronicamente-archivo.html"></section>
+				<section title="SAFET Operación Verificar Firmar Electrónica" ref="./safet-operacion-verificar-firmar-electronica.html"></section>
+			</section>
+			<section title="SAFET Módulo Salir" ref="./safet-modulo-salir.html">
+			</section>	
+		</section>
+		<section title="SAFET Intefaz Gráfica" ref="./safet-interfaz-grafica.html">
+			<section title="SAFET Barra de Herramienta" ref="./safet-barra-de-herramienta.html">
+			</section>
+			<section title="SAFET Barra de Pestaña Módulo" ref="./safet-barra-de-pestana-modulo.html">
+			</section>
+			<section title="SAFET Cuadro de Edición" ref="./safet-cuadro-de-edicion.html">
+			</section>
+			<section title="SAFET Menú Inteligente" ref="./safet-menu-inteligente.html">
+			</section>
+		</section>
+		<section title="SAFET Archivo de Configuración (safet.conf)" ref="./safet-archivo-de-configuracion.html">
+		</section>
+		<section title="SAFET Documentación" ref="./safet-documentacion.html">
+			<section title="Firma Electónica" ref="./safet-documentacion-firma-electronica.html">
+			</section>
+			<section title="Verificación de la Firma Electronica" ref="./safet-documentacion-verificar-firma-electronica.html">
+			</section>
+			<section title="Estampillado de Tiempo" ref="./safet-documentacion-estampillado-de-tiempo.html">
+			</section>
+			<section title="Vericación del Estampillado de Tiempo" ref="./safet-documentacion-verificacion-estampillado-de-tiempo.html">
+			</section>
+			<section title="Certificado Digital" ref="./safet-documentacion-certificado-digital.html">
+			</section>
+			<section title="Flujo de Trabajo" ref="./safet-documentacion-flujo-de-trabajo.html">
+			</section>
+		</section>
+		<section title="SAFET Glosario de termino" ref="./safet-glosario-de-termino.html">
+		</section>
+        </section>
+        </toc>
+        <keywords>
+<!--	    	<keyword name="Display" ref="./index.html"/>  -->
+<!--            <keyword name="Rich text" ref="./index.html"/>
+            <keyword name="Plain text" ref="./index.html"/>
+            <keyword name="Find" ref="./findfile.html"/>
+            <keyword name="File menu" ref="./findfile.html"/>
+            <keyword name="File name" ref="./filedialog.html"/>
+            <keyword name="File dialog" ref="./filedialog.html"/>
+            <keyword name="File globbing" ref="./wildcardmatching.html"/>
+            <keyword name="Wildcard matching" ref="./wildcardmatching.html"/>
+            <keyword name="Wildcard syntax" ref="./wildcardmatching.html"/>
+            <keyword name="Browse" ref="./browse.html"/>
+            <keyword name="Directory" ref="./browse.html"/>
+            <keyword name="Open" ref="./openfile.html"/>
+            <keyword name="Select" ref="./openfile.html"/> -->
+	    <keyword name="SAFET" ref="./safet.html"/>
+	    <keyword name="Flujo de trabajo" ref="./findfile.html"/>
+	    <keyword name="Firma Electronica" ref="./openfile.html"/>
+	    <keyword name="Inflow" ref="./index.html"/>
+	    <keyword name="Instalation" ref="./safet-instalacion.html"/>
+            </keywords>
+        <files>
+            <file>browse.html</file>
+	    <file>safet-instalacion.html</file>
+	    <file>safet-introduccion.html</file>
+	    <file>safet-acceso-salida.html</file>
+	    <file>safet-modulo-agregar-modificar-informacion.html</file>
+	    <file>safet-operacion-agregar-ticket.html</file>
+	    <file>safet-operacion-modificar.html</file>
+	    <file>safet-operacion-agregar-wiki.html</file>
+	    <file>safet-operacion-siguiente.html</file>
+	    <file>safet-operacion-borrar.html</file>
+	    <file>safet-modulo-realizar-consultas.html</file>
+	    <file>safet-operacion-listar-datos.html</file>
+	    <file>safet-operacion-listar-datos-con-autofiltro.html</file>
+	    <file>safet-operacion-generar-grafico-coloreado.html</file>
+	    <file>safet-operacion-generar-grafico-para-clave.html</file>
+	    <file>safet-operacion-generar-grafico-con-autofiltro.html</file>
+	    <file>safet-operacion-generar-grafico-con-filtrorecursivo.html</file>
+	    <file>safet-modulo-firmar-verificar-documento.html</file>
+	    <file>safet-operacion-firmar-electronicamente-archivo.html</file>
+	    <file>safet-operacion-verificar-firmar-electronica.html</file>
+	    <file>safet-interfaz-grafica.html</file>
+	    <file>safet-modulo-salir.html</file>
+	    <file>safet-barra-de-herramienta.html</file>
+	    <file>safet-barra-de-pestana-modulo.html</file>
+	    <file>safet-cuadro-de-edicion.html</file>
+	    <file>safet-menu-inteligente.html</file>
+	    <file>safet-archivo-de-configuracion.html</file>
+	    <file>safet-documentacion.html</file>
+	    <file>safet-glosario-de-termino.html</file>
+	    <file>safet-documentacion-firma-electronica.html</file>
+	    <file>safet-documentacion-verificar-firma-electronica.html</file>
+	    <file>safet-documentacion-estampillado-de-tiempo.html</file>
+	    <file>safet-documentacion-verificacion-estampillado-de-tiempo.html</file>
+	    <file>safet-documentacion-certificado-digital.html</file>
+	    <file>safet-documentacion-flujo-de-trabajo.html</file>
+            <file>filedialog.html</file>
+            <file>findfile.html</file>
+            <file>index.html</file>
+            <file>intro.html</file>
+            <file>openfile.html</file>
+	    <file>safet.html</file>
+	    <file>acciones.html</file>
+	    <file>agregarInformacionTrac.html</file>
+	    <file>consultas.html</file>
+	    <file>firmaDocumento.html</file>
+	    <file>yawl.html</file>
+	    <file>interfazGrafica.html</file>
+            <file>wildcardmatching.html</file>
+            <file>images/browse.png</file>
+            <file>images/fadedfilemenu.png</file>
+            <file>images/filedialog.png</file>
+            <file>images/handbook.png</file>
+            <file>images/mainwindow.png</file>
+            <file>images/open.png</file>
+            <file>images/wildcard.png</file>
+	    <file>images/arquitectura-safet.png</file>
+	    <file>images/SAFETInFlow.png</file>
+	    <file>images/error-conexion.png</file>
+	    <file>images/safet-log.png</file>
+	    <file>images/mensajesafet.png</file>
+	    <file>images/operacionesInflow.png</file>
+	    <file>images/moduloAgregar-modificar-informacion.png</file>
+	    <file>images/modulo-agregar-modificar.png</file>
+	    <file>images/moduloAgragar-modificar-informacion2.png</file>
+	    <file>images/moduloAgragar-modificar-informacion3.png</file>
+	    <file>images/moduloAgragar-modificar-informacion5.png</file>
+	    <file>images/moduloAgragar-modificar-informacion5-2.png</file>
+	    <file>images/moduloAgragar-modificar-informacion7.png</file>
+	    <file>images/moduloAgragar-modificar-informacion6.png</file>
+	    <file>images/moduloAgragar-modificar-informacion5-5.png</file>
+	    <file>images/moduloAgragar-modificar-informacion5-6.png</file>
+	    <file>images/moduloAgragar-modificar-informacion7.png</file>
+	    <file>images/moduloAgragar-modificar-informacion8.png</file>
+	    <file>images/moduloAgragar-modificar-informacion9.png</file>
+	    <file>images/moduloAgragar-modificar-informacion10.png</file>
+	    <file>images/moduloAgragar-modificar-informacion9.png</file>
+	    <file>images/moduloAgragar-modificar-informacion12.png</file>
+	    <file>images/moduloAgragar-modificar-informacion13.png</file>
+	    <file>images/moduloAgragar-modificar-informacion14.png</file>
+	    <file>images/moduloAgragar-modificar-informacion15.png</file>
+	    <file>images/moduloAgragar-modificar-informacion16.png</file>
+	    <file>images/moduloAgragar-modificar-informacion17.png</file>
+	    <file>images/moduloAgragar-modificar-informacion18.png</file>
+	    <file>images/botonenviar.png</file>
+	    <file>images/botonEnviar.png</file>
+	    <file>images/db_agregarticket.png</file>
+	    <file>images/operacion_modificar.png</file>
+	    <file>images/modificar1.png</file>
+	    <file>images/operacion-modificar-id.png</file>
+	    <file>images/moduloAgragar-modificar-informacion7.png</file>
+	    <file>images/operacion-modificar-inf.png</file>
+	    <file>images/boton_borrar.png</file>
+	    <file>images/operacion-modificar-borrar-campo.png</file>
+	    <file>images/operacion-modificar-ingresar-campo-modificado.png</file>
+	    <file>images/operacion-agregar-wiki.png</file>
+	    <file>images/operacion-wiki-menu.png</file>
+	    <file>images/operacion-wiki-id.png</file>
+	    <file>images/operacion-wiki-descripcion.png</file>
+	    <file>images/moduloAgragar-modificar-informacion4.png</file>
+	    <file>images/operacion-siguiente.png</file>
+	    <file>images/operacion-siguiente-acciones.png</file>
+	    <file>images/operacion-siguiente-id.png</file>
+	    <file>images/operacion-siguiente-siguienteEstado.png</file>
+	    <file>images/operacion-borrar.png</file>
+	    <file>images/operacion-borrar-menuID.png</file>
+	    <file>images/operacion-borrar-id.png</file>
+	    <file>images/moduloRealizarConsulta.png</file>
+	    <file>images/modulo-consulta-menu.png</file>
+	    <file>images/operacion-listar-datos.png</file>
+	    <file>images/operacion-listar-datos-menu.png</file>
+	    <file>images/operacion-listar-datos-cargar-archivo.png</file>
+	    <file>images/archivoXml.png</file>
+	    <file>images/operacion-listar-datos-variable.png</file>
+	    <file>images/resultado-consulta.png</file>
+	    <file>images/reporte-variable.png</file>
+	    <file>images/operacion-listar-datos-con-autofiltro.png</file>
+	    <file>images/operacion-listar-datos-con-autofiltro-menu.png</file>
+	    <file>images/operacion-listar-datos-con-autofiltro-cargar-archivo.png</file>
+	    <file>images/operacion-listar-datos-seleccionar-autofiltro.png</file>
+	    <file>images/operacion-listar-datos-autofiltro-seleccionar-variable.png</file>
+	    <file>images/reporte-autofiltro-variable.png</file>
+	    <file>images/operacion-generar-grafico-coloreado.png</file>
+	    <file>images/operacion-generar-grafico-coloreado-cargar-archivo.png</file>
+	    <file>images/resultado-generar-grafico.png</file>
+	    <file>images/grafico-coloreado.png</file>
+	    <file>images/graficar-flujo-menu.png</file>
+	    <file>images/operacion-generar-grafico-para-clave.png</file>
+	    <file>images/operacion-generar-grafico-para-clave-menu.png</file>
+	    <file>images/operacion-generar-grafico-clave-cargar-xml.png</file>
+	    <file>images/operacion-generar-grafico-clave-id.png</file>
+	    <file>images/resultado-generar-grafico.png</file>
+	    <file>images/operacion-generar-grafico-clave-diagrama.png</file>
+	    <file>images/operacion-generar-grafico-autofiltro.png</file>
+	    <file>images/operacion-generar-grafico-autofiltro-menu.png</file>
+	    <file>images/operacion-generar-grafico-autofiltro-cargar-xml.png</file>
+	    <file>images/operacion-generar-grafico-autofiltro-seleccionar.png</file>
+	    <file>images/resultado-generar-grafico.png</file>
+	    <file>images/operacion-generar-grafico-autofiltro-diagrama.png</file>
+	    <file>images/operacion-generar-grafico-filtrorecursivo.png</file>
+	    <file>images/operacion-generar-grafico-filtrorecursivo-menu.png</file>
+	    <file>images/boton-buscar.png</file>
+	    <file>images/operacion-generar-grafico-filtrorecursivo-cargar-xml.png</file>
+	    <file>images/operacion-generar-grafico-filtrorecursivo-seleccionar-filtro.png</file>
+	    <file>images/operacion-generar-grafico-filtro_recursivo-esquema.png</file>
+	    <file>images/modulo-firmar-verificar-documento.png</file>
+	    <file>images/operacion-modulo-firmar-verificar-menu.png</file>
+	    <file>images/modulo-salir.png</file>
+	    <file>images/mensaje-salir.png</file>
+	    <file>images/modo-salir.png</file>
+	    <file>images/boton-salir.png</file>
+	    <file>images/ventana-principal-inflow.png</file>
+	    <file>images/ventana-secundaria-inflow.png</file>
+	    <file>images/boton-safet.png</file>
+	    <file>images/boton-enviar.png</file>
+	    <file>images/boton-borrar-todos-flujo.png</file>
+	    <file>images/boton-borrar-todo-grafico.png</file>
+	    <file>images/boton-borrar-todo-texto.png</file>
+	    <file>images/boton-dehacer.png</file>
+	    <file>images/boton-rehacer.png</file>
+	    <file>images/boton-cortar.png</file>
+	    <file>images/boton-copiar.png</file>
+	    <file>images/boton-pegar.png</file>
+	    <file>images/boton-borrar-campo.png</file>
+	    <file>images/pestana-modulo-agregar-modificar-ticket.png</file>
+	    <file>images/petana-modulo-realizar-consultar.png</file>
+	    <file>images/pestana-verificar-firmar.png</file>
+	    <file>images/pestana-reporte.png</file>
+	    <file>images/pestana-mostrar-flujo.png</file>
+	    <file>images/pestana-modulo-configuracion.png</file>
+	    <file>images/pestana-salida-consulta.png</file>
+	    <file>images/firma_electronica.png</file>
+	    <file>images/verificacion_de_la_firma_electronica.png</file>
+	    <file>images/estampado_de_tiempo.png</file>
+	    <file>images/verificacion_de_estampado_de_tiempo.png</file>
+	    <file>images/certificado_digital.png</file>
+	    <file>images/operacion-firmar-electronicamente-archivo.png</file>
+	    <file>images/operacion-firmar-menu-inteligente.png</file>
+	    <file>images/operacion-firmar-seleccionar-documento-firmar.png</file>
+	    <file>images/operacion-firmar-crear-contenedor.png</file>
+	    <file>images/operacion-firmar-ingresar-pin-tarjeta.png</file>
+	    <file>images/resultado-operacion-firma.png</file>
+	    <file>images/operacion-verificar-firma-electronica.png</file>
+	    <file>images/operacion-verificar-firma-menu-inteligente.png</file>
+	    <file>images/operacion-verificar-seleccion-contenedor.png</file>
+            </files>
+	</filterSection>
+</QtHelpProject>

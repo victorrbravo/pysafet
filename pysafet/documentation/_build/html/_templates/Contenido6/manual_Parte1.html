@@ -1,0 +1,349 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Creación de las tablas en base de datos &mdash; PySafet</title>
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="PySafet" href="../../index.html" />
+    <link rel="next" title="Operaciones CRUD+(flujo) utilizando PySafet" href="Parte2.html" />
+    <link rel="prev" title="Clase SafetWorkflow" href="../Contenido5/Clase6.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="Parte2.html" title="Operaciones CRUD+(flujo) utilizando PySafet"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="../Contenido5/Clase6.html" title="Clase SafetWorkflow"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../../index.html">PySafet</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="creacion-de-las-tablas-en-base-de-datos">
+<h1><span class="target" id="index-0"></span>Creación de las tablas en base de datos<a class="headerlink" href="#creacion-de-las-tablas-en-base-de-datos" title="Enlazar permanentemente con este título">¶</a></h1>
+<blockquote>
+<div><p><strong>Primer Paso:</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Se agrega la herramienta plugin del navegador web <strong>Firefox</strong> con el siguiente enlace. <a class="reference external" href="https://addons.mozilla.org/es/firefox/addon/sqlite-manager/">sqlite-manager</a></li>
+</ol>
+</div></blockquote>
+</div></blockquote>
+<blockquote>
+<div><blockquote>
+<div><ol class="arabic">
+<li><p class="first">Aceptamos el botón Permitir.</p>
+</li>
+<li><p class="first">Aceptamos el botón Instalar.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/sqlite_manager.png"><img alt="../../_images/sqlite_manager.png" src="../../_images/sqlite_manager.png" style="width: 1200px; height: 400px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 12:</th><td class="field-body">sqlite-manager.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+<p><strong>Segundo Paso:</strong></p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Abrimos <strong>sqlite-manager</strong> en el navegador web <strong>Firefox</strong>.</p>
+</li>
+<li><p class="first">Buscamos en la barra de herramientas a <strong>sqlite-manager</strong>.</p>
+</li>
+<li><p class="first">Le damos <strong>clik</strong> donde dice <strong>sqlite-manager</strong>.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/buscar.png"><img alt="../../_images/buscar.png" src="../../_images/buscar.png" style="width: 1200px; height: 400px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 13:</th><td class="field-body">Navegador sqlite-manager.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p class="first">Ya tenemos la herramienta <strong>sqlite-manager</strong> abierta para su uso.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/buscar2.png"><img alt="../../_images/buscar2.png" src="../../_images/buscar2.png" style="width: 1200px; height: 400px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 14:</th><td class="field-body">sqlite-manager abierto.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+<p><strong>Tercer Paso:</strong></p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Creamos la base de datos.</p>
+</li>
+<li><p class="first">Pulsamos donde esta la pagina en blanco como aparece en la imagen.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/buscar1.png"><img alt="../../_images/buscar1.png" src="../../_images/buscar1.png" style="width: 1200px; height: 400px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 15:</th><td class="field-body">Opción.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p class="first">Colocamos el nombre a la base de datos con el formato <strong>.db</strong>.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/basedb1.png"><img alt="../../_images/basedb1.png" src="../../_images/basedb1.png" style="width: 1200px; height: 400px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 16:</th><td class="field-body">Nombre de la base de datos.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p class="first">La guardamos en mi carpeta personal <strong>&lt;HOME&gt;.safet/</strong>.</p>
+</li>
+<li><p class="first">Se abrirá automáticamente la base de datos con sus campos, como aparece en la siguiente imagen.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/buscar3.png"><img alt="../../_images/buscar3.png" src="../../_images/buscar3.png" style="width: 1200px; height: 400px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 17:</th><td class="field-body">Base de datos.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+<p><strong>Cuarto Paso:</strong></p>
+<blockquote>
+<div><p>Creación de la tablas <strong>&#8220;productos&#8221;, &#8220;productos_registro&#8221;</strong>.</p>
+<ol class="arabic">
+<li><p class="first">Buscamos en la barra de herramientas donde dice <strong>Table</strong>.</p>
+</li>
+<li><p class="first">Pulsamos en la opción de <strong>Crear Tabla</strong>.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/tabla.png"><img alt="../../_images/tabla.png" src="../../_images/tabla.png" style="width: 1200px; height: 400px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 18:</th><td class="field-body">Opción de tables.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p class="first">Nos aparecerá un formulario vacío sin nombre ni atributos, como en la siguiente imagen.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/tabla1.png"><img alt="../../_images/tabla1.png" src="../../_images/tabla1.png" style="width: 1200px; height: 400px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 19:</th><td class="field-body">Formulario de tablas.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p class="first">Llenáremos el formulario para la tabla <strong>productos</strong>, como aparece en la imagen.</p>
+</li>
+<li><p class="first">Luego le pulsamos al botón <strong>ok</strong>.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/tabla2.png"><img alt="../../_images/tabla2.png" src="../../_images/tabla2.png" style="width: 1200px; height: 400px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 20:</th><td class="field-body">Llenado del formulado de tablas.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p class="first">Nos muestra un mensaje como se muestra en la imagen.</p>
+</li>
+<li><p class="first">Damos clik al botón <strong>ok</strong> para terminar con la creación.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/tabla3.png"><img alt="../../_images/tabla3.png" src="../../_images/tabla3.png" style="width: 1200px; height: 400px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 21:</th><td class="field-body">Mensaje.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p><strong>Nota</strong>:</p>
+<div class="highlight-python"><div class="highlight"><pre>Seguimos los pasos anteriores para la creación de las demás tablas a utilizar.
+</pre></div>
+</div>
+</li>
+<li><p class="first">Llenamos el formulario para la tabla <strong>productos_registro</strong>.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/tabla5.png"><img alt="../../_images/tabla5.png" src="../../_images/tabla5.png" style="width: 1200px; height: 400px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 22:</th><td class="field-body">Llenado del formulario de tablas.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+<p><strong>Quinto Paso:</strong></p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Visualizamos la tabla <strong>productos</strong> creada.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/producto.png"><img alt="../../_images/producto.png" src="../../_images/producto.png" style="width: 1200px; height: 400px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 23:</th><td class="field-body">Tabla productos.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p class="first">Visualizamos la tabla <strong>productos_registro</strong> creada.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/producto1.png"><img alt="../../_images/producto1.png" src="../../_images/producto1.png" style="width: 1200px; height: 400px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 24:</th><td class="field-body">Tabla productos_registro.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+<p><strong>¿Para qué se crean las tablas &#8220;productos&#8221; y &#8220;productos_registro&#8221;?</strong></p>
+<ul class="simple">
+<li>La tabla &#8220;productos&#8221; respresenta la lista de fichas <strong>(token)</strong> en los flujos de trabajo (Wonkflow).</li>
+<li>La tabla &#8220;productos_registros&#8221; representan la lasta de eventos de cambio de estado (status) en los flujos de trabajo.</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">NOTA</span>
+</pre></div>
+</div>
+<p>Si ha seguido el tutorial correctamente obtendra los archivos que puede bajar en el enlace que se encuentran abajo</p>
+<blockquote>
+<div><p><strong>DOWNLOAD:</strong></p>
+<img alt="../../_images/download1.png" src="../../_images/download1.png" />
+<p><a class="reference download internal" href="../../_downloads/mydb.db"><tt class="xref download docutils literal"><span class="pre">mydb.db</span></tt></a></p>
+</div></blockquote>
+</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="../Contenido5/Clase6.html"
+                        title="capítulo anterior">Clase SafetWorkflow</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="Parte2.html"
+                        title="próximo capítulo">Operaciones CRUD+(flujo) utilizando PySafet</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/_templates/Contenido6/manual_Parte1.txt"
+           rel="nofollow">Mostrar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un nombre de módulo, clase o función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="Parte2.html" title="Operaciones CRUD+(flujo) utilizando PySafet"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="../Contenido5/Clase6.html" title="Clase SafetWorkflow"
+             >anterior</a> |</li>
+        <li><a href="../../index.html">PySafet</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Cenditel.
+      Creado con <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

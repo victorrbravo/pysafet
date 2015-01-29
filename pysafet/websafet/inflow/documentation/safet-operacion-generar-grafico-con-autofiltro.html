@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+  <title>SAFET: Operaci&oacute;n Generar Gr&aacute;fico Con Autofiltro</title>
+  <meta name="GENERATOR" content="Quanta Plus">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h3>12.4.5.- operacion:Generar_gráfico_con_autofiltro:</h3><br>
+
+<p>
+<div align="justify">Esta operaciÇ&oacute;n permite visualizar el flujo de trabajo de acuerdo a una clasificaci&oacute;n autom&aacute;tica de valores desde un determinado campo, construyendo autom&aacute;ticamente nuevos estados que contiene informaci&oacute;n relacionado con el flujo de trabajo en general. Para realizar esta operaci&oacute;n se requiere hacer click sobre la operaci&oacute;n <code>Generar_gr&aacute;fico_con_autofiltro</code> del men&uacute; inteligente, y en el &aacute;rea de edici&oacute;n debe aparecer la linea de texto <code>operacion:Generar_gr&aacute;fico_con_autofiltro</code>, (ver S3.2.5-1) aparte debe aparecer en men&uacute; inteligente los campos relacionadas con esta operaci&oacute;n (ver figura S3.2.4-2)
+</div>
+</p><br>
+<br>
+<p align="center"><IMG src="images/operacion-generar-grafico-autofiltro.png" width="700" height="405" border="0"></p>
+<div align="center">Figura S3.2.4-1. &Aacute;rea cuadro de edici&oacute;n, selecci&oacute;n de la <code>operacion:Generar_gr&aacute;fico_autofiltro</code></div><br>
+<br>
+<p align="center"><IMG src="images/operacion-generar-grafico-autofiltro-menu.png" width="611" height="348" border="0"></p>
+<div align="center">Figura S3.2.5-2. Men&uacute; inteligente, campos de la operaci&oacute;n <code>Generar_gr&aacute;fico_autofiltro</code></div><br>
+<br>
+
+<p>
+<div align="justify">Se requiere montar el documento de flujo (debe estar almacenado en el directorio [home/pbuitrago]/.safet/flowfiles y agregado en el archivo safet.conf en la sección [Widgets]), para la misma se debe hacer click sobre el campo cargar_archivo_flujo* del menú inteligente y debe aparecer en el cuadro de edición la linea de texto Cargar_archivo_flujo: junto con un botón de selección donde se debe marcar el documento de flujo de trabajo a consultar. (ver figura S3.2.5-3)
+</div>
+</p><br>
+<br>
+
+<p align="center"><IMG src="images/operacion-generar-grafico-autofiltro-cargar-xml.png" width="700" height="402" border="0"></p>
+<div align="center">Figura S3.2.5-3. Cargar el documento de flujo de trabajo</div><br>
+<br>
+<p>
+<div align="justify">Luego se procede a seleccionar el autofiltro que se va a utilizar. Estos autofiltro est&aacute;n definidos en documento de flujo de trabajo, Para seleccionar el autofiltro se hace click sobre el campo <code>Autofiltro*:</code> del men&uacute; inteligente y debe aparecer la linea de texto <code>Autofiltro:</code> junto que un bot&oacute;n de selecci&oacute;n donde debe indicar el autofiltro a utilizar. (Ver figura S3.2.5-4). Si dentro del documento de flujo de trabajo no esta definido ning&uacute;n autofiltro (etiqueta <autofilter..></autofilter..> ) en el bot&oacute;n de selección no aparecer&aacute; ninguna opci&oacute;n para seleccionar.
+</div>
+</p><br>
+<br>
+<p align="center"><IMG src="images/operacion-generar-grafico-autofiltro-seleccionar.png" width="700" height="408" border="0"></p>
+<div align="center">Figura S3.2.5-4. Selección del autofiltro</div><br>
+<br>
+
+<p>
+<div align="left">Luego se hace click en el bot&oacute;n enviar, si no presento problema, se muestra en la parte inferior izquierda del cuadro de dialogo el mensaje:<br>
+<br>
+Consulta fue exitosa....ok!<br>
+Ver gráfico de flujo de trabajo<br>
+<br>
+(ver figura S3.2.5-5)
+</div>
+</p><br>
+<br>
+<p align="center"><IMG src="images/resultado-generar-grafico.png" width="654" height="227" border="0"></p>
+<div align="center">Figura S3.2.5-5. Resultado de Generar el gr&aacute;fico con Autofiltro</div><br>
+<br>
+
+<p>
+<div align="justify">Este procedimiento genera el flujo de trabajo con autofiltro. A cada estado que conforma el flujo de trabajo tiene un mismo color pero con diferente intensidad de acuerdo a la cantidad de ticket que se encuentra en cada uno de los estados seg&uacute;n el autofiltro, el estado que tiene el calor mas intenso contiene mas ticket, al colocar el puntero sobre cualquiera de los estado, aparece un cuadro de dialogo que indica: la cantidad de ticket en ese estado, la cantidad de ticket en todo el flujo de trabajo y el porcentajes de ticket en ese estado (ver figura S3.2.5-6) el color del flujo de trabajo, se puede cambiar configurado en el archivo <code>safet.conf</code> o en la secci&oacute;n de configuraci&oacute;n del sistema.
+</div>
+</p><br>
+<br>
+<p align="center"><IMG src="images/operacion-generar-grafico-autofiltro-diagrama.png" width="700" height="236" border="0"></p>
+<div align="center">Figura S3.2.5-6 Flujo de trabajo con autofiltro</div><br>
+</body>
+</html>

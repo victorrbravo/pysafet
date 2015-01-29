@@ -1,0 +1,2 @@
+src/*.h usr/include/libsafet
+src/libsafet.a /usr/lib

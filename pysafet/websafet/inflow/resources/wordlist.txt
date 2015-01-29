@@ -1,0 +1,12 @@
+agregarorganizacion
+agregarusuario
+buscarusuario
+buscarorganizacion
+eliminarusuario
+eliminarorganizacion
+listarusuario
+listarorganizacion
+modificarusuario
+modificarorganizacion
+
+

@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+  <title>SAFET: Operaci&oacute;n Generar Gr&aacute;fico Con Filtrorecurivo</title>
+  <meta name="GENERATOR" content="Quanta Plus">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h3>12.4.6.- operacion:Generar_gr&aacute;fico_con_filtrorecursivo:</h3><br>
+
+<p>
+<div align="justify">Esta operaci&oacute;n permite visualizar el flujo de trabajo en funci&oacute;n de relaciones recursivas entre los registros de la base de datos, por ejemplo: en caso de división por sub-tareas. Para realizar esta operación se requiere hacer click sobre la operaci6&oacute;n <code>Generar_gr&aacute;fico_con_filtrorecursivo</code> del men&uacute; inteligente, y en el &aacute;rea de edici&oacute;n debe aparecer la linea de texto <code>operacion:Generar_gr&aacute;fico_filtrorecursivo</code>, (ver figura S3.2.6-1), aparte debe aparecer el men&uacute; inteligente los campos relacionadas con esta operaci&oacute;n (ver figura S3.2.6-2)
+</div>
+</p><br>
+<p align="center"><IMG src="images/operacion-generar-grafico-filtrorecursivo.png" width="700" height="193" border="0"></p>
+<div align="center">Figura S3.2.6-1. &Aacute;rea cuadro de edici&oacute;n, selecci&oacute;n de la operaci&oacute; <code>Generar_gráfico_con_filtrorecursivo</code></div><br>
+<br>
+<p align="center"><IMG src="images/operacion-generar-grafico-filtrorecursivo-menu.png" width="612" height="343" border="0"></p>
+<div align="center">Figura S3.2.6-2. Men&uacute; inteligente, campos de la operaci&oacute;n <code>Generar_gr&aacute;fico_con_filtrorecursivo</code></div><br>
+<br>
+
+<p>
+<div align="justify">Se requiere montar el documento de flujo de trabajo que (documento que debe estar almacenado en el directorio <code>/[home/pbuitrago]/.safet/flowfiles</code> y agregado en el archivo <code>safet.conf</code> en la secci&oacute;n <code>[Widgets]</code>), para la misma se debe hacer click sobre el campo <code>cargar_archivo_flujo*</code> del men6ua
+ inteligente y debe aparecer en el cuadro de edici&oacute;n la linea de texto <code>Cargar_archivo_flujo:</code> junto con un bot&oacute;n de selecci&oacute;n donde se debe marcar el documento de flujo de trabajo a consultar. Si el documento de flujo de trabajo no esta agregado en el archivo <code>safet.conf</code> lo puedes seleccionar haciendo click al bot&oacute;n <IMG src="images/boton-buscar.png" width="27" height="22" align="texttop" border="0"></div><br>
+</p><br>
+<p><div align="justify">Selecciona el archivo documento de flujo de trabajo que tenga definido los <code>filtros_recursivos</code>. (ver figura S3.2.6-3)</div></p><br>
+<br>
+
+<p align="center"><IMG src="images/operacion-generar-grafico-filtrorecursivo-cargar-xml.png" width="700" height="353" border="0"></p>
+<div align="center">Figura S3.2.6-3. Selecci&oacute;n del documento de flujo de trabajo con <code>filtro_recursivo</code></div><br>
+<br>
+
+<p>
+<div align="justify">Luego se debe seleccionar cual de los <code>filtros_recursivo</code> definidos se va a utilizar. Estos <code>filtro_recursivo</code> est&aacute;n definidos en el documento de flujo de trabajo, Para seleccionar el <code>filtro_recursivo</code> se hace click sobre el campo <code>Filtro_recursivo*</code>: del men&uacute; inteligente y debe aparecer la linea de texto <code>filtro_recursivo:</code> junto que un bot&oacute;n de selecci&oacute;n donde debe indicar el <code>filtro_recursivo</code> a consultar. (Ver figura S3.2.6-4) Si dentro del documento de flujo de trabajo no esta definido ning&uacute;n <code>filtro_recursivo</code> (etiqueta <recursivefilter..></recursivefilter> y que indican las sub-tares que se debe realizar para cumplir una tarea) en el bot&oacute;n de selección no aparecer&aacute; ninguna opci&oacute;n para seleccionar.
+</div>
+</p><br>
+<br>
+
+<p align="center"><IMG src="images/operacion-generar-grafico-filtrorecursivo-seleccionar-filtro.png" width="700" height="204" border="0"></p>
+<div align="center">Figura S3.2.6-4 selecci&oacute;n del <code>filtro_recursivo</code></div><br>
+<br>
+
+<p><div align="left">luego se hace click en el botón enviar, si no presento problema, se muestra en la parte inferior izquierda del cuadro de dialogo el mensaje:<br>
+<br>
+
+Consulta fue exitosa....ok!<br>
+Ver gráfico de flujo de trabajo<br>
+(ver figura S3.2.6-5)<br>
+</div></p><br>
+<br>
+<p align="center"><IMG src="images/resultado-generar-grafico.png" width="654" height="227" border="0"></p>
+<div align="center">Figura S3.2.6-5. Resultado de Generar el gr&aacute;fico con Filtrorecursivo</div><br>
+<br>
+
+<p>
+<div align="justify">Este procedimiento genera el flujo de trabajo con <code>filtro_recursivo</code>. A cada estado que conforma el flujo de trabajo tiene un mismo color pero con diferente intensidad de acuerdo a la cantidad de ticket que se encuentra en cada uno de los estados según el <code>filtro_recursivo</code>, el estado que tiene el calor mas intenso contiene mas ticket, al colocar el puntero sobre cualquiera de los estado, aparece un cuadro de dialogo que indica: la cantidad de ticket en ese estado, la cantidad de
+ticket en todo el flujo de trabajo y el porcentajes de ticket en ese estado (ver figura S3.2.6-6) el color del flujo de trabajo, se puede cambiar configurado en el archivo <code>safet.conf</code> o en la secci&oacute;n de configuraci&oacute;n del sistema.
+</div>
+</p><br>
+<br>
+<p align="center"><IMG src="images/operacion-generar-grafico-filtro_recursivo-esquema.png" width="700" height="277" border="0"></p>
+<div align="center">Figura S3.2.6-6. Flujo de trabajo con <code>filtro_recursivo</code></div><br>
+<br>
+
+</body>
+</html>

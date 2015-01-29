@@ -1,0 +1,5 @@
+sip:Depends=sip-api-8.1
+python:Versions=2.7
+python:Depends=python (>= 2.7), python (<< 2.8)
+shlibs:Depends=libc6 (>= 2.2.5), libgcc1 (>= 1:4.1.1), libqt4-network (>= 4:4.5.3), libqt4-sql (>= 4:4.5.3), libqt4-svg (>= 4:4.5.3), libqtcore4 (>= 4:4.8.0), libsafet, libstdc++6 (>= 4.1.1), libtar0
+misc:Depends=

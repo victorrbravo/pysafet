@@ -1,0 +1,118 @@
+TARGET = safet
+TEMPLATE = lib
+INCLUDEPATH = /usr/include \ # /usr/include/digidocpp \
+    /usr/include/libdigidoc \
+    /usr/include/libxml2 \
+    ../gsoap \
+    ../inflow
+DEFINES += QT_NO_DEBUG \
+    SAFET_NO_DBXML
+QT += core \
+    sql \
+    network \
+    webkit \
+    gui \ 
+    svg \ 
+    xml
+
+# QT -= gui
+HEADERS += SafetSQLParser.h \
+    SafetParser.h \
+    SafetNode.h \
+    SafetToken.h \
+    SafetConnection.h \
+    SafetPort.h \
+    SafetCondition.h \
+    SafetTask.h \
+    SafetVariable.h \
+    SafetDocument.h \
+    SafetWorkflow.h \
+    SafetConfiguration.h \
+    SafetXmlObject.h \
+    SafetYAWL.h \
+    SafetXmlRepository.h \
+    SafetConfFile.h \
+    SafetLog.h \
+    ../gsoap/soapH.h \
+    SafetDirXmlRepository.h \
+    SafetInterfaces.h \
+    SafetStats.h \
+    SafetPlugin.h \
+#    SslCertificate.h \
+    SafetAutofilter.h \
+    libdotar.h \
+    SafetRecursiveFilter.h \
+    safetpkcs12.h \
+    SafetCipherFile.h  \
+    SafetParameter.h \
+    SafetBinaryRepo.h
+
+SOURCES += SafetSQLParser.cpp \
+    SafetParser.cpp \
+    SafetNode.cpp \
+    SafetToken.cpp \
+    SafetConnection.cpp \
+    SafetPort.cpp \
+    SafetCondition.cpp \
+    SafetTask.cpp \
+    SafetYAWL.cpp \
+    SafetVariable.cpp \
+    SafetDocument.cpp \
+    SafetWorkflow.cpp \
+    SafetConfiguration.cpp \
+    SafetXmlObject.cpp \
+    SafetXmlRepository.cpp \
+    SafetConfFile.cpp \
+    SafetLog.cpp \
+    ../gsoap/stdsoap2.cpp \
+    ../gsoap/soapC.cpp \
+    ../gsoap/soapClient.cpp \
+    SafetDirXmlRepository.cpp \
+    SafetStats.cpp \
+    SafetPlugin.cpp \
+#    SslCertificate.cpp \
+    SafetAutofilter.cpp \
+    libdotar.c \
+    SafetRecursiveFilter.cpp \
+    safetpkcs12.cpp \
+    SafetCipherFile.cpp  \
+    SafetParameter.cpp \ 
+    SafetBinaryRepo.cpp
+LIBS += -L/usr/local/lib \
+    -ldigidoc \
+    -ltar
+ 
+
+# -ldigidocpp
+CONFIG += qt \
+    ordered \
+    thread \
+    warn_off \
+    debug_and_release \
+    staticlib
+contains( DEFINES, SAFET_DBXML ) { 
+    # DEFINES contains 'SAFET_DBXML'
+    message( "Configuring for dbxml..." )
+    HEADERS += SafetDbXmlRepository.h
+    SOURCES += SafetDbXmlRepository.cpp
+    INCLUDEPATH += /usr/local/dbxml/install/include \
+        /usr/local/dbxml/install/include/dbxml
+    LIBS += -L/usr/local/dbxml/install/lib \
+	-L/home/vbravo/firmaxml/libfirmaxml/trunk \
+	-lfirmaxml \
+        -ldbxml \
+        -ldb \
+        -ldb_cxx \
+        -lxqilla
+}
+
+#system(svnversion SafetYAWL.h 0.2.0.0)
+# configuration.path = //.safet
+# configuration.files = safet.conf
+# INSTALLS += configuration
+headers.path = /usr/include/libsafet
+headers.files = *.h
+INSTALLS += headers
+target.path = /usr/lib
+target.files = *.a
+INSTALLS += target

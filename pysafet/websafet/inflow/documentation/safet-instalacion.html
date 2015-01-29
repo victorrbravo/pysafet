@@ -1,0 +1,412 @@
+<html>
+    <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf8">
+	<title>SAFET: Instalaci&&oacute;n</title>
+    </head>
+    <body style="font-size:12pt;font-family:helvetica">
+
+	<p><center><h2>SAFET: InFlow</h2></center></p>
+
+<body>
+<h1>7.- Instalación de SAFET V0.1 Alpha</h1>
+<h2>7.1.- Pre-requistos:</h2>
+<ul>
+<LI>
+Conocimiento básico de instalación de paquetes,  y actividades mínimas de administración.
+</LI>
+</ul>
+
+<h2>7.2.-Sistema Operativo SO GNU/Linux Debian Lenny 5.0.3</h2>
+<h3>7.2.1.- Paquetes necesarios: </h3>
+<p>
+<ol>
+<LI>
+Librer&iacute;a <code>"digidoc"</code> ( Para bajar estos archivos necesita lo siguiente)<br>	
+	<code>
+	$ su -<br>
+	</code> 
+	(Escriba contrase&ntilde;a del administrador)<br>
+	<code>
+	# echo deb http://ftp.id.eesti.ee/pub/id/debian/ lenny main | sudo add of=/etc/apt/sources.list.d/idkaart.list <br>
+	# wget http://ftp.id.eesti.ee/pub/id/apt-esteid-test.gpg.asc -O - | sudo apt-key add -<br> 
+	# aptitude update<br>
+	# aptitude install libdigidocpp-dev libdigidoc-dev<br>
+	</code>
+</LI><br>
+
+<LI> 
+Librer&iacute;a <code>Trolltech Qt >= 4.4 (libqt4-dev)</code>
+</LI><br>
+
+<LI> 
+Librer&iacute;a de Conexi&oacute;n a Datos <code>Qt PSQL (libqt4-sql-psql)</code> 
+</LI><br>
+
+<LI>
+Librer&iacute;a <code>XML2 (libxml2-dev)</code>
+</LI><br>
+
+<LI>
+Librer&iacute;a <code>gstreamer (libgstreamer0.10-dev)</code> para plugins de captura de video 
+</LI><br>
+
+<LI>
+Librer&iacute;a <code>glib-dev (libglib2.0-dev)</code> para plugins de captura de video
+</LI><br>
+
+<LI>
+Extensiones de <code>X11 (x11proto-xext-dev)</code>
+</LI><br>
+
+<LI>
+Librer&iacute;a <code>Graphviz (libgraphiz-dev</code>, para plugins de visualizaci&oacute;n de gr&aacute;fico<code>)</code>
+</LI><br>
+
+<LI>
+i) Compilador <code>g++</code>
+</LI><br>
+</ol>
+
+<p>
+Desde la shell de Unix, puede instalar todo el conjunto  de  paquetes necesarios [descritos desde el paso "a)" hasta el paso "i)"], a trav&eacute;s del siguiente comando:
+</p><br>
+
+<code>
+# aptitude install libqt4-dev libqt4-sql-psql libxml2-dev libgstreamer0.10-dev libglib2.0-dev x11proto-xext-dev libgraphiz-dev g++ libdigidocpp-dev libdigidoc-dev libxslt1-dev libgraphviz-dev 
+</code>
+</p>
+
+<h3>7.2.2.- Instalación de SAFET desde los archivos fuentes *.tar.gz</h3>
+<p><div align="justify">
+Nota importante: El s&iacute;mbolo "$" es para usuarios sin privilegios de administrador y  el  s&iacute;mbolo "#" indica que es un usuario con privilegios de administrador (root). &Uacute;nicamente la instalaci&oacute;n de  paquetes y  el paso n&uacute;mero  siete (7)  se  realiza  con  los privilegios de root, esto evita configuraciones adicionales
+</div><br>
+
+<ol>
+<LI>
+Crear un directorio, en el cual almacenar&aacute; los archivos fuentes<br>
+	<code>$ mkdir SAFET</code>
+</LI><br>
+
+<LI>
+Descargar los fuentes <code>safet-0.1.1.alpha.tar.gz (http://seguridad.cenditel.gob.ve/safet/downloads)</code> en el directorio SAFET.
+</LI><br>
+
+<LI>
+Descomprimir en un directorio:<br>
+	<code>$ tar xzg safet-0.1.alpha.tar.gz</code>
+</LI><br>
+
+<LI>
+Ir al directorio descomprimido<br>
+	<code>$ cd safet-0.1.alpha</code>
+</LI><br>
+
+<LI>
+Ejecutar "qmake" o "qmake-qt4" para generar el archivo de compilaci&oacute;n (Makefile)<br>
+	<code>$ qmake-qt4 </code>
+</LI><br>
+
+<LI>
+Si en la pantalla no se muestran errores, realizar la compilaci&oacute;n con <code>"make".</code><br>
+	<code>$ make </code> 
+</LI><br>
+
+<LI>
+Realizar la instalaci&oacute;n en los directorios del sistema (es necesario tener permisos de administrador o <code>"root"</code>)<br>
+	<code>$ su</code><br>
+	Escriba la contrase&ntilde;a de administrador y aseg&uacute;rese que se está en el directorio <code>safet-0.1.1.alpha</code>)
+</LI><br>
+
+<LI>
+Instalaci&oacute;n como administrador<br>
+	<code># make install</code>
+</LI><br>
+
+Si no se presenta ning&uacute;n mensaje de error SAFET est&aacute; instalado correctamente en su sistema!<br>
+
+<LI>
+Exportar las rutas (<code>path</code>) para las librer&iacute;as <code>'Libsafet.so.0'</code><br>
+	<code>$ echo 'export LD_LIBRARY_PATH=/usr/lib/libsafet:/usr/lib/graphviz:$LD_LIBRARY_PATH' >> ~/.bashrc </code>
+</LI><br>
+
+<LI>
+Actualizar el bash de shell<br> 
+
+	<code>$ source ~/.bashrc</code>
+</LI><br>
+</ol>
+</p>
+
+<p>
+<div align="justify">
+Nota importante: Hasta el paso n&uacute;mero diez (10) el sistema SAFET ha sido instalado, y puede utilizarse la interfaz gr&aacute;fica de usuario -GUI Graphical User Interface- "inflow". Sin embargo, antes de utilizar la GUI inflow, en necesario, comprender los aspectos  b&aacute;sicos del  directorio  ".safet/"  y   configurar la base de datos PosgresSQL
+</div>
+</p><br>
+
+<h1>8.- Aspectos b&aacute;sicos del directorio .safet/ </h1>
+<p>
+Una vez realizado la instalaci&oacute;n de SAFET (secci&oacute;n anterior, el paso n&uacute;mero diez (10) del proceso de instalaci&oacute;n), es importante destacar las caracter&iacute;sticas b&aacute;sicas del directorio .safet/, para ello debe ubicarse en el /home del usuario <br>
+
+<ol>
+<LI>
+Ubicar el directorio /home del usuario<br>
+	<code>$ cd</code>
+</LI><br>
+
+<LI>
+Es importante destacar la estructura de los directorios que posee .safet/. Si lista el contenido de .safet con una de &aacute;rbol, (ej. $ tree -d .safet/), se muestra que el contenido es de nueve (9) directorios<br>
+
+<code>
+  .safet/<br>
+           |-- certs<br>
+           |-- dtd<br>
+           |-- flowfiles<br> 
+           |-- images<br> 
+           |-- input<br> 
+           |-- log<br>
+           |-- reports<br> 
+           |-- sql<br> 
+           `-- xmlrepository<br> 
+</code>
+</LI><br>
+
+<LI>
+En un árbol de información más extenso, puede observarse el contenido de cada uno de los directorios.. Entre paréntesis <br>
+
+<code>
+          .safet/<br> 
+          |-- certs  (Certificados de ejemploss y la CRL - Certificate Revocation List -, para verificar firmas elctrónicas)<br> 
+          |   |-- accenditel.pem<br> 
+          |   `-- crl_accenditel.crl<br>
+          |-- dtd    (Archivos de validación de los *.xml contenidos dentro del directorio flowfiles/ )<br> 
+          |   `-- yawlworkflow.dtd<br> 
+          |-- flowfiles (Diversos ejemplos para el flujo de tickets 'workflows')<br> 
+          |   |-- ticketsfortask.xml<br> 
+          |   |-- ticketstrac.xml<br> 
+          |   |-- ticketstracavanzado.xml<br> 
+          |   |-- ticketstracporcategoria.xml<br> 
+          |   |-- ticketstracporcategoria3.xml<br> 
+          |   |-- ticketstractotal.xml <br>
+          |   |-- ticketstractotalv2.xml<br> 
+          |   `-- ticketstracv2.xml<br> 
+          |-- images    (Imagenes en formato png - Portable Network Graphics -, utilizada en la GUI inflow)<br> 
+          |   |-- clear.png<br> 
+          |   |-- default.png<br> 
+          |   |-- desc.png<br> 
+          |   |-- firmadoc.png<br> 
+          |   |-- hito.png <br>
+          |   |-- padlock.png <br>
+          |   |-- plus.png <br>
+          |   |-- resumen.png <br>
+          |   `-- yes.png <br>
+          |-- input     (Archivos de configuración de entrada de datos, en la GUI inflow) <br>
+          |   |-- defconfigure.xml <br>
+          |   |-- defconsole.xml <br>
+          |   |-- defmanagementsignfile.xml <br>
+          |   `-- deftrac.xml <br>
+          |-- log       (Archivo de registro de errores) <br>
+          |   `-- safet.log <br>
+          |-- reports   (Archivos de reportes de sistemas, en la GUI inflow) <br>
+          |   |-- animation-min.js <br>
+          |   |-- bg_hd.gif <br>
+          |   |-- button-min.js <br>
+          |   |-- button.css <br>
+          |   |-- data.js <br>
+          |   |-- datasource-min.js <br>
+          |   |-- datatable-min.js <br>
+          |   |-- datatable.css <br>
+          |   |-- dom-min.js <br>
+          |   |-- dpSyntaxHighlighter.css <br>
+          |   |-- dragdrop-min.js <br>
+          |   |-- element-min.js <br>
+          |   |-- event-min.js <br>
+          |   |-- paginator-min.js <br>
+          |   |-- paginator.css <br>
+          |   |-- sf_plantillaLista01.html <br>
+          |   |-- title_h_bg.gif <br>
+          |   |-- yui.css <br>
+          |   |-- yui.gif <br>
+          |   `-- yuiloader-min.js <br>
+          |-- safet.conf <br>
+          |-- sql    (Archivos de las base de datos de ejemplo PostgresSQL) <br>
+          |   |-- dbtracsafet28oct09.sql <br>
+          |   `-- dbtracseguridad28oct09.sql <br>
+          `-- xmlrepository <br>
+</code>
+</LI><br>
+</ol>
+</p>
+
+<h1>9.- Configuraci&oacute;n de la base de datos <code>PostgresSQL</code></h1>
+
+<LI>
+Como administrador (root) del sistema configure la base de datos <code>PostgresSQL</code>(la versi&oacute;n utilizada para la construcci&oacute;n de éste archivo <code>README</code>, fue la versión 8.3.7) <br>
+<code># su - postgres </code>
+</LI><br>
+
+<LI>
+El prompt o introductor '#' debe haber cambiado a '$' y el usuario ahora es <code>'postgres';</code> ejecutar:<br>
+<code>$ psql template1</code>
+</LI><br>
+
+<LI>
+Crear el usuario y la contrase&ntilde;a de la base de datos <code>PostgresSQL</code>.<br>
+<code># CREATE USER name_user PASSWORD '123456';</code>
+</LI><br>
+
+<p>
+Nota Importante: name_user es el nombre del usuario, si el entorno de la shell por defecto es bash aparece usuario@maquina:~$, si el entorno es distinto de bash, ej. sh, ejecutar el comando <code>'whoami'</code></p><br>
+
+<LI>
+Dar permisos para crear bases de datos y crear usuarios, a <code>'safetPrueba'</code>.<br>
+<code># ALTER USER name_user CREATEDB CREATEUSER;</code><br>
+<p>Si la sintaxis es la correcta, saldr&aacute; el mensaje de <code>ALTER ROLE</code>.</p><br>
+</LI>
+
+<LI>
+Salir de la configuraci&oacute;n de la base de datos <code>PostgresSQL</code>.<br>
+<code># \q</code>
+</LI><br>
+
+<LI>
+Editar el archivo <code>safet.conf</code> en el <code>/home</code> del usuario.<br>
+<code># vi .safet/safet.conf </code> 
+</LI><br>
+
+<LI>
+Ir a la l&iacute;nea 165 y cambiar el usuario 'seguridad' por el usuario 'name_user', la l&iacute;neas 164,165 en <code>safet.conf</code> son: 
+<code> # Especifica el nombre de usuario para la fuente de datos<br> 
+	   database.user.1 = seguridad </code>
+</LI><br>
+
+<LI>
+Ir a la l&iacute;nea 168 y cambiar la contrase&ntilde;a <code>'merida'</code> por el usuario del sistema <code>'name_user'</code>, la líneas 164, 165 en <code>safet.conf</code> son:
+<code># Especifica la contrase&ntilde;a de acceso para la fuente de datos<br> 
+	 database.password.1 =  merida</code>
+</LI><br>
+</ol>
+
+<h1>10.- Utilizar la base de datos ejemplo en <code>.safet/sql</code></h1>
+
+<ol>
+<LI>
+Ir al directorio .safet/sql<br> 
+
+<code>$ cd .safet/sql</code>
+</LI><br>
+
+<LI>
+Crear la base de datos <code>'dbtracsafet'</code><br>
+<code>$ createdb dbtracsafet</code> 
+</LI><br>
+
+<LI>
+Cargar el script de restauraci&oacute;n de la base de datos ejemplo.<br>
+
+<code>$ psql -f dbtracsafet28oct09.sql dbtracsafet<br> 
+	$ inflow</code> 
+<p>
+Antes de esto, es posible que necesite configurar los par&aacute;metros de conexi&oacute;n con la base de datos, SAFET actualmente se conecta con base de datos postgresql, para ello, realice lo siguiente 
+</p>
+</LI><br>
+
+<LI>
+Busque la Seccion [Database] dentro del archivo, y edite los par&aacute;metros:<br> 
+<br>
+<code>	database.host.1  (para colocar el nombre del servidor), escriba "localhost para servidor local <br>
+	database.db.1 (nombre de la base de datos) <br> 
+	database.port.1 (número del puerto de posgresql, por defecto 5432) <br>
+	database.user.1 (nombre del usuario en el servidor postgresql) <br>
+	database.password.1 (contrase&ntilde;a del correspondiente usuario) </code>
+</LI><br>
+
+<LI>
+Guarde el archivo y ejecuta otra vez la aplicaci&oacute;n inflow:<br>
+<br>
+<code>	>inflow</code><br>
+<br> 
+
+<p>
+Si se logr&oacute; conectar satisfactoriamente, entonces debe aparecer en la barra de estado inferior el mensaje:<br> 
+<br>
+"Directorio de archivos <code>$Directorio de usuario$/.safet/input/"</code><br>
+donde el $Directorio de usuario$ es el directorio de su <code>"home"</code>, por ejemplo, si su cuenta es "fulano", debe aparecer:<br>
+“Directorio de archivos <code>/home/fulano/.safet/input/</code>"
+</LI><br>
+
+<LI>
+Para ver el registro <code>(log)</code> de la aplicaci&oacute;n, puede ver el archivo <code>"~/.safet/log/safet.log"</code><br>
+<br>
+<p>	Por ejemplo,</p><br>
+<code>     >tail -f  ~/.safet/safet.log</code> 
+</LI><br>
+
+<LI>
+Para ver la l&iacute;nea de tiempo de desarrollo del proyecto puede acceder a: <br>
+<br>
+<code>	http://seguridad.cenditel.gob.ve/safet/timeline </code>
+</LI><br>
+
+Nota Importante: cualquier duda, comentario por favor enviar correo-e a seguridad@cenditel.gob.ve 
+</ol>
+
+<h1>11.- Sistema de informaci&oacute;n de ejemplo</h1>
+
+<p>
+<div align="justify">SAFET dispone de la configuraci&oacute;n adecuada para  interactuar con el  sistema <code>Trac</code>, el cual es un de sistema de gesti&oacute;n de proyectos de Software, <code>(trac.edgewall.org)</code>.<br>
+Es posible con el cliente de SAFET llamado  "<code>inflow</code>" realizar  las siguientes tareas para <code>TRAC</code>:<br> 
+<br>
+
+<ul>
+<LI>
+Agregar un ticket con nueva informaci&oacute;n 
+</LI><br>
+
+<LI>
+Eliminar un ticket por su id.
+</LI><br>
+
+<LI>
+Modificar un ticket existente buscando por su id
+</LI><br>
+
+<LI>
+Aceptar, Cerrar y
+</LI><br>
+
+<LI>
+FIRMAR un ticket utilizando tarjeta inteligente (smartcard)
+</LI><br>
+
+<LI>
+Dibujar gr&aacute;fico de flujo de trabajo  coloreados, con autofiltro 
+</LI><br>
+
+<LI>
+Dibujar gr&aacute;fico de flujo de trabajo para una clave (id)
+</LI><br>
+
+<LI>
+Firmar y verificar firma de cualquier documento independiente (odt,tgz,pdf,txt,odp,etc.) 
+</LI><br>
+</ul>
+
+
+Nota importante: Para probar  este ejemplo es  necesario acceder a los documentos de flujos de trabajo (*.xml)  ubicados  en la ruta  (~/.safet/flowfile)  que se  describen a continuaci&oacute;n. Cuando se requiere en la interfaz "Cargar_archivo":<br>
+<br>
+
+<ul>
+<LI>
+tickettracv2.xml
+</LI><br>
+
+<LI>
+tickettrac.xml
+</LI>
+</ul>
+</div>
+</p>
+
+
+</body>
+</html>

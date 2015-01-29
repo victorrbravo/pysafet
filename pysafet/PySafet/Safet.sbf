@@ -1,0 +1,3 @@
+target = Safet
+sources = sipSafetcmodule.cpp sipSafetQList0101SafetDocument.cpp sipSafetQMap0100QString0100QString.cpp sipSafetSafetWorkflow.cpp sipSafetParsedSqlToData.cpp sipSafetSafetYAWL.cpp sipSafetSafetVariable.cpp sipSafetSafetDocument.cpp sipSafetSafetXmlObject.cpp sipSafetMainWindow.cpp
+headers = sipAPISafet.h

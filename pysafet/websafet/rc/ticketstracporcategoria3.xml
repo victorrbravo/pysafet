@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Documento  : tickets.xml
+Creado     : 16/10/08 09:27 AM
+Autor      : nombre_autor
+Descripcion: Archivo generado por plantilla de la Libreria SAFET
+-->
+
+<!--<!DOCTYPE yawl SYSTEM "http://trac-safet.cenditel.gob.ve/dtd/yawlworkflow.dtd">-->
+<!DOCTYPE yawl SYSTEM "file://$USER/.safet/dtd/yawlworkflow.dtd">
+<yawl  version="0.01">
+<workflow id="TicketsTrac" desc="Tickets usados por Trac">
+	<token key="id"  keysource="ticket">
+	</token>
+	<condition id="inicial" type="start">
+                <port side="forward" type="split"   >
+                        <connection   source="Nuevo" query="select status from ticket"  options="new" tokenlink="">
+			</connection>
+		</port>
+	</condition>
+	<task id="Nuevo"  title="en_atencion" >
+                <port side="forward" type="split"   pattern="or">
+                        <connection source="Mejora" query="select type from ticket" options="Mejora" >
+			</connection>
+                        <connection source="Enero29" query="select milestone from ticket" options="Ene29" >
+			</connection>
+                        <connection source="VBravo" query="select owner from ticket" options="vbravo" >
+			</connection>
+		</port>
+		<variable id="VariableNuevo" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select summary as resumen,description as descripcion,type as tipo,milestone as hito,owner as propietario from ticket" >
+		</variable>
+	</task>
+
+
+	<task id="Mejora"  title="Cosas_porMejorar" >
+                <port side="forward" type="split" >
+                        <connection source="MejorasEnero29" query="true" options="" >
+			</connection>
+		</port>
+		<variable id="VariableMejora" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select id,summary,description,component,milestone,owner from ticket" >
+		</variable>
+	</task>
+
+	<task id="Enero29"  title="Cosas_para_el_29" >
+                <port side="forward" type="split" >
+                        <connection source="MejorasEnero29" query="true" options="" >
+			</connection>
+		</port>
+		<variable id="VariableEne29" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select id,description,component,type as tipo,milestone,owner from ticket" >
+		</variable>
+	</task>
+
+	<task id="MejorasEnero29"  title="HitoAlpha" >
+                <port side="forward" type="split" >
+                        <connection source="final" query="true" options="" >
+			</connection>
+		</port>
+                <port side="bottom" type="join" pattern="or">
+		</port>
+		<variable id="VariableMejorasEnero29" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select id,summary,type,component,milestone,owner from ticket" >
+		</variable>
+	</task>
+
+	<task id="VBravo"  title="Victor_Bravo" >
+                <port side="forward" type="split" >
+                        <connection source="MejorasEnero29" query="true" options="" >
+			</connection>
+		</port>
+		<variable id="VariableVictorBravo" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select id,summary,type,description,component,milestone,owner from ticket" >
+		</variable>
+	</task>
+	<condition id="final">
+		<port side="forward" type="split">
+			<connection source="">
+			</connection>
+		</port>
+	</condition>
+</workflow>
+	<configuration id="1" connectstring="psql:seguridad.cenditel.gob.ve:ticket:vbravo:vbravo_">
+	</configuration>
+</yawl>

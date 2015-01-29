@@ -1,0 +1,10 @@
+
+Para generar la documentacion es necesario ejecutar los siguientes comandos:
+
+$ cd trunk/inflow/documentation
+
+$ qcollectiongenerator inflowDoc.qhcp -o inflowDoc.qhc
+
+# cp inflowDoc.qhc inflowDoc.qch /usr/share/inflow
+
+

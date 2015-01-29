@@ -1,0 +1,149 @@
+<operations suffix=":" commandname="operacion">
+<operation  name="Opciones de Autores"  desc="Agregar una publicación a la base de datos" icon="">
+</operation>
+<operation  name="agregar_autor"  desc="Agregar Autor a la base de datos" icon="plus.png">
+<command id ="1" type="agregar" table="Autor" >
+	<fields>
+		<field type="string" mandatory="yes" primarykey="yes" sequence="seqautores">
+			ID
+		</field>
+		<field type="string" mandatory="yes" title="Nombres" desc="Escriba los nombres de pila del autor">
+			Nombres
+		</field>
+		<field type="string" mandatory="yes" title="Apellidos" desc="Escriba los apellidoss del autor">
+			Apellidos
+		</field>
+			
+<field type="stringbox" mandatory="yes" validation="\w+" title="Dirección" desc="La Dirección del autor">
+				Direccion
+			</field>  
+
+	</fields>
+</command>
+</operation>
+<operation  name="modificar_autor"  desc="Modificar Información sobre un autor" icon="firmadoc.png">
+	<command id ="1" type="actualizar" table="Autor">
+		<fields>
+			<field type="combolisttable" options="id:Autor" mandatory="yes" primarykey="yes" title="Número">
+				id
+			</field>		
+<field type="string" mandatory="no" title="Nombres" desc="Escriba los nombres de pila del autor">
+			Nombres
+		</field>
+		<field type="string" mandatory="no" title="Apellidos" desc="Escriba los apellidos del autor">
+			Apellidos
+		</field>
+			
+<field type="stringbox" mandatory="no" validation="\w+" title="Dirección" desc="La Dirección del autor">
+				Direccion
+			</field>  
+	     	
+		</fields>
+	</command>
+</operation>
+
+<operation  name="borrar_autor"  desc="Elimina un Autor" icon="clear.png"> 
+	<command id ="1" type="eliminar" table="Autor">
+		<fields>
+			<field type="combolisttable" options="id:autor" mandatory="yes" primarykey="yes">
+				id
+			</field>		
+		</fields>
+	</command>
+</operation>
+<operation  name="Opciones de libros"  desc="Agregar una publicación a la base de datos" icon="">
+</operation>
+
+<operation  name="agregar_Libro"  desc="Agregar una publicación a la base de datos" icon="plus.png">
+<command id ="1" type="agregar" table="Libros" >
+	<fields>
+		<field type="string" mandatory="yes" primarykey="yes" sequence="seqlibros">
+			ID
+		</field>
+		<field type="string" mandatory="yes" title="Título" desc="Escriba el título del libro">
+			Titulo
+		</field>
+<field type="combolisttable" options="id:autor::apellidos || ' ' || nombres as NombreCompleto" mandatory="yes" primarykey="no" >
+				autor
+		</field>
+	  <field type="datetime" options="calendarPopup::true,displayFormat::dd/MM/yyyy" mandatory="yes"  function="" format="time_t" input="yes">
+			edicion
+		</field>                    		
+<field type="number" mandatory="no" options="decimal,prefix::BsF.,singleStep::1.0" >
+			CostoUnitario
+		</field>	
+
+	</fields>
+</command>
+</operation>
+<operation  name="modificar_libro"  desc="Modificar un libro existente" icon="firmadoc.png">
+	<command id ="1" type="actualizar" table="Libros" >	
+		<fields>
+			<field type="combolisttable" options="id:libros" mandatory="yes" primarykey="yes" >
+				id
+			</field>
+		    			<field type="string" mandatory="no" title="Título" desc="Escriba el título del libro">
+			Titulo
+		</field>
+<field type="combolisttable" options="id:autor::apellidos || ' ' || nombres as NombreCompleto" mandatory="no"  title="Autor">
+				autor
+		</field>
+	  <field type="datetime" options="calendarPopup::true,displayFormat::dd/MM/yyyy" mandatory="no"  format="time_t" input="yes">
+			edicion
+		</field>                    		
+<field type="number" mandatory="no" options="decimal,prefix::BsF.,singleStep::10.0,maximum::99999,decimals::2" >
+			CostoUnitario
+		</field>	
+
+		</fields>
+	</command>
+</operation>
+
+<operation  name="Opciones de Lotes"  desc="Gestión de lotes de libros" icon="">
+</operation>
+<operation  name="agregar_edicion"  desc="Agregar una publicación a la base de datos" icon="plus.png">
+<command id ="1" type="agregar" table="Libros" >
+	<fields>
+		<field type="string" mandatory="yes" primarykey="yes" sequence="seqlibros">
+			ID
+		</field>
+		<field type="string" mandatory="yes" title="Título" desc="Escriba el título del libro">
+			Titulo
+		</field>
+<field type="combolisttable" options="id:autor::apellidos || ' ' || nombres as NombreCompleto" mandatory="yes" primarykey="no" >
+				autor
+		</field>
+	  <field type="datetime" options="calendarPopup::true,displayFormat::dd/MM/yyyy" mandatory="yes"  function="" format="time_t" input="yes">
+			edicion
+		</field>                    		
+<field type="number" mandatory="no" options="decimal,prefix::BsF.,singleStep::1.0" >
+			CostoUnitario
+		</field>	
+
+	</fields>
+</command>
+</operation>
+<operation  name="Entregar_lote"  desc="Entrega lote a distribuidor" icon="firmadoc.png">
+	<command id ="1" type="actualizar" table="Libros" >	
+		<fields>
+			<field type="combolisttable" options="id:libros" mandatory="yes" primarykey="yes" >
+				id
+			</field>
+		    			<field type="string" mandatory="no" title="Título" desc="Escriba el título del libro">
+			Titulo
+		</field>
+<field type="combolisttable" options="id:autor::apellidos || ' ' || nombres as NombreCompleto" mandatory="no"  title="Autor">
+				autor
+		</field>
+	  <field type="datetime" options="calendarPopup::true,displayFormat::dd/MM/yyyy" mandatory="no"  format="time_t" input="yes">
+			edicion
+		</field>                    		
+<field type="number" mandatory="no" options="decimal,prefix::BsF.,singleStep::10.0,maximum::99999,decimals::2" >
+			CostoUnitario
+		</field>	
+
+		</fields>
+	</command>
+</operation>
+</operations>
+

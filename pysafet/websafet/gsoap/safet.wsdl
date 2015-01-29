@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="safet"
+ targetNamespace="urn:safet"
+ xmlns:tns="urn:safet"
+ xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+ xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:ns="urn:safet"
+ xmlns:SOAP="http://schemas.xmlsoap.org/wsdl/soap/"
+ xmlns:MIME="http://schemas.xmlsoap.org/wsdl/mime/"
+ xmlns:DIME="http://schemas.xmlsoap.org/ws/2002/04/dime/wsdl/"
+ xmlns:WSDL="http://schemas.xmlsoap.org/wsdl/"
+ xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+<types>
+
+ <schema targetNamespace="urn:safet"
+  xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:ns="urn:safet"
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="unqualified"
+  attributeFormDefault="unqualified">
+  <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+ </schema>
+
+</types>
+
+<message name="guardarXmlRequest">
+ <part name="in" type="xsd:string"/>
+ <part name="name" type="xsd:string"/>
+</message>
+
+<message name="guardarXmlResponse">
+ <part name="result" type="xsd:boolean"/>
+</message>
+
+<message name="verifyDocumentSignaturesRequest">
+ <part name="in" type="xsd:string"/>
+</message>
+
+<message name="verifyDocumentSignaturesResponse">
+ <part name="result" type="xsd:boolean"/>
+</message>
+
+<message name="verifyDocumentSignatureWithIdRequest">
+ <part name="in" type="xsd:string"/>
+ <part name="indexOfSignature" type="xsd:int"/>
+</message>
+
+<message name="verifyDocumentSignatureWithIdResponse">
+ <part name="result" type="xsd:boolean"/>
+</message>
+
+<message name="verifyDocumentSignatureWithNamesRequest">
+ <part name="in" type="xsd:string"/>
+ <part name="signerNames" type="xsd:string"/>
+</message>
+
+<message name="verifyDocumentSignatureWithNamesResponse">
+ <part name="result" type="xsd:boolean"/>
+</message>
+
+<portType name="safetPortType">
+ <operation name="guardarXml">
+  <documentation>Service definition of function ns__guardarXml</documentation>
+  <input message="tns:guardarXmlRequest"/>
+  <output message="tns:guardarXmlResponse"/>
+ </operation>
+ <operation name="verifyDocumentSignatures">
+  <documentation>Service definition of function ns__verifyDocumentSignatures</documentation>
+  <input message="tns:verifyDocumentSignaturesRequest"/>
+  <output message="tns:verifyDocumentSignaturesResponse"/>
+ </operation>
+ <operation name="verifyDocumentSignatureWithId">
+  <documentation>Service definition of function ns__verifyDocumentSignatureWithId</documentation>
+  <input message="tns:verifyDocumentSignatureWithIdRequest"/>
+  <output message="tns:verifyDocumentSignatureWithIdResponse"/>
+ </operation>
+ <operation name="verifyDocumentSignatureWithNames">
+  <documentation>Service definition of function ns__verifyDocumentSignatureWithNames</documentation>
+  <input message="tns:verifyDocumentSignatureWithNamesRequest"/>
+  <output message="tns:verifyDocumentSignatureWithNamesResponse"/>
+ </operation>
+</portType>
+
+<binding name="safet" type="tns:safetPortType">
+ <SOAP:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+ <operation name="guardarXml">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:safet" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:safet" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="verifyDocumentSignatures">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:safet" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:safet" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="verifyDocumentSignatureWithId">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:safet" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:safet" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="verifyDocumentSignatureWithNames">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:safet" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:safet" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+</binding>
+
+<service name="safet">
+ <documentation>gSOAP 2.7.9l generated service definition</documentation>
+ <port name="safet" binding="tns:safet">
+  <SOAP:address location="http://localhost/cgi-bin/safet"/>
+ </port>
+</service>
+
+</definitions>

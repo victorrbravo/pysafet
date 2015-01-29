@@ -1,0 +1,495 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Ver fichas usando flujos de trabajo &mdash; PySafet</title>
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="PySafet" href="../../index.html" />
+    <link rel="next" title="Ver gráfos generales usando flujos de trabajo" href="Parte6.html" />
+    <link rel="prev" title="Ver datos usando flujos de trabajo" href="Parte3.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="Parte6.html" title="Ver gráfos generales usando flujos de trabajo"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="Parte3.html" title="Ver datos usando flujos de trabajo"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../../index.html">PySafet</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ver-fichas-usando-flujos-de-trabajo">
+<h1>Ver fichas usando flujos de trabajo<a class="headerlink" href="#ver-fichas-usando-flujos-de-trabajo" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>En los pasos anteriores obtenemos los datos de dos <strong>acciones</strong> <strong>vRegistrado</strong> y <strong>vPedido</strong>, la cual utilizamos como ejemplo como se muestra en la siguiente imágenes:</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p><strong>vRegistrado</strong></p>
+<blockquote>
+<div><div class="figure align-center" id="figura41">
+<a class="reference internal image-reference" href="../../_images/json.png"><img alt="../../_images/json.png" src="../../_images/json.png" style="width: 600px; height: 200px;" /></a>
+<p class="caption"><strong>Figura 28: vRegistrado</strong></p>
+</div>
+</div></blockquote>
+<p><strong>La siguiente</strong> <a class="reference internal" href="#figura41"><em>Figura 28: vRegistrado</em></a> <strong>indica lo siguiente:</strong></p>
+<ul class="last simple">
+<li>Nos mostrara el nombre de las columnas.</li>
+<li>Nos mostrara los datos de cada columna.</li>
+<li>Nos mostrara un buscador <strong>Search</strong>.</li>
+<li>Nos mostrara <strong>Show</strong> que nos indicara
+cuantos datos quiere que se muestren en la tabla.</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p><strong>vPedido</strong></p>
+<blockquote>
+<div><div class="figure align-center" id="figura44">
+<a class="reference internal image-reference" href="../../_images/json1.png"><img alt="../../_images/json1.png" src="../../_images/json1.png" style="width: 750px; height: 200px;" /></a>
+<p class="caption"><strong>Figura 29: vPedido</strong></p>
+</div>
+</div></blockquote>
+<p><strong>La siguiente</strong> <a class="reference internal" href="#figura44"><em>Figura 29: vPedido</em></a> <strong>indica lo siguiente:</strong></p>
+<ul class="last simple">
+<li>Nos mostrara el nombre de las columnas, más el atributo <strong>cantidad</strong>.</li>
+<li>Nos mostrara los datos de cada columna.</li>
+<li>Nos mostrara un buscador <strong>Search</strong>.</li>
+<li>Nos mostrara <strong>Show</strong> que nos indicara
+cuantos datos quiere que se muestren en la tabla.</li>
+</ul>
+</div>
+</div></blockquote>
+<p><strong>A continuación vamos a demostrar, como obtener fichas de esa tabla de datos:</strong></p>
+<div class="section" id="ficha-vregistrado-vpedido">
+<h2>Ficha (vRegistrado) (vPedido)<a class="headerlink" href="#ficha-vregistrado-vpedido" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Los paso para obtener una ficha que vamos a seguir mas adelante, nos sirven para las demás acciones menos una, es decir, no solo para la acción <strong>vRegistrado</strong> sino tambien para las acciones <strong>(vDisponible,vPor_llegar,vPor_agotarse,vAgotado)</strong>. Para la acción <strong>vPedido</strong> los pason son diferentes ya que ah esta acción se agrega el el atributo <strong>cantidad</strong>, porque para mostrar los datos depende del valor cantidad.</p>
+<p>Las demas acciones tienen, el mismo esquemas de mostrar los datos en fichas como se muestra en la siguiente imagen <a class="reference internal" href="#figura45"><em>Figura 30: Ficha vRegistrado</em></a>:</p>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p>La imagen nos muestra el nombre de la ficha la cual sirve para las acciones <strong>(vDisponible,vPor_llegar,vPor_agotarse,vAgotado)</strong>, la cual tienen los mismos atributos que las demás acciones.</p>
+<blockquote>
+<div><div class="figure align-center" id="figura45">
+<a class="reference internal image-reference" href="../../_images/ficha1.png"><img alt="../../_images/ficha1.png" src="../../_images/ficha1.png" style="width: 400px; height: 150px;" /></a>
+<p class="caption"><strong>Figura 30: Ficha vRegistrado</strong></p>
+</div>
+</div></blockquote>
+<p>La imagen muestra el nombre de la ficha y sus atributos: <a class="reference internal" href="#figura50"><em>Figura 32: Ficha vPedido</em></a></p>
+<blockquote class="last">
+<div><div class="figure align-center" id="figura50">
+<a class="reference internal image-reference" href="../../_images/ficha2.png"><img alt="../../_images/ficha2.png" src="../../_images/ficha2.png" style="width: 400px; height: 200px;" /></a>
+<p class="caption"><strong>Figura 32: Ficha vPedido</strong></p>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="primer-paso">
+<h3>1° PRIMER PASO<a class="headerlink" href="#primer-paso" title="Enlazar permanentemente con este título">¶</a></h3>
+<ul class="simple">
+<li>Nos vamos directorio que hemos creado anteriormente que se llama <strong>JsonInterfaz/</strong></li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> <span class="nv">$HOME</span>/JsonInterfaz
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="segundo-paso">
+<h3>2° SEGUNDO PASO<a class="headerlink" href="#segundo-paso" title="Enlazar permanentemente con este título">¶</a></h3>
+<ul class="simple">
+<li>Ejecutamos el Scritp que insertamos en el archivo que creamos anteriormente <strong>.py(ScriptJson.py)</strong>, con la varible <strong>(vRegistrado)</strong> o con la la variable <strong>vPedido</strong> o la que guste.</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre>JsonInterfaz$ python ScriptJson.py
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="tercer-paso">
+<h3>3° TERCER PASO<a class="headerlink" href="#tercer-paso" title="Enlazar permanentemente con este título">¶</a></h3>
+<ul class="simple">
+<li>Crearemos un archivo <strong>.css</strong> por ejemplo <strong>(style.css)</strong>, en el directorio <strong>JsonInterfaz/</strong>:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre>JsonInterfaz<span class="nv">$ </span>touch style.css
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Abrimos el archivo que creamos <strong>.css(style.css)</strong>, insertamos el siguiente código:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-css"><div class="highlight"><pre><span class="nt">body</span> <span class="p">{</span>
+        <span class="k">background-repeat</span><span class="o">:</span><span class="k">no-repeat</span><span class="p">;</span>
+        <span class="k">background-position</span><span class="o">:</span><span class="k">top</span> <span class="k">center</span><span class="p">;</span>
+        <span class="k">background-color</span><span class="o">:</span><span class="m">#657077</span><span class="p">;</span>
+        <span class="k">margin</span><span class="o">:</span><span class="m">40px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#tabbed_box_1</span> <span class="p">{</span>
+        <span class="k">margin</span><span class="o">:</span> <span class="m">0px</span> <span class="k">auto</span> <span class="m">0px</span> <span class="k">auto</span><span class="p">;</span>
+        <span class="k">width</span><span class="o">:</span><span class="m">300px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.tabbed_box</span> <span class="nt">h4</span> <span class="p">{</span>
+        <span class="k">font-family</span><span class="o">:</span><span class="n">Arial</span><span class="o">,</span> <span class="n">Helvetica</span><span class="o">,</span> <span class="k">sans-serif</span><span class="p">;</span>
+        <span class="k">font-size</span><span class="o">:</span><span class="m">23px</span><span class="p">;</span>
+        <span class="k">color</span><span class="o">:</span><span class="m">#ffffff</span><span class="p">;</span>
+        <span class="k">letter-spacing</span><span class="o">:-</span><span class="m">1px</span><span class="p">;</span>
+        <span class="k">margin-bottom</span><span class="o">:</span><span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.tabbed_box</span> <span class="nt">h4</span> <span class="nt">small</span> <span class="p">{</span>
+        <span class="k">color</span><span class="o">:</span><span class="m">#e3e9ec</span><span class="p">;</span>
+        <span class="k">font-weight</span><span class="o">:</span><span class="k">normal</span><span class="p">;</span>
+        <span class="k">font-size</span><span class="o">:</span><span class="m">9px</span><span class="p">;</span>
+        <span class="k">font-family</span><span class="o">:</span><span class="n">Verdana</span><span class="o">,</span> <span class="n">Arial</span><span class="o">,</span> <span class="n">Helvetica</span><span class="o">,</span> <span class="k">sans-serif</span><span class="p">;</span>
+        <span class="k">text-transform</span><span class="o">:</span><span class="k">uppercase</span><span class="p">;</span>
+        <span class="k">position</span><span class="o">:</span><span class="k">relative</span><span class="p">;</span>
+        <span class="k">top</span><span class="o">:-</span><span class="m">4px</span><span class="p">;</span>
+        <span class="k">left</span><span class="o">:</span><span class="m">6px</span><span class="p">;</span>
+        <span class="k">letter-spacing</span><span class="o">:</span><span class="m">0px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.tabbed_area</span> <span class="p">{</span>
+        <span class="k">border</span><span class="o">:</span><span class="m">1px</span> <span class="k">solid</span> <span class="m">#494e52</span><span class="p">;</span>
+        <span class="k">background-color</span><span class="o">:</span><span class="m">#636d76</span><span class="p">;</span>
+        <span class="k">padding</span><span class="o">:</span><span class="m">8px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">ul</span><span class="nc">.tabs</span> <span class="p">{</span>
+        <span class="k">margin</span><span class="o">:</span><span class="m">0px</span><span class="p">;</span> <span class="k">padding</span><span class="o">:</span><span class="m">0px</span><span class="p">;</span>
+        <span class="k">margin-top</span><span class="o">:</span><span class="m">5px</span><span class="p">;</span>
+        <span class="k">margin-bottom</span><span class="o">:</span><span class="m">6px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">ul</span><span class="nc">.tabs</span> <span class="nt">li</span> <span class="p">{</span>
+        <span class="k">list-style</span><span class="o">:</span><span class="k">none</span><span class="p">;</span>
+        <span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">ul</span><span class="nc">.tabs</span> <span class="nt">li</span> <span class="nt">a</span> <span class="p">{</span>
+        <span class="k">background-color</span><span class="o">:</span><span class="m">#464c54</span><span class="p">;</span>
+        <span class="k">color</span><span class="o">:</span><span class="m">#ffebb5</span><span class="p">;</span>
+        <span class="k">padding</span><span class="o">:</span><span class="m">8px</span> <span class="m">14px</span> <span class="m">8px</span> <span class="m">14px</span><span class="p">;</span>
+        <span class="k">text-decoration</span><span class="o">:</span><span class="k">none</span><span class="p">;</span>
+        <span class="k">font-size</span><span class="o">:</span><span class="m">9px</span><span class="p">;</span>
+        <span class="k">font-family</span><span class="o">:</span><span class="n">Verdana</span><span class="o">,</span> <span class="n">Arial</span><span class="o">,</span> <span class="n">Helvetica</span><span class="o">,</span> <span class="k">sans-serif</span><span class="p">;</span>
+        <span class="k">font-weight</span><span class="o">:</span><span class="k">bold</span><span class="p">;</span>
+        <span class="k">text-transform</span><span class="o">:</span><span class="k">uppercase</span><span class="p">;</span>
+        <span class="k">border</span><span class="o">:</span><span class="m">1px</span> <span class="k">solid</span> <span class="m">#464c54</span><span class="p">;</span>
+        <span class="k">background-repeat</span><span class="o">:</span><span class="k">repeat-x</span><span class="p">;</span>
+        <span class="k">background-position</span><span class="o">:</span><span class="k">bottom</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">ul</span><span class="nc">.tabs</span> <span class="nt">li</span> <span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
+        <span class="k">background-color</span><span class="o">:</span><span class="m">#2f343a</span><span class="p">;</span>
+        <span class="k">border-color</span><span class="o">:</span><span class="m">#2f343a</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">ul</span><span class="nc">.tabs</span> <span class="nt">li</span> <span class="nt">a</span><span class="nc">.active</span> <span class="p">{</span>
+        <span class="k">background-color</span><span class="o">:</span><span class="m">#ffffff</span><span class="p">;</span>
+        <span class="k">color</span><span class="o">:</span><span class="m">#282e32</span><span class="p">;</span>
+        <span class="k">border</span><span class="o">:</span><span class="m">1px</span> <span class="k">solid</span> <span class="m">#464c54</span><span class="p">;</span>
+        <span class="k">border-bottom</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#ffffff</span><span class="p">;</span>
+        <span class="k">background-repeat</span><span class="o">:</span><span class="k">repeat-x</span><span class="p">;</span>
+        <span class="k">background-position</span><span class="o">:</span><span class="k">top</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.content</span> <span class="p">{</span>
+        <span class="k">background-color</span><span class="o">:</span><span class="m">#ffffff</span><span class="p">;</span>
+        <span class="k">padding</span><span class="o">:</span><span class="m">10px</span><span class="p">;</span>
+        <span class="k">border</span><span class="o">:</span><span class="m">1px</span> <span class="k">solid</span> <span class="m">#464c54</span><span class="p">;</span>
+        <span class="k">font-family</span><span class="o">:</span><span class="n">Arial</span><span class="o">,</span> <span class="n">Helvetica</span><span class="o">,</span> <span class="k">sans-serif</span><span class="p">;</span>
+        <span class="k">background-repeat</span><span class="o">:</span><span class="k">repeat-x</span><span class="p">;</span>
+        <span class="k">background-position</span><span class="o">:</span><span class="k">bottom</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#content_2</span><span class="o">,</span> <span class="nf">#content_3</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">none</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="nc">.content</span> <span class="nt">ul</span> <span class="p">{</span>
+        <span class="k">margin</span><span class="o">:</span><span class="m">0px</span><span class="p">;</span>
+        <span class="k">padding</span><span class="o">:</span><span class="m">0px</span> <span class="m">20px</span> <span class="m">0px</span> <span class="m">20px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.content</span> <span class="nt">ul</span> <span class="nt">li</span> <span class="p">{</span>
+        <span class="k">list-style</span><span class="o">:</span><span class="k">none</span><span class="p">;</span>
+        <span class="k">border-bottom</span><span class="o">:</span><span class="m">1px</span> <span class="k">solid</span> <span class="m">#d6dde0</span><span class="p">;</span>
+        <span class="k">padding-top</span><span class="o">:</span><span class="m">15px</span><span class="p">;</span>
+        <span class="k">padding-bottom</span><span class="o">:</span><span class="m">15px</span><span class="p">;</span>
+        <span class="k">font-size</span><span class="o">:</span><span class="m">13px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.content</span> <span class="nt">ul</span> <span class="nt">li</span><span class="nd">:last-child</span> <span class="p">{</span>
+        <span class="k">border-bottom</span><span class="o">:</span><span class="k">none</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.content</span> <span class="nt">ul</span> <span class="nt">li</span> <span class="nt">a</span> <span class="p">{</span>
+        <span class="k">text-decoration</span><span class="o">:</span><span class="k">none</span><span class="p">;</span>
+        <span class="k">color</span><span class="o">:</span><span class="m">#3e4346</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.content</span> <span class="nt">ul</span> <span class="nt">li</span> <span class="nt">a</span> <span class="nt">small</span> <span class="p">{</span>
+        <span class="k">color</span><span class="o">:</span><span class="m">#8b959c</span><span class="p">;</span>
+        <span class="k">font-size</span><span class="o">:</span><span class="m">9px</span><span class="p">;</span>
+        <span class="k">text-transform</span><span class="o">:</span><span class="k">uppercase</span><span class="p">;</span>
+        <span class="k">font-family</span><span class="o">:</span><span class="n">Verdana</span><span class="o">,</span> <span class="n">Arial</span><span class="o">,</span> <span class="n">Helvetica</span><span class="o">,</span> <span class="k">sans-serif</span><span class="p">;</span>
+        <span class="k">position</span><span class="o">:</span><span class="k">relative</span><span class="p">;</span>
+        <span class="k">left</span><span class="o">:</span><span class="m">4px</span><span class="p">;</span>
+        <span class="k">top</span><span class="o">:</span><span class="m">0px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.content</span> <span class="nt">ul</span> <span class="nt">li</span> <span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
+        <span class="k">color</span><span class="o">:</span><span class="m">#a59c83</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.content</span> <span class="nt">ul</span> <span class="nt">li</span> <span class="nt">a</span><span class="nd">:hover</span> <span class="nt">small</span> <span class="p">{</span>
+        <span class="k">color</span><span class="o">:</span><span class="m">#baae8e</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="cuarto-paso">
+<h3>4° CUARTO PASO<a class="headerlink" href="#cuarto-paso" title="Enlazar permanentemente con este título">¶</a></h3>
+<ul class="simple">
+<li>Crearemos un archivo <strong>.html</strong> por ejemplo <strong>(Fichas.html)</strong>, en el directorio <strong>JsonInterfaz/</strong>:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre>JsonInterfaz<span class="nv">$ </span>touch FichavRegistrado.html
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Abrimos el archivo que creamos <strong>.html(Fichas.html)</strong>, insertamos el siguiente código:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-html"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot;</span>
+<span class="cp">     &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;</span>
+
+<span class="nt">&lt;html</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1999/xhtml&quot;</span>
+                 <span class="na">xml:lang=</span><span class="s">&quot;en&quot;</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+
+<span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Content-Type&quot;</span> <span class="na">content=</span><span class="s">&quot;text/html;</span>
+<span class="s">                              charset=ISO-8859-1&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;title&gt;</span>Fichas<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">media=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+
+
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;fichas/dataInventory.js&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;/script&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+
+
+<span class="kd">function</span> <span class="nx">Fichas</span><span class="p">(){</span>
+
+<span class="kd">var</span> <span class="nx">valor</span> <span class="o">=</span> <span class="nx">columnInventory</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">valor1</span> <span class="o">=</span> <span class="nx">dataInventory</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">flecha</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">columnInventory</span><span class="p">[</span><span class="nx">j</span><span class="p">].</span><span class="nx">sTitle</span> <span class="o">==</span> <span class="s2">&quot;cantidad&quot;</span><span class="p">){</span>
+  <span class="nx">flecha</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">valor</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">){</span>
+
+   <span class="k">if</span><span class="p">(</span> <span class="nx">flecha</span> <span class="o">==</span> <span class="kc">true</span> <span class="o">&amp;&amp;</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">2</span><span class="p">){</span>
+
+    <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;&lt;li&gt; &lt;font color = &#39;blue&#39;&gt;&quot;</span>
+       <span class="o">+</span> <span class="nx">columnInventory</span><span class="p">[</span><span class="nx">j</span><span class="p">].</span><span class="nx">sTitle</span> <span class="o">+</span> <span class="s2">&quot;: &lt;/font&gt;&quot;</span>
+       <span class="o">+</span> <span class="nx">dataInventory</span><span class="p">[</span><span class="nx">valor1</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span><span class="o">+</span> <span class="s2">&quot;&lt;/li&gt;&quot;</span><span class="p">);</span>
+
+    <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;&lt;li&gt; &lt;font color = &#39;blue&#39;&gt;&quot;</span>
+     <span class="o">+</span> <span class="nx">columnInventory</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">].</span><span class="nx">sTitle</span> <span class="o">+</span> <span class="s2">&quot;: &lt;/font&gt;&quot;</span>
+     <span class="o">+</span> <span class="nx">dataInventory</span><span class="p">[</span><span class="nx">valor1</span><span class="p">][</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span> <span class="s2">&quot;&lt;/li&gt;&quot;</span><span class="p">);</span>
+   <span class="p">}</span>
+  <span class="k">else</span><span class="p">{</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;&lt;li&gt; &lt;font color = &#39;blue&#39;&gt;&quot;</span>
+           <span class="o">+</span> <span class="nx">columnInventory</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">].</span><span class="nx">sTitle</span> <span class="o">+</span> <span class="s2">&quot;: &lt;/font&gt;&quot;</span>
+           <span class="o">+</span> <span class="nx">dataInventory</span><span class="p">[</span><span class="nx">valor1</span><span class="p">][</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span> <span class="s2">&quot;&lt;/li&gt;&quot;</span><span class="p">);</span>
+  <span class="p">}</span>
+ <span class="p">}</span>
+
+<span class="p">}</span>
+<span class="k">else</span><span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">valor</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">){</span>
+   <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;&lt;li&gt; &lt;font color = &#39;blue&#39;&gt;&quot;</span>
+      <span class="o">+</span> <span class="nx">columnInventory</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">sTitle</span> <span class="o">+</span> <span class="s2">&quot;: &lt;/font&gt;&quot;</span>
+      <span class="o">+</span> <span class="nx">dataInventory</span><span class="p">[</span><span class="nx">j</span><span class="p">][</span><span class="nx">i</span><span class="p">]</span><span class="o">+</span> <span class="s2">&quot;&lt;/li&gt;&quot;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;tabbed_box_1&quot;</span> <span class="na">class=</span><span class="s">&quot;tabbed_box&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;h4&gt;</span>Ficha de la tabla
+<span class="nt">&lt;script&gt;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">Variable</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="nt">&lt;/script&gt;&lt;/h4&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;tabbed_area&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;tabs&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;li&gt;&lt;a</span> <span class="na">class=</span><span class="s">&quot;ta ctive&quot;</span><span class="nt">&gt;</span>Ficha<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+
+<span class="nt">&lt;/ul&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;content_1&quot;</span> <span class="na">class=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;ul&gt;</span>
+<span class="nt">&lt;script&gt;</span> <span class="nx">Fichas</span><span class="p">();</span><span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last"><strong>Este código sirve para todas la variables, se utilizo estilo css y se muestran los datos del archivo dataInventory.js utilizando código javascript.</strong></p>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="quinto-paso">
+<h3>5° QUINTO PASO<a class="headerlink" href="#quinto-paso" title="Enlazar permanentemente con este título">¶</a></h3>
+<ul class="simple">
+<li>Abrimos el archivo <strong>FichavRegistrado.html</strong> con cualquier navegador web y se nos mostrara de la siguiente forma: <a class="reference internal" href="#figura47"><em>Figura 31: Ficha de un registro</em></a></li>
+</ul>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<ul class="last">
+<li><p class="first">Esta imagen nos muestra los datos de una fila de la tabla <strong>vRegistrado</strong>, por ejemplo los datos de la primera fila en forma de una ficha:</p>
+<blockquote>
+<div><div class="figure align-center" id="figura47">
+<a class="reference internal image-reference" href="../../_images/fichavRegistrado.png"><img alt="../../_images/fichavRegistrado.png" src="../../_images/fichavRegistrado.png" style="width: 600px; height: 300px;" /></a>
+<p class="caption"><strong>Figura 31: Ficha de un registro</strong></p>
+</div>
+</div></blockquote>
+<p><strong>La siguiente</strong> <a class="reference internal" href="#figura47"><em>Figura 31: Ficha de un registro</em></a> ** indica lo siguiente:**</p>
+<ul class="simple">
+<li>Nos mostrara el <strong>id</strong> y su valor</li>
+<li>Nos mostrara el <strong>Nombre</strong> y su valor.</li>
+<li>Nos mostrara el <strong>Status</strong> y su valor.</li>
+</ul>
+</li>
+<li><p class="first">Esta imagen nos muestra los datos de una fila de la tabla <strong>vPedido</strong>, por ejemplo los datos de la primera fila en forma de una ficha:</p>
+<blockquote>
+<div><div class="figure align-center" id="figura48">
+<a class="reference internal image-reference" href="../../_images/fichavPedido.png"><img alt="../../_images/fichavPedido.png" src="../../_images/fichavPedido.png" style="width: 600px; height: 300px;" /></a>
+<p class="caption"><strong>Figura 31: Ficha de un pedido</strong></p>
+</div>
+</div></blockquote>
+<p><strong>La siguiente</strong> <a class="reference internal" href="#figura48"><em>Figura 31: Ficha de un pedido</em></a> ** indica lo siguiente:**</p>
+<ul class="simple">
+<li>Nos mostrara el <strong>id</strong> y su valor</li>
+<li>Nos mostrara el <strong>Nombre</strong> y su valor.</li>
+<li>Nos mostrara el <strong>Cantidad</strong> y su valor.</li>
+<li>Nos mostrara el <strong>Status</strong> y su valor.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Aquí esta los 2 ejemplos de las fichas le damos <strong>clik</strong> algunas de ellas:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="FichasRegistrado.html">FichavRegistrado.html</a></li>
+<li><a class="reference external" href="FichasPedido.html">FichavPedido.html</a></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Tabla de Contenidos</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Ver fichas usando flujos de trabajo</a><ul>
+<li><a class="reference internal" href="#ficha-vregistrado-vpedido">Ficha (vRegistrado) (vPedido)</a><ul>
+<li><a class="reference internal" href="#primer-paso">1° PRIMER PASO</a></li>
+<li><a class="reference internal" href="#segundo-paso">2° SEGUNDO PASO</a></li>
+<li><a class="reference internal" href="#tercer-paso">3° TERCER PASO</a></li>
+<li><a class="reference internal" href="#cuarto-paso">4° CUARTO PASO</a></li>
+<li><a class="reference internal" href="#quinto-paso">5° QUINTO PASO</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="Parte3.html"
+                        title="capítulo anterior">Ver datos usando flujos de trabajo</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="Parte6.html"
+                        title="próximo capítulo">Ver gráfos generales usando flujos de trabajo</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/_templates/Contenido6/Parte5.txt"
+           rel="nofollow">Mostrar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un nombre de módulo, clase o función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="Parte6.html" title="Ver gráfos generales usando flujos de trabajo"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="Parte3.html" title="Ver datos usando flujos de trabajo"
+             >anterior</a> |</li>
+        <li><a href="../../index.html">PySafet</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Cenditel.
+      Creado con <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

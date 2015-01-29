@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Documento  : tickets.xml
+Creado     : 16/10/08 09:27 AM
+Autor      : nombre_autor
+Descripcion: Archivo generado por plantilla de la Libreria SAFET
+-->
+
+<!--<!DOCTYPE yawl SYSTEM "http://trac-safet.cenditel.gob.ve/dtd/yawlworkflow.dtd">-->
+<!DOCTYPE yawl SYSTEM "file:///home/vbravo/.safet/dtd/yawlworkflow.dtd">
+<yawl  version="0.01">
+<workflow id="AppPlanificaciónContraloriaSocial">
+	<token key="id"  keysource="actividad_por_accion">
+	</token>
+<parameter type="combolistliteral" options="TB::La dirección del gráfico es arriba-abajo::TB,LR::La dirección del gráfico es izquierda-derecha::LR" mandatory="no"
+                       title="Direccion_Grafico_de_Flujo" configurekey="Plugins.Graphviz/plugins.graphviz.graph.rankdir">
+                </parameter>
+<parameter type="combolistliteral" options="svg::Gráfico SVG::svg,png::Gráfico PNG::png" mandatory="no"
+                       title="Formato_del_Grafico" configurekey="Plugins.Graphviz/plugins.graphviz.graphtype">
+                </parameter>
+<parameter type="combolistliteral" options="on::Incluir::on,off::No Incluir::off" mandatory="no"
+                       title="Incluir_Fecha_Hora" configurekey="Graphs/graphs.infotext.include">
+                </parameter>
+<parameter type="string" options="" mandatory="no"
+                       title="Titulo" configurekey="GeneralOptions/generaloptions.currentflowtitle">
+                </parameter>
+<parameter type="string" options="" mandatory="no"
+                       title="Informacion_extra" configurekey="Plugins.Graphviz/plugins.graphviz.extrainfo.show">
+                </parameter>
+
+<parameter type="combocolor" mandatory="no" title="Color Para Estadistica"
+                        options="antiquewhite::Color Blanco Antiguo::antiquewhite,green::Color Verde::green,coral::Color Rojo Coral::coral,red::Color Rojo::red,yellow::Color Amarillo::yellow,skyblue::Color Azul Cielo::skyblue,ghostwhite::Color Blanco Fantasma::ghostwhite,Blanco::Color Blanco::white,lightgray::Color Gris Claro::lightgray,blue::Color Azul::blue,orange::Color Naranja::orange,gray::Color Gris::gray,black::Color Negro::black,white::Color Blanco::white"
+configurekey="Plugins.Graphviz/plugins.graphviz.stats.colorgradient" defaultvalue="Amarillo">
+                </parameter>
+	<condition id="inicial" type="start">
+        	<port side="forward" type="split"   >
+                	 <connection source="ProyectoTecnico" query="select tipo from actividad_por_accion"  options="Proyecto_Contraloria_Social" >
+			</connection>
+		</port>
+	</condition>
+	<task id="ProyectoTecnico" report="no">
+                <port side="forward" type="split" >
+                        <connection source="Conceptualizacion" query="select status from actividad_por_accion" options="Conceptualizacion" >
+			</connection>
+		</port>
+		<variable id="VariableProyectoTecnico" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" >
+		</variable>
+	</task>
+	<task id="Conceptualizacion" textualinfo="1">
+                <port side="forward" type="split" >
+                        <connection source="Analisis_del_problema" query="select status from actividad_por_accion" options="Analisis_del_problema">
+			</connection>
+		</port>
+		<variable id="V_Conceptualizacion_del_proyecto" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Conceptualizacion') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Conceptualizacion') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Analisis_del_problema" textualinfo="1">
+                <port side="forward" type="split" pattern="or">
+                        <connection source="Procesos_de_la_APN" query="select status from actividad_por_accion" options="Procesos_de_la_APN">
+			</connection>
+			<connection source="Base_legal" query="select status from actividad_por_accion" options="Base_legal">
+			</connection>
+			<connection source="Actores" query="select status from actividad_por_accion" options="Actores">
+			</connection>
+			<connection source="Antecedentes" query="select status from actividad_por_accion" options="Antecedentes">
+			</connection>
+		</port>
+		<variable id="V_Analisis_del_problema" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Analisis_del_problema') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Analisis_del_problema') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Procesos_de_la_APN" textualinfo="2">
+                <port side="forward" type="split" >
+                        <connection source="Alcance" query="select status from actividad_por_accion" options="Alcance">
+			</connection>
+		</port>
+		<variable id="V_Procesos_de_la_APN" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Procesos_de_la_APN') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Procesos_de_la_APN') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Base_legal" textualinfo="2">
+                <port side="forward" type="split" >
+                        <connection source="Alcance" query="select status from actividad_por_accion" options="Alcance">
+			</connection>
+		</port>
+		<variable id="V_Base_legal" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Base_legal') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Base_legal') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Actores" textualinfo="2">
+                <port side="forward" type="split" >
+                        <connection source="Alcance" query="select status from actividad_por_accion" options="Alcance">
+			</connection>
+		</port>
+		<variable id="V_Actores" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Actores') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Actores') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Antecedentes" textualinfo="2">
+                <port side="forward" type="split" >
+                        <connection source="Alcance" query="select status from actividad_por_accion" options="Alcance">
+			</connection>
+		</port>
+		<variable id="V_Antecedentes" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Antecedentes') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Antecedentes') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Alcance" textualinfo="2">
+                <port side="forward" type="split" pattern="or">
+                        <connection source="Factibilidad" query="select status from actividad_por_accion" options="Factibilidad">
+			</connection>
+			<connection source="Pertinencia" query="select status from actividad_por_accion" options="Pertinencia">
+			</connection>
+			<connection source="Clase_de_datos" query="select status from actividad_por_accion" options="Clase_de_datos">
+			</connection>
+		</port>
+		<variable id="V_Alcance" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Alcance') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Alcance') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Factibilidad" textualinfo="3">
+                <port side="forward" type="split" >
+                        <connection source="Requerimientos_conceptualizacion" query="select status from actividad_por_accion" options="Requerimientos_conceptualizacion">
+			</connection>
+		</port>
+		<variable id="V_Factibilidad" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Factibilidad') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Factibilidad') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Pertinencia" textualinfo="2">
+                <port side="forward" type="split" >
+                        <connection source="Requerimientos_conceptualizacion" query="select status from actividad_por_accion" options="Requerimientos_conceptualizacion">
+			</connection>
+		</port>
+		<variable id="V_Pertinencia" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Pertinencia') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Pertinencia') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Clase_de_datos" textualinfo="3">
+                <port side="forward" type="split" >
+                        <connection source="Requerimientos_conceptualizacion" query="select status from actividad_por_accion" options="Requerimientos_conceptualizacion">
+			</connection>
+		</port>
+		<variable id="V_Clase_de_datos" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Clase_de_datos') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Clase_de_datos') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Requerimientos_conceptualizacion" textualinfo="3">
+                <port side="forward" type="split" pattern="or">
+                        <connection source="Tecnico" query="select status from actividad_por_accion" options="Tecnico">
+			</connection>
+			<connection source="Humano" query="select status from actividad_por_accion" options="Humano">
+			</connection>
+		</port>
+		<variable id="V_Requerimientos_conceptualizacion" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Requerimientos_conceptualizacion') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Requerimientos_conceptualizacion') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Tecnico" textualinfo="4">
+                <port side="forward" type="split" >
+                        <connection source="Enlace" query="select status from actividad_por_accion" options="Enlace">
+			</connection>
+		</port>
+		<variable id="V_Tecnico" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Tecnico') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Tecnico') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Humano" textualinfo="3">
+                <port side="forward" type="split" >
+                        <connection source="Enlace" query="select status from actividad_por_accion" options="Enlace">
+			</connection>
+		</port>
+		<variable id="V_Humano" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Humano') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Humano') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Enlace" report="no">
+                <port side="forward" type="split" pattern="or">
+                        <connection source="Propuesta_de_desarrollo" query="select status from actividad_por_accion" options="Propuesta_de_desarrollo">
+			</connection>
+			<connection source="Propuesta_alternativa" query="select status from actividad_por_accion" options="Propuesta_alternativa">
+			</connection>
+		</port>
+		<variable id="V_Enlace" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" >
+		</variable>
+	</task>
+
+	<task id="Propuesta_de_desarrollo" textualinfo="1">
+                <port side="forward" type="split" pattern="or">
+                        <connection source="Descripcion" query="select status from actividad_por_accion" options="Descripcion">
+			</connection>
+			<connection source="Requerimientos" query="select status from actividad_por_accion" options="Requerimientos">
+			</connection>
+			<connection source="Estandares" query="select status from actividad_por_accion" options="Estandares">
+			</connection>
+		</port>
+		<variable id="V_Propuesta_de_desarrollo" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Propuesta_de_desarrollo') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Propuesta_de_desarrollo') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Descripcion" textualinfo="1">
+                <port side="forward" type="split" pattern="or">
+                        <connection source="Arquitectura" query="select status from actividad_por_accion" options="Arquitectura">
+			</connection>
+			<connection source="Interfaz" query="select status from actividad_por_accion" options="Interfaz">
+			</connection>
+			<connection source="Procesos" query="select status from actividad_por_accion" options="Procesos">
+			</connection>
+		</port>
+		<variable id="V_Descripcion" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Descripcion') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Descripcion') as tiempo"
+>
+		</variable>
+	</task>	
+
+	<task id="Requerimientos" textualinfo="1">
+                <port side="forward" type="split">
+                        <connection source="Estructura_de_datos" query="select status from actividad_por_accion" options="Estructura_de_datos">
+			</connection>
+		</port>
+		<variable id="V_Requerimientos" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Requerimientos') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Requerimientos') as tiempo"
+>
+		</variable>
+	</task>	
+
+	<task id="Estandares" textualinfo="5">
+                <port side="forward" type="split" >
+                        <connection source="Estructura_de_datos" query="select status from actividad_por_accion" options="Estructura_de_datos">
+			</connection>
+		</port>
+		<variable id="V_Estandares" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Estandares') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Estandares') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Propuesta_alternativa" textualinfo="70">
+                <port side="forward" type="split" >
+                        <connection source="final" query="select status from actividad_por_accion" options="final">
+			</connection>
+		</port>
+		<variable id="V_Propuesta_alternativa" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Propuesta_alternativa') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Propuesta_alternativa') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Arquitectura" textualinfo="1">
+                <port side="forward" type="split">
+                        <connection source="final" query="select status from actividad_por_accion" options="final">
+			</connection>
+		</port>
+		<variable id="V_Arquitectura" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Arquitectura') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Arquitectura') as tiempo"
+>
+		</variable>
+	</task>	
+
+	<task id="Interfaz" textualinfo="1">
+                <port side="forward" type="split">
+                        <connection source="Desarrollo" query="select status from actividad_por_accion" options="Desarrollo">
+			</connection>
+		</port>
+		<variable id="V_Interfaz" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Interfaz') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Interfaz') as tiempo"
+>
+		</variable>
+	</task>	
+
+	<task id="Procesos" textualinfo="4">
+                <port side="forward" type="split" pattern="or">
+                        <connection source="Diagramas" query="select status from actividad_por_accion" options="Diagramas">
+			</connection>
+			<connection source="Caso_de_uso" query="select status from actividad_por_accion" options="Caso_de_uso">
+			</connection>
+		</port>
+		<variable id="V_Procesos" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Procesos') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Procesos') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Diagramas" textualinfo="3">
+                <port side="forward" type="split" >
+                        <connection source="Desarrollo" query="select status from actividad_por_accion" options="Desarrollo">
+			</connection>
+		</port>
+		<variable id="V_Diagramas" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Diagramas') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Diagramas') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Caso_de_uso" textualinfo="3">
+                <port side="forward" type="split" >
+                        <connection source="Desarrollo" query="select status from actividad_por_accion" options="Desarrollo">
+			</connection>
+		</port>
+		<variable id="V_Caso_de_uso" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Caso_de_uso') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Caso_de_uso') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Estructura_de_datos" textualinfo="5">
+                <port side="forward" type="split" >
+                        <connection source="Desarrollo" query="select status from actividad_por_accion" options="Desarrollo">
+			</connection>
+		</port>
+		<variable id="V_Estructura_de_datos" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Estructura_de_datos') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Estructura_de_datos') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Desarrollo" textualinfo="1">
+                <port side="forward" type="split">
+                        <connection source="Codigo_fuente" query="select status from actividad_por_accion" options="Codigo_fuente">
+			</connection>
+		</port>
+		<variable id="V_Desarrollo" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Desarrollo') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Desarrollo') as tiempo"
+>
+		</variable>
+	</task>
+
+	<task id="Codigo_fuente" textualinfo="1">
+                <port side="forward" type="split">
+                        <connection source="final" query="select status from actividad_por_accion" options="final">
+			</connection>
+		</port>
+		<variable id="V_Codigo_fuente" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select nombre,status from actividad_por_accion" 
+rolfield="(select propietario || '   ' || porcentaje || '%'  from actividad_registro where actividad_por_accion.id=id_actividad and estado='Codigo_fuente') as rol"
+timestampfield="(select fechaaccion from actividad_registro where actividad_por_accion.id=id_actividad and estado='Codigo_fuente') as tiempo"
+>
+		</variable>
+	</task>
+	
+	<condition id="final">
+		<port side="forward" type="split">
+			<connection source="">
+			</connection>
+		</port>
+	</condition>
+</workflow>
+<configuration id="1" connectstring="psql:seguridad.cenditel.gob.ve:ticket:vbravo:vbravo_">
+</configuration>
+</yawl>

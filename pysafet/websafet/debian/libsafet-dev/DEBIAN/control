@@ -1,0 +1,17 @@
+Package: libsafet-dev
+Source: libsafet
+Version: 1.0-1
+Architecture: amd64
+Maintainer: Victor Bravo Bravo <victorrbravo@gmail.com>
+Installed-Size: 4827
+Depends: libsafet (= 1.0-1), libgraphviz-dev, libtar-dev
+Section: libdevel
+Priority: optional
+Description: Biblioteca Libsafet parte del proyecto SAFET (desarrollo)
+ Gestion de flujos de trabajo, firma electronica y estampillado de tiempo
+ (archivos de desarrollo). La biblioteca Libsafet es parte del proyecto SAFET
+ e implementa un conjunto de funcionalidades para gestion de flujos de
+ trabajos de acuerdo al modelo YAWL y firmas electronicas y estampillado de
+ tiempo a traves de la biblioteca libdigidoc.
+ .
+ http://seguridad.cenditel.gob.ve/safet

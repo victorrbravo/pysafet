@@ -1,0 +1,13 @@
+Package: libsafet-plugins
+Source: libsafet
+Version: 1.0-1
+Architecture: amd64
+Maintainer: Victor Bravo Bravo <victorrbravo@gmail.com>
+Installed-Size: 134
+Depends: libc6 (>= 2.2.5), libgcc1 (>= 1:4.1.1), libgraph4, libgvc5, libqt4-network (>= 4:4.5.3), libqt4-sql (>= 4:4.5.3), libqt4-svg (>= 4:4.5.3), libqt4-xml (>= 4:4.5.3), libqtcore4 (>= 4:4.7.0~beta1), libqtgui4 (>= 4:4.5.3), libsafet, libstdc++6 (>= 4.1.1)
+Section: libs
+Priority: optional
+Description: Plugins de la libreria Libsafet
+ Conjunto de plugins utilitarios para la libreria Libsafet.
+ Se incluye un plugin para generar graficos a traves de la libreria graphviz,
+ un plugin para exportar las salidas en formato LaTeX

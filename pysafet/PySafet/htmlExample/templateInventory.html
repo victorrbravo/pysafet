@@ -1,0 +1,23 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" border="0" class="display" name="safettable0" id="safettable0"></table>
+ <script src="dataInventory.js"> </script>
+
+  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+  <script>
+  $(function(){
+$("#safettable0").dataTable({
+  "aaData": dataInventory,
+  "aoColumns": columnInventory 
+});   
+
+
+
+  })
+  </script>
+</body>
+</html>

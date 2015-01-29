@@ -1,0 +1,57 @@
+<operation  name="iniciar">
+<command id ="1" type="agregar" table="identificadores">
+	<fields>
+		<field type="string" mandatory="yes" primarykey="yes" sequence="seq_id">
+			id
+		</field>
+		<field type="string" mandatory="yes" validation="">
+			titulo
+		</field>
+		<field type="string" mandatory="yes">
+			propietario
+		</field>			
+		<field type="string" mandatory="yes">
+			asignado
+		</field>
+	</fields>
+</command>
+<command id ="2"  type="agregar" table="operaciones">
+	<fields>
+		<field type="string" mandatory="yes" primarykey="yes" sequence="seq_ope">
+			idoperacion
+		</field>
+		<field type="select" mandatory="yes" default="nuevo">
+			estado
+		</field>	
+		<field type="string" mandatory="yes" validation="" foreignkey="identificadores.id" >
+			idtickets
+		</field>
+	
+	</fields>
+</command>
+</operation>
+<operation  name="siguiente">
+	<command id ="1" type="actualizar" table="identificadores">
+		<fields>
+			<field type="string" mandatory="yes">
+				idtickets
+			</field>		
+			<field type="string" mandatory="yes">
+				asignado
+			</field>
+		</fields>
+	</command>
+	<command id ="2"  type="agregar" table="operaciones">
+		<fields>
+			<field type="string" mandatory="yes" primarykey="yes" sequence="seq_ope">
+				idoperacion
+			</field>		
+			<field type="select" mandatory="yes" default="nuevo" validation="">
+				estado
+			</field>	
+			<field type="string" mandatory="yes" validation="" >
+				idtickets
+			</field>			
+		</fields>
+	</command>
+</operation>

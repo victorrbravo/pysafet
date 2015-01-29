@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Documento  : tickets.xml
+Creado     : 16/10/08 09:27 AM
+Autor      : nombre_autor
+Descripcion: Archivo generado por plantilla de la Libreria SAFET
+-->
+
+<!--<!DOCTYPE yawl SYSTEM "http://trac-safet.cenditel.gob.ve/dtd/yawlworkflow.dtd">-->
+<!DOCTYPE yawl SYSTEM "file:///home/vbravo/.safet/dtd/yawlworkflow.dtd">
+<yawl  version="0.01">
+<workflow id="Tickets" desc="Tickets usados por Trac">
+	<token key="id"  keysource="ticket">
+	</token>
+	<parameter type="combolisttable" icon="hito.png" desc= "By Project" mandatory="no" options="projectId:projects::title"  
+	  title="ByProject" defaultvalue="0">
+	</parameter>	
+ <parameter title="Direccion_Grafico_de_Flujo" options="TB::La direccin del grfico es arriba-abajo::TB,LR::La direccin del grfico es izquierda-derecha::LR" configurekey="Plugins.Graphviz/plugins.graphviz.graph.rankdir" type="combolistliteral" mandatory="no" />
+
+<condition id="inicial" type="start">
+                <port side="forward" type="split"   >
+                        <connection   source="Project" query="select projectId from ticket"  options="{#ByProject}" tokenlink="">
+			</connection>
+		</port>
+	</condition>
+	<task id="Project"  title="{#ByProject}" report="no">
+                <port side="forward" type="split" >
+                        <connection source="ToDo" query="select status from ticket" options="ToDo" >
+			</connection>
+		</port>
+		<variable id="vProject" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select summary as resumen,description as descripcion,type as tipo,milestone as hito,owner as propietario from ticket" rolfield="owner" timestampfield="changetime">
+		</variable>
+	</task>
+	
+	<task id="ToDo"  title="New Tickets" report="yes" >
+                <port side="forward" type="split" pattern="or">
+                        <connection source="Progress" query="select status from ticket" options="Progress" >
+			</connection>
+                        <connection source="Postponed" query="select status from ticket" options="Postponed" >
+			</connection>
+
+		</port>
+		<variable id="vToDo" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select status,resumen from vticket" rolfield="owner" timestampfield="changetime">
+		</variable>
+	</task>
+	<task id="Progress"  title="inprogress" report="yes" >
+                <port side="forward" type="split" pattern="or">
+                        <connection source="Finished" query="select status from ticket"  options="Finished" >
+			</connection>
+	        <connection source="Postponed" query="select status from ticket" options="Postponed" >
+			</connection>
+		</port>
+		<variable id="vProgress" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select status,resumen from vticket" >
+		</variable>
+	</task>
+<task id="Postponed"  title="pospuestos" report="yes" >
+                <port side="forward" type="split" >
+                        <connection source="Finished" query="select status from ticket"  options="Finished" >
+			</connection>
+		</port>
+		<variable id="vPostponed" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select status,resumen from vticket" >
+		</variable>
+	</task>
+	<task id="Finished"  title="doit" report="yes">
+                <port side="forward" type="split" >
+                        <connection source="TicketSigned" query="vFinished  SIGN Antonio Araujo Brett" options="yes" >
+			</connection>
+		</port>
+		<variable id="vFinished" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select status,resumen from vticket" rolfield="owner" timestampfield="changetime">
+		</variable>
+	</task>
+	<task id="TicketSigned"  title="doit" report="yes">
+                <port side="forward" type="split" >
+                        <connection source="final" query="true" options="" >
+			</connection>
+		</port>
+		<variable id="vTicketSigned" scope="task"  type="sql" config="1"   tokenlink="" documentsource="select status,resumen from vticket" rolfield="owner" timestampfield="changetime">
+		</variable>
+	</task>
+
+	<condition id="final">
+		<port side="forward" type="split">
+			<connection source="">
+			</connection>
+		</port>
+	</condition>
+</workflow>
+	<configuration id="1" connectstring="psql:seguridad.cenditel.gob.ve:ticket:vbravo:vbravo_">
+	</configuration>
+</yawl>

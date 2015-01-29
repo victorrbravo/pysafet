@@ -1,0 +1,62 @@
+<operations suffix=":" commandname="operacion">
+<operation  name="iniciar"  >
+<command id ="1" type="agregar" table="ticket">
+	<fields>
+		<field type="string" mandatory="yes" primarykey="yes" sequence="ticket_id_seq">
+			id
+		</field>
+		<field type="string" mandatory="yes" literal="new">
+			status
+		</field>
+		<field type="datetime" mandatory="yes"  function="now()" format="time_t" input="no">
+			time
+		</field>
+		<field type="datetime" mandatory="yes"  function="now()" format="time_t" input="no">
+			changetime
+		</field>
+		<field type="string" mandatory="yes" validation="\w+" title="resumen">
+			summary
+		</field>
+		<field type="stringbox" mandatory="yes" validation="\w+" title="descripcion">
+			description
+		</field>
+		<field type="combolisttable" mandatory="yes" options="name:component" title="componente">
+			component
+		</field>					<field type="combolisttable" mandatory="yes" options="name:milestone" title="hito">
+			milestone
+		</field>			
+		<field type="combolisttable" mandatory="yes" options="name:version" title="version">
+			version
+		</field>			
+		<field type="combolisttable" mandatory="yes" options="name:enum:where type='ticket_type'" title="tipo">
+			type
+		</field>			
+		<field type="combolisttable" mandatory="yes" options="name:enum:where type='priority'" title="prioridad">
+			priority
+		</field>			
+		<field type="string" literal="_USERNAME" mandatory="yes" >
+			owner
+		</field>
+		<field type="string" literal="_USERNAME" mandatory="yes" >
+			reporter
+		</field>
+	</fields>
+</command>
+</operation>
+<operation  name="siguiente" > 
+	<command id ="1" type="actualizar" table="ticket">
+		<fields>
+			<field type="combolisttable" options="id:ticket" mandatory="yes" primarykey="yes">
+				id
+			</field>		
+		<field type="comboflow" mandatory="yes" options="next" 
+                                  path="/home/vbravo/trac/seguridad/safet/libsafet/trunk/test/model/ticketstrac.xml" title="Siguiente_Estado">
+				status
+			</field>			
+		<field type="string" literal="_USERNAME" mandatory="yes" >
+			owner
+		</field>
+		</fields>
+	</command>
+</operation>
+</operations>

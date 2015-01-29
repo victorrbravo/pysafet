@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+  <title>SAFET: Acceso y salida de la aplicación inflow</title>
+  <meta name="GENERATOR" content="Quanta Plus">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h1>Acceso y salida de la aplicaci&oacute;n inflow</h1>
+
+<h2>12.1.- Acceso a la aplicaci&oacute;n inflow:</h2>
+
+La aplicaci&oacute;n inflow de SAFET se puede ejecutar a trav&eacute;s del comando <code>inflow</code>. Se desplegara la ventana principal de la aplicaci&oacute;n (ver figura S3-1) <br>
+<br>
+<code># inflow</code><br>
+<br>
+<p align="center"><IMG src="images/SAFETInFlow.png" width="700" height="406" border="0"></p>
+<div align="center">Figura S3-1. ventana principal de la aplicaci&oacute;n inflow</div><br>
+<br>
+
+<p>
+<div align="justify">la aplicaci&oacute;n requiere establecer una conexi&oacute;n con un servidor de base de datos <code>Postgresql, (www.postgresql.org)</code> debe estar creada la base de datos y configurado los par&aacute;metros d&oacute;n <code>inflow</code> un di&aacute;logo, (ver figura S3-2) </div>
+</p><br>
+<br>
+<p align="center"><IMG src="images/error-conexion.png" width="358" height="37" border="0"></p>
+<div align="center">figura S3-2. mensaje de error</div><br>
+<br>
+Para revisar el archivo safet.log donde se registra los eventos de SAFET, puede ejecutar en un terminal el siguiente comando: <br>
+<br>
+<code># tail /home/usuario/.safet/log/safet.log</code><br>
+<br>
+
+Esto muestra los &uacute;ltimos registros del proceso de ejecuci&oacute;n de la aplicaci&oacute;n <code>inflow</code> (ver figura S3-3)<br>
+<br>
+
+<p align="center"><IMG src="images/safet-log.png" width="700" height="147" border="0"></p>
+<div align="center">Figura S3-3. &uacute;ltimos registro del archivo safet.log.</div><br>
+<br>
+
+<div align="justify">Si ocurre un error este se indica el mensaje de error [ ERROR ], junto con un descripción de lo que ocurri&oacute;. En el caso que no exista ning&uacute;n registro de error en relaci&oacute;n con la conexi&oacute;n a la base de datos, se muestra en la parte inferior izquierda de la ventana principal en mensaje de la figura S3-4.
+</div><br>
+<br>
+<p align="center"><IMG src="images/mensajesafet.png" width="293" height="36" border="0"></p>
+<div align="center">Figura S3-4. Mensaje de Inflow</div><br>
+<br>
+
+<h2>12.2.- M&oacute;dulos de la aplicaci&oacute;n inflow</h2>
+
+En la aplicaci&oacute;n inflow tiene cuatro (4) m&oacute;dulos principales (ver figura S3-5). Cada m&oacute;dulo puede realizar distintas operaciones.<br>
+<br>
+<p align="center"><IMG src="images/operacionesInflow.png" width="289" height="194" align="middle" border="0"></p>
+<div align="center">Figura S3-5. M&oacute;dulos aplicaci&oacute;n inflow</div><br>
+<br>
+
+<ul>
+
+<LI>
+En el m&oacute;dulo Agregar/modificar informaci&oacute;n se pueden agregar operaciones sobre el sistema trac tales como:<br>
+<br>
+	<ul>
+	<LI>
+	Agregar_ticket
+	</LI><br>
+	<LI>
+	Modificar
+	</LI><br>
+	<LI>
+	Agregar_wiki
+	</LI><br>
+	<LI>
+	Siguiente
+	</LI><br>
+	<LI>
+	borrar
+	</LI>
+	</ul><br>
+</LI><br>
+
+<LI>
+En el m&oacute;dulo Realizar Consultas se puede realizar las operaciones sobre los flujos de trabajos (workflow) tales como:<br>
+<br>
+	<ul>
+	<LI>
+	Listar los datos
+	</LI><br>
+	<LI>
+	Generar_gráfico_coloreado	
+	</LI><br>
+	<LI>
+	Generar_gráfico_para_clave
+	</LI><br>
+	<LI>
+	Generar_gráfico_con_autofiltro
+	</LI><br>
+	<LI>
+	Generar_gráfico_con filtrorecursivo
+	</LI>
+	</ul><br>
+</LI><br>
+
+<LI>
+En el m&oacute;dulo Firmar/Verificar documentos se pueden realizar las siguientes acciones:<br>
+<br>
+	<ul>
+	<LI>
+	Firmar (Firmar documento electr&oacute;nico)
+	</LI><br>
+	<LI>
+	Verificar (Verificar documento electr&oacute;nico con extensi&oacute;n ddoc)
+	</LI>
+	</ul><br>
+</LI><br>
+
+<LI>
+En el m&oacute;dulo Salir se puede salir de la aplicación inflow
+</LI><br>
+</ol>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Archivos fuentes &mdash; PySafet</title>
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="PySafet" href="../../index.html" />
+    <link rel="next" title="Paso para la creación del directorio .safet/" href="Pysafet_home.html" />
+    <link rel="prev" title="Ubuntu (32 bits/ 64 bits)" href="Safet_para_Ubuntu.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="Pysafet_home.html" title="Paso para la creación del directorio .safet/"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="Safet_para_Ubuntu.html" title="Ubuntu (32 bits/ 64 bits)"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../../index.html">PySafet</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="archivos-fuentes">
+<h1><span class="target" id="index-0"></span>Archivos fuentes<a class="headerlink" href="#archivos-fuentes" title="Enlazar permanentemente con este título">¶</a></h1>
+<blockquote>
+<div><p>El código fuente de la librería Libsafet se encuentra alojada en una plataforma de desarrollo colaborativo de software (forja) llamada Github, esta plataforma utiliza como sistema de control de versión el software Git.</p>
+<ul class="simple">
+<li>Para la compilación se requiere que se instale las siguientes dependencias:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre>libgraphviz-dev
+libtar-dev
+g++
+libglib2.0-dev
+x11proto-xext-dev
+libqt4-dev
+libssl-dev
+make
+python-qt4-sql
+python-sip-dev
+python-qt4-dev
+libqt4-sql-sqlite
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<ul>
+<li><table class="first docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Para instalar las dependencias desde la línea de comando o terminal (puede hacerlo con synaptics):</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre># aptitude install libgraphviz-dev libtar-dev g++ libglib2.0-dev x11proto-xext-dev
+          libqt4-dev libssl-dev make python-qt4-sql python-sip-dev python-qt4-dev libqt4-sql-sqlite
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><table class="first docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Para clonar el repositorio de Libsafet debemos instalar el control de versiones git:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre>$ sudo aptitude install git
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><table class="first docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Luego ubicado en el directorio de trabajo (donde se va a descargar los fuentes) ejecuta el comando:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre>$ git clone https://github.com/victorrbravo/pysafet.git pysafet
+
+ Dentro del directorio de trabajo se crea el directorio pysafet donde se tiene
+el clone de la librería Libsafet
+</pre></div>
+</div>
+</div></blockquote>
+<div class="section" id="pasos-para-la-compilacion">
+<h2><span class="target" id="index-1"></span>Pasos para la compilación<a class="headerlink" href="#pasos-para-la-compilacion" title="Enlazar permanentemente con este título">¶</a></h2>
+<ul>
+<li><table class="first docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Compilación de la libraría Libsafet:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre>$ cd pysafet/websafet
+$ make clean
+$ qmake-qt4
+$ make
+$ cd ../PySafet/
+$  python configure.py
+$ make
+$ sudo make install
+$ cd ../websafet
+$ sudo make install
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="verificacion-de-la-instalacion">
+<h2><span class="target" id="index-2"></span>Verificación de la instalación<a class="headerlink" href="#verificacion-de-la-instalacion" title="Enlazar permanentemente con este título">¶</a></h2>
+<ul>
+<li><table class="first docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Se procede arrancar un interprete de Python, para la misma debe hacer los siguientes paso:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre>$ python
+cenditel@CENDITEL:~/proyecto/pysafet/websafet$ python
+Python 2.7.3 (default, Jan  2 2013, 13:56:14)
+[GCC 4.7.2] on linux2
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><table class="first docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Dentro prompt de python (&gt;&gt;&gt;), se importa la librería de Safet ejecutando el siguiente comando:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">Safet</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="funciones">
+<h2><span class="target" id="index-3"></span>Funciones<a class="headerlink" href="#funciones" title="Enlazar permanentemente con este título">¶</a></h2>
+<ul>
+<li><div class="first highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">Safet</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">dir</span><span class="p">(</span><span class="n">Safet</span><span class="p">)</span>
+<span class="go">[&#39;MainWindow&#39;, &#39;ParsedSqlToData&#39;, &#39;SafetDocument&#39;, &#39;SafetVariable&#39;, &#39;SafetWorkflow&#39;,</span>
+<span class="go">&#39;SafetXmlObject&#39;, &#39;SafetYAWL&#39;, &#39;__doc__&#39;, &#39;__file__&#39;, &#39;__name__&#39;, &#39;__package__&#39;]</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Tabla de Contenidos</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Archivos fuentes</a><ul>
+<li><a class="reference internal" href="#pasos-para-la-compilacion">Pasos para la compilación</a></li>
+<li><a class="reference internal" href="#verificacion-de-la-instalacion">Verificación de la instalación</a></li>
+<li><a class="reference internal" href="#funciones">Funciones</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="Safet_para_Ubuntu.html"
+                        title="capítulo anterior">Ubuntu (32 bits/ 64 bits)</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="Pysafet_home.html"
+                        title="próximo capítulo">Paso para la creación del directorio .safet/</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/_templates/Contenido1/Dependencias.txt"
+           rel="nofollow">Mostrar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un nombre de módulo, clase o función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="Pysafet_home.html" title="Paso para la creación del directorio .safet/"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="Safet_para_Ubuntu.html" title="Ubuntu (32 bits/ 64 bits)"
+             >anterior</a> |</li>
+        <li><a href="../../index.html">PySafet</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Cenditel.
+      Creado con <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

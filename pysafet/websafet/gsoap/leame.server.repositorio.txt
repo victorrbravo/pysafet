@@ -1,0 +1,59 @@
+CREACION DE SERVICIO WEB (WEB SERVICE) PARA LIBSAFET
+En conjunto con la librería Libsafet se cuenta con un servicio web que se encarga de mantener gestionar un repositorio de documentos XML firmados electrónicamente así como la verificación de dichas firmas.
+
+Para el desarrollo del servicio web se utiliza la herramienta gsoap: 
+(http://www.cs.fsu.edu/~engelen/soap.html)
+
+Se parte de un archivo de definición safet.h en el cual se establecen los métodos remotos que pondrá a disposición el servicio web.
+
+// Contents of file "safet.h":
+//gsoap ns service name: safet
+//gsoap ns service style: rpc
+//gsoap ns service encoding: encoded
+//gsoap ns service port: http://localhost/cgi-bin/safet
+//gsoap ns service namespace: urn:safet
+typedef char * xsd__string;
+typedef bool xsd__boolean;
+typedef int xsd__int;
+
+int ns__guardarXml(xsd__string in, xsd__string name, xsd__boolean &result);
+int ns__verifyDocumentSignatures(xsd__string in, xsd__boolean &result);
+int ns__verifyDocumentSignatureWithId(xsd__string in, xsd__int indexOfSignature, xsd__boolean &result);
+int ns__verifyDocumentSignatureWithNames(xsd__string in, xsd__string signerNames, xsd__boolean &result);
+
+Los métodos remotos definidos hasta el momento incluyen:
+
+int ns__guardarXml(xsd__string in, xsd__string name, xsd__boolean &result);
+Método para guardar una cadena que representa un documento firmado electrónicamente con libsafet en el repositorio remoto que gestiona el servicio web.
+
+int ns__verifyDocumentSignatures(xsd__string in, xsd__boolean &result);
+Método para verificar todas las firmas de un documento firmado electrónicamente que se encuentra en el repositorio remoto que gestiona el servicio web.
+
+int ns__verifyDocumentSignatureWithId(xsd__string in, xsd__int indexOfSignature, xsd__boolean &result);
+Método para verificar la firma con índice dado de un documento firmado electrónicamente que se encuentra en el repositorio remoto que gestiona el servicio web.
+
+int ns__verifyDocumentSignatureWithNames(xsd__string in, xsd__string signerNames, xsd__boolean &result);
+Método para verificar la firma un documento firmado electrónicamente que se encuentra en el repositorio remoto que gestiona el servicio web dada una cadena que especifica los firmantes del documento.
+
+
+
+El archivo de definición de métodos remoto debe ser procesado por gsoap para luego compilar y construir el servicio web.
+
+Se utiliza el comando soapcpp2 de gsoap para procesar y generar los archivos necesarios de construcción del servicio web
+
+/usr/local/src/gsoap-2.7/gsoap/bin/linux386/soapcpp2 -e safet.h
+
+Esto genera archivos tanto para cliente como para el servicio web. En el archivo safetserver.cpp se implementan los métodos del servicio web.
+
+Para compilar el servicio web safet:
+
+
+antonio@moe:/usr/local/src/gsoap-2.7/gsoap/samples/safet$ g++ -o safet safetserver.cpp /usr/local/src/gsoap-2.7/gsoap/stdsoap2.cpp soapC.cpp soapServer.cpp -I /usr/local/src/gsoap-2.7/gsoap -I /home/usuario/desarrollo/safet/trunk/src/ -I/usr/local/Trolltech/Qt-4.4.2/mkspecs/linux-g++ -I. -I/usr/local/Trolltech/Qt-4.4.2/include/QtCore -I/usr/local/Trolltech/Qt-4.4.2/include/QtCore -I/usr/local/Trolltech/Qt-4.4.2/include/QtXml -I/usr/local/Trolltech/Qt-4.4.2/include/QtXml -I/usr/local/Trolltech/Qt-4.4.2/include/QtSql -I/usr/local/Trolltech/Qt-4.4.2/include/QtSql -I/usr/local/Trolltech/Qt-4.4.2/include -I/usr/local/include -I/usr/local/libdigidoc/include/libdigidoc/ -I/usr/include/graphviz -I/usr/include/libxml2 /home/usuario/desarrollo/safet/trunk/src/ -lsafet -L/usr/local/libdigidoc/lib/ -L/usr/local/Trolltech/Qt-4.4.2/lib -L/usr/local/lib -ldigidoc -lxml2 -lQtSql -L/usr/local/Trolltech/Qt-4.4.2/lib -lQtXml  -lQtCore
+
+Luego de compilar se debe copiar el programa safet al directorio /usr/lib/cgi-bin en el servidor que mantendrá el repositorio de documentos XML.
+
+
+
+Para compilar el cliente:
+
+g++ -o safetclient safetclient.cpp /usr/local/src/gsoap-2.7/gsoap/stdsoap2.cpp soapC.cpp soapClient.cpp -I /usr/local/src/gsoap-2.7/gsoap -I /home/antonio/desarrollo/safet/trunk/src/ -I/usr/local/Trolltech/Qt-4.4.2/mkspecs/linux-g++ -I. -I/usr/local/Trolltech/Qt-4.4.2/include/QtCore -I/usr/local/Trolltech/Qt-4.4.2/include/QtCore -I/usr/local/Trolltech/Qt-4.4.2/include/QtXml -I/usr/local/Trolltech/Qt-4.4.2/include/QtXml -I/usr/local/Trolltech/Qt-4.4.2/include/QtSql -I/usr/local/Trolltech/Qt-4.4.2/include/QtSql -I/usr/local/Trolltech/Qt-4.4.2/include -I/usr/local/include -I/usr/local/libdigidocModificada/include/libdigidoc -I/usr/include/graphviz -I/usr/include/libxml2 -L/usr/lib -lsafet

@@ -1,0 +1,6 @@
+?package(inflow):needs="X11" section="Applications/Office" \
+title="InFlow" \
+command="/usr/bin/inflow" \
+longtitle="InFlow: Interfaz grafica para SAFET" \
+description="Interfaz grafica para SAFET" \
+icon="/usr/share/pixmaps/logosafet-small.xpm"

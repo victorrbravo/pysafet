@@ -1,0 +1,3 @@
+version=3
+http://code.google.com/p/python-poppler-qt4/downloads/list \
+    //python-poppler-qt4.googlecode.com/files/python-poppler-qt4-([0-9.]+)\.tar\.gz

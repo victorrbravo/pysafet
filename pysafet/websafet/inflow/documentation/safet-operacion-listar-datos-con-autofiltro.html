@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+  <title>SAFET: Operación Listar Datos con autofiltro</title>
+  <meta name="GENERATOR" content="Quanta Plus">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h3>12.4.2.- operacion:Listar_datos_con_autofiltro:</h3><br>
+<br>
+Esta operaci&oacute;n permite listar informaci&oacute;n de las variables, de acuerdo a una clasificaci&oacute; autom&aacute;tica de valores desde un determinado campo estado (Nuevo- >Aceptado->Cerrado->FirmadoCerrado, etc) en que se encuentre. Para realizar esta operaci&oacute;n se requiere hacer click sobre <code>operacion:Listar_datos_con_autofiltro</code> del men&uacute; inteligente, y en el &aacute;rea de cuadro de edici&oacute;n debe aparecer la linea de texto <code>operacion:Listar_datos_con_autofiltro</code>, (ver figura S3.2.2-1) aparte debe aparece el men&uacute; inteligente con los campos relacionados con esta operaci&oacute;n (ver figura 5S3.2.2-2)</div></p><br>
+<br>
+<p align="center"><IMG src="images/operacion-listar-datos-con-autofiltro.png" width="700" height="198" border="0"></p>
+<div align="center">Figura 5S3.2.2-1. &Aacute;rea cuadro de edici&oacute;n, selecci&oacute;n de la <code>operacion:Listar_datos_con_autofiltro</code></div><br>
+<br>
+<p align="center"><IMG src="images/operacion-listar-datos-con-autofiltro-menu.png" width="382" height="244" border="0"></p>
+<div align="center">Figura 5S3.2.2-2. Men&uacute; inteligente, campos de la operaci&oacute;n <code>Listar_datos_con_autofiltro</code><br>
+<br>
+<p>
+<div align="justify">Para listar la informaci&oacute;n de los tickets debe seleccionar el documento de flujo de trabajo a consultar, debe hacer click sobre el campo <code>cargar_archivo_flujo*</code> del men&uacute; inteligente, debe aparecer en el &aacute;rea de cuadro la linea de texto <code>operacion:Cargar_archivo_flujo</code> junto con un bot&oacute;n de selecci&oacute;n para marcar el documento de flujo de trabajo a consultar (ver figura 5S3.2.2-3). los documentos de flujo de trabajo por omisi&oacute;n se deben guardar en la ruta <code>{/home/usuario}/.safet/flowfiles/</code> (en este ejemplo el usuario puede sustituirse por pbuitrago). Debe ser incluido en el archivo de configuraci&oacute;n <code>safet.conf</code> que se encuentra en el directorio <code>/home/usuario/.safet/safet.conf</code> en la secci&oacute;n <code>“ [Widgets] ”</code> (ver figura 5S3.2.2-4)
+</div>
+</p>
+<p align="center"><IMG src="images/operacion-listar-datos-con-autofiltro-cargar-archivo.png" width="700" height="231" border="0"></p>
+<div align="center">Figura 5S3.2.2-3. Seleccionar el documento de flujo de trabajo a consultar</div><br>
+<br>
+<p align="center"><IMG src="images/archivoXml.png" width="700" height="67" border="0"></p>
+<div align="center">Figura 5S3.2.2-4. Archivo <code>safet.conf</code>, secci&oacute;n <code>[ Widgets ]</code> documentos de flujo de trabajo</div><br>
+<br>
+<p>
+<div align="justify">En este ejemplo se tiene incluido en el archivo <code>safet.conf</code> solo dos documentos de flujo de trabajo (<code>ticketstrac.xml</code> y <code>ticketstracavanzado.xml</code>) luego de seleccionar el documento de flujo de trabajo a consultar se click sobre el campo <code>Autofiltro</code> del men&uacute; inteligente, y en el &aacute;rea de cuadro de edici&oacute;n debe aparecer la linea de texto <code>Autofiltro</code>, junto con un bot&oacute;n de selecci&oacute;n para marcar el autofiltro que va a utilizar (ver figura 5S3.2.2-5), luego de seleccionar el <code>Autofiltro</code> se click sobre el campo <code>Variable*</code> del men&uacute; inteligente, y en el &aacute;rea de cuadro de edici&oacute;n debe aparecer la linea de texto <code>Variable</code>, junto con un bot&oacute;n de selecci&oacute;n para marcar el estado que quiere listar (ver figura 5S3.2.2-6), y hace click en el bot&oacute;n enviar, si no presento problema, se muestra en la parte inferior izquierda del cuadro de dialogo el mensaje:</div></p><br>
+<p>
+<div align="left">
+Consulta fue exitosa....ok!<br>
+Ver reporte<br>
+(ver figura 5S3.2.2-7).<br>
+Este procedimiento genera un reporte de las variables con un determinado autofiltro que se encuentra en el estado seleccionado ver
+figura (ver figura 5S3.2.2-8)<br>
+</div>
+</p>
+<br>
+<p align="center"><IMG src="images/operacion-listar-datos-seleccionar-autofiltro.png" width="700" height="331" border="0"></p>
+<div align="center">Figura 5S3.2.2-5. Selecci&oacute;n del autofiltro</div><br>
+<br>
+<p align="center"><IMG src="images/operacion-listar-datos-autofiltro-seleccionar-variable.png" width="700" height="304" border="0"></p>
+<div align="center">Figura 5S3.2.2-6. Selecci&oacute;n del estado a consultar</div><br>
+<br>
+<p align="center"><IMG src="images/resultado-consulta.png" width="700" height="166" border="0"></p>
+<div align="center">Figura 5S3.2.2-7. Mensaje, resultado de la consulta</div><br>
+<br>
+<p align="center"><IMG src="images/reporte-autofiltro-variable.png" width="700" height="491" border="0"></p>
+<div align="center">Figura 5S3.2.2-8. Reporte de consulta de las variables en un determinado autofiltro y estado</div><br>
+<br>
+
+</body>
+</html>

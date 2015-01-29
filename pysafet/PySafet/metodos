@@ -1,0 +1,29 @@
+metodos safet variable
+
+/*
+	virtual void addChild(SafetXmlObject* o);	
+	QString id() const {return _id; };
+	void setId(const QString& i) { _id = i; }
+	QString tokenlink() const {return _tokenlink; };
+	void setTokenlink(const QString& i) { _tokenlink = i; }
+	QString scope() const {return _scope; };
+	void setScope(const QString& i) { _scope = i; }
+	QString type() const {return _type; };
+	void setType(const QString& i) { _type = i; }
+	QString config() const {return _config; };
+	void setConfig(const QString& i) { _config = i; }
+	QString source() const {return _source; };
+	void setSource(const QString& i) { _source = i; }
+	QString documentsource() const {return _documentsource; };
+	void setDocumentsource(const QString& i) { _documentsource = i; }
+    QString description() const {return _description; };
+    void setDescription(const QString& i) { _description = i; }
+	QString foo() { return "something foo"; }
+    int getDocumentCount() { return documentlist.count(); }
+    QList<SafetDocument*>& getDocuments() { return documentlist; }
+	QString getXMLDocument(const QString &value, long fieldno, QString& documentid  ) const;
+	QString createXMLFileFromQuery(const QSqlQuery& query, const QString& outputFileName) const;
+*/
+
+
+metodos SAFET Parser

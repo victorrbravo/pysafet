@@ -1,0 +1,345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Clase SafetDocument &mdash; PySafet</title>
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="PySafet" href="../../index.html" />
+    <link rel="next" title="Clase SafetVariable" href="Clase4.html" />
+    <link rel="prev" title="Clase SafetXmlObject (Safet.SafetXmlObject)" href="Clase2.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="Clase4.html" title="Clase SafetVariable"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="Clase2.html" title="Clase SafetXmlObject (Safet.SafetXmlObject)"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../../index.html">PySafet</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="clase-safetdocument">
+<h1><span class="target" id="index-0"></span>Clase SafetDocument<a class="headerlink" href="#clase-safetdocument" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="docutils">
+<dt><strong>Clase SafetDocument</strong> <span class="classifier-delimiter">:</span> <span class="classifier">SafetXmlObject</span></dt>
+<dd><p class="first">Esta clase modela un documento de una variable en <strong>PySafet</strong> (el documento puede ser firmado electrónicamente).</p>
+<p><strong>Listado de myinflow:</strong></p>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt><strong>getCertFileList</strong> (ext = &#8221;.pem&#8221;) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene la ruta del certificado usado para firmar el documento.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>numberOfDataFileOnOpenXAdESContainer</strong> () [Retorna un entero (int)]</dt>
+<dd><p class="first last">Número de archivos que contienen el documento firmado.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>numberOfSignaturesOnOpenXAdESContainer</strong> () [Retorna un entero (int)]</dt>
+<dd><p class="first last">Número de firmas que contienen el documento firmado.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>getDataFileName</strong> (index = 0) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Nombre del archivo contenido de índice &#8220;index&#8221;.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>getDataFileLength</strong> (index = 0) [Retorna un (long)]</dt>
+<dd><p class="first last">Tamaño del archivo contenodo de índice &#8220;index&#8221;.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>getDataFileMimeType</strong> (index = 0) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Tipo de archivo contenido de índice &#8220;indice&#8221;.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>numberOfDataFileAttributes</strong> (index = 0) [Retorna un entero (int)]</dt>
+<dd><p class="first last">Atributo del archivo contenido de índice &#8220;indice&#8221;.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>getXmlQuery</strong> (query,dcount,info = &#8220;&#8221;) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene consulta <strong>XML</strong>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>addSignatureToExistingDigidocFile</strong> (keyFile,passwd,certFile,inFile,outFile) [Retorna un entero (int)]</dt>
+<dd><p class="first last">Agrega un firma al archivo.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>signWithPrivateKeyOnFile</strong> (keyFile,passwd,certFile,inFile,outFile,manifest,city,state,zip,country,notaryUrl,proxyHost,proxyPort)[Retorna un entero (int)]</dt>
+<dd><p class="first last">Firma electrónicamente un archivo con un certificado PCKS#LZ.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>initPKCS11Lib</strong> (libName) [Procedimiento]</dt>
+<dd><p class="first last">Inicia el manejador de la tarjeta inteligente.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>initDigidocConfigStore</strong> (configFile) [Retorna un entero (int)]</dt>
+<dd><p class="first last">Inicializa la configuración.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first"><strong>verifySignMadeWithSmartCard</strong> (fileName) [Retorna verdadero si se ejecuto la acción, en caso contrario retorna falso]</p>
+</li>
+<li><p class="first"><strong>verifySignMadeWithSmartCard</strong> (fileName,signatureIndex)  [Retorna verdadero si se ejecuto la acción, en caso contrario retorna falso]</p>
+</li>
+<li><p class="first"><strong>verifySignMadeWithSmartCard</strong> (fileName,listOfSigners,isneg,op = SafetDocument::AND )  [Retorna verdadero si se ejecuto la acción, en caso contrario retorna falso]</p>
+<blockquote>
+<div><p>Verifica una firma electrónica que fue realizada utilizando tarjeta inteligente.</p>
+</div></blockquote>
+</li>
+<li><dl class="first docutils">
+<dt><strong>testSmartCardDriver</strong> (slot) [Procedimiento]</dt>
+<dd><p class="first last">Realiza una prueba a la conexión con la tarjeta inteligente.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>getCN</strong> (signatureIndex) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Retorna el nombre común de la firma <strong>&#8220;signature Index&#8221; (commun name)</strong> .</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>getSignerIndex</strong> (cn) [Retorna un entero (int)]</dt>
+<dd><p class="first last">Retorna el índice de firma del correspondiente nombre camún (ch).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>getCommonNameOfSigners</strong> () [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene una lista con el nombre camún de los firmantes del archivo.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>getNumberOfPrivateKeys</strong> (slot,passwd,libName) [Retorna un entero (int)]</dt>
+<dd><p class="first last">Obtiene el número de claves privadas utilizados para el archivo.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>writeFileToDisk</strong> (string,name) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Escribe en otro archivo el documento.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>returnFileToString</strong> (pathFileName) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Convierte el archivo a una cadena.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>decryptDocument</strong> (inFile,outputFile,pin) [Retorna un entero (int)]</dt>
+<dd><p class="first last">Descifra (decencripta) el archivo.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>decryptString</strong> (inFile,pin)[Retorna cadenas (String)]</dt>
+<dd><p class="first last">Descifra (decencripta) una cadena.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>getTempNameFiles</strong> (n) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Crea &#8220;n&#8221; archivos temporales.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>getCommonNameFromCertificate</strong> (certPath) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene el nombre camún (CN) de un archivo de certificación.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>getCountryOfSignature</strong> (index = 0) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene el valor de país <strong>&#8220;country&#8221;</strong> especificado para la frima electrónica de índice <strong>&#8220;Index&#8221;</strong>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>getStateOfSignature</strong> (index = 0) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene el valor del Estado <strong>(STATE)</strong> departamento o región especificando para la firma electrónica de índice &#8220;Indice&#8221;.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>getCityOfSignature</strong> (index = 0) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene el valor de la Ciudad.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>getPostalCodeOfSignature</strong> (index = 0) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene el valor de código Postal.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>getCountOfRoles</strong> (index = 0) [Retorna un entero (int)]</dt>
+<dd><p class="first last">Obtiene el número de roles (nominación de cargo del firmante).</p>
+</dd>
+</dl>
+</li>
+<li><p class="first"><strong>getRole</strong> (index = 0,roleIndex = 0) [Retorna cadenas (String)]</p>
+</li>
+<li><p class="first"><strong>getSingingTime</strong> (index = 0) [Retorna cadenas (String)]</p>
+</li>
+<li><p class="first"><strong>getSingingTimeOnlyDate</strong> (index = 0) [Retorna cadenas (String)]</p>
+</li>
+<li><p class="first"><strong>getSingingTimeOnlyHour</strong> (index = 0) [Retorna cadenas (String)]</p>
+</li>
+<li><p class="first"><strong>getSignatureType</strong> (index = 0) [Retorna cadenas (String)]</p>
+</li>
+<li><p class="first"><strong>getSignatureFormat</strong> (index = 0) [Retorna cadenas (String)]</p>
+</li>
+<li><p class="first"><strong>getSignerCertificateIssuerName</strong> (index = 0) [Retorna cadenas (String)]</p>
+</li>
+<li><p class="first"><strong>getSignerCertificateSerial</strong> (index = 0) [Retorna cadenas (String)]</p>
+</li>
+<li><p class="first"><strong>getValidAt</strong> (index = 0) [Retorna cadenas (String)]</p>
+</li>
+<li><dl class="first docutils">
+<dt><strong>getValidUntil</strong> (index = 0) [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene datos del certificado electrónico usado para la firma de índice &#8220;Indice&#8221;.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>getPathOfSafetDocument</strong> () [Retorna cadenas (String)]</dt>
+<dd><p class="first last">Obtiene la ruta donde se guarda los documentos firmados.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first"><strong>setPathOfSafetDocument</strong> (path) [Procedimiento]</p>
+</li>
+<li><p class="first"><strong>getSubjectDN</strong> (index = 0) [Retorna cadenas (String)]</p>
+</li>
+<li><p class="first"><strong>getIssuerDN</strong> (index = 0) [Retorna cadenas (String)]</p>
+</li>
+<li><p class="first"><strong>policies</strong> (index = 0) [Retorna cadenas (String)]</p>
+</li>
+<li><p class="first"><strong>getPublicKeyAlgorithm</strong> (index = 0) [Retorna cadenas (String)]</p>
+</li>
+<li><p class="first"><strong>getPublicKeyLength</strong> (index = 0) [Retorna cadenas (String)]</p>
+</li>
+<li><p class="first"><strong>writeX509ToFile</strong> (path,PEM,index = 0) [Procedimiento]</p>
+</li>
+</ol>
+<p>QByteArray versionNumber(int index = 0)</p>
+<p>QByteArray serialNumber(int index = 0);</p>
+<p>QByteArray toHex( const QByteArray &amp;in, QChar separator );</p>
+<p>QByteArray authorityKeyIdentifier(int index = 0);</p>
+<p class="last">QByteArray subjectKeyIdentifier(int index = 0);</p>
+</dd>
+</dl>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="Clase2.html"
+                        title="capítulo anterior">Clase SafetXmlObject (Safet.SafetXmlObject)</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="Clase4.html"
+                        title="próximo capítulo">Clase SafetVariable</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/_templates/Contenido5/Clase3.txt"
+           rel="nofollow">Mostrar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un nombre de módulo, clase o función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="Clase4.html" title="Clase SafetVariable"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="Clase2.html" title="Clase SafetXmlObject (Safet.SafetXmlObject)"
+             >anterior</a> |</li>
+        <li><a href="../../index.html">PySafet</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Cenditel.
+      Creado con <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

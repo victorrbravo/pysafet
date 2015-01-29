@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+
+Exec=/usr/bin/inflow
+Icon=/usr/share/pixmaps/logosafet-small.xpm
+
+Name=SAFET: InFlow
+
+Categories=Application;Office;
+MimeType=application/x-ddoc;

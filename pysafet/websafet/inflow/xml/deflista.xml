@@ -1,0 +1,41 @@
+<operations suffix=":" commandname="operacion">
+<operation  name="iniciar"  >
+<command id ="1" type="agregar" table="lista">
+	<fields>
+		<field type="string" mandatory="yes" primarykey="yes" sequence="listaid">
+			id
+		</field>
+		<field type="string" mandatory="yes" validation="\w+">
+			titulo
+		</field>
+		<field type="combolisttable" mandatory="yes" options="cuenta:usuarios">
+			propietario
+		</field>			
+		<field type="combolisttable" options="cuenta:usuarios" mandatory="yes" >
+			asignado
+		</field>
+		<field type="combosvn" mandatory="no" validation="\w+" >
+			nrevision
+		</field>		<field type="linesc" mandatory="no" validation="\w+" >
+			captura
+		</field>
+
+	</fields>
+</command>
+</operation>
+<operation  name="siguiente" > 
+	<command id ="1" type="actualizar" table="lista">
+		<fields>
+			<field type="string" mandatory="yes">
+				id
+			</field>		
+			<field type="string" mandatory="yes">
+				estado
+			</field>
+			<field type="string" mandatory="yes">
+				asignado
+			</field>
+		</fields>
+	</command>
+</operation>
+</operations>

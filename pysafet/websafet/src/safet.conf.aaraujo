@@ -1,0 +1,184 @@
+/*
+* SAFET Sistema Automatizado para la Firma Electrónica y Estampado de Tiempo - Componente
+* XPCOM de Mozilla Firefox para aplicar firma electronica
+*
+* Copyright (C) 2008 Víctor Bravo (vbravo@cenditel.gob.ve), Antonio Araujo
+* (aaraujo@cenditel.gob.ve)
+*
+* CENDITEL Fundacion Centro Nacional de Desarrollo e Investigación en Tecnologías Libres
+*
+* Este programa es software libre; Usted puede usarlo bajo los términos de la licencia de
+* software GPL versión 2.0 de la Free Software Foundation.
+*
+* Este programa se distribuye con la esperanza de que sea útil, pero SI NINGUNA GARANTÍA;
+* tampoco las implícitas garantías de MERCANTILIDAD o ADECUACIÓN A UN PROPÓSITO PARTICULAR.
+* Consulte la licencia GPL para más detalles. Usted debe recibir una copia de la GPL junto
+* con este programa; si no, escriba a la Free Software Foundation Inc. 51 Franklin Street,
+* 5º Piso, Boston, MA 02110-1301, USA.
+*
+*/
+
+# Archivo de configuracion de la libreria libsafet
+# ================================================
+
+# Variables de presentación del flujo
+# Seccion para la interfaz Web
+
+[Workflow]
+
+# Establece el color por defecto
+defaultcolor = white
+
+# Establece el color activo
+activecolor = yellow
+
+# Establece el color pasivo
+traccolor =  green
+
+
+# Variables para establecer imagenes de operadores de fujo de trabajo
+
+[Operators]
+
+# Operador split.xor
+split.xor = imgs/xor.png
+
+# Operador split.and
+split.and = imgs/and.png
+
+# Operador split.or
+split.or = imgs/or.png
+
+# Operador join.xor
+join.xor = imgs/join-xor.png
+
+# Operador join.and
+join.and = imgs/join-and.png
+
+# Operador join.or
+join.or = imgs/join-or.png
+
+# Ningun operador
+none =  imgs/none.png
+
+
+# Información referente a la base de datos o repositorio 
+# para el acceso de la libreria
+[Database]
+# Borrar los siguientes dos campos
+signature.field.name = signature_temp
+signature.field.name.length = 255
+
+# Informacion de configuracion de fuentes de datos.
+# Una fuente de datos esta asociada a una conexion con una base
+# de datos relacional. Es posible tener varias fuentes de datos, cada
+# una representada por un indice.
+
+# Especifica el numero de fuentes de datos diferentes
+database.datasources = 1
+
+# Para realizar la conexion de base de datos asociada a una fuente de datos
+# se requieren varios elementos:
+
+# Nombre de la fuente de datos 1
+database.sourcename.1 = database1
+
+# Especifica el controlador asociado a la fuente de datos
+database.driver.1 = psql
+
+# Especifica si la fuente de datos esta activa o no
+database.actived.1 = on
+
+# Especifica el nombre de host para la fuente de datos
+database.host.1 = 192.168.37.107
+
+# Especifica el nombre de la base de datos para la fuente de datos
+database.db.1 = pagos
+
+# Especifica el nombre de usuario para la fuente de datos
+database.user.1 = vbravo
+
+# Especifica la contrasena de acceso para la fuente de datos
+database.password.1 = vbravo_
+
+
+
+
+# Informacion sobre el registro de eventos.
+# Por defecto Encendidas (on) todas las categorias para el registro (log)
+[Log]
+
+# Establece la ruta absoluta donde reside el archivo de registro
+log.filepath = /home/vbravo/desarrollo
+
+# Habilita la opcion de registro de mensajes de depuracion
+log.debug = on
+
+# Habilita la opcion de registro de de mensajes de acciones
+log.action = on
+
+# Habilita la opcion de registro de de mensajes de advertencia
+log.warning = on
+
+# Habilita la opcion de registro de de mensajes de error
+log.error = on
+
+
+# Informacion sobre repositorio de documentos asociados a flujos de trabajos
+[Xml Repository]
+
+# Establece si el repositorio XML es remoto
+xmlrepository.remote = on
+
+# En caso de utilizar un repositorio de documentos XML remoto se debe 
+# especificar la informacion de acceso al mismo a traves de un servicio web
+xmlrepository.remote.ip = 192.168.37.198
+xmlrepository.remote.urlwebservice = http://192.168.37.198/cgi-bin/safet
+
+# Establece el tipo de repositorio de documentos XML. Valores posibles:
+# dir: para repositorio basado en un directorio local
+# dbxml: para repositorio DBXML
+xmlrepository.type = dir
+
+# Establece la ruta absoluta al repositorio XML
+xmlrepository.path = /home/vbravo/desarrollo/safet/dirRepository
+
+# Establece el nombre del repositorio XML
+xmlrepository.name = container1.dbxml
+
+
+# Opciones de plantillas para Salidas en consola/grafica
+[Templates]
+
+# Establece la ruta absoluta al directorio donde se encuentran las plantillas
+templates.path = /home/vbravo/desarrollo
+
+# Establece el archivo asociado a la plantilla de firma
+templates.signfile = sign.xsl
+
+# Establece el archivo asociado a la plantilla de estadisticas
+templates.stat.ndocs = ndocs.xsl
+
+
+#Opciones para la entrada/modificacion de datos
+
+[Input]
+
+# Establece la ruta absoluta para la entrada/modificacion de datos
+input.path = /home/vbravo/desarrollo
+
+
+# Opciones generales referentes al funcionamiento del tipo de aplicacion : Consola/Web/GrÃ¡fica
+[System]
+system.evalexit = off
+
+
+# Establece variables de configuracion para la libreria Libdigidoc utilizada por Libsafet
+[Libdigidoc]
+libdigidoc.configfilepath = /usr/local/libdigidocModificada/etc/digidoc.conf
+
+
+
+
+
+

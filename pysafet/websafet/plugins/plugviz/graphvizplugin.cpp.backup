@@ -1,0 +1,562 @@
+/*
+* SAFET Sistema Automatizado para la Firma Electrónica y Estampado de Tiempo
+* Copyright (C) 2008 Víctor Bravo (vbravo@cenditel.gob.ve), Antonio Araujo (aaraujo@cenditel.gob.ve
+*
+* CENDITEL Fundacion Centro Nacional de Desarrollo e Investigación en Tecnologías Libres
+*
+* Este programa es software libre; Usted puede usarlo bajo los términos de la licencia de
+* software GPL versión 2.0 de la Free Software Foundation.
+*
+* Este programa se distribuye con la esperanza de que sea útil, pero SI NINGUNA GARANTÍA;
+* tampoco las implícitas garantías de MERCANTILIDAD o ADECUACIÓN A UN PROPÓSITO PARTICULAR.
+* Consulte la licencia GPL para más detalles. Usted debe recibir una copia de la GPL junto
+* con este programa; si no, escriba a la Free Software Foundation Inc. 51 Franklin Street,
+* 5º Piso, Boston, MA 02110-1301, USA.
+*
+*/
+#include "graphvizplugin.h"
+#include "SafetYAWL.h"
+#include <QTextCodec>
+#include <QColor>
+#include <QStringList>
+extern "C" {
+    #include <locale.h>
+}
+
+graphvizPlugin::graphvizPlugin() {
+
+
+ }
+
+
+ QString graphvizPlugin::renderDocuments(const QString& docs, const QMap<QString,QString>& ) const  {
+
+        QString str = docs;
+        //qDebug("...rendering...graphviz...");
+//        if (context.count() == 0 ) return docs;
+
+//        foreach(QObject* myobj, context) {
+//             if (myobj) {
+//                    qDebug("class: %s", myobj->metaObject()->className());
+//               }
+//        }
+        return str;
+ }
+
+QString graphvizPlugin::processColor(const QString& c) {
+
+     if ( !c.startsWith("#") ) return c;
+
+     Q_ASSERT_X(QRegExp("#[0-9A-Fa-f]{6}").indexIn( c ) >= 0, qPrintable(tr("graphviz_plugins")),
+                qPrintable(tr("El parametro de color:\"%1\" no coincide con el patron: \"%2\" (H digito hexadecimal de 0 a F)").arg(c).arg("#HHHHHH"))); // Coincidencia con el Color
+
+
+
+     return c;
+     //return fred + " " + fgreen + " " + fblue;
+
+}
+
+
+ QString  graphvizPlugin::parseCodeGraph(const QString& code, const QMap<QString,QString>& context) const  {
+
+      QString result;
+      result += "digraph G {\n";
+//      result += "size=\"5,5\";\n";
+      QStringList mylist = code.split("\n",QString::SkipEmptyParts);
+      //_typegraph = context[conf()+"graphtype"];
+      QString label, taskshape ;
+      double sizemax = context[conf()+"stats.sizemax"].toDouble();
+      double sizemin = context[conf()+"stats.sizemin"].toDouble();
+      result += "rankdir=\""+context[conf()+"graph.rankdir"] +"\";\n";
+      result += "ranksep=\""+context[conf()+"graph.ranksep"] +"\";\n";
+      result += "fontsize=\""+context[conf()+"graph.fontsize"] +"\";\n";
+
+      bool isextra = false;
+      QString statsfontcolor;
+      QString statsfillcolor;
+      QString statsstyle;
+      if (context.contains(conf()+"showstats")) {
+          isextra = (context[conf()+"showstats"].compare("yes",Qt::CaseSensitive) == 0);
+          statsfontcolor = context[conf()+"stats.fontcolor"];
+          statsfillcolor = context[conf()+"stats.fillcolor"];
+          statsstyle = context[conf()+"stats.style"];
+
+    }
+      qDebug(".............wheretokens: %s", qPrintable(context[conf()+"extrainfo.showwheretokens"]));
+      bool showheretokens = context[conf()+"extrainfo.showwheretokens"]
+                                                .compare("on",
+                                                Qt::CaseSensitive) == 0;
+
+
+
+      foreach (QString sec, mylist) {
+           QString extranode;
+           QString nameextranode;
+           QRegExp rx("Nodo:\\s*([a-zA-Z0-9\\+_\\.]+)\\s*,");
+           int pos = rx.indexIn( sec );
+           //      qDebug("...sec: %s", qPrintable(sec));
+           Q_ASSERT ( pos >= 0 );
+           QString newnode = rx.cap(1);
+                 qDebug(".......newnode: |%s|", qPrintable(newnode));
+           rx.setPattern("Patron:\\s*([a-zA-Z0-9_\\.]+)\\s*,");
+           pos = rx.indexIn( sec );
+           //      qDebug("...sec: %s", qPrintable(sec));
+           Q_ASSERT ( pos >= 0 );
+           QString patron = rx.cap(1);
+            label  = newnode;
+           taskshape = context[conf()+"task.shape"];
+           if ( patron.compare("none") != 0 ) {
+                taskshape = "Mrecord";
+           }
+           rx.setPattern("Union:\\s*([a-zA-Z0-9_\\.]+)\\s*,");
+           pos = rx.indexIn( sec );
+           Q_ASSERT ( pos >= 0 );
+           QString patternunion = rx.cap(1);
+           if ( patternunion.compare("none" ) != 0 ) {
+                taskshape = "Mrecord";
+           }
+
+           QString titlePattern ="Titulo:\\s*([a-zA-Z\\s0-9;\\+_\\.][a-zA-Z\\s0-9;\\0351\\0341\\+\\-/:_\\s\\.]+[a-zA-Z\\s0-9;\\+_\\.])\\s*,";
+           rx.setPattern(titlePattern);
+           pos = rx.indexIn( sec );
+           Q_ASSERT ( pos >= 0 );
+           QString desc = rx.cap(1);
+           //desc = tr("info");
+           rx.setPattern("info\\.task\\.size:\\s*([a-zA-Z0-9_\\.]+)\\s*,?");
+           pos = rx.indexIn( sec );
+           //    qDebug("...sec: %s", qPrintable(sec));
+           // qDebug("pos: %d, patron: %s size: %s", pos, qPrintable(rx.pattern()), qPrintable(sec));
+           QString ssize,taskfontsize;
+           if  ( pos > 0 ) {
+                bool ok;
+
+                double porc = rx.cap(1).toDouble(&ok);
+                double vw = porc* (sizemax-sizemin)+sizemin;
+                double vh = porc*(sizemax-sizemin)+sizemin;
+                vh = vh/2; // Acortar el tamaño vertical
+//                qDebug("vw: %0.2f vh: %0.2f sizemax: %0.2f sizemin: %0.2f", vw, vh, sizemax, sizemin);
+                ssize = "," + QString(" width=%1,height=%2,style=\"filled,bold\"").arg(vw, 0, 'g', 2).arg(vh,0, 'g', 2);
+                taskfontsize = QString(", fontsize=%1").arg(porc*((sizemax+36)-(sizemin+8))+(sizemin+8),0, 'f', 0);
+                ssize += taskfontsize;
+
+
+           }
+           // Para el color
+           rx.setPattern("info\\.task\\.color:\\s*([\\-a-zA-Z0-9_\\.]+)\\s*,?");
+           pos = rx.indexIn( sec );
+
+           QString scolor = " ,fillcolor=\""+ processColor(context[conf()+"task.fillcolor"]) +"\" ";
+
+           if  ( pos > 0 ) {
+                bool ok;
+                QString cgradient = context[conf()+"stats.colorgradient"];
+                Q_ASSERT( cgradient.length() > 0 );
+
+                QString ogradient = context[conf()+"stats.othergradient"];
+                QColor othercolor (ogradient);
+                QColor color ( cgradient );
+                int h,s,v;
+
+                double porc = rx.cap(1).toDouble(&ok);
+                if ( porc ==  -100 ) {
+
+                }
+
+                else if ( porc < 0 ) {
+                    othercolor.getHsv (&h,&s,&v);
+                    porc = 1-(porc*-1.0);
+                    s = int(porc*255.0);
+                    othercolor.setHsv(h,s,v);
+                    scolor = "," + QString("fillcolor=\"#%1%2%3\"").arg(othercolor.red(),2,16)
+                             .arg(othercolor.green(),2,16).arg(othercolor.blue(),2,16);
+                }
+                else {
+                    color.getHsv (&h,&s,&v);
+                    s = int(porc*255.0);
+                    color.setHsv(h,s,v);
+                    scolor = "," + QString("fillcolor=\"#%1%2%3\"").arg(color.red(),2,16)
+                             .arg(color.green(),2,16).arg(color.blue(),2,16);
+
+                }
+
+
+
+                if (isextra ) {
+
+                    QString  total,tokens, rol, timestamp;
+                    QStringList stats;
+
+                    QString lastfield = sec.section(",",-1);
+                    stats = lastfield.split("...",QString::SkipEmptyParts);
+
+                    QString myinfo;
+                    if (stats.count() < 2 ) {
+
+                       if (porc > 0.0) {
+                           myinfo = tr("La clave se encuentra aqu��");
+                           tokens = "1";
+                           total =  "1";
+                       }
+                       else {
+                           tokens = "0";
+                           total =  "1";
+                       }
+                       //isextra = false;
+                    }
+                    else if (stats.count() == 4 ) {
+                        tokens = stats.at(0);
+                        total =  stats.at(1);
+                        rol = stats.at(2);
+                        timestamp = stats.at(3);
+
+                    }
+                    else  {
+                        tokens = stats.at(0);
+                        total =  stats.at(1);
+
+                    }
+
+//                    qDebug("....tokens:%s", qPrintable(tokens));
+//                    qDebug(".......rol:%s", qPrintable(rol));
+//                    qDebug(".........stats.count():%d",stats.count());
+                    nameextranode = newnode + "_" +"stats";
+
+                    bool ok;
+                    int ntokens = tokens.toInt(&ok);
+                    if (stats.count() == 4 && !rol.isEmpty() && !timestamp.isEmpty() ) {
+                        if ( rol == tr("n/a")) {
+
+                            if (timestamp == tr("n/a") ) {
+                                // double diffporc = stats.at(2).toDouble(&ok);
+                                if (ntokens > 0 ) {
+                                    myinfo =  tr("Porcentaje: %1%<br/>"
+                                                 "Nro Documentos: %2<br/>"
+                                                 "Total: %3")
+                                            .arg(porc*100,0,'f',2)
+                                            .arg(tokens)
+                                            .arg(total);
+                                    //                                      .arg(diffporc*100,0,'f',2);
+                                }
+                                else  {
+                                   if ( !showheretokens ) {
+                                       myinfo =  tr("Porcentaje: %1%<br/>"
+                                                    "Nro Documentos: %2<br/>"
+                                                    "Total: %3")
+                                               .arg(porc*100,0,'f',2)
+                                               .arg(tokens)
+                                               .arg(total);
+                                   }
+                                }
+
+                            }
+                            else {
+                               // double diffporc = stats.at(2).toDouble(&ok);
+                                if (ntokens > 0 ) {
+                                    myinfo =  tr("Porcentaje: %1%<br/>"
+                                                 "Nro Documentos: %2<br/> Total: %3<br/>"
+                                                 "Fecha/Hora: %4")
+                                            .arg(porc*100,0,'f',2)
+                                            .arg(tokens)
+                                            .arg(total)
+                                            //                                        .arg(diffporc*100,0,'f',2)
+                                            .arg(timestamp);
+                                }
+                                else {
+                                    if ( !showheretokens ) {
+                                        myinfo =  tr("Porcentaje: %1%<br/>"
+                                                     "Nro Documentos: %2<br/> Total: %3<br/>"
+                                                     "Fecha/Hora: %4")
+                                                .arg(porc*100,0,'f',2)
+                                                .arg(tokens)
+                                                .arg(total)
+                                                //                                        .arg(diffporc*100,0,'f',2)
+                                                .arg(timestamp);
+
+                                    }
+                                }
+                            }
+
+                        }
+                        else {
+                            if (timestamp == tr("n/a") ) {
+                                // double diffporc = stats.at(2).toDouble(&ok);
+                                if ( ntokens > 0 ) {
+                                myinfo =  tr("Porcentaje: %1%<br/>"
+                                             "Nro Documentos: %2<br/>Total: %3<br/>"
+                                             "%4")
+                                        .arg(porc*100,0,'f',2)
+                                        .arg(tokens)
+                                        .arg(total)
+//                                        .arg(diffporc*100,0,'f',2)
+                                        .arg(rol);
+                            }
+                                else  {
+                                   if ( !showheretokens ) {
+                                       myinfo =  tr("Porcentaje: %1%<br/>"
+                                                    "Nro Documentos: %2<br/>Total: %3<br/>"
+                                                    "%4")
+                                               .arg(porc*100,0,'f',2)
+                                               .arg(tokens)
+                                               .arg(total)
+       //                                        .arg(diffporc*100,0,'f',2)
+                                               .arg(rol);
+
+                                   }
+                                }
+
+
+
+                            }
+                            else {
+                                //double diffporc = stats.at(2).toDouble(&ok);
+                                if (ntokens > 0 ) {
+                                myinfo =  tr("Porcentaje: %1%<br/>"
+                                             "Nro Documentos: %2<br/>Total: %3<br/>"
+                                             "%5<br/>"
+                                             "Fecha/Hora: %4")
+                                        .arg(porc*100,0,'f',2)
+                                        .arg(tokens)
+                                        .arg(total)
+//                                        .arg(diffporc*100,0,'f',2)
+                                        .arg(timestamp)
+                                        .arg(rol);
+                            }
+                                else  {
+                                   if ( !showheretokens ) {
+                                       myinfo =  tr("Porcentaje: %1%<br/>"
+                                                    "Nro Documentos: %2<br/>Total: %3<br/>"
+                                                    "%5<br/>"
+                                                    "Fecha/Hora: %4")
+                                               .arg(porc*100,0,'f',2)
+                                               .arg(tokens)
+                                               .arg(total)
+       //                                        .arg(diffporc*100,0,'f',2)
+                                               .arg(timestamp)
+                                               .arg(rol);
+
+
+                                   }
+                                }
+
+                            }
+                        }
+
+                    }
+                    else if (stats.count() > 2 && !stats.at(2).trimmed().isEmpty()) {
+                        //double diffporc = stats.at(2).toDouble(&ok);
+                        if (ntokens > 0 ) {
+                        myinfo =  tr("Porcentaje: %1%<br/>"
+                                     "Nro Documentos: %2<br/>Total: %3")
+                                .arg(porc*100,0,'f',2)
+                                .arg(tokens)
+                                .arg(total);
+//                                .arg(diffporc*100,0,'f',2);
+                        }
+                        else  {
+                           if ( !showheretokens ) {
+                               myinfo =  tr("Porcentaje: %1%<br/>"
+                                            "Nro Documentos: %2<br/>Total: %3")
+                                       .arg(porc*100,0,'f',2)
+                                       .arg(tokens)
+                                       .arg(total);
+       //                                .arg(diffporc*100,0,'f',2);
+
+                           }
+                        }
+
+
+                    }
+                    else {
+
+                        if (ntokens > 0 ) {
+                        myinfo =  tr("Porcentaje: %1%<br/>"
+                                     "Documentos: %2<br/>Total: %3")
+                                .arg(porc*100,0,'f',2)
+                                .arg(tokens)
+                                .arg(total);
+                         }
+                        else  {
+                           if ( !showheretokens ) {
+                               myinfo =  tr("Porcentaje: %1%<br/>"
+                                            "Documentos: %2<br/>Total: %3")
+                                       .arg(porc*100,0,'f',2)
+                                       .arg(tokens)
+                                       .arg(total);
+
+                           }
+                        }
+
+
+
+                    }
+                    if (lastfield.contains("...")) {
+                        if (!myinfo.isEmpty()) {
+                            if (myinfo.indexOf(tr("AQUI ESTA")) != -1 ) {
+                                extranode = nameextranode +QString(" [style=\"solid\" "
+                                                                   " penwidth=\"4.0\"  "
+                                                                   " label=<%1>  "
+                                                                   "shape=\"box\" fontcolor=\"%2\" fillcolor=\"%3\"];\n")
+                                        .arg( myinfo)
+                                        .arg(statsfontcolor)
+                                        .arg(statsfillcolor);
+                                extranode += nameextranode + " -> " + newnode  + " [penwidth=\"4.0\" style=\"solid\"];\n";
+
+                            }
+                            else {
+                                extranode = nameextranode +QString(" [style=\"%4\" "
+                                                                   " label=<%1>"
+                                                                   "shape=\"box\" fontcolor=\"%2\" fillcolor=\"%3\"];\n")
+                                        .arg( myinfo)
+                                        .arg(statsfontcolor)
+                                        .arg(statsfillcolor)
+                                        .arg(statsstyle);
+                                extranode += nameextranode + " -> " + newnode  + " [style=\"dotted\"];\n";
+                            }
+                            //qDebug("...extranode. %s",qPrintable(extranode));
+                        }
+                    }
+
+                }
+           }
+           // *** Patrones (JOIN / SPLIT )
+           if ( patron.compare("none") == 0 ) {
+               if (patternunion.compare("none") == 0 ) {
+                   label = newnode+ "\\n" + desc;
+               } else {
+                   label = "{ " + patternunion + " | " + newnode +"\\n"+ desc + "}";
+               }
+           }           
+           else {
+               if (patternunion.compare("none") == 0 ) {
+                    label = "{ " + newnode +"\\n"+ desc +  " | " + patron + "}";
+                }
+               else {
+                   label = "{ " + patternunion + " | " + newnode +"\\n"+ desc +  " | " + patron + "}";
+               }
+           }
+
+           // *** Patrones (JOIN / SPLIT )
+           rx.setPattern("Siguiente:\\s*([a-zA-Z\\s0-9;\\+_\\.]+)\\s*\\,");
+           pos = rx.indexIn( sec );
+           Q_ASSERT ( pos >= 0 );
+           QString next = rx.cap(1);
+           QStringList nexts =  next.split(";", QString::SkipEmptyParts);
+           rx.setPattern("Tipo:\\s*([a-zA-Z\\s0-9;_\\.]+)\\s*\\,");
+           pos = rx.indexIn( sec );
+           Q_ASSERT ( pos >= 0 );
+           QString typeNode = rx.cap(1);
+
+           if (typeNode == "Task" ) {
+                result += newnode + " [style="+context[conf()+"task.style"]+
+                          ", fontname=\"Helvetica\", shape="+
+                          taskshape+", label=\""+label+"\""
+                          +scolor+" ,color=\""+
+                          processColor(context[conf()+"task.color"]) +"\""+ ssize +"];\n";
+           } else if ( typeNode == "Condition" ) {
+                result += newnode
+                          + " [style="+context[conf()+"condition.style"]+
+                          ", shape="+context[conf()+"condition.shape"]+
+                          ",fillcolor=\""+
+                          processColor(context[conf()+"condition.fillcolor"]) +
+                          "\",color=\""+ processColor(context[conf()+"condition.color"])
+                          +"\"];\n";
+           }
+           foreach( QString s, nexts ) {
+                result += newnode + " -> " + s + ";\n";
+           }
+           if (isextra && typeNode == "Task" ) {
+               result += extranode;
+               extranode = "";
+           }
+      }
+      result.chop(1);
+      //result += sec;
+      result += "\n";
+      result += "}";
+      return result;
+ }
+
+
+
+QString graphvizPlugin::renderGraph(const QString&  code, const QString& info,
+                                    const QMap<QString,QString>& context)  {
+    if ( info.isEmpty() ) return QString(tr("ERROR informacion NO se suministro"));
+    QLocale::setDefault(QLocale::C);
+    setlocale(LC_ALL, "C");
+    QStringList list= getTempNameFiles(2);
+    Q_ASSERT( list.count() == 2 );
+
+    _typegraph = context[conf()+"graphtype"];
+    GVC_t *gvc; graph_t *g; FILE *fpin, *fpout;
+
+    QString infile, outfile;
+    infile = "/var/www/media/"+list.at(0).section("/",-1);
+    outfile = "/var/www/media/"+list.at(1).section("/",-1)+"."+_typegraph;
+    gvc = gvContext();
+    Q_CHECK_PTR( gvc );
+    fpin = fopen (qPrintable(infile),"w+");
+    if (fpin == NULL) {
+        return QString(tr("ERROR abriendo archivo de entrada: \"%1\"")
+                       .arg(infile));
+
+    }
+    fwrite( qPrintable(code), sizeof(char), code.length(), fpin);
+    fflush(fpin);
+    fclose(fpin);
+
+
+    fpin = fopen (qPrintable(infile),"r");
+    Q_CHECK_PTR(fpin);
+    g = agread(fpin);
+    fclose(fpin);
+    char filetype[10];
+    //strncpy(filetype,qPrintable(info), strlen(filetype));
+    strncpy(filetype,qPrintable(_typegraph),3);
+    filetype[3] = 0;
+
+    char nameengine[] = "dot";
+    gvLayout(gvc, g, (char*)nameengine);
+    fpout = fopen (qPrintable(outfile),"w+");
+    if (fpout == NULL) {
+        return QString(tr("ERROR abriendo archivo de salida: \"%1\"")
+                       .arg(outfile));
+
+    }
+    gvRender(gvc, g,  filetype, fpout);
+    gvFreeLayout(gvc, g);
+    agclose(g);
+    gvFreeContext(gvc);
+
+    fclose(fpout);
+
+    return list.at(1);
+}
+
+QStringList  graphvizPlugin::getTempNameFiles(int n) {
+     QStringList list;
+     if (n == 0 ) return list;
+     Q_ASSERT(n > 0 );
+
+     QList<QTemporaryFile*> filelist;
+
+     for (int i= 0; i < n; i++) {
+          filelist.push_back(new QTemporaryFile());
+          Q_CHECK_PTR( filelist.at(i) );
+          bool result = filelist.at(i)->open();
+          if (!result) {
+             //   qDebug("No fue posible abrir el archivo temporal");
+            }
+          list.push_back(filelist.at(i)->fileName());
+     }
+
+     Q_ASSERT(n == filelist.count()); // Deben ser igual el numero de la lista de archivos
+     for (int i= 0; i < n; i++) {
+          filelist.at(i)->close();
+          delete filelist.at(i);
+     }
+     return list;
+}
+
+
+Q_EXPORT_PLUGIN2(pnp_graphviz, graphvizPlugin)

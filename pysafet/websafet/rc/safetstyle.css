@@ -1,0 +1,117 @@
+* {
+color: #355670;
+font: 12px "Arial, Liberation Sans";
+}
+
+QTabWidget {
+    background-image: url(:/background.png);} 
+#background
+{ background-image: url(":/background.png"); }
+
+/* widgets */
+QPushButton
+{
+background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #406A9E, stop: 0.75 #00355F);
+border: 0px;
+border-radius: 2px;
+color: white;
+margin-left: 1px;
+margin-right: 1px;
+min-width: 75px;
+padding: 1px 7px;
+}
+
+QDialogButtonBox QPushButton, #home QPushButton
+{ padding: 4px 7px; }
+
+QPushButton:hover, QPushButton:focus
+{
+background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #F1C157, stop:0.28 #FADF91, stop:1 #EBA927);
+color: #00355F;
+}
+
+QPushButton:disabled
+{ background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #A3AFC0, stop: 0.75 #80909D); }
+
+/* header */
+#headerLine, #headerLine2
+{ background-color: #00355F; }
+
+#cards, #languages
+{
+background-color: #00355F;"
+        "
+border: 0px;
+margin-right: 0px;
+color: white;
+}
+
+#cards QListView, #languages QListView
+{
+background-color: white;
+border: 0px;
+color: #355670;
+}
+
+#cards::down-arrow, #languages::down-arrow
+{ image: url(":/images/languages_button.png"); }
+
+#cards::drop-down, #languages::drop-down
+{ border: 0px; }
+
+#settings, #help
+{
+background-color: #00355F;
+color: #afc6d1;
+font: bold;
+min-width: 0px;
+}
+
+#settings:hover, #settings:focus
+#help:hover, #help:focus
+{ text-decoration: underline; }
+
+#infoFrame
+{
+background-color: rgba( 255, 255, 255, 153 );
+border-radius: 3px;
+color: #668696;
+padding-left: 10px;
+padding-right: 10px;
+}
+
+#infoCard
+{ font: bold; }
+
+/* content */
+#homeButtonLabel,
+#viewContentLabel, #viewKeysLabel
+{
+color: #00355F;
+font: bold;
+}
+
+#home, #intro, #view,
+#viewContentView
+{ background-color: transparent; }
+
+#viewContentFrame
+{
+background-color: rgba( 255, 255, 255, 200 );
+border: 1px solid gray;
+color: #355670;
+padding: 5px;
+}
+
+#viewKeysFrame
+{
+background-color: rgba( 255, 255, 255, 200 );
+border: 1px solid gray;
+padding: 5px;
+}
+
+#viewKeys, #viewKeysScroll
+{
+background-color: transparent;
+color: #71889A;
+}

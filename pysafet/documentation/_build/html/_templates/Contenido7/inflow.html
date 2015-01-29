@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Instalación de Inflow &mdash; PySafet</title>
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="PySafet" href="../../index.html" />
+    <link rel="next" title="Visualización de la interfaz gráfica de inflow" href="visualizacion.html" />
+    <link rel="prev" title="Generar gráficos" href="../Contenido6/Parte6.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="visualizacion.html" title="Visualización de la interfaz gráfica de inflow"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="../Contenido6/Parte6.html" title="Generar gráficos"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../../index.html">PySafet</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="instalacion-de-inflow">
+<h1><span class="target" id="index-0"></span>Instalación de Inflow<a class="headerlink" href="#instalacion-de-inflow" title="Enlazar permanentemente con este título">¶</a></h1>
+<blockquote>
+<div><p><strong>Pre-requisitos:</strong></p>
+<blockquote>
+<div>Conocimiento básico de instalación de paquetes,  y actividades mínimas de administración.</div></blockquote>
+<p><strong>Paquetes necesarios:</strong></p>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li>Librería Trolltech Qt &gt;= 4.4  <strong>(libqt4-dev)</strong>.</li>
+<li>Librería de Conexión a Datos Qt PSQL <strong>(libqt4-sql-psql)</strong>.</li>
+<li>Librería de Conexión a Datos Qt SQLITE <strong>(libqt4-sql-sqlite)</strong>.</li>
+<li>Librería XML2 <strong>(libxml2-dev)</strong>.</li>
+<li>Librería de archivo tareados <strong>(libtar-dev)</strong>.</li>
+<li>Librería Graphviz (<strong>libgraphiz-dev</strong>, para plugins de visualización de gráfico).</li>
+<li>Libreria <strong>libtar-dev</strong> (Utilidad <strong>&#8220;tar&#8221;</strong> para respaldo de archivos).</li>
+<li>Compilador <strong>g++ y make</strong>.</li>
+</ol>
+<div class="highlight-python"><div class="highlight"><pre>Desde la shell de Unix, puede instalar todo el conjunto  de  paquetes necesarios
+[descritos desde el paso &quot;a&quot; hasta el paso &quot;h&quot;], a través del siguiente comando:
+
+ # aptitude install g++ libqt4-dev libqt4-sql-psql libxml2-dev  libqt4-sql-sqlite libtar-dev libgraphviz-dev g++ make
+</pre></div>
+</div>
+<p><strong>Observen la siguiente imagen:</strong></p>
+<a class="reference internal image-reference" href="../../_images/inflow1.png"><img alt="../../_images/inflow1.png" src="../../_images/inflow1.png" style="width: 1300px; height: 300px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 25:</th><td class="field-body">Paquetes de inflow.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p><strong>Primer paso:</strong></p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre> Crear un directorio, en el cual almacenará los archivos fuentes.
+
+$ mkdir inflow
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Segundo paso:</strong></p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre>Descargar los fuentes (git ...)
+
+$ git clone https://bitbucket.org/victorrbravo/inflow.git
+</pre></div>
+</div>
+<p><strong>Observen la siguiente imagen:</strong></p>
+<a class="reference internal image-reference" href="../../_images/inflow.png"><img alt="../../_images/inflow.png" src="../../_images/inflow.png" style="width: 1200px; height: 200px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 26:</th><td class="field-body">inflow.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p><strong>Tercer paso:</strong></p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre>Ir al directorio descomprimido cd inflow/
+       $ cd inflow
+       inflow$
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Cuarto paso:</strong></p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre>Ejecutar &quot;qmake&quot; o &quot;qmake-qt4&quot; para generar el archivo de compilación (Makefile)
+
+        $ qmake-qt4
+</pre></div>
+</div>
+<p><strong>Observen la siguiente imagen:</strong></p>
+<a class="reference internal image-reference" href="../../_images/inflow2.png"><img alt="../../_images/inflow2.png" src="../../_images/inflow2.png" style="width: 1200px; height: 200px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 27:</th><td class="field-body">qmake-qt4.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p><strong>Quinto paso:</strong></p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre>Si en la pantalla no se muestran errores, realizar la compilación con &quot;make&quot;.
+
+     $ make
+</pre></div>
+</div>
+<p><strong>Observen la siguiente imagen:</strong></p>
+<a class="reference internal image-reference" href="../../_images/inflow3.png"><img alt="../../_images/inflow3.png" src="../../_images/inflow3.png" style="width: 1000px; height: 400px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 28:</th><td class="field-body">make.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p><strong>Sexto paso:</strong></p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre>   Realizar la instalación en los directorios del sistema (es necesario tener permisos de administrador o &quot;root&quot;)
+
+$ su
+    Escriba la contraseña de administrador y asegúrese que se está en el directorio safet-0.1.1.alpha)
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Séptimo paso:</strong></p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre>Instalación como administrador
+
+    # make install
+    ¡Si no se presenta ningún mensaje de error SAFET está instalado correctamente en su sistema!
+</pre></div>
+</div>
+<p><strong>Observen la siguiente imagen:</strong></p>
+<a class="reference internal image-reference" href="../../_images/inflow4.png"><img alt="../../_images/inflow4.png" src="../../_images/inflow4.png" style="width: 1000px; height: 400px;" /></a>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Figura 29:</th><td class="field-body">make install.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="../Contenido6/Parte6.html"
+                        title="capítulo anterior">Generar gráficos</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="visualizacion.html"
+                        title="próximo capítulo">Visualización de la interfaz gráfica de inflow</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/_templates/Contenido7/inflow.txt"
+           rel="nofollow">Mostrar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un nombre de módulo, clase o función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="visualizacion.html" title="Visualización de la interfaz gráfica de inflow"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="../Contenido6/Parte6.html" title="Generar gráficos"
+             >anterior</a> |</li>
+        <li><a href="../../index.html">PySafet</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Cenditel.
+      Creado con <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

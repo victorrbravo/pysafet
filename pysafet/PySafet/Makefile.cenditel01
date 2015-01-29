@@ -1,0 +1,51 @@
+TARGET = Safet.so
+OFILES = sipSafetcmodule.o sipSafetSafetWorkflow.o sipSafetSafetYAWL.o sipSafetSafetXmlObject.o
+HFILES = sipAPISafet.h 
+
+CC = gcc
+CXX = g++
+LINK = g++
+CPPFLAGS = -DQT_SHARED -DQT_NO_DEBUG -DQT_CORE_LIB -I. -I/usr/include/python2.5 -I/usr/local/Trolltech/Qt-4.4.2/mkspecs/default -I/usr/local/Trolltech/Qt-4.4.2/include/QtCore  -I/usr/local/Trolltech/Qt-4.4.2/include  -I/usr/X11R6/include -I/usr/local/include/libdigidoc/ -I/home/cenditel01/Documentos/proyecto1/trunk/src -I/usr/local/Trolltech/Qt-4.4.2/include -I/usr/local/Trolltech/Qt-4.4.2/include/QtSql -I/usr/local/Trolltech/Qt-4.4.2/include/Qt -I/usr/local/Trolltech/Qt-4.4.2/include/QtXml  
+CFLAGS = -pipe -fPIC -O2 -Wall -W -D_REENTRANT
+CXXFLAGS = -pipe -fPIC  -O2 -Wall -W -D_REENTRANT
+LFLAGS = -L/home/cenditel01/Documentos/proyecto1/trunk/lib -shared -Wl,--version-script=Safet.exp
+LIBS = -L/usr/lib -L/usr/X11R6/lib -lsafet -lQtCore -lQtXml -lQtSql -L/usr/local/lib -ldigidoc 
+MOC = moc-qt4
+.SUFFIXES: .c .o .cpp .cc .cxx .C
+
+
+.cpp.o:
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) -o $@ $<
+
+.cc.o:
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) -o $@ $<
+
+.cxx.o:
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) -o $@ $<
+
+.C.o:
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) -o $@ $<
+
+.c.o:
+	$(CC) -c $(CFLAGS) $(CPPFLAGS) -o $@ $<
+
+$(TARGET): $(OFILES)
+	@echo '{ global: initSafet; local: *; };' > Safet.exp
+	$(LINK) $(LFLAGS) -o $(TARGET) $(OFILES) $(LIBS)
+
+$(OFILES): $(HFILES)
+
+install: $(TARGET)
+	@test -d $(DESTDIR)/usr/lib/python2.5/site-packages || mkdir -p $(DESTDIR)/usr/lib/python2.5/site-packages
+	cp -f $(TARGET) $(DESTDIR)/usr/lib/python2.5/site-packages/$(TARGET)
+	strip $(DESTDIR)/usr/lib/python2.5/site-packages/$(TARGET)
+	@test -d $(DESTDIR)/usr/share/sip/SafetXmlObject || mkdir -p $(DESTDIR)/usr/share/sip/SafetXmlObject
+	cp -f Safet.sip $(DESTDIR)/usr/share/sip/SafetXmlObject/Safet.sip
+
+clean:
+	-rm -f $(TARGET)
+	-rm -f sipSafetcmodule.o
+	-rm -f sipSafetSafetWorkflow.o
+	-rm -f sipSafetSafetYAWL.o
+	-rm -f sipSafetSafetXmlObject.o
+	-rm -f Safet.exp

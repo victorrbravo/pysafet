@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0060)http://nettuts.s3.amazonaws.com/001_Tabbed/site/jQuery.html# -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <title>Fichas</title>
+        <link rel="stylesheet" href="Tabbed Structure - Regular_files/style.css" type="text/css" media="screen">
+
+
+ <script src="fichas/dataInventory1.js"> </script>
+
+ <script>
+
+
+   function Fichas(){
+
+	var valor = columnInventory.length;
+	var valor1 = dataInventory.length-1;
+	var j = 0, flecha = false;
+
+	if (columnInventory[j].sTitle == "cantidad"){
+	  flecha = true; 
+
+	  for (var i = 0; i < valor; i++ ){
+
+	    if( flecha == true && i == 2){ 
+
+			document.write("<li> <font color = 'blue'>" + columnInventory[j].sTitle + ": </font>"+ dataInventory[valor1][j]+ "</li>");
+			document.write("<li> <font color = 'blue'>" + columnInventory[i+1].sTitle + ": </font>"+ dataInventory[valor1][i+1]+ "</li>");
+		}
+		else{
+			document.write("<li> <font color = 'blue'>" + columnInventory[i+1].sTitle + ": </font>"+ dataInventory[valor1][i+1]+ "</li>");
+		}
+	  }
+
+	}
+	else{
+		for (var i = 0; i < valor; i++ ){
+			document.write("<li> <font color = 'blue'>" + columnInventory[i].sTitle + ": </font>"+ dataInventory[j][i]+ "</li>");
+		}
+	}
+
+ }
+
+</script>
+
+</head>
+<body>
+
+
+
+<div id="tabbed_box_1" class="tabbed_box">
+  <h4>Ficha de la tabla <script> document.write(Variable[0]); </script></h4>
+  <div class="tabbed_area">
+  <ul class="tabs">
+  <li><a class="ta ctive">Ficha</a></li>
+
+  </ul>
+
+  <div id="content_1" class="content">
+  <ul>
+	<script> Fichas();</script>
+  </ul> 
+  </div>
+
+</div>
+
+</div>
+
+
+
+<center>
+ <form method="get" action="Parte5.html">
+
+<input type="submit" value="Regresar" />
+
+</form>
+
+</center>
+</body>
+</html>
+
+
+
+
+
+

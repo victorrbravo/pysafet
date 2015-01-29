@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Documento  : deftrac.xml
+Creado     : Víctor Bravo
+Autor      : Victor Bravo
+Descripcion: Archivo de Entrada para SAFET - Inflow
+-->
+
+<!DOCTYPE operations SYSTEM "file://$USER/.safet/dtd/yawlinput.dtd">
+<operations suffix=":" commandname="operacion">
+<operation  name="Tickets"  desc="Agregar,Modificar,Eliminar,Listar" icon="firmadoc.png">
+</operation>
+<operation  name="agregar_ticket"  desc="Agregar un nuevo ticket para la fase de Conceptualización" icon="plus.png">
+<command id ="1" type="agregar" table="ticket" >
+	<fields>
+		<field type="string" mandatory="yes" primarykey="yes" sequence="ticket_id_seq" title="ticket_a_agregar">
+			id
+		</field>
+		<field type="string" mandatory="yes" literal="new">
+			status
+		</field>
+		<field type="datetime" mandatory="yes"  options="calendarPopup::false,displayFormat::hh:mmap"  function="now()" format="time_t" input="no">
+			time
+		</field>
+		<field type="datetime" mandatory="yes"  function="now()" format="time_t" input="no">
+			changetime
+		</field>
+		<field type="string" icon="resumen.png" mandatory="yes" validation="" title="resumen" desc="Escribir un titulo corto del ticket">
+			summary
+		</field>
+		<field type="stringbox" icon="desc.png" mandatory="yes"  options="wiki" title="descripcion" desc="La explicación más detallada">
+			description
+		</field>
+		<field type="combolisttable" mandatory="yes" options="name:component" title="componente" desc="Seleccione el componente a cual corresponde el ticket">
+			component
+		</field>			
+		<field type="combolisttable" icon="hito.png" desc= "Seleccione la fecha que debe culminar este ticket" mandatory="yes" options="name:milestone" title="hito">
+			milestone
+		</field>			
+		<field type="combolisttable" mandatory="yes" options="name:version" title="version">
+			version
+		</field>			
+		<field type="combolisttable" mandatory="yes" options="name:enum:where type='ticket_type'" title="tipo">
+			type
+		</field>			
+		<field type="linesc" mandatory="no" validation="" >
+			captura
+		</field>	
+		<field type="combosvn" mandatory="no" validation="" options="commit" >
+			revision
+		</field>		
+	
+		<field type="number" mandatory="no" options="decimal,prefix::BsF.,singleStep::0.2" >
+			Numero_casos
+		</field>		
+
+			<field type="combolisttable" mandatory="yes" options="name:enum:where type='priority'" title="prioridad">
+			priority
+		</field>
+		<field type="string" literal="_USERNAME" mandatory="yes" >
+			owner
+		</field>
+		<field type="string" literal="_USERNAME" mandatory="yes" >
+			reporter
+		</field>
+		<field type="combolisttable"  options="'subtarea_' || id || '_':ticket" mandatory="no" primarykey="no" title="colocar_como" order="desc">
+			_valor
+		</field>
+
+	</fields>
+</command>
+<command id ="1" type="agregar" table="ticket_change" >
+	        <fields>
+	                <field type="string"   mandatory="yes" primarykey="yes" sequence="ticket_id_seq" typesequence="current">
+	                                ticket
+	                </field>
+	                <field type="datetime" mandatory="yes"  function="now()" format="time_t" input="no">
+                        time
+	                </field>
+	                <field type="string" literal="_USERNAME" mandatory="yes" >
+	                        author
+	                </field>
+	                <field type="string" literal="comment" mandatory="yes" >
+	                        field
+	                </field>
+	                <field type="string" literal="1" mandatory="yes" >
+	                        oldvalue
+	                </field>
+		<field type="string" mandatory="no" primarykey="no" title="colocar_como" >
+			newvalue
+		</field>
+	        </fields>
+	</command>
+</operation>
+<operation  name="enlazar_subtarea"  desc="Enlaza un ticket a otro (crea una subtarea)" icon="plus.png">
+<command id ="1" type="agregar" table="ticket_change" >
+	<fields>
+		<field type="combolisttable" options="'subtarea_' || id || '_':ticket::'(' || id || ')' || summary as infoticketpadre" mandatory="yes" primarykey="yes" title="ticket_padre" order="desc">
+			newvalue
+		</field>
+		<field type="combolisttable" options="id:ticket::'(' || id || ')' || summary as infotickethijo" mandatory="yes" primarykey="no" title="ticket_hijo" order="desc">
+			ticket
+		</field>
+                <field type="datetime" mandatory="yes"  function="now()" format="time_t" input="no">
+                       time
+                </field>
+                <field type="string" literal="_USERNAME" mandatory="yes" >
+                        author
+                </field>
+                <field type="string" literal="comment" mandatory="yes" >
+                        field
+                </field>
+                <field type="string" literal="1" mandatory="yes" >
+                        oldvalue
+                </field>
+	</fields>
+</command>
+</operation>
+<operation  name="modificar_ticket"  desc="Modificar un ticket existente" icon="firmadoc.png">
+	<command id ="1" type="actualizar" table="ticket">
+		<fields>
+			<field type="combolisttable" options="id:ticket" mandatory="yes" primarykey="yes" title="id" order="desc">
+				id
+			</field>
+			<field type="string" mandatory="no" validation="" title="resumen" desc="Escribir un titulo corto del ticket">
+				summary
+			</field>
+			<field type="stringbox" mandatory="no"  title="descripcion" desc="La explicación más detallada">
+				description
+			</field>
+			<field type="combolisttable" mandatory="no" options="name:component" title="componente" desc="Seleccione el componente a cual corresponde el ticket">
+				component
+			</field>			
+			<field type="combolisttable" mandatory="no" options="name:milestone" title="hito">
+				milestone
+			</field>			
+			<field type="combolisttable" mandatory="no" options="name:version" title="version">
+				version
+			</field>			
+			<field type="combolisttable" mandatory="no" options="name:enum:where type='ticket_type'" title="tipo">
+				type
+			</field>			
+			<field type="combolisttable" mandatory="no" options="name:enum:where type='priority'" title="prioridad">
+				priority
+			</field>			
+			<field type="combolisttable" mandatory="no" options="owner:ticket" title="Propietario">
+				owner
+			</field>			
+
+		</fields>
+	</command>
+</operation>
+<operation  name="agregar_wiki"  desc="Agrega al wiki de este ticket alguna información importante" icon="resumen.png">
+<command id ="1" type="agregar" table="ticket_change" >
+	<fields>
+		<field type="combolisttable" options="id:ticket" mandatory="yes" primarykey="yes" title="id" order="desc">
+				ticket
+		</field>
+		<field type="datetime" mandatory="yes"  function="now()" format="time_t" input="no">
+			time
+		</field>
+		<field type="string" literal="_USERNAME" mandatory="yes" >
+			author
+		</field>
+		<field type="string" literal="comment" mandatory="yes" >
+			field
+		</field>
+		<field type="string" literal="1" mandatory="yes" >
+			oldvalue
+		</field>
+		<field type="stringbox" mandatory="yes" validation="" options="wiki" title="texto_wiki">
+			newvalue
+		</field>
+	</fields>
+</command>
+</operation>
+
+<operation  name="Siguiente_estado" desc="Pasa de estado un determinado ticket" icon="padlock.png"> 
+	<command id ="1" type="actualizar" table="ticket">
+		<fields>
+			<field type="combolisttable" options="id:ticket" mandatory="yes" primarykey="yes" order="desc">
+				id
+			</field>		
+		<field type="comboflow" mandatory="yes" options="next" 
+                                  path="$USER/.safet/flowfiles/ticketstracavanzado.xml" title="Siguiente_Estado">
+				status
+			</field>
+			<field type="combolisttable" mandatory="no" options="name:enum:where type='resolution'" path="Siguiente_Estado:status" visible="status='closed'" title="Resolución">
+				resolution
+			</field>				
+		<field type="string" literal="_USERNAME" mandatory="yes" >
+			owner
+		</field>
+		</fields>
+	</command>
+</operation>
+<operation  name="borrar_ticket"  desc="Elimina un ticket por id" icon="clear.png"> 
+	<command id ="1" type="eliminar" table="ticket">
+		<fields>
+			<field type="combolisttable" options="id:ticket" mandatory="yes" primarykey="yes"
+			title="id_ticket" >
+				id
+			</field>		
+		</fields>
+	</command>
+	<command id ="1" type="eliminar" table="ticket_change" >
+		<fields>
+			<field type="string"  mandatory="yes" primarykey="yes" title="id_ticket">
+				ticket
+			</field>		
+		</fields>
+	</command>
+
+</operation>
+
+<operation  name="borrar_enlace_entre_tareas"  desc="Elimina un enlace entre tareas" icon="clear.png"> 
+	<command id ="1" type="eliminar" table="ticket_change">
+		<fields>
+			<field type="combolisttable" options="newvalue:ticket_change:where newvalue like 'subtarea%'" mandatory="yes" primarykey="yes"
+			title="ticket_padre" >
+				newvalue
+			</field>		
+
+			<field type="combolisttable" options="ticket:ticket_change:where newvalue like '{{ticket_padre}}'" mandatory="yes" primarykey="yes"
+			title="tarea_hijo" >
+				ticket
+			</field>		
+
+		</fields>
+	</command>
+</operation>
+
+<operation  name="Hitos (Fechas entregas)"  desc="Cambia Información sobre los hitos" icon="firmadoc.png">
+</operation>
+<operation  name="agregar_hito"  desc="Agrega un hito (fecha tope)" icon="firmadoc.png">
+	<command id ="1" type="agregar" table="milestone">
+		<fields>
+			<field type="string" mandatory="yes" validation="" title="Nombre_Hito" primarykey="yes" >
+				name
+			</field>
+			<field type="stringbox" mandatory="yes" validation="" title="Descripción_Hito" >
+				description
+			</field>
+			<field type="datetime" mandatory="yes" options="calendarPopup::true,displayFormat::dd/MM/yy" title="Fecha_Tope" >
+				due
+			</field>
+
+		</fields>
+			
+	</command>
+</operation>
+<operation  name="modificar_hito"  desc="Modificar un hito (fecha tope)" icon="firmadoc.png">
+	<command id ="1" type="actualizar" table="milestone">
+		<fields>
+			<field type="combolisttable" options="name:milestone" mandatory="yes" validation="" title="Nombre_Hito" primarykey="yes" >
+				milestone.name
+			</field>
+			<field type="string" mandatory="no" validation="" title="Descripción_Hito" >
+				description
+			</field>
+			<field type="string" mandatory="no" validation="" title="Nombre_Nuevo_Hito" >
+				name
+			</field>
+
+			<field type="datetime" mandatory="no" options="calendarPopup::true,displayFormat::dd/MM/yy" title="Fecha_Tope" >
+				due
+			</field>
+
+		</fields>
+			
+	</command>
+	<command id ="1" type="actualizar" table="ticket">
+		<fields>
+			<field type="string" mandatory="no"  title="Nombre_Hito" primarykey="yes" >
+				ticket.milestone
+			</field>
+			<field type="string" mandatory="no" validation="" title="Nombre_Nuevo_Hito" >
+				milestone
+			</field>
+
+		</fields>
+			
+	</command>
+
+</operation>
+<operation  name="borrar_hito"  desc="Elimina un hito por su nombre" icon="clear.png"> 
+	<command id ="1" type="eliminar" table="milestone">
+		<fields>
+			<field type="combolisttable" options="name:milestone" title="Nombre_Hito" mandatory="yes" primarykey="yes">
+				name
+			</field>		
+		</fields>
+	</command>
+</operation>
+<operation  name="Componentes (Partes)"  desc="Cambia Información sobre los hitos" icon="firmadoc.png">
+</operation>
+<operation  name="agregar_componente"  desc="Agrega un componente (fecha tope)" icon="firmadoc.png">
+	<command id ="1" type="agregar" table="component">
+		<fields>
+			<field type="string" mandatory="yes" validation="" title="Nombre_Componente" primarykey="yes" >
+				name
+			</field>
+			<field type="string" mandatory="yes" literal="_USERNAME"  >
+				owner
+			</field>
+			<field type="stringbox" mandatory="yes" validation="" title="Descripción_Componente" >
+				description
+			</field>
+
+
+		</fields>			
+	</command>
+</operation>
+<operation  name="modificar_componente"  desc="Modificar un componente (fecha tope)" icon="firmadoc.png">
+	<command id ="1" type="actualizar" table="component">
+		<fields>
+			<field type="combolisttable" mandatory="yes" options="name:component" title="Nombre_Componente" primarykey="yes" >
+				component.name
+			</field>
+			<field type="string" mandatory="yes" literal="_USERNAME"  >
+				owner
+			</field>
+			<field type="string" mandatory="no" validation="" title="Nombre_Nuevo_Componente" >
+				name
+			</field>
+			<field type="stringbox" mandatory="no" validation="" title="Descripción_Componente" >
+				description
+			</field>
+
+		</fields>
+			
+	</command>
+	<command id ="1" type="actualizar" table="ticket">
+		<fields>
+			<field type="string" mandatory="no"  title="Nombre_Componente" primarykey="yes" >
+				ticket.component
+			</field>
+			<field type="string" mandatory="no" validation="" title="Nombre_Nuevo_Componente" >
+				component
+			</field>
+
+		</fields>			
+	</command>
+</operation>
+
+<operation  name="borrar_componente"  desc="Elimina un componente por su nombre" icon="clear.png"> 
+	<command id ="1" type="eliminar" table="component">
+		<fields>
+			<field type="combolisttable" options="name:component" title="Nombre_Componente" mandatory="yes" primarykey="yes">
+				name
+			</field>		
+		</fields>
+	</command>
+</operation>
+<operation  name="Prioridades (Orden ejecución)"  desc="Cambia Información sobre los hitos" icon="firmadoc.png">
+</operation>
+<operation  name="agregar_prioridad"  desc="Agrega una prioridad " icon="firmadoc.png">
+	<command id ="1" type="agregar" table="enum">
+		<fields>
+			<field type="string" mandatory="yes" validation="" title="Nombre_Prioridad" primarykey="yes" >
+				name
+			</field>
+			<field type="string" mandatory="no" format="integer" function="cast(value as integer)+1 as valor FROM enum where type='priority' ORDER BY value desc LIMIT 1"  input="no" >
+				value
+			</field>
+			<field type="string" mandatory="yes" literal="priority">
+				type
+			</field>
+		</fields>
+			
+	</command>
+</operation>
+<operation  name="modificar_prioridad"  desc="Modificar una prioridad" icon="firmadoc.png">
+	<command id ="1" type="actualizar" table="enum">
+		<fields>
+			<field type="combolisttable" mandatory="yes" options="name:enum:where type='priority'" title="Nombre_Prioridad" primarykey="yes" >
+				enum.name
+			</field>
+			<field type="string" mandatory="no" validation="" title="Nombre_Nuevo_Prioridad" >
+				name
+			</field>
+		</fields>
+			
+	</command>
+	<command id ="1" type="actualizar" table="ticket">
+		<fields>
+			<field type="string" mandatory="no"  title="Nombre_Prioridad" primarykey="yes" >
+				ticket.priority
+			</field>
+			<field type="string" mandatory="no" validation="" title="Nombre_Nuevo_Prioridad" >
+				priority
+			</field>
+
+		</fields>			
+	</command>
+</operation>
+<operation  name="borrar_prioridad"  desc="Elimina una prioridad por su nombre" icon="clear.png"> 
+	<command id ="1" type="eliminar" table="enum">
+		<fields>
+			<field type="combolisttable" options="name:enum:where type='priority'" title="Nombre_Prioridad" mandatory="yes" primarykey="yes">
+				name
+			</field>		
+		</fields>
+	</command>
+</operation>
+
+<operation  name="Resoluciones (Al cerrar tickets)"  desc="Cambia Información sobre los hitos" icon="firmadoc.png">
+</operation>
+<operation  name="agregar_resolucion"  desc="Agrega una resolución de ticket cerrado " icon="firmadoc.png">
+	<command id ="1" type="agregar" table="enum">
+		<fields>
+			<field type="string" mandatory="yes" validation="" title="Nombre_Resolución" primarykey="yes" >
+				name
+			</field>
+			<field type="string" mandatory="no" format="integer" function="cast(value as integer)+1 as valor FROM enum where type='resolution' ORDER BY value desc LIMIT 1"  input="no" >
+				value
+			</field>
+			<field type="string" mandatory="yes" literal="resolution">
+				type
+			</field>
+		</fields>
+			
+	</command>
+</operation>
+<operation  name="modificar_resolucion"  desc="Modificar una resolución" icon="firmadoc.png">
+	<command id ="1" type="actualizar" table="enum">
+		<fields>
+			<field type="combolisttable" mandatory="yes" options="name:enum:where type='resolution'" title="Nombre_Resolución" primarykey="yes" >
+				enum.name
+			</field>
+			<field type="string" mandatory="no" validation="" title="Nombre_Nuevo_Resolución" >
+				name
+			</field>
+		</fields>
+			
+	</command>
+	<command id ="1" type="actualizar" table="ticket">
+		<fields>
+			<field type="string" mandatory="no"  title="Nombre_Resolución" primarykey="yes" >
+				ticket.resolution
+			</field>
+			<field type="string" mandatory="no" validation="" title="Nombre_Nuevo_Resolución" >
+				resolution
+			</field>
+
+		</fields>			
+	</command>
+</operation>
+<operation  name="borrar_resolucion"  desc="Elimina una resolución por su nombre" icon="clear.png"> 
+	<command id ="1" type="eliminar" table="enum">
+		<fields>
+			<field type="combolisttable" options="name:enum:where type='resolution'" title="Nombre_Resolución" mandatory="yes" primarykey="yes">
+				name
+			</field>		
+		</fields>
+	</command>
+</operation>
+<operation  name="Versiones"  desc="Cambia Información sobre las versiones" icon="firmadoc.png">
+</operation>
+<operation  name="agregar_version"  desc="Agrega una versión del ticket" icon="firmadoc.png">
+	<command id ="1" type="agregar" table="version">
+		<fields>
+			<field type="string" mandatory="yes" validation="" title="Nombre_Version" primarykey="yes" >
+				name
+			</field>
+			<field type="datetime" mandatory="yes" options="calendarPopup::true,displayFormat::dd/MM/yy" title="Fecha_Finalización_Versión" >
+				time
+			</field>
+			<field type="stringbox" mandatory="yes" validation="" title="Descripción_Versión" >
+				description
+			</field>
+
+
+		</fields>			
+	</command>
+</operation>
+<operation  name="modificar_version"  desc="Modificar una versión" icon="firmadoc.png">
+	<command id ="1" type="actualizar" table="version">
+		<fields>
+			<field type="combolisttable" mandatory="yes" options="name:version" title="Nombre_Versión" primarykey="yes" >
+				version.name
+			</field>
+			<field type="datetime" mandatory="no" options="calendarPopup::true,displayFormat::dd/MM/yy" title="Fecha_Finalización_Versión" >
+				time
+			</field>
+			<field type="stringbox" mandatory="no" validation="" title="Descripción_Versión" >
+				description
+			</field>
+
+			<field type="string" mandatory="no" validation="" title="Nombre_Nueva_Versión" >
+				name
+			</field>
+
+		</fields>
+			
+	</command>
+	<command id ="1" type="actualizar" table="ticket">
+		<fields>
+			<field type="string" mandatory="no"  title="Nombre_Versión" primarykey="yes" >
+				ticket.version
+			</field>
+			<field type="string" mandatory="no" validation="" title="Nombre_Nueva_Versión" >
+				version
+			</field>
+
+		</fields>			
+	</command>
+</operation>
+
+<operation  name="borrar_version"  desc="Elimina una version por su nombre" icon="clear.png"> 
+	<command id ="1" type="eliminar" table="version">
+		<fields>
+			<field type="combolisttable" options="name:version" title="Nombre_Versión" mandatory="yes" primarykey="yes">
+				name
+			</field>		
+		</fields>
+	</command>
+</operation>
+<operation  name="Tipos de tickets"  desc="Cambia Información sobre tipos de tickets" icon="firmadoc.png">
+</operation>
+<operation  name="agregar_tipo"  desc="Agrega un tipo de ticket " icon="firmadoc.png">
+	<command id ="1" type="agregar" table="enum">
+		<fields>
+			<field type="string" mandatory="yes" validation="" title="Nombre_Tipo" primarykey="yes" >
+				name
+			</field>
+			<field type="string" mandatory="no" format="integer" function="cast(value as integer)+1 as valor FROM enum where ticket_type='priority' ORDER BY value desc LIMIT 1"  input="no" >
+				value
+			</field>
+			<field type="string" mandatory="yes" literal="ticket_type">
+				type
+			</field>
+		</fields>
+			
+	</command>
+</operation>
+<operation  name="modificar_tipo"  desc="Modificar un tipo de ticket" icon="firmadoc.png">
+	<command id ="1" type="actualizar" table="enum">
+		<fields>
+			<field type="combolisttable" mandatory="yes" options="name:enum:where type='ticket_type'" title="Nombre_Tipo" primarykey="yes" >
+				enum.name
+			</field>
+			<field type="string" mandatory="no" validation="" title="Nombre_Nuevo_Tipo" >
+				name
+			</field>
+		</fields>
+			
+	</command>
+	<command id ="1" type="actualizar" table="ticket">
+		<fields>
+			<field type="string" mandatory="no"  title="Nombre_Tipo" primarykey="yes" >
+				ticket.type
+			</field>
+			<field type="string" mandatory="no" validation="" title="Nombre_Nuevo_Tipo" >
+				type
+			</field>
+
+		</fields>			
+	</command>
+</operation>
+<operation  name="borrar_tipo"  desc="Elimina un tipo por su nombre" icon="clear.png"> 
+	<command id ="1" type="eliminar" table="enum">
+		<fields>
+			<field type="combolisttable" options="name:enum:where type='ticket_type'" title="Nombre_Tipo" mandatory="yes" primarykey="yes">
+				name
+			</field>		
+		</fields>
+	</command>
+</operation>
+</operations>
+
