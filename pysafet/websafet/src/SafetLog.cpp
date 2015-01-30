@@ -64,20 +64,16 @@ QStack< QPair<QDateTime,QString> >& SafetLog::stopWarnStack() {
 QTextStream& SafetLog::operator<<( const QString & string ) {
 
 
+	QTextStream* me = static_cast<QTextStream*>(this);
+	Q_CHECK_PTR( me );
 
 	QString strlevel = "[DEBUG]";
 	if ( !haslevel ) {
-            QTextStream* me = static_cast<QTextStream*>(this);
-            Q_CHECK_PTR( me );
-
                 (*me) <<currentDate.toString(dateFormat()) << " " << strlevel << " " << string << endl;
 
 	}
 	else {
 		if ( level() & templevel ) {
-                        QTextStream* me = static_cast<QTextStream*>(this);
-                        Q_CHECK_PTR( me );
-
                         (*me) << string << endl;
                         if ( templevel == SafetLog::Error && stateErrorStack() == Init ) {
                             SafetYAWL::addErrorToStack(currentDate,string);
@@ -97,6 +93,7 @@ QTextStream& SafetLog::operator<<( const QString & string ) {
 
 
 void SafetLog::turnOff(Level l) {  
+//	qDebug("Level %d l %d or:%d",_level,l,_level | l); 
 	_level  = ((_level | l) ^ l );  
 
 }

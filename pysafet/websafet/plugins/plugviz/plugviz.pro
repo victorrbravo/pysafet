@@ -15,7 +15,7 @@ SOURCES += graphvizplugin.cpp
 LIBS += -L../../lib \
 #        -ldigidoc \
         -lsafet \
-#	-lgraph \
+	-lgraph \
 	-lgvc
 
 TARGET = $$qtLibraryTarget(pnp_graphviz)

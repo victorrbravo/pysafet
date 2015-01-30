@@ -24,7 +24,6 @@ SafetVariable::SafetVariable():SafetXmlObject() {
         _scope = "task";
         _type  = "sql";
         _config = "1";
-        _countcache = -1;
 }
 
 
@@ -38,18 +37,6 @@ void SafetVariable::addChild(SafetXmlObject* o) {
 		default:;
 	}
 }
-
-
-int SafetVariable::countcache() const  {
-    return _countcache;
-
-}
-
-void SafetVariable::setCountcache(int c) {
-    _countcache = c;
-
-}
-
 
 QString SafetVariable::getXMLDocument(const QString &value, long fieldno, QString& documentid ) const {
 	

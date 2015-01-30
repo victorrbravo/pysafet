@@ -157,11 +157,15 @@ QStringList SafetStats::processInfo(SafetNode* node, SafetStats::StatsType t,
 
              if ( actived ) {
                  QString trydate = SafetYAWL::getConf()["Stats/fromdate"];
+                 SYD << tr("....SafetStats::processInfo...trydate (init):|%1|")
+                        .arg(trydate);
                  if (trydate != "*" ) {
                      fromdate = QDateTime::fromString(trydate,Safet::DateFormat).toTime_t();
                  }
 
                  trydate = SafetYAWL::getConf()["Stats/todate"];
+                 SYD << tr("....afetStats::processInfo...trydate (end):|%1|")
+                        .arg(trydate);
 
                  if (trydate != "*" ) {
                      todate = QDateTime::fromString(trydate,Safet::DateFormat).toTime_t();
@@ -259,43 +263,37 @@ int SafetStats::numberAllOfTokens(bool norender, const QString& info) {
          }
 
           // ** Validar Si se reporta el nodo o NO
-
-         QString currreport = t->report().trimmed();
-
-         isreported = !(currreport == QLatin1String("no"));
-
-         if (!isreported) {
-                 isreported =  t->report() == QLatin1String("yes");
-                 isreported = isreported || (info.length() > 0 && info != QLatin1String("coloured") );
+          if ( t->report() != QLatin1String("no") )  {
+		if (!isreported) {
+	                 isreported =  t->report() == QLatin1String("yes");
+        	         isreported = isreported || (info.length() > 0 && info != QLatin1String("coloured") );
+		}
           }
+          else {
+              isreported = false;
+          }
+          // ** Validar Si se reporta el nodo o NO
 
+          if ( !isreported ) continue;
+          if ( t->numtokens() >= 0 ) {
+            return t->numtokens();
+          }
+          else {
+              for (j = t->getVariables().begin(); j != t->getVariables().end(); ++j) {
+                   curvar = *j;
+//                   qDebug("Variable: |%s|",qPrintable(curvar->id()));
 
-         if ( !isreported ) {
-             continue;
-         }
-
-         if ( t->numtokens() >= 0 ) {
-             return t->numtokens();
-         }
-         else {
-             for (j = t->getVariables().begin(); j != t->getVariables().end(); ++j) {
-                 curvar = *j;
-
-                 if (info.length() == 0 || info.compare("coloured",Qt::CaseInsensitive) == 0 ) {
-                     int newvalue = mywf->numberOfTokens(*curvar);
-
-                     result = result + newvalue;
-                 }
-                 else {
-
-                     int newvalue = tokensForKey(*curvar,info,norender);
-                     result = result + newvalue;
-
-
-                 }
-
-             }
-         }
+                   if (info.length() == 0 || info.compare("coloured",Qt::CaseInsensitive) == 0 ) {
+                        result = result + mywf->numberOfTokens(*curvar);
+//                        qDebug("...............................sumando..:%d",result);
+                  }
+                   else {
+                        //qDebug("...tokensForKey...info: |%s|...result: %d", qPrintable(info), result);
+                        result = result + tokensForKey(*curvar,info,norender);
+                   }
+              }
+             // t->setNumtokens(result);
+          }
      }
      return result;
 }
@@ -305,8 +303,6 @@ int SafetStats::numberOfTokens(const QString& idtask, bool norender, const QStri
      int result = 0;
      Q_CHECK_PTR( mywf );
 //     qDebug("...idtask...(1)....");
-
-
      SafetTask *curtask = mywf->searchTask(idtask);
      if (curtask == NULL ) {
          return 0;
@@ -327,9 +323,7 @@ int SafetStats::numberOfTokens(const QString& idtask, bool norender, const QStri
           curvar = *j;
    //       qDebug("...(1)...numberOfTokens...result: %d", result);
           if (info.length() == 0 || info.compare("coloured",Qt::CaseInsensitive) == 0 ) {
-               int ntokens = mywf->numberOfTokens(*curvar);
-               curvar->setCountcache(ntokens);
-               result = result + ntokens;
+               result = result + mywf->numberOfTokens(*curvar);
           }
           else {
                //qDebug("...tokensForKey...info: |%s|...result: %d", qPrintable(info), result);
@@ -352,9 +346,11 @@ bool SafetStats::checkExtraInfo(SafetWorkflow *wf, QStringList& fields, const QS
             QString myidtask ;
             SafetTask *mytask = qobject_cast<SafetTask*>(wf->getTasklist().at(i));
             if (mytask == NULL ) {
+                  qDebug("....generateExtraInfo mytask is NULL");
                 break;
             }
             if (mytask->getVariables().count() == 0 ) {
+//                qDebug("tokensForKey...TAREA no tiene variables....");
                 continue;
             }
             myidtask = mytask->id().trimmed();
@@ -404,6 +400,8 @@ bool SafetStats::checkExtraInfo(SafetWorkflow *wf, QStringList& fields, const QS
             }
             //**********************************************************
             // Para Timestamp
+            SYD << tr("...mytsfield...:%1")
+                    .arg(mytsfield);
             if (mytsfield.startsWith("cn::")) {
                 int pos = mytsfield.indexOf(rxCN);
                 if (pos >= 0) {

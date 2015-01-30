@@ -214,7 +214,7 @@ void ComboWidget::updateComboGraphsSafet(bool inwidget) {
 
 bool ComboWidget::isValid(QString& value) {
 
-    SYD << tr("...........ComboWidget::isValid.....COMBOVALIDATION...value:|%1|")
+    SYD << tr("...........ComboWidget::isValid.....(LOGGING1) COMBOVALIDATION...value:|%1|")
            .arg(value);
     if (value.isEmpty() ) {
         return true;
@@ -231,7 +231,19 @@ bool ComboWidget::isValid(QString& value) {
         SYD << tr("....CmdWidget::isValid...is false");
         return false;
     }
+     
 
+   if (conf().contains("options") ) {
+
+		SYD << tr("...FOUNDCHECKVALID....1...value:|%1|").arg(value);
+	QString myoptions = conf()["options"].toString();
+	if (myoptions.indexOf("checkvalid") != -1 ) {
+
+		SYD << tr("...FOUNDCHECKVALID....2...value:|%1|").arg(value);
+		nocheckvalid = false;
+	}
+
+    }
 
 
     switch(type()) {
@@ -245,6 +257,11 @@ bool ComboWidget::isValid(QString& value) {
         generateLiterals(conf()["options"].toString(),false);
                 break;
     case ListTable:
+        if (nocheckvalid) {
+            SYD << tr("...........ComboWidget::isValid.....ListTable...true value....");
+            return true;
+        }
+ 
         updateComboListTable(false);
 
         break;
@@ -303,18 +320,55 @@ bool ComboWidget::isValid(QString& value) {
         }
     }
     else if ( type() == Flow && oneoption() ) {
+	
         QString myoptions = conf()["options"].toString();
-        SYD << tr(".........***ComboWidget::isValid...options:|%1|").arg(myoptions);
+        SYD << tr(".........LOGGIN2..***ComboWidget::isValid...options:|%1|").arg(myoptions);
         if (myoptions.indexOf("rolinfo") != -1 ) {
             return true;
         }
         if (myoptions.indexOf("noteinfo") != -1 ) {
             return true;
         }
+		SYD << tr("........ComboWidget::isValid.....(*1*)TEXTUALINFOVALUE: |%1|")
+                .arg(value);
 
         if (myoptions.indexOf("textualinfo") != -1 ) {
+		SYD << tr("........ComboWidget::isValid.....(*2)TEXTUALINFOVALUE: |%1|")
+                .arg(value);
+
+			SYD << tr("infos.count():|%1|").arg(infos.count());
+		foreach(QString info, infos) {
+			SYD << tr("info:|%1|").arg(info);
+		}
+            if ( _options.count() > 0 ) {
+                    SYD << tr("........ComboWidget::isValid.....TEXTUALINFOOPTIONS: |%1|")
+                .arg(_options.at(0));
+                QString maxvalue = _options.at(0);
+                    SYD << tr("........ComboWidget::isValid.....maxvalue: |%1|")
+                .arg(maxvalue);
+                bool ok;
+                if ( !maxvalue.isEmpty() ) {
+                        if (  value.toInt(&ok) <= 0 ) {
+                                SYE << tr("El valor \"%1\" no puede ser igual o menor a cero (0)")
+                                .arg(value);
+                                return false;
+                        }
+
+
+                        if (  (value.toInt(&ok) > maxvalue.toInt(&ok)) ) {
+                                SYE << tr("El valor \"%1\" debe ser menor al valor máximo (\"%2\") para este campo ")
+                                .arg(value)
+                                .arg(maxvalue);
+                                return false;
+                        }
+                }
+             }
+
             return true;
+
         }
+
+
 
         bool ok;
         SYD << tr("\n\n\n\n\n...(HEAD(HEAD)).....infooneoption....ComboWidget...isValid...value:|%1|").arg(value);
@@ -424,14 +478,13 @@ void ComboWidget::updateVarGlobal(const QString& value) {
 
 
 void ComboWidget::updateComboFlow(bool inwidget) {
-
     infos.clear();
      QString mykeyvalue;
 
      QStringList myformlist;
 
      QString beforef;
-     SYD << tr ("....ComboWidget::updateComboFlow...conf()[\"options\"].toString():|%1|")
+     SYD << tr ("....ComboWidget::updateComboFlow..COMBOUPDATING....conf()[\"options\"].toString():|%1|")
             .arg(conf()["options"].toString());
 
      SafetWorkflow::NextStates myns = SafetWorkflow::AllNotCompleted;
@@ -727,6 +780,7 @@ void ComboWidget::updateComboFlow(bool inwidget) {
      }
 
      _options = _itemvaluelist;
+
 
 }
 
@@ -1364,143 +1418,391 @@ QString ComboWidget::proccessWhereOption(const QString& w) {
 
 void ComboWidget::updateComboTaskSafet(bool inwidget) {
 
-    QString exclude;
 
-    if (MainWindow::configurator == NULL ) {
-        return;
-    }
-    if (conf().contains("exclude")) {
-        exclude = conf()["exclude"].toString();
+    if (! conf()["path"].toString().isEmpty() )  {
+	    QString exclude;
 
-        SYD << tr("....updateComboTaskSafet....exclude:|%1|")
-               .arg(exclude);
-
-    }
-
-    if ( !conf().contains("keyvalue") ) {
-        SYW << tr("Se necesita una clave para actualizar el widget de Variables de Flujo de Trabajos");
-        return;
-    }
-    QStringList mylist = conf()["keyvalue"].toString().split(SafetYAWL::LISTSEPARATORCHARACTER);
-    QString mykeyvalue = mylist.at(0);
-
-    QString mykeydata;
-    if (mylist.count() > 1) {
-        mykeydata = mylist.at(1);
-    }
-    mykeyvalue = findkeyvalue(mykeyvalue);
+	    if (MainWindow::configurator == NULL ) {
+		return;
+	    }
+	    QString mypath;
+	    if ( !conf().contains("keyvalue") ) {
+		SYW << tr("Se necesita una clave para actualizar el widget de Variables de Flujo de Trabajos");
+		return;
+	    }
+	    SYD << tr("......ComboWidget::updateComboTaskSafet..(0). CHECK_EXCLUDE.keyvalue:|%1|")
+		   .arg(conf()["keyvalue"].toString());
 
 
-    SYD << tr("......ComboWidget::updateComboTaskSafet..(0)..*mykeydata*:|%1|")
-           .arg(mykeydata);
+	    QStringList mylist = conf()["keyvalue"].toString().split(SafetYAWL::LISTSEPARATORCHARACTER);
+	    QString mykeyvalue = mylist.at(0);
+
+		QString mykeydata;
+	    if (conf().contains("exclude")) {
+		exclude = conf()["exclude"].toString();
+
+		SYD << tr("....updateComboTaskSafet....(1)...exclude:|%1|")
+		       .arg(exclude);
+		SYD << tr("....updateComboTaskSafet....(1)...combovarglobal:|%1|")
+		       .arg(SafetYAWL::combovarglobal0);
+
+		SYD << tr("....updateComboTaskSafet....(1)...lastgraph**:|%1|")
+		       .arg(SafetYAWL::lastgraph);
+		
+		if (conf().contains("path") ) {
+
+			mypath = conf()["path"].toString();
+
+			SYD << tr("....updateComboTaskSafet....(1)....mypath:|%1|")
+			.arg(mypath);
+		
+			mypath.replace("{#keyvalue0}", mykeyvalue);
+
+			SYD << tr("....updateComboTaskSafet....(2)....mypath:|%1|")
+			.arg(mypath);
+			
+			if (mypath.startsWith("SELECT ",Qt::CaseInsensitive)) {
+			
+		      
+				SYD << tr("..............................--->updateComboFlow...PATH_COMBOTASK..*IN..path: |%1|")
+				    .arg(mypath);
 
 
-    if (!QFile::exists(mykeyvalue)) {
-        SYW << tr("......**ComboWidget::updateComboTaskSafet....no existe:|%1|")
-               .arg(mykeyvalue);
-        MainWindow::doRestoreGraph(Safet::PLANNEDGRAPHSFILENAME);
-        SYD << tr("......ComboWidget::updateComboTaskSafet....key:|%1|")
-               .arg(mykeyvalue);
-        if (!MainWindow::graphs().contains(mykeyvalue)) {
-            SYW << tr("No se encuentra en el repositorio el archivo de grafos planificados");
-            return;
-        }
-        QString pathflow = MainWindow::graphs()[mykeyvalue].second;
-        SYD << tr("........................**ComboWidget::updateComboTaskSafet......->pathflow:|%1|")
-               .arg(pathflow);
+			     QString newsql = mypath;
+		
+			     QSqlQuery query( SafetYAWL::currentDb );
+			     query.prepare(  newsql );
+			     bool executed = query.exec();
+			     SYD << tr("..............................--->updateComboFlow...PATH_COMBOTASK..*IN.(1).path: |%1|")
+				    .arg(mypath);
 
-        mykeyvalue = pathflow.section(SafetYAWL::LISTSEPARATORCHARACTER,1,1);
+				     if (!executed ) {
+					 SYW     <<
+							    tr("NO se ejecutó correctamente la sentencia de busqueda de Path SQL: \"%1\"")
+					    .arg(newsql);
+					 return;
+				     }
 
-        SYD << tr("......ComboWidget::updateComboTaskSafet....mykeyvalue:|%1|")
-               .arg(mykeyvalue);
-
-    }
-    else {
-        SYD << tr("......ComboWidget::updateComboTaskSafet....SI existe:|%1|")
-               .arg(mykeyvalue);
-    }
-
-
-    delete  MainWindow::configurator;
-    MainWindow::configurator = new SafetYAWL();
-    Q_CHECK_PTR( MainWindow::configurator );
-
-    SYD << tr("..................................->ComboWidget::updateComboTaskSafet...keyvalue: |%1|").arg(mykeyvalue);
-
-    QString myautofilter;
-    QString myrecursivefilter;
-    MainWindow::configurator->openXML(mykeyvalue);
-    if ( conf().contains("autofilter")) {
-        myautofilter = conf()["autofilter"].toString().trimmed();
-        MainWindow::configurator->setAutofilters(myautofilter);
-    }
-
-    if ( conf().contains("recursivefilter")) {
-        myrecursivefilter = conf()["recursivefilter"].toString().trimmed();
-        MainWindow::configurator->setRecursivefilters(myrecursivefilter);
-    }
-
-    MainWindow::configurator->openDataSources();
-    MainWindow::configurator->convertXMLtoObjects();
+				     if (!query.next()) {
+					 SYW
+						 <<
+					    tr("Advertencia:No existen registros para busqueda de Path de archivow workfloe: \"%1\"")
+						    .arg(newsql);
+						 return;
+				     }
+				     mypath = query.value(0).toString();
+					SYD << tr("..............................--->updateComboTASK...MYPATH(1): |%1|")
+				    .arg(mypath);
+				    mykeydata = mykeyvalue;
+				    mykeyvalue = mypath;
 
 
-    QString myjson;
-    QString info = mykeydata;
-    if ( !info.isEmpty())  {
-
-        QString img = MainWindow::configurator->getWorkflows().at(0)->generateGraph("svg", myjson,info);
-        SYD << tr("..................................->ComboWidget::updateComboTaskSafet...myjsontable (2): |%1|")
-               .arg(myjson);
-    }
-
-    if ( MainWindow::configurator->getWorkflows().count() ==  0 ) {
-        SYW << tr("No se puede visualizar la lista de tareas en el widget \"combo\""
-                  "La lista de objetos de flujos de trabajo está vacía");
-        return;
-    }
-
-    QList<SafetTask*> mytasks = MainWindow::configurator
-            ->getWorkflows().at(0)->getTasks();
+			}
+		
+		}
 
 
-    foreach(SafetTask* t, mytasks) {
-        if (t != NULL ) {
-            if ( _filtercompleted == false || myjson.isEmpty()) {
-                _itemvaluelist.append(t->id());
-                _options.append(t->id());
-            }
-            else {
-                if ( SafetYAWL::checkCompletedTask(t->id(),myjson)  ) {
-                    _itemvaluelist.append(t->id());
-                    _options.append(t->id());
-                }
-            }
-        }
-    }
 
-    if (!exclude.isEmpty()) {
+	    }
+	       QStringList mylistglobal = SafetYAWL::combovarglobal0.split(SafetYAWL::LISTSEPARATORCHARACTER);
 
-        QString myother;
-        if (conf().contains("otherkey")) {
-            myother = conf()["otherkey"].toString();
-        }
-        SYD << tr("");
-        SYD << tr("..........updateComboTask...exclude...:|%1|").arg(exclude);
-        SYD << tr("..........updateComboTask...mykeyvalue:|%1|").arg(mykeyvalue);
-        SYD << tr("..........updateComboTask.......**info:|%1|").arg(myother);
-        SYD << tr("");
+	    if ( mylist.count() > 1 ) {
+			mykeydata = mylist.at(1);
+	    }
 
-        QStringList myexcludes = SafetWorkflow::calculateListSQL(exclude,mykeyvalue,myother);
-        foreach(QString e,myexcludes) {
-            if(_options.contains(e)) {
-                _options.removeAll(e);
-            }
-        }
-    }
+	    QMap<QString,QString>  l;
+	     l["1"]= mykeydata;
+	     if (!exclude.isEmpty() ) {
+	       //     exclude = SafetWorkflow::replaceArg(exclude,l);
+	       //  SYD << tr("....ComboWidget::updateComboListTable...reemplazando exclude*:|%1|")
+	       //            .arg(exclude);
+	    }
+	 
 
-    if ( inwidget ) {
 
-    }
+	    SYD << tr("......ComboWidget::updateComboTaskSafet..(1).._EXCLUDE mykeyvalue:|%1|")
+		   .arg(mykeyvalue);
+
+
+	    mykeyvalue = findkeyvalue(mykeyvalue);
+
+	    SYD << tr("......ComboWidget::updateComboTaskSafet..(2).._EXCLUDE mykeyvalue:|%1|")
+		   .arg(mykeyvalue);
+
+	    QString myother;
+	    if (conf().contains("otherkey")) {
+
+			     myother = conf()["otherkey"].toString();
+			    SYD << tr("......ComboWidget::updateComboTaskSafet..(0)..*myother:|%1|")
+			   .arg(myother);
+
+
+		}
+
+
+	    SYD << tr("......ComboWidget::updateComboTaskSafet..(0)..*mykeydata*:|%1|")
+		   .arg(mykeydata);
+
+		if ( mykeydata.isEmpty() ) {
+
+			mykeydata = myother;
+		}
+
+	    SYD << tr("......ComboWidget::updateComboTaskSafet..(1)..*mykeydata*:|%1|")
+		   .arg(mykeydata);
+
+
+	    if (!QFile::exists(mykeyvalue)) {
+		SYW << tr("......**ComboWidget::updateComboTaskSafet....no existe:|%1|")
+		       .arg(mykeyvalue);
+		MainWindow::doRestoreGraph(Safet::PLANNEDGRAPHSFILENAME);
+		SYD << tr("......ComboWidget::updateComboTaskSafet....key:|%1|")
+		       .arg(mykeyvalue);
+		if (!MainWindow::graphs().contains(mykeyvalue)) {
+		    SYW << tr("No se encuentra en el repositorio el archivo de grafos planificados");
+		    return;
+		}
+		QString pathflow = MainWindow::graphs()[mykeyvalue].second;
+		SYD << tr("........................**ComboWidget::updateComboTaskSafet......->pathflow:|%1|")
+		       .arg(pathflow);
+
+		mykeyvalue = pathflow.section(SafetYAWL::LISTSEPARATORCHARACTER,1,1);
+
+		SYD << tr("......ComboWidget::updateComboTaskSafet....mykeyvalue:|%1|")
+		       .arg(mykeyvalue);
+
+	    }
+	    else {
+		SYD << tr("......ComboWidget::updateComboTaskSafet....SI existe:|%1|")
+		       .arg(mykeyvalue);
+	    }
+
+
+	    delete  MainWindow::configurator;
+	    MainWindow::configurator = new SafetYAWL();
+	    Q_CHECK_PTR( MainWindow::configurator );
+
+	    SYD << tr("..................................->ComboWidget::updateComboTaskSafet...keyvalue: |%1|").arg(mykeyvalue);
+
+	    QString myautofilter;
+	    QString myrecursivefilter;
+	    MainWindow::configurator->openXML(mykeyvalue);
+	    if ( conf().contains("autofilter")) {
+		myautofilter = conf()["autofilter"].toString().trimmed();
+		MainWindow::configurator->setAutofilters(myautofilter);
+	    }
+
+	    if ( conf().contains("recursivefilter")) {
+		myrecursivefilter = conf()["recursivefilter"].toString().trimmed();
+		MainWindow::configurator->setRecursivefilters(myrecursivefilter);
+	    }
+
+	    MainWindow::configurator->openDataSources();
+	    MainWindow::configurator->convertXMLtoObjects();
+
+
+	    QString myjson;
+	    QString info = mykeydata;
+	    if ( !info.isEmpty())  {
+
+		QString img = MainWindow::configurator->getWorkflows().at(0)->generateGraph("svg", myjson,info);
+		SYD << tr("..................................->ComboWidget::updateComboTaskSafet...myjsontable (2): |%1|")
+		       .arg(myjson);
+	    }
+
+	    if ( MainWindow::configurator->getWorkflows().count() ==  0 ) {
+		SYW << tr("No se puede visualizar la lista de tareas en el widget \"combo\""
+			  "La lista de objetos de flujos de trabajo está vacía");
+		return;
+	    }
+
+	    QList<SafetTask*> mytasks = MainWindow::configurator
+		    ->getWorkflows().at(0)->getTasks();
+
+
+	    foreach(SafetTask* t, mytasks) {
+		if (t != NULL ) {
+		    if ( _filtercompleted == false || myjson.isEmpty()) {
+			_itemvaluelist.append(t->id());
+			_options.append(t->id());
+		    }
+		    else {
+			if ( SafetYAWL::checkCompletedTask(t->id(),myjson)  ) {
+			    _itemvaluelist.append(t->id());
+			    _options.append(t->id());
+			}
+		    }
+		}
+	    }
+
+	    if (!exclude.isEmpty()) {
+		SYD << tr("..........updateComboTask...exclude(2):|%1|").arg(exclude);
+		SYD << tr("..........updateComboTask...mykeyvalue(2):|%1|").arg(mykeyvalue);
+		SYD << tr("..........updateComboTask..KEYDATA.info(2):|%1|").arg(mykeydata);
+		SYD << tr("..........updateComboTask...JSON:|%1|").arg(myjson);
+
+		QStringList myexcludes;
+
+		if (!mypath.isEmpty() ) {
+			myexcludes = SafetWorkflow::calculateListSQL(exclude,mykeydata,mykeyvalue);
+		}
+		else {
+			myexcludes = SafetWorkflow::calculateListSQL(exclude,mykeyvalue,mykeydata);
+		}
+		foreach(QString e,myexcludes) {
+		    if(_options.contains(e)) {
+			SYD << tr("..........updateComboTask...REMOVING:|%1|").arg(e);
+
+			_options.removeOne(e);
+		    }
+		}
+	    }
+
+	    if ( inwidget ) {
+
+	    }
+   } else {
+	    SYD << tr("....TASKSAFET......sin path");
+	    QString exclude;
+
+	    if (MainWindow::configurator == NULL ) {
+		return;
+	    }
+	    if (conf().contains("exclude")) {
+		exclude = conf()["exclude"].toString();
+
+		SYD << tr("....updateComboTaskSafet....exclude:|%1|")
+		       .arg(exclude);
+
+	    }
+
+	    if ( !conf().contains("keyvalue") ) {
+		SYW << tr("Se necesita una clave para actualizar el widget de Variables de Flujo de Trabajos");
+		return;
+	    }
+	    QStringList mylist = conf()["keyvalue"].toString().split(SafetYAWL::LISTSEPARATORCHARACTER);
+	    QString mykeyvalue = mylist.at(0);
+
+	    QString mykeydata;
+	    if (mylist.count() > 1) {
+		mykeydata = mylist.at(1);
+	    }
+	    mykeyvalue = findkeyvalue(mykeyvalue);
+
+
+	    SYD << tr("......ComboWidget::updateComboTaskSafet..(0)..*mykeydata*:|%1|")
+		   .arg(mykeydata);
+
+
+	    if (!QFile::exists(mykeyvalue)) {
+		SYW << tr("......**ComboWidget::updateComboTaskSafet....no existe:|%1|")
+		       .arg(mykeyvalue);
+		MainWindow::doRestoreGraph(Safet::PLANNEDGRAPHSFILENAME);
+		SYD << tr("......ComboWidget::updateComboTaskSafet....key:|%1|")
+		       .arg(mykeyvalue);
+		if (!MainWindow::graphs().contains(mykeyvalue)) {
+		    SYW << tr("No se encuentra en el repositorio el archivo de grafos planificados");
+		    return;
+		}
+		QString pathflow = MainWindow::graphs()[mykeyvalue].second;
+		SYD << tr("........................**ComboWidget::updateComboTaskSafet......->pathflow:|%1|")
+		       .arg(pathflow);
+
+		mykeyvalue = pathflow.section(SafetYAWL::LISTSEPARATORCHARACTER,1,1);
+
+		SYD << tr("......ComboWidget::updateComboTaskSafet....mykeyvalue:|%1|")
+		       .arg(mykeyvalue);
+
+	    }
+	    else {
+		SYD << tr("......ComboWidget::updateComboTaskSafet....SI existe:|%1|")
+		       .arg(mykeyvalue);
+	    }
+
+
+	    delete  MainWindow::configurator;
+	    MainWindow::configurator = new SafetYAWL();
+	    Q_CHECK_PTR( MainWindow::configurator );
+
+	    SYD << tr("..................................->ComboWidget::updateComboTaskSafet...keyvalue: |%1|").arg(mykeyvalue);
+
+	    QString myautofilter;
+	    QString myrecursivefilter;
+	    MainWindow::configurator->openXML(mykeyvalue);
+	    if ( conf().contains("autofilter")) {
+		myautofilter = conf()["autofilter"].toString().trimmed();
+		MainWindow::configurator->setAutofilters(myautofilter);
+	    }
+
+	    if ( conf().contains("recursivefilter")) {
+		myrecursivefilter = conf()["recursivefilter"].toString().trimmed();
+		MainWindow::configurator->setRecursivefilters(myrecursivefilter);
+	    }
+
+	    MainWindow::configurator->openDataSources();
+	    MainWindow::configurator->convertXMLtoObjects();
+
+
+	    QString myjson;
+	    QString info = mykeydata;
+	    if ( !info.isEmpty())  {
+
+		QString img = MainWindow::configurator->getWorkflows().at(0)->generateGraph("svg", myjson,info);
+		SYD << tr("..................................->ComboWidget::updateComboTaskSafet...myjsontable (2): |%1|")
+		       .arg(myjson);
+	    }
+
+	    if ( MainWindow::configurator->getWorkflows().count() ==  0 ) {
+		SYW << tr("No se puede visualizar la lista de tareas en el widget \"combo\""
+			  "La lista de objetos de flujos de trabajo está vacía");
+		return;
+	    }
+
+	    QList<SafetTask*> mytasks = MainWindow::configurator
+		    ->getWorkflows().at(0)->getTasks();
+
+
+	    foreach(SafetTask* t, mytasks) {
+		if (t != NULL ) {
+		    if ( _filtercompleted == false || myjson.isEmpty()) {
+			_itemvaluelist.append(t->id());
+			_options.append(t->id());
+		    }
+		    else {
+			if ( SafetYAWL::checkCompletedTask(t->id(),myjson)  ) {
+			    _itemvaluelist.append(t->id());
+			    _options.append(t->id());
+			}
+		    }
+		}
+	    }
+
+	    if (!exclude.isEmpty()) {
+
+		QString myother;
+		if (conf().contains("otherkey")) {
+		    myother = conf()["otherkey"].toString();
+		}
+		SYD << tr("");
+		SYD << tr("..........updateComboTask...exclude...:|%1|").arg(exclude);
+		SYD << tr("..........updateComboTask...mykeyvalue:|%1|").arg(mykeyvalue);
+		SYD << tr("..........updateComboTask.......**info:|%1|").arg(myother);
+		SYD << tr("");
+
+		QStringList myexcludes = SafetWorkflow::calculateListSQL(exclude,mykeyvalue,myother);
+		foreach(QString e,myexcludes) {
+		    if(_options.contains(e)) {
+			_options.removeAll(e);
+		    }
+		}
+	    }
+
+	    if ( inwidget ) {
+
+	    }
+
+
+   }
 
 
 }

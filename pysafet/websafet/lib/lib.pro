@@ -1,8 +1,6 @@
 TARGET = safet
 TEMPLATE = lib
 
-QMAKE_CXXFLAGS += -O3
-
 DEFINES += QT_RELEASE \
     SAFET_NO_DBXML
 
@@ -202,7 +200,7 @@ SOURCES += ../gsoap/stdsoap2.cpp \
 
 
 LIBS += -L/usr/local/lib \
-    -L../inflow 
+    -L../inflow
 contains( DEFINES, SAFET_GRAPHVIZ ) {
 LIBS += -L/usr/lib/graphviz
 }

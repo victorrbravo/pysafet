@@ -65,7 +65,6 @@ const QString AVGALL = "avgall";
 const int ONEDAYMINUSONE = 86340;
 const QString DATEFORMATPSQL = "\\d\\d\\d\\d\\-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d\\-?\\d\\d:\\-?\\d\\d";
 const QString PIPEMARK = "##SAFETPIPE##";
-const QString SEPARATORMARK = "**SAFETSEPARATOR**";
 }
 
 

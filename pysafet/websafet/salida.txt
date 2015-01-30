@@ -1,0 +1,602 @@
+Tue Dec 30 09:25:37 2014 [  DEBUG  ] ............DomModel::selWidgetFromField.....................kevalue:||
+Tue Dec 30 09:25:37 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(3)....fields.count():|4|
+Tue Dec 30 09:25:37 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(4)
+Tue Dec 30 09:25:37 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(5)
+Tue Dec 30 09:25:37 2014 [  DEBUG  ] currtype:0
+Tue Dec 30 09:25:37 2014 [  DEBUG  ] .............DomModel::selWidgetFromField........CmdWidget()...
+Tue Dec 30 09:25:37 2014 [  DEBUG  ] ............**MainWindow::formFieldsForKey............(0)...
+Tue Dec 30 09:25:37 2014 [  DEBUG  ] ............**MainWindow::formFieldsForKey............(1)...
+Tue Dec 30 09:25:37 2014 [  DEBUG  ] (formfieldkey)...MainWindow::generateModifyHTML...result:|Porcentaje: 8<SAFETHTMLSEPARATOR/>
+|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ........loadPlugins...:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ........loadPlugins...EMPTY
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] Activada fuente de datos con id: "1"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....MainWindow::MainWindow...SafetYAWL::_CURRCONFpath...:|/home/seguridad/.safet|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....MainWindow::MainWindow...SafetYAWL::pathconf...:|/home/seguridad/.safet|
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Permises/permises.roles.3" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Permises/permises.roles.16" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Permises/permises.operation.95" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Permises/permises.accounts.95" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Permises/permises.types.95" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Permises/permises.roles.95" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....MainWindow::MainWindow...loadAuthorization()....(1)
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.1" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.2" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.3" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.4" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.5" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.6" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.7" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.8" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.9" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.10" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.11" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.12" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.13" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.14" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.15" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.16" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.17" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.18" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.19" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.20" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.21" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.22" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.23" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.24" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.25" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.26" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.27" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.28" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.29" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.30" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.31" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.32" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.33" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.34" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.35" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.36" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.37" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.38" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.39" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.tickets.40" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [ WARNING ] No existe la clave "Auth/auth.account.41" en el archivo de configuracion "safet.conf"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....MainWindow::MainWindow...loadInfo()....(1)
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....MainWindow::login....testing ticketvalid...(1)...
+Tue Dec 30 09:25:45 2014 [ ACTION  ] El usuario (sistema de autorizacion a cambiado a "vbravo"
+Tue Dec 30 09:25:45 2014 [ ACTION  ] ..........Viendo las claves que pasan.....
+Tue Dec 30 09:25:45 2014 [ ACTION  ] strtype: |<class 'mod_python.util.StringField'>|
+Tue Dec 30 09:25:45 2014 [ ACTION  ] strtype: |<class 'mod_python.util.StringField'>|
+Tue Dec 30 09:25:45 2014 [ ACTION  ] strtype: |<class 'mod_python.util.StringField'>|
+Tue Dec 30 09:25:45 2014 [ ACTION  ] strtype: |<class 'mod_python.util.StringField'>|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] MainWindow::toInputForm:...... |operacion:Siguiente_estado_proyectos  Porcentaje: 10
+ Siguiente_Estado: Procesos_de_apropiacion
+ Numero_de_actividad: 154
+|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...MainWindow::extractParameters...action:|operacion:Siguiente_estado_proyectos  Porcentaje: 10
+ Siguiente_Estado: Procesos_de_apropiacion
+ Numero_de_actividad: 154
+|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...MainWindow::extractParameters...PARLIST...parlist.count()):|1|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...MainWindow::extractParameters...PARLIST...par:|parameters.operacion:Siguiente_estado_proyectos  Porcentaje: 10
+ Siguiente_Estado: Procesos_de_apropiacion
+ Numero_de_actividad: 154
+|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...MainWindow::extractParameters...PARLIST...par....result:|operacion:Siguiente_estado_proyectos  Porcentaje: 10
+ Siguiente_Estado: Procesos_de_apropiacion
+ Numero_de_actividad: 154
+|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...MainWindow::extractParameters...mypars.count()):|1|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...MainWindow::extractParameters...CONFIGUREKEY..EXTRACT..config pos:|-1|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..........MainWindow::setParsValues.....values.count():|1|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...MainWindow::extractParameters...myconfigs.count():|0|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] MainWindow::toInputForm:...... (before prove signer |operacion:Siguiente_estado_proyectos  Porcentaje: 10
+ Siguiente_Estado: Procesos_de_apropiacion
+ Numero_de_actividad: 154
+|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] MainWindow::toInputForm:...... |operacion:Siguiente_estado_proyectos  Porcentaje: 10
+ Siguiente_Estado: Procesos_de_apropiacion
+ Numero_de_actividad: 154
+|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ........SafetTexParser;;toXml....myxml.second:|10|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ........SafetTexParser;;toXml....myxml.second:|Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ........SafetTexParser;;toXml....myxml.second:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] *Cadena XML generada de la entrada: 
+"<operacion parameter='Siguiente_estado_proyectos'>
+<Porcentaje>
+ 10
+</Porcentaje>
+<Siguiente_Estado>
+ Procesos_de_apropiacion
+</Siguiente_Estado>
+<Numero_de_actividad>
+ 154
+</Numero_de_actividad>
+</operacion>
+"
+Tue Dec 30 09:25:45 2014 [ ACTION  ] La  entrada de Datos fue procesado correctamente...ok
+Tue Dec 30 09:25:45 2014 [ ACTION  ] ABRIENDO el archivo para manipulacion de entrada: ->"/home/seguridad/.safet/input/deftrac.xml"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...Cargado SafetTextParser...openXML DomModel (1)...
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............MainWindow::toInputForm....enviarcorreo..xml:
+|<operacion parameter='Siguiente_estado_proyectos'>
+<Porcentaje>
+ 10
+</Porcentaje>
+<Siguiente_Estado>
+ Procesos_de_apropiacion
+</Siguiente_Estado>
+<Numero_de_actividad>
+ 154
+</Numero_de_actividad>
+</operacion>
+|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............MainWindow::toInputForm....*noenviarcorreo*..NO OK!
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............MainWindow::toInputForm....PROCESSING DEFAULT
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........SafetTextParser::processXml.....OPERATIONACTION...nameoperation:|Siguiente_estado_proyectos|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::getFieldsValues....nameoperation: |Siguiente_estado_proyectos|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetTextParser::buildFields...TYPENODE:|combolisttable|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetTextParser::buildFields...TYPENODE...namefield:|id|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser getFieldsValues:...infieldname...:|Numero_de_actividad|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] **SafetTextParser getFieldsValues: keyvalue: |154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::getFieldsValues...changekey...infieldname:|id|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::getFieldsValues....fieldkeysvalues:|Numero_de_actividad:154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...replacing options: (USERNAME)...|vbravo|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..:SafetTextParser::getFieldsValues..CURRVALIDATION.currvalidation:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetTextParser::buildFields...TYPENODE:|comboflow|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetTextParser::buildFields...TYPENODE...namefield:|status|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::getFieldsValues...changekey...infieldname:|status|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::getFieldsValues....fieldkeysvalues:|Numero_de_actividad:154,Siguiente_Estado:Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...replacing options: (USERNAME)...|vbravo|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..:SafetTextParser::getFieldsValues..CURRVALIDATION.currvalidation:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetTextParser::buildFields...TYPENODE:|comboflow|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetTextParser::buildFields...TYPENODE...namefield:|porcentaje|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...replacing options: (USERNAME)...|vbravo|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..:SafetTextParser::getFieldsValues..CURRVALIDATION.currvalidation:|\d+|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetTextParser::buildFields...TYPENODE:|string|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetTextParser::buildFields...TYPENODE...namefield:|enlace|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..:SafetTextParser::getFieldsValues..CURRVALIDATION.currvalidation:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert...t:2
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert...news:154
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert....return:1
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::doFieldValidation..........value...(1)...:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....(BEFORE)....SafetTextParser::doFieldValidation......................keyvalue:|Numero_de_actividad:154,Siguiente_Estado:Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ***(AFTER)...SafetTextParser::doFieldValidation..........value...(2)...:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............DomModel::selWidgetFromField.....................kevalue:|Numero_de_actividad:154,Siguiente_Estado:Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(3)....fields.count():|4|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(4)
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....options:|id:actividad_por_accion::'(' || id || ') ' || nombre|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(5)
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] currtype:7
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....ComboWidget::updateCombo()....type:|0|...|1|....|2|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] Actualizando lista del combo: "SELECT id,'(' || id || ') ' || nombre from actividad_por_accion   ORDER BY id DESC;"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........SafetTextParser::doFieldValidation............path: |/home/seguridad/.safet/input/deftrac.xml|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ......SafetTextParser::doFieldValidation...nameoperation: |Siguiente_estado_proyectos|,namefield: |Numero_de_actividad|,value:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::isValid.....(LOGGING1) COMBOVALIDATION...value:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...FOUNDCHECKVALID....1...value:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] Actualizando lista del combo: "SELECT id,'(' || id || ') ' || nombre from actividad_por_accion   ORDER BY id DESC;"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...ComboWidget::isValid......value:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...ComboWidget::isValid......|true|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert...t:2
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert...news:Procesos_de_apropiacion
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert....return:0
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::doFieldValidation..........value...(1)...:|Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....(BEFORE)....SafetTextParser::doFieldValidation......................keyvalue:|Numero_de_actividad:154,Siguiente_Estado:Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ***(AFTER)...SafetTextParser::doFieldValidation..........value...(2)...:|Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............DomModel::selWidgetFromField.....................kevalue:|Numero_de_actividad:154,Siguiente_Estado:Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(3)....fields.count():|4|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(4)
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....options:|all|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ................DomModel::changefor...changefor:|Numero_de_actividad|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(5)
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] currtype:9
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] DOMMODEL ComboFlow: keyvalue: |Numero_de_actividad:154,Siguiente_Estado:Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....ComboWidget::updateCombo()....type:|4|...|1|....|2|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::isValid........Flow....UPDATECOMBO....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....ComboWidget::updateComboFlow...conf()["options"].toString():|all|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::updateComboFlow...mykeyvalue:|Numero_de_actividad:154,Siguiente_Estado:Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ComboWidget::updateComboFlow...beforef:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ComboWidget::updateComboFlow...conf()["changefor"].toString():|Numero_de_actividad|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............................--->updateComboFlow...mykeyvalue: |Numero_de_actividad:154,Siguiente_Estado:Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............................--->updateComboFlow...PATH_COMBOFLOW....path: |select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = {#keyvalue0}|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............................->updateComboFlow...LOGGING4...myother: ||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ComboWidget::updateComboFlow...mypath:|select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = Numero_de_actividad:154,Siguiente_Estado:Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [ WARNING ] No es posible leer el archivo "select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = Numero_de_actividad:154,Siguiente_Estado:Procesos_de_apropiacion", por favor consulte al administrador
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............................--->updateComboFlow...PATH_COMBOFLOW..*IN..path: |select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = Numero_de_actividad:154,Siguiente_Estado:Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............................--->updateComboFlow...PATH_COMBOFLOW..*IN.(1).path: |select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = Numero_de_actividad:154,Siguiente_Estado:Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [ WARNING ] NO se ejecut correctamente la sentencia de busqueda de Path SQL: "select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = Numero_de_actividad:154,Siguiente_Estado:Procesos_de_apropiacion"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........SafetTextParser::doFieldValidation............path: |/home/seguridad/.safet/input/deftrac.xml|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ......SafetTextParser::doFieldValidation...nameoperation: |Siguiente_estado_proyectos|,namefield: |Siguiente_Estado|,value:|Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::isValid.....(LOGGING1) COMBOVALIDATION...value:|Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...FOUNDCHECKVALID....1...value:|Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::isValid........Flow....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::isValid........true value....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert...t:2
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert...news:10
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert....return:1
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::doFieldValidation..........value...(1)...:|10|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....(BEFORE)....SafetTextParser::doFieldValidation......................keyvalue:|Numero_de_actividad:154,Siguiente_Estado:Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ***(AFTER)...SafetTextParser::doFieldValidation..........value...(2)...:|10|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............DomModel::selWidgetFromField.....................kevalue:|Numero_de_actividad:154,Siguiente_Estado:Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(3)....fields.count():|4|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(4)
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....options:|textualinfo,oneoption,checkvalid,beforefunction:select case when count(*)=0 then {#currvalue} else {#currvalue}-sum(porcentaje) end from actividad_registro where estado='{#keyvalue1}' and id_actividad={#keyvalue0}|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ................DomModel::changefor...changefor:|Siguiente_Estado|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(5)
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] currtype:9
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] DOMMODEL ComboFlow: keyvalue: |Numero_de_actividad:154,Siguiente_Estado:Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....ComboWidget::updateCombo()....type:|4|...|1|....|2|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::isValid........Flow....UPDATECOMBO....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....ComboWidget::updateComboFlow...conf()["options"].toString():|textualinfo,oneoption,checkvalid,beforefunction:select case when count(*)=0 then {#currvalue} else {#currvalue}-sum(porcentaje) end from actividad_registro where estado='{#keyvalue1}' and id_actividad={#keyvalue0}|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::updateComboFlow...mykeyvalue:|Numero_de_actividad:154,Siguiente_Estado:Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ComboWidget::updateComboFlow...beforef:|beforefunction:select case when count(*)=0 then {#currvalue} else {#currvalue}-sum(porcentaje) end from actividad_registro where estado='{#keyvalue1}' and id_actividad={#keyvalue0}|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ComboWidget::updateComboFlow...conf()["changefor"].toString():|Siguiente_Estado|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............................--->updateComboFlow...mykeyvalue: |Numero_de_actividad:154,Siguiente_Estado:Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............................--->updateComboFlow...PATH_COMBOFLOW....path: |select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = {#keyvalue1}|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............................->updateComboFlow...LOGGING4...myother: ||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ComboWidget::updateComboFlow...mypath:|select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = |
+Tue Dec 30 09:25:45 2014 [ WARNING ] No es posible leer el archivo "select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = ", por favor consulte al administrador
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............................--->updateComboFlow...PATH_COMBOFLOW..*IN..path: |select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = |
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............................--->updateComboFlow...PATH_COMBOFLOW..*IN.(1).path: |select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = |
+Tue Dec 30 09:25:45 2014 [ WARNING ] NO se ejecut correctamente la sentencia de busqueda de Path SQL: "select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = "
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........SafetTextParser::doFieldValidation............path: |/home/seguridad/.safet/input/deftrac.xml|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ......SafetTextParser::doFieldValidation...nameoperation: |Siguiente_estado_proyectos|,namefield: |Porcentaje|,value:|10|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::isValid.....(LOGGING1) COMBOVALIDATION...value:|10|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...CmdWidget::isValid...mypattern:|\d+|....myvalue=:|10|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...FOUNDCHECKVALID....1...value:|10|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...FOUNDCHECKVALID....2...value:|10|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::isValid........Flow....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....ComboWidget::updateComboFlow...conf()["options"].toString():|textualinfo,oneoption,checkvalid,beforefunction:select case when count(*)=0 then {#currvalue} else {#currvalue}-sum(porcentaje) end from actividad_registro where estado='{#keyvalue1}' and id_actividad={#keyvalue0}|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .......LOGGING3.....mykeyvalue:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::updateComboFlow...mykeyvalue:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ComboWidget::updateComboFlow...beforef:|beforefunction:select case when count(*)=0 then {#currvalue} else {#currvalue}-sum(porcentaje) end from actividad_registro where estado='{#keyvalue1}' and id_actividad={#keyvalue0}|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ComboWidget::updateComboFlow...conf()["changefor"].toString():|Siguiente_Estado|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............................--->updateComboFlow...mykeyvalue: |154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............................--->updateComboFlow...PATH_COMBOFLOW....path: |select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = {#keyvalue1}|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............................->updateComboFlow...LOGGING4...myother: |/home/seguridad/.safet/flowfiles/Software_libre.xml|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ComboWidget::updateComboFlow...mypath:|select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = /home/seguridad/.safet/flowfiles/Software_libre.xml|
+Tue Dec 30 09:25:45 2014 [ WARNING ] No es posible leer el archivo "Software_libre.xml", por favor consulte al administrador
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............................--->updateComboFlow...PATH_COMBOFLOW..*IN..path: |select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = /home/seguridad/.safet/flowfiles/Software_libre.xml|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............................--->updateComboFlow...PATH_COMBOFLOW..*IN.(1).path: |select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = /home/seguridad/.safet/flowfiles/Software_libre.xml|
+Tue Dec 30 09:25:45 2014 [ WARNING ] NO se ejecut correctamente la sentencia de busqueda de Path SQL: "select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = /home/seguridad/.safet/flowfiles/Software_libre.xml"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........LOGGIN2..***ComboWidget::isValid...options:|textualinfo,oneoption,checkvalid,beforefunction:select case when count(*)=0 then {#currvalue} else {#currvalue}-sum(porcentaje) end from actividad_registro where estado='{#keyvalue1}' and id_actividad={#keyvalue0}|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ........ComboWidget::isValid.....(*1*)TEXTUALINFOVALUE: |10|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ........ComboWidget::isValid.....(*2)TEXTUALINFOVALUE: |10|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] infos.count():|0|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ........ComboWidget::isValid.....TEXTUALINFOOPTIONS: ||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ........ComboWidget::isValid.....maxvalue: ||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert...t:2
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert...news:Procesos_de_apropiacion
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert....return:0
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert...t:2
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert...news:10
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert....return:1
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert...t:2
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert...news:154
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert....return:1
+Tue Dec 30 09:25:45 2014 [  DEBUG  ]   La Sentencia SQL a ejecutarse (1): 
+ "UPDATE actividad_por_accion SET status='Procesos_de_apropiacion',porcentaje=10 WHERE id=154"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ]   La Sentencia SQL a ejecutarse (2): 
+ "UPDATE actividad_por_accion SET status='Procesos_de_apropiacion',porcentaje=10 WHERE id=154"
+Tue Dec 30 09:25:45 2014 [ ACTION  ] Consulta SQL:
+"UPDATE actividad_por_accion SET status='Procesos_de_apropiacion',porcentaje=10 WHERE id=154"
+ ejecutada satisfactoriamente...OK!
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] 
+
+----------Nuevo
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] **********........SafetTextParser::getValueForFunction...v:|now()|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....(getValueFunction)(*2*)....key:|fechaaccion|: |10|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....(getValueFunction)(*2*)....key:|id|: |10|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...paso...
+
+
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....evaluating KEYVALUE: ||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........(*1*)key:|fechaaccion|: |10|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........(*1*)key:|id|: |10|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........getValueFunction....(2).....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........getValueFunction....(4)
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::getValueForFunction...Sentencia SQL PARA EVALUAR LA FUNCION "now()" a ejecutarse: 
+ "SELECT now();"
+Tue Dec 30 09:25:45 2014 [ ACTION  ] Ejecutada correctamente la sentencia SQL para la funcin: "now()"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::getValueForFunction...result:|1419947745|
+
+
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........getValueFunction....(6)....mykeyvalue:
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] Una entrada es vacia en este punto
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser buildFields: keyvalue: ||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] Una entrada es vacia en este punto
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser buildFields: keyvalue: ||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] 
+
+----------Nuevo
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] **********........SafetTextParser::getValueForFunction...v:|case when sum(porcentaje) is not null then sum(porcentaje)+{#porcentaje}={#currvalue#estado} else {#porcentaje}={#currvalue#estado} end from actividad_registro where estado='{#estado}' and id_actividad={#id_actividad}|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....(getValueFunction)(*2*)....key:|completado|: |null|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....(getValueFunction)(*2*)....key:|enlace|: |null|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....(getValueFunction)(*2*)....key:|estado|: |Procesos_de_apropiacion|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....(getValueFunction)(*2*)....key:|fechaaccion|: |10|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....(getValueFunction)(*2*)....key:|id|: |10|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....(getValueFunction)(*2*)....key:|id_actividad|: |154|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....(getValueFunction)(*2*)....key:|porcentaje|: |10|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....(getValueFunction)(*2*)....key:|propietario|: |10|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...paso...
+
+
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....evaluating KEYVALUE: ||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........(*1*)key:|completado|: |null|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........(*1*)key:|enlace|: |null|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........(*1*)key:|estado|: |Procesos_de_apropiacion|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........(*1*)key:|fechaaccion|: |10|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........(*1*)key:|id|: |10|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........(*1*)key:|id_actividad|: |154|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........(*1*)key:|porcentaje|: |10|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........(*1*)key:|propietario|: |10|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........getValueFunction....(2).....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........getValueFunction....(3).....mykeyvalue:|estado|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........getValueFunction....(3).....count:|0|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........getValueFunction....(3).....count combovarglobal:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........getValueFunction....(3).....count lastgraph:|/home/seguridad/.safet/flowfiles/Software_libre.xml|
+Tue Dec 30 09:25:45 2014 [ WARNING ] No se puede acceder al flujo de trabajo
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetWorkflow::addChild..ADDCHILD..(1)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....***SafetWorkflow::addChild..ADDCHILD.(2)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetWorkflow::addChild..ADDCHILD..(1)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....***SafetWorkflow::addChild..ADDCHILD.(2)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetWorkflow::addChild..ADDCHILD..(1)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....***SafetWorkflow::addChild..ADDCHILD.(2)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetWorkflow::addChild..ADDCHILD..(1)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....***SafetWorkflow::addChild..ADDCHILD.(2)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetWorkflow::addChild..ADDCHILD..(1)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....***SafetWorkflow::addChild..ADDCHILD.(2)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetWorkflow::addChild..ADDCHILD..(1)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....***SafetWorkflow::addChild..ADDCHILD.(2)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetWorkflow::addChild..ADDCHILD..(1)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....***SafetWorkflow::addChild..ADDCHILD.(2)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetWorkflow::addChild..ADDCHILD..(1)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....***SafetWorkflow::addChild..ADDCHILD.(2)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetWorkflow::addChild..ADDCHILD..(1)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....***SafetWorkflow::addChild..ADDCHILD.(2)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetWorkflow::addChild..ADDCHILD..(1)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....***SafetWorkflow::addChild..ADDCHILD.(2)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetWorkflow::addChild..ADDCHILD..(1)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....***SafetWorkflow::addChild..ADDCHILD.(2)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetWorkflow::addChild..ADDCHILD..(1)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....***SafetWorkflow::addChild..ADDCHILD.(2)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetWorkflow::addChild..ADDCHILD..(1)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....***SafetWorkflow::addChild..ADDCHILD.(2)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetWorkflow::addChild..ADDCHILD..(1)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....***SafetWorkflow::addChild..ADDCHILD.(2)..ptask->title():||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] Activada fuente de datos con id: "1"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........getValueFunction....(2)...wf == NULL:|0|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::getValueForFunction...mykeyvalue (currvalue):
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........getValueFunction....(3)....mykeyvalue:|estado|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............SafetWorkflow::textualInfos....TEXTUALVALUE ID(1):|Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............SafetWorkflow::textualInfos....TEXTUALVALUE OTHERID(1):||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .......SafetWorkflow::calculateSQL...CALCULATESQL.....currsql (1): |select porcentaje from tareas where id_producto={#keyvalue0} and nombre=Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .......SafetWorkflow::calculateSQL...CALCULATESQL.....info: |Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .......SafetWorkflow::calculateSQL...CALCULATESQL.....newsql(2): |select porcentaje from tareas where id_producto=Procesos_de_apropiacion and nombre=Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [ ACTION  ] NO se ejecut correctamente la sentencia de calculo SQL: "select porcentaje from tareas where id_producto=Procesos_de_apropiacion and nombre=Procesos_de_apropiacion"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............SafetWorkflow::textualInfos....TEXTUALVALUE (2):|8|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::getValueForFunction...currvalue:|8|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........getValueFunction....(4)
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::getValueForFunction...Sentencia SQL PARA EVALUAR LA FUNCION "case when sum(porcentaje) is not null then sum(porcentaje)+{#porcentaje}={#currvalue#estado} else {#porcentaje}={#currvalue#estado} end from actividad_registro where estado='{#estado}' and id_actividad={#id_actividad}" a ejecutarse: 
+ "SELECT case when sum(porcentaje) is not null then sum(porcentaje)+10=8 else 10=8 end from actividad_registro where estado='Procesos_de_apropiacion' and id_actividad=154;"
+Tue Dec 30 09:25:45 2014 [ ACTION  ] Ejecutada correctamente la sentencia SQL para la funcin: "case when sum(porcentaje) is not null then sum(porcentaje)+{#porcentaje}={#currvalue#estado} else {#porcentaje}={#currvalue#estado} end from actividad_registro where estado='{#estado}' and id_actividad={#id_actividad}"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetTextParser::getValueForFunction... otro formato...
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::getValueForFunction...result:|false|
+
+
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........getValueFunction....(6)....mykeyvalue:
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::doFieldValidation..........value...(1)...:|nextval(actividad_registro_seq)|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....(BEFORE)....SafetTextParser::doFieldValidation......................keyvalue:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ***(AFTER)...SafetTextParser::doFieldValidation..........value...(2)...:|nextval(actividad_registro_seq)|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............DomModel::selWidgetFromField.....................kevalue:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(3)....fields.count():|4|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........SafetTextParser::doFieldValidation............path: |/home/seguridad/.safet/input/deftrac.xml|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ......SafetTextParser::doFieldValidation...nameoperation: |Siguiente_estado_proyectos|,namefield: |id|,value:|nextval(actividad_registro_seq)|
+Tue Dec 30 09:25:45 2014 [ WARNING ] KeyValue esta vacia
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::doFieldValidation..........value...(1)...:|1419947745|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....(BEFORE)....SafetTextParser::doFieldValidation......................keyvalue:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ***(AFTER)...SafetTextParser::doFieldValidation..........value...(2)...:|1419947745|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............DomModel::selWidgetFromField.....................kevalue:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(3)....fields.count():|4|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........SafetTextParser::doFieldValidation............path: |/home/seguridad/.safet/input/deftrac.xml|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ......SafetTextParser::doFieldValidation...nameoperation: |Siguiente_estado_proyectos|,namefield: |fechaaccion|,value:|1419947745|
+Tue Dec 30 09:25:45 2014 [ WARNING ] KeyValue esta vacia
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::doFieldValidation..........value...(1)...:|vbravo|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....(BEFORE)....SafetTextParser::doFieldValidation......................keyvalue:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ***(AFTER)...SafetTextParser::doFieldValidation..........value...(2)...:|vbravo|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............DomModel::selWidgetFromField.....................kevalue:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(3)....fields.count():|4|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........SafetTextParser::doFieldValidation............path: |/home/seguridad/.safet/input/deftrac.xml|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ......SafetTextParser::doFieldValidation...nameoperation: |Siguiente_estado_proyectos|,namefield: |propietario|,value:|vbravo|
+Tue Dec 30 09:25:45 2014 [ WARNING ] KeyValue esta vacia
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::doFieldValidation..........value...(1)...:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....(BEFORE)....SafetTextParser::doFieldValidation......................keyvalue:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ***(AFTER)...SafetTextParser::doFieldValidation..........value...(2)...:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............DomModel::selWidgetFromField.....................kevalue:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(3)....fields.count():|4|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(4)
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....options:|id:actividad_por_accion::'(' || id || ') ' || nombre|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(5)
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] currtype:7
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....ComboWidget::updateCombo()....type:|0|...|1|....|2|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] Actualizando lista del combo: "SELECT id,'(' || id || ') ' || nombre from actividad_por_accion   ORDER BY id DESC;"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........SafetTextParser::doFieldValidation............path: |/home/seguridad/.safet/input/deftrac.xml|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ......SafetTextParser::doFieldValidation...nameoperation: |Siguiente_estado_proyectos|,namefield: |Numero_de_actividad|,value:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::isValid.....(LOGGING1) COMBOVALIDATION...value:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...FOUNDCHECKVALID....1...value:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] Actualizando lista del combo: "SELECT id,'(' || id || ') ' || nombre from actividad_por_accion   ORDER BY id DESC;"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...ComboWidget::isValid......value:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...ComboWidget::isValid......|true|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::doFieldValidation..........value...(1)...:|Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....(BEFORE)....SafetTextParser::doFieldValidation......................keyvalue:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ***(AFTER)...SafetTextParser::doFieldValidation..........value...(2)...:|Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............DomModel::selWidgetFromField.....................kevalue:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(3)....fields.count():|4|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(4)
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....options:|all|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ................DomModel::changefor...changefor:|Numero_de_actividad|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(5)
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] currtype:9
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] DOMMODEL ComboFlow: keyvalue: ||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....ComboWidget::updateCombo()....type:|4|...|1|....|2|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::isValid........Flow....UPDATECOMBO....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....ComboWidget::updateComboFlow...conf()["options"].toString():|all|
+Tue Dec 30 09:25:45 2014 [ WARNING ] ComboWidget::updateComboFlow........mykeyvalue (isEmpty)....
+Tue Dec 30 09:25:45 2014 [ WARNING ] ComboWidget::updateComboFlow........reemplazando con (Variable) SafetYAWL::combovarglobal0: |154|
+Tue Dec 30 09:25:45 2014 [ WARNING ] ComboWidget::updateComboFlow........mykeyvalue (isEmpty)..MYLISTGLOBAL..mylistglobal.at(0):|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ComboWidget::updateComboFlow........returning for KEYVALUE==0
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........SafetTextParser::doFieldValidation............path: |/home/seguridad/.safet/input/deftrac.xml|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ......SafetTextParser::doFieldValidation...nameoperation: |Siguiente_estado_proyectos|,namefield: |Siguiente_Estado|,value:|Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::isValid.....(LOGGING1) COMBOVALIDATION...value:|Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...FOUNDCHECKVALID....1...value:|Procesos_de_apropiacion|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::isValid........Flow....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::isValid........true value....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::doFieldValidation..........value...(1)...:|10|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....(BEFORE)....SafetTextParser::doFieldValidation......................keyvalue:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ***(AFTER)...SafetTextParser::doFieldValidation..........value...(2)...:|10|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............DomModel::selWidgetFromField.....................kevalue:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(3)....fields.count():|4|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(4)
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....options:|textualinfo,oneoption,checkvalid,beforefunction:select case when count(*)=0 then {#currvalue} else {#currvalue}-sum(porcentaje) end from actividad_registro where estado='{#keyvalue1}' and id_actividad={#keyvalue0}|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ................DomModel::changefor...changefor:|Siguiente_Estado|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(5)
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] currtype:9
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] DOMMODEL ComboFlow: keyvalue: ||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....ComboWidget::updateCombo()....type:|4|...|1|....|2|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::isValid........Flow....UPDATECOMBO....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....ComboWidget::updateComboFlow...conf()["options"].toString():|textualinfo,oneoption,checkvalid,beforefunction:select case when count(*)=0 then {#currvalue} else {#currvalue}-sum(porcentaje) end from actividad_registro where estado='{#keyvalue1}' and id_actividad={#keyvalue0}|
+Tue Dec 30 09:25:45 2014 [ WARNING ] ComboWidget::updateComboFlow........mykeyvalue (isEmpty)....
+Tue Dec 30 09:25:45 2014 [ WARNING ] ComboWidget::updateComboFlow........reemplazando con (Variable) SafetYAWL::combovarglobal0: |154|
+Tue Dec 30 09:25:45 2014 [ WARNING ] ComboWidget::updateComboFlow........mykeyvalue (isEmpty)..MYLISTGLOBAL..mylistglobal.at(0):|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ComboWidget::updateComboFlow........returning for KEYVALUE==0
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........SafetTextParser::doFieldValidation............path: |/home/seguridad/.safet/input/deftrac.xml|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ......SafetTextParser::doFieldValidation...nameoperation: |Siguiente_estado_proyectos|,namefield: |Porcentaje|,value:|10|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::isValid.....(LOGGING1) COMBOVALIDATION...value:|10|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...CmdWidget::isValid...mypattern:|\d+|....myvalue=:|10|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...FOUNDCHECKVALID....1...value:|10|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...FOUNDCHECKVALID....2...value:|10|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::isValid........Flow....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....ComboWidget::updateComboFlow...conf()["options"].toString():|textualinfo,oneoption,checkvalid,beforefunction:select case when count(*)=0 then {#currvalue} else {#currvalue}-sum(porcentaje) end from actividad_registro where estado='{#keyvalue1}' and id_actividad={#keyvalue0}|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .......LOGGING3.....mykeyvalue:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::updateComboFlow...mykeyvalue:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ComboWidget::updateComboFlow...beforef:|beforefunction:select case when count(*)=0 then {#currvalue} else {#currvalue}-sum(porcentaje) end from actividad_registro where estado='{#keyvalue1}' and id_actividad={#keyvalue0}|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ComboWidget::updateComboFlow...conf()["changefor"].toString():|Siguiente_Estado|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............................--->updateComboFlow...mykeyvalue: |154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............................--->updateComboFlow...PATH_COMBOFLOW....path: |select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = {#keyvalue1}|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............................->updateComboFlow...LOGGING4...myother: |/home/seguridad/.safet/flowfiles/Software_libre.xml|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ComboWidget::updateComboFlow...mypath:|select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = /home/seguridad/.safet/flowfiles/Software_libre.xml|
+Tue Dec 30 09:25:45 2014 [ WARNING ] No es posible leer el archivo "Software_libre.xml", por favor consulte al administrador
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............................--->updateComboFlow...PATH_COMBOFLOW..*IN..path: |select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = /home/seguridad/.safet/flowfiles/Software_libre.xml|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..............................--->updateComboFlow...PATH_COMBOFLOW..*IN.(1).path: |select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = /home/seguridad/.safet/flowfiles/Software_libre.xml|
+Tue Dec 30 09:25:45 2014 [ WARNING ] NO se ejecut correctamente la sentencia de busqueda de Path SQL: "select tipo_producto.flujo_producto from tipo_producto,actividad_por_accion where tipo_producto.id = actividad_por_accion.id_tipo_producto and actividad_por_accion.id = /home/seguridad/.safet/flowfiles/Software_libre.xml"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........LOGGIN2..***ComboWidget::isValid...options:|textualinfo,oneoption,checkvalid,beforefunction:select case when count(*)=0 then {#currvalue} else {#currvalue}-sum(porcentaje) end from actividad_registro where estado='{#keyvalue1}' and id_actividad={#keyvalue0}|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ........ComboWidget::isValid.....(*1*)TEXTUALINFOVALUE: |10|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ........ComboWidget::isValid.....(*2)TEXTUALINFOVALUE: |10|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] infos.count():|0|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ........ComboWidget::isValid.....TEXTUALINFOOPTIONS: ||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ........ComboWidget::isValid.....maxvalue: ||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::doFieldValidation..........value...(1)...:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....(BEFORE)....SafetTextParser::doFieldValidation......................keyvalue:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ***(AFTER)...SafetTextParser::doFieldValidation..........value...(2)...:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............DomModel::selWidgetFromField.....................kevalue:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(3)....fields.count():|4|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(4)
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(5)
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] currtype:0
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .............DomModel::selWidgetFromField........CmdWidget()...
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........SafetTextParser::doFieldValidation............path: |/home/seguridad/.safet/input/deftrac.xml|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ......SafetTextParser::doFieldValidation...nameoperation: |Siguiente_estado_proyectos|,namefield: |Enlace_para_el_producto|,value:||
+Tue Dec 30 09:25:45 2014 [ WARNING ] No se lleno el valor para un widget
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::doFieldValidation..........value...(1)...:|false|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....(BEFORE)....SafetTextParser::doFieldValidation......................keyvalue:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ***(AFTER)...SafetTextParser::doFieldValidation..........value...(2)...:|false|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............DomModel::selWidgetFromField.....................kevalue:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(3)....fields.count():|4|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........SafetTextParser::doFieldValidation............path: |/home/seguridad/.safet/input/deftrac.xml|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ......SafetTextParser::doFieldValidation...nameoperation: |Siguiente_estado_proyectos|,namefield: |Fue_completado|,value:|false|
+Tue Dec 30 09:25:45 2014 [ WARNING ] KeyValue esta vacia
+Tue Dec 30 09:25:45 2014 [  DEBUG  ]   La Sentencia SQL a ejecutarse (1): 
+ "INSERT INTO actividad_registro (id,fechaaccion,propietario,id_actividad,estado,porcentaje,completado)  VALUES (nextval('actividad_registro_seq'),1419947745,'vbravo','154','Procesos_de_apropiacion','10',false); "
+Tue Dec 30 09:25:45 2014 [  DEBUG  ]   La Sentencia SQL a ejecutarse (2): 
+ "INSERT INTO actividad_registro (id,fechaaccion,propietario,id_actividad,estado,porcentaje,completado)  VALUES (nextval('actividad_registro_seq'),1419947745,'vbravo','154','Procesos_de_apropiacion','10',false); "
+Tue Dec 30 09:25:45 2014 [ ACTION  ] Consulta SQL:
+"INSERT INTO actividad_registro (id,fechaaccion,propietario,id_actividad,estado,porcentaje,completado)  VALUES (nextval('actividad_registro_seq'),1419947745,'vbravo','154','Procesos_de_apropiacion','10',false); "
+ ejecutada satisfactoriamente...OK!
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::getFieldsValues....nameoperation: |Siguiente_estado_proyectos|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetTextParser::buildFields...TYPENODE:|string|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetTextParser::buildFields...TYPENODE...namefield:|id|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser getFieldsValues:...infieldname...:|Numero_de_actividad|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] **SafetTextParser getFieldsValues: keyvalue: |154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..:SafetTextParser::getFieldsValues..CURRVALIDATION.currvalidation:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetTextParser::buildFields...TYPENODE:|string|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....SafetTextParser::buildFields...TYPENODE...namefield:|porcentaje|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...func1..
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] 
+
+----------Nuevo
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] **********........SafetTextParser::getValueForFunction...v:|sum(porcentaje) from actividad_registro where id_actividad={#keyvalue}|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....(getValueFunction)(*2*)....key:|id|: |154|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .....(getValueFunction)(*2*)....key:|porcentaje|: |10|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...paso...
+
+
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....evaluating KEYVALUE: |154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....evaluating newv: |sum(porcentaje) from actividad_registro where id_actividad=154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........(*1*)key:|id|: |154|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........(*1*)key:|porcentaje|: |10|....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........getValueFunction....(2).....
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........getValueFunction....(4)
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::getValueForFunction...Sentencia SQL PARA EVALUAR LA FUNCION "sum(porcentaje) from actividad_registro where id_actividad={#keyvalue}" a ejecutarse: 
+ "SELECT sum(porcentaje) from actividad_registro where id_actividad=154;"
+Tue Dec 30 09:25:45 2014 [ ACTION  ] Ejecutada correctamente la sentencia SQL para la funcin: "sum(porcentaje) from actividad_registro where id_actividad={#keyvalue}"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::getValueForFunction...result:|17|
+
+
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........getValueFunction....(6)....mykeyvalue:
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ..:SafetTextParser::getFieldsValues..CURRVALIDATION.currvalidation:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert...t:2
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert...news:154
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert....return:1
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::doFieldValidation..........value...(1)...:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....(BEFORE)....SafetTextParser::doFieldValidation......................keyvalue:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ***(AFTER)...SafetTextParser::doFieldValidation..........value...(2)...:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............DomModel::selWidgetFromField.....................kevalue:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(3)....fields.count():|4|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(4)
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....options:|id:actividad_por_accion::'(' || id || ') ' || nombre|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(5)
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] currtype:7
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....ComboWidget::updateCombo()....type:|0|...|1|....|2|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] Actualizando lista del combo: "SELECT id,'(' || id || ') ' || nombre from actividad_por_accion   ORDER BY id DESC;"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........SafetTextParser::doFieldValidation............path: |/home/seguridad/.safet/input/deftrac.xml|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ......SafetTextParser::doFieldValidation...nameoperation: |Siguiente_estado_proyectos|,namefield: |Numero_de_actividad|,value:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...........ComboWidget::isValid.....(LOGGING1) COMBOVALIDATION...value:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...FOUNDCHECKVALID....1...value:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] Actualizando lista del combo: "SELECT id,'(' || id || ') ' || nombre from actividad_por_accion   ORDER BY id DESC;"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...ComboWidget::isValid......value:|154|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...ComboWidget::isValid......|true|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert...t:2
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert...news:17
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert....return:1
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] SafetTextParser::doFieldValidation..........value...(1)...:|17|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ....(BEFORE)....SafetTextParser::doFieldValidation......................keyvalue:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ***(AFTER)...SafetTextParser::doFieldValidation..........value...(2)...:|17|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............DomModel::selWidgetFromField.....................kevalue:||
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ............****DomModel::selWidgetFromField....(3)....fields.count():|4|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........SafetTextParser::doFieldValidation............path: |/home/seguridad/.safet/input/deftrac.xml|
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ......SafetTextParser::doFieldValidation...nameoperation: |Siguiente_estado_proyectos|,namefield: |porcentaje|,value:|17|
+Tue Dec 30 09:25:45 2014 [ WARNING ] KeyValue esta vacia
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert...t:2
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert...news:17
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert....return:1
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert...t:2
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert...news:154
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] ...SafetYAWL::canTypeConvert....return:1
+Tue Dec 30 09:25:45 2014 [  DEBUG  ]   La Sentencia SQL a ejecutarse (1): 
+ "UPDATE actividad_por_accion SET porcentaje=17 WHERE id=154"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ]   La Sentencia SQL a ejecutarse (2): 
+ "UPDATE actividad_por_accion SET porcentaje=17 WHERE id=154"
+Tue Dec 30 09:25:45 2014 [ ACTION  ] Consulta SQL:
+"UPDATE actividad_por_accion SET porcentaje=17 WHERE id=154"
+ ejecutada satisfactoriamente...OK!
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] Nmero de acciones a ejecutar: "0"
+Tue Dec 30 09:25:45 2014 [  DEBUG  ] .........MainWindow::toInputForm................*RETURNING..postaction:||

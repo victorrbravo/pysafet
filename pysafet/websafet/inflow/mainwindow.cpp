@@ -1391,10 +1391,12 @@ QString MainWindow::generateModifyHTML(const QString& operation, const QString& 
                                        const QString& key, const QString& secondkey,const QStringList& form) {
     QString result;
     SYD << tr("MainWindow::generateModifyHTML....operation:|%1|..."
-              "fieldname:|%2|....key:|%3|")
+              "fieldname:|%2|....key:|%3|...secondkey:|%4|")
            .arg(operation)
            .arg(fieldname)
-           .arg(key);
+           .arg(key)
+	   .arg(secondkey);
+
 
 
     DomModel* mymodel = new DomModel(inputPath(),NULL);
@@ -2587,8 +2589,6 @@ void MainWindow::executeWithJSON( ) {
     tipsdata += "] }";
     QStringList mytips;
 
-    SYD << tr("....MainWindow::executeWithJSON....SCRIPTENGINE...myscript...searchScript:|%1|")
-           .arg(_listprincipalvariable);
     QString myscript = searchScript(_listprincipalvariable);
 
     if (  !myscript.isEmpty() ) {
@@ -2744,6 +2744,7 @@ void MainWindow::toSend(bool sign) {
     
 }
 
+
 bool MainWindow::toInputUsers(const QString& action) {
 
         SYD << tr("....**MainWindow::TOINPUTUSERS..(BEFORE_EXTRACT).....action:|%1|").arg(action);
@@ -2877,9 +2878,9 @@ bool MainWindow::toInputUsers(const QString& action) {
     }
 
 
-        QString fileconf = SafetYAWL::pathconf+ "/" + "auth.conf";
+        QString fileconf = "auth.conf";
 
-        SYD << tr(".......MainWindow::toInputUsers....WITHOUTREPLACE...fileconf........:|%1|").arg(fileconf);
+        SYD << tr(".......MainWindow::toInputUsers....fileconf........:|%1|").arg(fileconf);
         if (QFile::exists(fileconf)) {
              foreach(QString s, results) {
                  SYD << tr("........MainWindow::toInputUsers....s:|%1|").arg(s);
@@ -2911,6 +2912,7 @@ bool MainWindow::toInputUsers(const QString& action) {
 
 
     }
+
 
 QString MainWindow::genTicket(const QString& user) {
     QString result;
@@ -4452,7 +4454,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
                     .arg(data.map["Autofiltro"]);
 
 
-            SYD << tr("MainWindow::toInputConsole...***AUTOFILTER_TEXT:|%1|")
+            SYD << tr("MainWindow::toInputConsole...***AUTOFILTER_TEXT:|%s|")
                    .arg(texto);
 
             parseArgs( texto );
@@ -4514,6 +4516,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
             if (! executeParsed() ) {
                 return false;
             }
+
 
 
         }
@@ -4600,6 +4603,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
                 SYE << tr("No existe la variable flujo para graficar");
             }
 
+
             if (data.map.contains("Clave")) {
                 currid = data.map["Clave"];
             }
@@ -4610,6 +4614,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
             else {
                 SYE << tr("No existe la variable id para graficar el flujo");
             }
+
 
 
             QString texto = QString("-f %1 -p graphviz -g -k %2 ")
@@ -4677,6 +4682,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
             MainWindow::configurator->openXML(pathflow);
             MainWindow::configurator->convertXMLtoObjects();
             MainWindow::configurator->openDataSources();
+
 
             infos = MainWindow::configurator->getWorkflows().at(0)
                     ->listNextStates(mykeyvalue,SafetWorkflow::OnlyNext,true);
@@ -5671,10 +5677,12 @@ void MainWindow::toInputConfigure(const QString& mytexto) {
 }
 
 
+
+
 void MainWindow::proccessConfFile(const QString& sql, const QString& filename, bool multiplefields) {
 
      SYD << tr("...MainWindow::proccessConfFile.......");
-     QString fileconf = filename;
+     QString fileconf = SafetYAWL::pathconf+ "/" + filename;
      if ( filename.isEmpty() ) {
          fileconf = SafetYAWL::pathconf+ "/" + "safet.conf";
 
@@ -5711,7 +5719,7 @@ void MainWindow::proccessConfFile(const QString& sql, const QString& filename, b
 
      SYD << tr(".........MainWindow::processConfFile....newsql: |%1|.......pos:|%2|").arg(newsql).arg(pos);
 
-     if ( pos == -1 ) {
+     if ( pos == -1  ) {
 
 
          rx.setPattern(insertPattern);
@@ -5738,12 +5746,18 @@ void MainWindow::proccessConfFile(const QString& sql, const QString& filename, b
          else {
 
              SYD << tr("..........MainWindow::processConfFile....doInsertInAuthConfFile....(*1)...");
-             doInsertInAuthConfFile(rx);
+             doInsertInAuthConfFile(rx,filename);
 
 
              return;
          }
      }
+
+     SYD << tr("....MainWindow::processConfFile....FOLLOWINSERT...(1)..");
+
+
+     SYD << tr("....MainWindow::processConfFile....FOLLOWINSERT...(1)..rx.cap(1):|%1|")
+            .arg(rx.cap(1));
 
      QString keyfield, fields;
      if ( !isdeleting ){
@@ -5950,14 +5964,13 @@ QString MainWindow::searchFieldsInAuthConf(const QString& key) {
 
 }
 
+void MainWindow::doInsertInAuthConfFile(QRegExp& rx, const QString& filename) {
 
-void MainWindow::doInsertInAuthConfFile(QRegExp& rx) {
 
-
-    SYD << tr("..........MainWindow::processConfFile....WITHOUTREPLACECONF....doInsertInAuthConfFile....rx.pattern:|%1|...")
+    SYD << tr("..........MainWindow::processConfFile....doInsertInAuthConfFile....rx.pattern:|%1|...")
            .arg(rx.pattern());
 
-    SYD << tr("..........MainWindow::processConfFile....WITHOUTREPLACECONFdoInsertInAuthConfFile....rx.cap(1):|%1|...")
+    SYD << tr("..........MainWindow::processConfFile....doInsertInAuthConfFile....rx.cap(1):|%1|...")
            .arg(rx.cap(1));
     SYD << tr("..........MainWindow::processConfFile....doInsertInAuthConfFile....rx.cap(2):|%1|...")
            .arg(rx.cap(2));
@@ -5970,7 +5983,7 @@ void MainWindow::doInsertInAuthConfFile(QRegExp& rx) {
     fields = rx.cap(2).split(",");
     values = rx.cap(3).split(",");
 
-    QString fileconf = SafetYAWL::pathconf+ "/" + "auth.conf";
+    QString fileconf = SafetYAWL::pathconf+ "/" + filename;
         int countuser = 1;
         QString replacetext,newfield;
 
@@ -5989,19 +6002,50 @@ void MainWindow::doInsertInAuthConfFile(QRegExp& rx) {
 
             for(int i = 0; i < fields.count(); i++) {
                 newfield = fields.at(i);
-                newfield.chop(2);
-                SYD << tr(".........MainWindow::doInsertAuthConfFile........fields.at(%1): |%2|").arg(i).arg(newfield);
-                QString subfield = newfield.mid(0,1).toUpper()+newfield.mid(1);
-                newfield = QString("%1.%2").arg(subfield).arg(countuser);
+                SYD << tr(".........MainWindow::doInsertAuthConfFile........newfield: |%1|").arg(newfield);
 
-                SYD << tr(".........MainWindow::doInsertAuthConfFile.......(countuser)....newfield: |%1|").arg(newfield);
-                QString firstfield = newfield.split(".").at(0);
-                QString key = firstfield +"/"+newfield.mid(firstfield.length()+1);
+                QString firstfield;
+                QString key;
+
+                if (newfield.indexOf("getfilewidget") == -1 ) {
+                    newfield.chop(2);
+                    SYD << tr(".........MainWindow::doInsertAuthConfFile........fields.at(%1): |%2|").arg(i).arg(newfield);
+                    QString subfield = newfield.mid(0,1).toUpper()+newfield.mid(1);
+                    newfield = QString("%1.%2").arg(subfield).arg(countuser);
+                    firstfield = newfield.split(".").at(0);
+                    key = firstfield +"/"+newfield.mid(firstfield.length()+1);
+
+                }
+                else{
+                    firstfield = newfield.split(".").at(0);
+                    firstfield = firstfield.at(0).toUpper()+firstfield.mid(1);
+                    key = firstfield +"/"+newfield.mid(firstfield.length()+1);
+
+                }
+
+                SYD << tr(".........MainWindow::doInsertAuthConfFile...(**countuser)..newfield: |%1|").arg(newfield);
 
                 SYD << tr(".........MainWindow::doInsertAuthConfFile.....firstfield: |%1|").arg(firstfield);
-                SYD << tr(".........MainWindow::doInsertAuthConfFile.....key: |%1|").arg(key);
+                SYD << tr(".........MainWindow::doInsertAuthConfFile.....KPROCESS..key: |%1|").arg(key);
                 newfield = newfield.toLower();
-                if (!SafetYAWL::getAuthConf().contains(key) ) {
+                bool containkey = false;
+
+                if (filename == "auth.conf" ) {
+                    SYD << tr(".........MainWindow::doInsertAuthConfFile.....KPROCESS..auth.conf");
+                   containkey = SafetYAWL::getAuthConf().contains(key);
+                }
+                else if (filename == "safet.conf" ) {
+                    SYD << tr(".........MainWindow::doInsertAuthConfFile.....KPROCESS..safet.conf");
+                    containkey = SafetYAWL::getConf().contains(key);
+                }
+                else {
+                 SYE << tr("ERROR filename IS NOT safet.conf or auth.conf:\"%1\"").arg(filename);
+                 return;
+                }
+
+                 SYD << tr(".........MainWindow::doInsertAuthConfFile.....KPROCESS..containkey: |%1|").arg(containkey);
+
+                if (!containkey ) {
                     newtext = QString("%1").
                               arg(newfield)
                               +" = " + values.at(i) + "\n";
@@ -6014,12 +6058,43 @@ void MainWindow::doInsertInAuthConfFile(QRegExp& rx) {
                 else {
                     SYD << tr(".........MainWindow::doInsertAuthConfFile..........SI CONTIENE...(1)...(newfield):|%1|")
                            .arg((newfield));
-                    replacetext += QString("%1").arg(newfield)
-                                   +" = " + SafetYAWL::getAuthConf()[ key ] + "\n";
-                    SYD << tr(".........MainWindow::doInsertAuthConfFile..........SI CONTIENE...(1)...key:|%1|")
-                           .arg(key);
-                   // SYD << tr(".........MainWindow::doInsertAuthConfFile..........REPLACETEXT:|%1|")
-                     //      .arg(replacetext);
+                    if (filename == "auth.conf" ) {
+                        replacetext += QString("%1").arg(newfield)
+                                       +" = " + SafetYAWL::getAuthConf()[ key ] + "\n";
+                        SYD << tr(".........MainWindow::doInsertAuthConfFile..........SI CONTIENE...(1)...key:|%1|")
+                               .arg(key);
+                    }
+                    else if (filename == "safet.conf" ) {
+
+                        if (newfield.indexOf("getfilewidget") >= 0 ) {
+                            newtext = QString("%1").
+                                      arg(newfield)
+                                      +" = " + values.at(i) + "\n";
+                            SYD << tr("replacetext:|%1|").arg(replacetext);
+                            QStringList values = SafetYAWL::getConf()[ key ].split(SafetYAWL::LISTSEPARATORCHARACTER);
+                            replacetext = "";
+                            foreach(QString v, values ) {
+                                QString newvalue = newfield + " = "  + v + "\n";
+                                replacetext += newvalue;
+                            }
+
+                            replacetext += newtext;
+
+                            SYD << tr(".........MainWindow::doInsertConfFile.....NEWREPLACETEXT:|%1|")
+                                   .arg(replacetext);
+
+                            isreplacing = false;
+                        }
+                        else {
+                            replacetext += QString("%1").arg(newfield)
+                                           +" = " + SafetYAWL::getConf()[ key ] + "\n";
+                            SYD << tr(".........MainWindow::doInsertConfFile.....safet.conf.....SI CONTIENE...(1)...key:|%1|")
+                                   .arg(key);
+
+                        }
+
+                    }
+
                 }
             }
 
@@ -6040,8 +6115,6 @@ void MainWindow::doInsertInAuthConfFile(QRegExp& rx) {
         SafetYAWL::replaceSectionInFile(fileconf,sectiontext,replacetext);
 
 }
-
-
 
 void MainWindow::restoreWindowState()
 {
@@ -7759,13 +7832,11 @@ bool MainWindow::parse(int &argc, char **argv) {
          }
 
        //	qDebug("!commands.contains('f'): %d", !commands.contains('f'));
-        if ( commands.contains('h') || commands.contains('V') || commands.contains('T'))  {
-            return true;
-        }
+        if ( commands.contains('h') || commands.contains('V') || commands.contains('T')) return true;
         if ( !commands.contains('f')  ) {
                 streamText << tr("*** No se especifico la ruta del archivo de flujo de trabajo (.xml) *** \n");
                 streamText  <<  tr("Opcion: -f <archivo> o --file <archivo> \n");
-
+//		streamText.flush();
                 sendStreamToOutput();
                 parsed = false;
                 processCommand('f');
@@ -8038,52 +8109,10 @@ bool MainWindow::genGraph() {
             SYD << tr("MainWindow.:genGraph...*MYID (2):|%1|")
                    .arg(myid);
 
-            QString mydata = QString("{ \"filename\": \"%1\", \"id\": \"%3\",\"data\": %2 }")
-                                .arg(_currentjson)
-                                .arg(configurator->getWorkflows().at(0)->currentGraphJSON(""))
-                                .arg(myid);
-            QString searchid = MainWindow::normalize(myid);
-            SYD << tr("MainWindow.:genGraph...GENGRAPH...SCRIPTENGINE...*MYID (2):|%1|")
-                   .arg(searchid);
-
-            QString myscript = searchScript(searchid);
-
-            QString alltips = "";
-            if (  !myscript.isEmpty() ) {
-                    SYD << tr("...EVALTIPS....GENGRAPH...SCRIPTENGINE...mydir....(1) exist");
-                    SYD << tr("...EVALTIPS....GENGRAPH...SCRIPTENGINE...mydir....(1) myscript:\n|%1|")
-                           .arg(myscript);
-
-                    QStringList mytips = generateTips(mydata,myscript);
-                    SYD << tr("...EVALTIPS.....GENGRAPH...SCRIPTENGINE..mydir....(1) mytips.count():\n|%1|")
-                           .arg(mytips.count());
-                    if (mytips.count() > 0) {
-                        QString tipsresult;
-                        tipsresult += "  \"safettips\": [";
-                        foreach(QString t, mytips) {
-                            tipsresult += "{ \"tip\": \"" + t +"\"},";
-                        }
-                        tipsresult.chop(1);
-                        tipsresult += "],\n";
-
-                        alltips += " ";
-                        alltips += tipsresult;
-                        alltips += "";
-
-
-                    }
-
-            }
-
-            SYD << tr("MainWindow.:genGraph...GENGRAPH...SCRIPTENGINE...*alltips (2):|%1|")
-                   .arg(alltips);
-
-
-            _currentjson = QString("{ \"filename\": \"%1\", \"id\": \"%3\", %4 \"data\": %2 }")
+            _currentjson = QString("{ \"filename\": \"%1\", \"id\": \"%3\",\"data\": %2 }")
                     .arg(_currentjson)
                     .arg(configurator->getWorkflows().at(0)->currentGraphJSON(""))
-                    .arg(myid)
-                    .arg(alltips);
+                    .arg(myid);
 
         }
 
@@ -8091,22 +8120,6 @@ bool MainWindow::genGraph() {
 
 
         return true;
-}
-
-QString MainWindow::normalize(const QString& text) {
-    QString normtl  = text;
-
-    normtl.replace(QRegExp("\\s+")," ");
-    normtl.replace("á","a");
-    normtl.replace("é","e");
-    normtl.replace("í","i");
-    normtl.replace("ó","o");
-    normtl.replace("ú","u");
-    normtl.replace("ñ","n");
-    normtl.replace("Ñ","N");
-    normtl.replace(" ","_");
-
-    return normtl;
 }
 
 
@@ -9304,7 +9317,7 @@ bool MainWindow::login(const QString& name, const QString& pass) {
             SYD << tr("\n....MainWindow::login...mykey:|%1|").arg(mykey);
             if (mylist.count() > 3 ) {
                 QStringList curtickets = mylist.at(3).split(";",QString::SkipEmptyParts);
-                SYD << tr("....MainWindow::login...PROBE_WITHOUT__CURTICKETS...curtickets...mylist:|%1|")
+                SYD << tr("....MainWindow::login...CURTICKETS...curtickets...mylist:|%1|")
                        .arg(mylist.at(3));
                 SYD << tr("....MainWindow::login...CURTICKETS...curtickets.count()..:|%1|")
                        .arg(curtickets.count());

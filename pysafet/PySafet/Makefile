@@ -5,10 +5,10 @@ HFILES = sipAPISafet.h
 CC = gcc
 CXX = g++
 LINK = g++
-CPPFLAGS = -DNDEBUG -DQT_NO_DEBUG -DQT_CORE_LIB -I. -I/usr/local/include/libdigidoc -I/usr/include/python2.7 -I/usr/share/qt4/mkspecs/default -I/usr/include/qt4/QtCore -I/usr/include/qt4 -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtXml -I/usr/include/qt4/QtNetwork -I/usr/include/qt4/QtSql -I/usr/include/qt4/QtWebKit -I/usr/include/qt4/QtSvg -I../websafet/inflow -I../websafet/src
-CFLAGS =  -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security  -D_FORTIFY_SOURCE=2 -fPIC -O2 -Wall -W -D_REENTRANT
-CXXFLAGS =  -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security  -D_FORTIFY_SOURCE=2 -fPIC -O2 -Wall -W -D_REENTRANT
-LFLAGS =  -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-O1 -L../websafet/lib -shared  -Wl,-O1 -Wl,--version-script=Safet.exp
+CPPFLAGS = -DNDEBUG -DQT_NO_DEBUG -DQT_CORE_LIB -I. -I/usr/local/include/libdigidoc -I/usr/include/python2.7 -I/usr/share/qt4/mkspecs/default -I/usr/include/qt4/QtCore -I/usr/include/qt4 -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtXml -I/usr/include/qt4/QtNetwork -I/usr/include/qt4/QtSql -I/usr/include/qt4/QtWebKit -I/usr/include/qt4/QtSvg -I/home/vbravo/websafet/inflow -I/home/vbravo/websafet/src
+CFLAGS = -fPIC  -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security  -D_FORTIFY_SOURCE=2 -Wall -W -D_REENTRANT
+CXXFLAGS = -pipe -fPIC  -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security  -D_FORTIFY_SOURCE=2 -Wall -W -D_REENTRANT
+LFLAGS = -L/home/vbravo/websafet/lib -shared  -Wl,-z,relro -Wl,-O1 -Wl,--version-script=Safet.exp
 LIBS = -L/usr/lib -lsafet -lQtNetwork -lQtSvg -lQtSql -ltar -lQtCore
 MOC = moc-qt4
 .SUFFIXES: .c .o .cpp .cc .cxx .C

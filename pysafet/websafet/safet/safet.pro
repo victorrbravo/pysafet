@@ -4,8 +4,6 @@
 #
 #-------------------------------------------------
 
-QMAKE_CXXFLAGS += -pg
-
 QT       += core
 
 QT       -= gui
@@ -32,7 +30,6 @@ QT += core \
 LIBS += -L../lib \
       -L../inflow \
     -ltar \
-    -lsafet \
-    -pg
+    -lsafet
 
 

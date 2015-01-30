@@ -105,25 +105,41 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
 
 
+    if ( parse(argc,argv) == false ) {
+//        foreach(int key, commands.keys()) {
+//            QString value = commands[key];
+//            cout << "key:" << (char)key << " value:" << qPrintable(value) << endl;
+//        }
+
+        cout << endl << "No se ejecuto la operacion" << endl << endl;
+        return 1;
+    }
+//    foreach(int key, commands.keys()) {
+//        QString value = commands[key];
+//        cout << "key:" << (char)key << " value:" << qPrintable(value) << endl;
+//    }
+
     QString newconsult;
 
 
-   //qDebug("...newconsult:|%s|", qPrintable(newconsult));
+    newconsult = QString("operacion:%1 Cargar_archivo_flujo:%2 %3")
+            .arg(commands['o'])
+            .arg(commands['f'])
+            .arg(commands['p']);
+
+    //qDebug("...newconsult:|%s|", qPrintable(newconsult));
     QString myhome = QDir::homePath();
-    qDebug("...myhome:|%s|", qPrintable(myhome));
+    //qDebug("...myhome:|%s|", qPrintable(myhome));
 
     MainWindow mymain(QString("%1").arg(myhome));
-    mymain.setMediaPath(QString("%1/tmp").arg(myhome));
+    mymain.setMediaPath(QString("%1/django/media/archivos").arg(myhome));
     mymain.setHostMediaPath("http://localhost");
     mymain.registerLogin("vbravo");
     if (!mymain.login("vbravo","d91408cd") ) {
         qDebug("falla de autenticacion");
         return 1;
     }
-    cout << "Realizando la consulta:\n";
-    newconsult = QString::fromUtf8("operacion:Generar_gráfico_con_autofiltro Cargar_archivo_flujo:/home/vbravo/.safet/flowfiles/tilesbyday.xml Autofiltro:por_fecha");
-    cout << "Consulta:" << qPrintable(newconsult) << endl;
-
+//    cout << "Realizando la consulta:\n";
     bool result = mymain.toInputConsole(newconsult);
 
     if (!result ) {
@@ -133,11 +149,11 @@ int main(int argc, char *argv[])
 
         return 1;
     }
-    QFile myoutput("datos.txt");
-    qDebug("Escribiendo en : |%s|", "datos.txt");
+    QFile myoutput(commands['O']);
+    qDebug("Escribiendo en : |%s|", qPrintable(commands['O']));
 
        if ( !myoutput.open(QIODevice::WriteOnly) ) {
-          qDebug("No se pudo abrir el archivo:|%s|","datos.txt");
+          qDebug("No se pudo abrir el archivo:|%s|",qPrintable(commands['O']));
           return 1;
          }
 

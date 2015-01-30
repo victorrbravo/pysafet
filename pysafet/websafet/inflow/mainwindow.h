@@ -376,6 +376,7 @@ public:
     static QString currentaccount; // cuenta actual de usuario
     static QString currentrole; // rol de la cuenta actual de usuario
     static QString currentrealname;
+
     // Funciones
     /**
       \brief ejecuta un funcion de safet segun los parametros que se encuentran en memoria
@@ -483,13 +484,6 @@ public:
     */
     static void evalEventOnExit(SafetLog::Level);
 
-
-    /**
-     * @brief normalize Cambia los acentos
-     * @param text cadena de texto con acentos
-     * @return cadena de texto sin acentos
-     */
-    static QString normalize(const QString &text);
 
     /**
       * \brief Retorna el mapa de los grafos visibles (nombre, codigo para ser generado)
@@ -916,7 +910,6 @@ public:
 
 
       QStringList generateTips(const QString &cs, const QString& parcialscript);
-
 public Q_SLOTS: // Slots para el manejo de los servicios de Escritorio (QDesktopServices)
 
         void browse( const QUrl &url );
@@ -1011,7 +1004,7 @@ private slots:
     // cargado con SafetDocument::readDigidocFile
     QString getPathOfSafetDocument() { return pathOfSafetDocument; }
 
-    void doInsertInAuthConfFile(QRegExp& rx); // Insertar un grupo de campos en una sección
+    void doInsertInAuthConfFile(QRegExp& rx, const QString& filename = QString("auth.conf")); // Insertar un grupo de campos en una sección
     /**
      \brief Busca los campos que coinciden con la clave key y devuelve los
             nombres separados por ","

@@ -666,6 +666,7 @@ QList<QPair<QString,QString> > SafetTextParser::getFieldsValues(const QDomElemen
                 QString format = attrs.namedItem("format").nodeValue().simplified();
                 if ( format.length() == 0 ) format = "default";
                 QString func = attrs.namedItem("function").nodeValue().simplified();
+		SYD << tr("...func1..");
                 QString value = getValueForFunction( func,format,currmap,keyvalue);
                 valuemap[namefield] = value;
 
@@ -726,6 +727,8 @@ QList<QPair<QString,QString> > SafetTextParser::getFieldsValues(const QDomElemen
             QString format = attrs.namedItem("format").nodeValue().simplified();
             if ( format.length() == 0 ) format = "default";
             QString func = currvalidation.mid(QString("validatefunction:").length());
+
+		SYD << tr("...func2..");
             QString value = getValueForFunction( func,format,currmap,keyvalue);
             SYD << tr("......:SafetTextParser::getFieldsValues..CURRVALIDATION...value:|%1|")
                    .arg(value);
@@ -1234,7 +1237,7 @@ QPair<QString,QString> SafetTextParser::buildFields(const QDomElement& ecommand,
                     QString format = attrs.namedItem("format").nodeValue().simplified();
                     if ( format.length() == 0 ) format = "default";
                     QString func = attrs.namedItem("function").nodeValue().simplified();
-                    qDebug("          buildFields*****....format: %s",qPrintable(format));
+                    qDebug("          buildFields*****....(3)...format: %s",qPrintable(format));
                     QString value = getValueForFunction( func,format,currmap, keyvalue);
                     valuemap[namefield] = value;
                 }
@@ -1789,16 +1792,16 @@ QString SafetTextParser::getValueForFunction(const QString& v, const QString &fo
                                              const QMap<QString,QString> &vmap, const QString& keyvalue ) {
 
 
-    SYD << tr("\n");
-    SYD << tr ("**********........SafetTextParser::getValueForFunction.......");
+    SYD << tr("\n\n----------Nuevo");
+    SYD << tr ("**********........SafetTextParser::getValueForFunction...v:|%1|").arg(v);
     foreach(QString k, vmap.keys()) {
 
-        SYD << tr("......key:|%1|: |%2|....")
+        SYD << tr(".....(getValueFunction)(*2*)....key:|%1|: |%2|....")
                .arg(k)
                .arg(vmap[k]);
 
     }
-    SYD << tr("\n\n");
+    SYD << tr("...paso...\n\n");
      QString result = "''";
      if ( format == "time_t" ) {
           result = "0";
@@ -1819,17 +1822,17 @@ QString SafetTextParser::getValueForFunction(const QString& v, const QString &fo
 
      foreach(QString k, vmap.keys()) {
 
-         SYD << tr("......key:|%1|: |%2|....")
+         SYD << tr(".........(*1*)key:|%1|: |%2|....")
                 .arg(k)
                 .arg(vmap[k]);
           QString mypattern = QString("{#%1}").arg(k);
           newv.replace(mypattern,vmap[k]);
      }
 
+ 	SYD << tr(".........getValueFunction....(2).....");
+
      if (newv.indexOf("{#currvalue#")!= -1) {
-         SafetWorkflow* mywf = MainWindow::configurator->getWorkflows().at(0);
-         Q_CHECK_PTR(mywf);
-         QRegExp rx("\\{#currvalue#([a-zA-Z0-9_]+)\\}");
+	  QRegExp rx("\\{#currvalue#([a-zA-Z0-9_]+)\\}");
 
          int pos = newv.indexOf(rx);
          if (pos == -1) {
@@ -1838,6 +1841,38 @@ QString SafetTextParser::getValueForFunction(const QString& v, const QString &fo
 
          }
          QString mykeyvalue = rx.cap(1);
+
+
+ 	SYD << tr(".........getValueFunction....(3).....mykeyvalue:|%1|").arg(mykeyvalue);
+
+	int count = MainWindow::configurator->getWorkflows().count();
+
+ 	SYD << tr(".........getValueFunction....(3).....count:|%1|").arg(count);
+
+ 	SYD << tr(".........getValueFunction....(3).....count combovarglobal:|%1|").arg(SafetYAWL::combovarglobal0);
+ 	SYD << tr(".........getValueFunction....(3).....count lastgraph:|%1|").arg(SafetYAWL::lastgraph);
+
+
+        SafetWorkflow* mywf = MainWindow::configurator->getWorkflows().at(0);
+	
+	if (mywf == NULL ) {
+		SYW << tr("No se puede acceder al flujo de trabajo");
+		if (!QFile::exists(SafetYAWL::lastgraph) ) {
+			SYE << tr("No se pudo leer el archivo de flujo de trabajo \"%1\" ")
+				.arg(SafetYAWL::lastgraph);
+			return QString("");	
+		}
+
+
+		  MainWindow::configurator->openXML(SafetYAWL::lastgraph);
+	          MainWindow::configurator->convertXMLtoObjects();
+        	  MainWindow::configurator->openDataSources();
+
+		mywf = MainWindow::configurator->getWorkflows().at(0);
+
+	}
+
+        	SYD << tr(".........getValueFunction....(2)...wf == NULL:|%1|").arg(mywf == NULL);
          SYD << tr("SafetTextParser::getValueForFunction...mykeyvalue (currvalue):")
                 .arg(mykeyvalue);
          if ( !vmap.contains(mykeyvalue)) {
@@ -1846,16 +1881,22 @@ QString SafetTextParser::getValueForFunction(const QString& v, const QString &fo
              return "";
          }
 
-        QStringList infos = mywf->textualInfos(vmap[mykeyvalue]);
+ 	SYD << tr(".........getValueFunction....(3)....mykeyvalue:|%1|").arg(mykeyvalue);
+	QStringList infos;
+	if (vmap.contains(mykeyvalue) ) {
+	      infos = mywf->textualInfos(vmap[mykeyvalue]);
+	}
         QString mycurrvalue = "";
-        if (infos.count() > 0) {
+	if (infos.count() > 0) {
             mycurrvalue = infos.at(0);
-        }
+	}
         SYD << tr("SafetTextParser::getValueForFunction...currvalue:|%1|").arg(mycurrvalue);
         newv.replace(rx,mycurrvalue);
 
      }
 
+
+ 	SYD << tr(".........getValueFunction....(4)");
      newv.replace("_USERNAME", SafetYAWL::currentAuthUser());
      QString command = "SELECT "+newv+";";
      QSqlQuery query(SafetYAWL::currentDb ); // <-- puntero a db actual
@@ -1890,6 +1931,9 @@ QString SafetTextParser::getValueForFunction(const QString& v, const QString &fo
      }
      SYD << tr("SafetTextParser::getValueForFunction...result:|%1|\n\n")
             .arg(result);
+
+ 	SYD << tr(".........getValueFunction....(6)....mykeyvalue:");
+
      return result;
 }
 

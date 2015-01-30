@@ -25,6 +25,11 @@ class SafetSQLParser;
 class SafetTask;
 class SafetWorkflow;
 
+namespace Safet {
+
+const QString SEPARATORMARK = "**SAFETSEPARATOR**";
+
+}
 
 
 class SafetAutofilter : public SafetXmlObject

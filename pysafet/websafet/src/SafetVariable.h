@@ -44,8 +44,6 @@ class SafetVariable: public SafetXmlObject {
         QString _rolfield, _timestampfield;
         QString _groupby;
 
-        int _countcache;
-
 
 
 	QList<SafetDocument*> documentlist;
@@ -60,9 +58,6 @@ public:
 	
 	QString id() const {return _id; };
 	void setId(const QString& i) { _id = i; }
-    int  countcache() const ;
-    void setCountcache(int c);
-
 	QString tokenlink() const {return _tokenlink; };
 	void setTokenlink(const QString& i) { _tokenlink = i; }
 	QString scope() const {return _scope; };

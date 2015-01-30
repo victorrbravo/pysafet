@@ -1,17 +1,17 @@
 /*
-* SAFET Sistema Automatizado para la Firma Electrónica y Estampado de Tiempo
-* Copyright (C) 2008 Víctor Bravo (vbravo@cenditel.gob.ve), Antonio Araujo (aaraujo@cenditel.gob.ve
+* SAFET Sistema Automatizado para la Firma ElectrÃ³nica y Estampado de Tiempo
+* Copyright (C) 2008 VÃ­ctor Bravo (vbravo@cenditel.gob.ve), Antonio Araujo (aaraujo@cenditel.gob.ve
 *     
-* CENDITEL Fundacion Centro Nacional de Desarrollo e Investigación en Tecnologías Libres 
+* CENDITEL Fundacion Centro Nacional de Desarrollo e InvestigaciÃ³n en TecnologÃ­as Libres 
 *  
-* Este programa es software libre; Usted puede usarlo bajo los términos de la licencia de 
-* software GPL versión 2.0 de la Free Software Foundation. 
+* Este programa es software libre; Usted puede usarlo bajo los tÃ©rminos de la licencia de 
+* software GPL versiÃ³n 2.0 de la Free Software Foundation. 
 * 
-* Este programa se distribuye con la esperanza de que sea útil, pero SI NINGUNA GARANTÍA;
-* tampoco las implícitas garantías de MERCANTILIDAD o ADECUACIÓN A UN PROPÓSITO PARTICULAR.
-* Consulte la licencia GPL para más detalles. Usted debe recibir una copia de la GPL junto 
+* Este programa se distribuye con la esperanza de que sea Ãºtil, pero SI NINGUNA GARANTÃA;
+* tampoco las implÃ­citas garantÃ­as de MERCANTILIDAD o ADECUACIÃN A UN PROPÃSITO PARTICULAR.
+* Consulte la licencia GPL para mÃ¡s detalles. Usted debe recibir una copia de la GPL junto 
 * con este programa; si no, escriba a la Free Software Foundation Inc. 51 Franklin Street,
-* 5º Piso, Boston, MA 02110-1301, USA.
+* 5Âº Piso, Boston, MA 02110-1301, USA.
 *
 */
 
@@ -21,7 +21,7 @@
 // Description: 
 //
 //
-// Author: Víctor Bravo, Antonio Araujo <vbravo@cenditel.gob.ve>, (C) 2008
+// Author: VÃ­ctor Bravo, Antonio Araujo <vbravo@cenditel.gob.ve>, (C) 2008
 //
 // Copyright: See COPYING file that comes with this distribution
 //
@@ -58,12 +58,12 @@ QMap<QString,QString>& SafetConfFile::readFile(const QString& s, bool iscipher) 
      else {
          isopen = file.open(QIODevice::ReadOnly | QIODevice::Text);
      }
-     Q_ASSERT_X(isopen == true,"readFile",qPrintable(tr("No es posible abrir el archivo de configuración %1").arg(s)));    
+     Q_ASSERT_X(isopen == true,"readFile",qPrintable(tr("No es posible abrir el archivo de configuraciÃ³n %1").arg(s)));    
      QRegExp rxComment("\\s*\\#(.*)");
      QRegExp rxSection("\\s*\\[([a-zA-Z0-9\\s\\.\\-]+)\\]");
      QRegExp rxValue(trUtf8("\\s*([a-zA-Z0-9\\$\\./\\*;]+)\\s*\\="
-                        "\\s*([\\*\\[\\]a-zA-Z0-9�������'\\$\\#/\\-\\._/:!\\?\\^\\$%%\\(\\)<>/\\+]"
-                        "[\\{\\}@\\*\\[\\]a-zA-Z0-9�������;'\\$\\#/\\-\\._/:!\\?\\^\\$\\s%%\\(\\),;<>/\\s\\+\\?]*)"));
+                        "\\s*([\\*\\[\\]a-zA-Z0-9áéíóúñÑ'\\$\\#/\\-\\._/:!\\?\\^\\$%%\\(\\)<>/\\+]"
+                        "[\\{\\}@\\*\\[\\]a-zA-Z0-9áéíóúñÑ;'\\$\\#/\\-\\._/:!\\?\\^\\$\\s%%\\(\\),;<>/\\s\\+\\?]*)"));
 
      if (iscipher) {
 //         qDebug("........iscipher....");
@@ -89,16 +89,16 @@ QMap<QString,QString>& SafetConfFile::readFile(const QString& s, bool iscipher) 
                  continue;
              }
              //qDebug("...line:\n%s", qPrintable(line));
-             pos = rxComment.indexIn(line);	// pos == -1 no coincide con la expresión regular
+             pos = rxComment.indexIn(line);	// pos == -1 no coincide con la expresiÃ³n regular
              if ( pos != -1 ) nlinecomments++;
-             pos = rxSection.indexIn(line);	// pos == -1 no coincide con la expresión regular
+             pos = rxSection.indexIn(line);	// pos == -1 no coincide con la expresiÃ³n regular
              if ( pos != -1 ) {
         //            qDebug("\nSeccion en la linea %d", nline);
           //          qDebug("Seccion:%s", qPrintable(rxSection.cap(1)));
                     section = rxSection.cap(1);
 
              }
-             pos = rxValue.indexIn(line);	// pos == -1 no coincide con la expresión regular
+             pos = rxValue.indexIn(line);	// pos == -1 no coincide con la expresiÃ³n regular
 
              if ( pos != -1 ) {
                    //qDebug("  **line: %s", qPrintable(rxValue.cap(2).trimmed()));
@@ -134,16 +134,16 @@ QMap<QString,QString>& SafetConfFile::readFile(const QString& s, bool iscipher) 
              nline++;
              QString line = in.readLine();
              if ( line.trimmed().length() == 0 ) continue;
-             pos = rxComment.indexIn(line);	// pos == -1 no coincide con la expresión regular
+             pos = rxComment.indexIn(line);	// pos == -1 no coincide con la expresiÃ³n regular
              if ( pos != -1 ) nlinecomments++;
-             pos = rxSection.indexIn(line);	// pos == -1 no coincide con la expresión regular
+             pos = rxSection.indexIn(line);	// pos == -1 no coincide con la expresiÃ³n regular
              if ( pos != -1 ) {
         //            qDebug("\nSeccion en la linea %d", nline);
           //          qDebug("Seccion:%s", qPrintable(rxSection.cap(1)));
                     section = rxSection.cap(1);
 
              }
-             pos = rxValue.indexIn(line);	// pos == -1 no coincide con la expresión regular
+             pos = rxValue.indexIn(line);	// pos == -1 no coincide con la expresiÃ³n regular
              if ( pos != -1 ) {
       //             qDebug("  **line: %s", qPrintable(rxValue.cap(2)));
                     Q_ASSERT_X( section.length() > 0, "readFile", qPrintable(tr("Existe un error en el archivo. Falta definir por lo menos una seccion")) );
@@ -172,14 +172,14 @@ QVariant SafetConfFile::getValue(const QString& section, const QString& name) {
 	if ( SafetYAWL::evalExit() != NULL ) {	
             if (vmap.contains(section.trimmed() + "/" + name.trimmed()) == false) {
                 SafetYAWL::streamlog << SafetLog::Warning << tr("No existe la clave \"%1\" "
-                                                                "en el archivo de configuración")
+                                                                "en el archivo de configuraciÃ³n")
                         .arg(section.trimmed() + "/" + name.trimmed());
             }
 	}
         QVariant var = vmap[ section.trimmed() + "/" + name.trimmed() ];
 	if ( SafetYAWL::evalExit() != NULL ) {	
             if ( var.type() == QVariant::Invalid ) {
-                SafetYAWL::streamlog << SafetLog::Warning << tr("Tipo de dato inválido para la el valor:  \"%1\" en el archivo de configuracion \"safet.conf\"").arg(section.trimmed() + "/" + name.trimmed());
+                SafetYAWL::streamlog << SafetLog::Warning << tr("Tipo de dato invÃ¡lido para la el valor:  \"%1\" en el archivo de configuracion \"safet.conf\"").arg(section.trimmed() + "/" + name.trimmed());
             }
 	}
 	return var;
@@ -191,7 +191,14 @@ bool SafetConfFile::contains(const QString& k) const {
     if (!s1.startsWith(s0.toLower()) ) {
          s1 = s0.toLower() + "."+ s1;
     }
-    QString newsn = s0+"/"+s1;
+    QString newsn = s0+"/"+s1;    
+    SYD << tr("newsn:|%1|").arg(newsn);
+
+//    foreach(QString k, vmap.keys()) {
+//        SYD << tr("...SafetConfFile::contains %1->%2").arg(k)
+//               .arg(vmap[k]);
+//    }
+
     return vmap.contains( newsn );
 
 }
@@ -314,7 +321,7 @@ QVariant SafetConfFile::getValue(const QString& sectionname) {
         SafetYAWL::streamlog
                 << SafetLog::Error
                 <<
-            tr("No existe la clave (sección)  \"%1\" en el archivo de configuracion \"safet.conf\"").arg(sectionname);
+            tr("No existe la clave (secciÃ³n)  \"%1\" en el archivo de configuracion \"safet.conf\"").arg(sectionname);
 
     }
 
@@ -325,7 +332,7 @@ QVariant SafetConfFile::getValue(const QString& sectionname) {
 
             SafetYAWL::streamlog
                     << SafetLog::Error <<
-                tr("Tipo de dato inválido para el valor:  \"%1\" en el archivo de configuracion \"safet.conf\"").arg(sectionname);
+                tr("Tipo de dato invÃ¡lido para el valor:  \"%1\" en el archivo de configuracion \"safet.conf\"").arg(sectionname);
 	}
 	return var;
 }
