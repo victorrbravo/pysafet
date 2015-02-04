@@ -336,7 +336,7 @@ bool ComboWidget::isValid(QString& value) {
 		SYD << tr("........ComboWidget::isValid.....(*2)TEXTUALINFOVALUE: |%1|")
                 .arg(value);
 
-			SYD << tr("infos.count():|%1|").arg(infos.count());
+			SYD << tr(".........DOMKEY*....infos.count():|%1|").arg(infos.count());
 		foreach(QString info, infos) {
 			SYD << tr("info:|%1|").arg(info);
 		}
@@ -483,6 +483,7 @@ void ComboWidget::updateComboFlow(bool inwidget) {
 
      QStringList myformlist;
 
+         QString myother;
      QString beforef;
      SYD << tr ("....ComboWidget::updateComboFlow..COMBOUPDATING....conf()[\"options\"].toString():|%1|")
             .arg(conf()["options"].toString());
@@ -519,7 +520,40 @@ void ComboWidget::updateComboFlow(bool inwidget) {
      if (!conf().contains("keyvalue")) {
          SYW << tr("Error al actualizar un ComboBox de flujo(Comboflow), no existe clave para filtrado");
      }
-     mykeyvalue = findkeyvalue(conf()["keyvalue"].toString());
+     mykeyvalue = conf()["keyvalue"].toString();
+
+
+     SYD << tr("DOMMODEL ComboFlow: .............INFOS...before findkeyvalue: |%1|").arg(mykeyvalue);
+     mykeyvalue = findkeyvalue(mykeyvalue,myother);
+
+     SYD << tr("DOMMODEL ComboFlow: .............INFOS...after findkeyvalue: |%1|").arg(mykeyvalue);
+/*
+	  int pos = -1;
+	  mykeyvalue.trimmed();
+	  SYD << tr("DOMMODEL ComboFlow: .............INFOS...keyvalue(1): |%1|").arg(mykeyvalue);
+
+	  if (!mykeyvalue.isEmpty() ) {
+		  QStringList mylist = mykeyvalue.split(",",QString::SkipEmptyParts);
+		  if (mylist.count() > 1 ) {
+			  QString myvalue = mylist.at(0);
+
+	  		SYD << tr("DOMMODEL ComboFlow: .............INFOS...myvalue: |%1|").arg(myvalue);
+			  pos = myvalue.indexOf(QRegExp(":|;"));
+			  if (pos > 0 ) {
+				  mykeyvalue = myvalue.mid(pos+1);
+			}
+			  myvalue = mylist.at(1);
+
+	  		SYD << tr("DOMMODEL ComboFlow: .............INFOS...myvalue(2): |%1|").arg(myvalue);
+			  pos = myvalue.indexOf(QRegExp(":|;"));
+			  if (pos > 0 ) {
+				  myother = myvalue.mid(pos+1);
+			}
+		
+		}
+		
+	  }
+*/
 
        QStringList mylistglobal = SafetYAWL::combovarglobal0.split(SafetYAWL::LISTSEPARATORCHARACTER);
      if (mykeyvalue.isEmpty()) {
@@ -553,7 +587,7 @@ void ComboWidget::updateComboFlow(bool inwidget) {
          SYD << tr("..............................--->updateComboFlow...mykeyvalue: |%1|")
                 .arg(mykeyvalue);
 
-         SYD << tr("..............................--->updateComboFlow...PATH_COMBOFLOW....path: |%1|")
+         SYD << tr("..............................--->updateComboFlow...PATH_COMBOFLOW....path MYPATH_CURR(1): |%1|")
                 .arg(mypath);
 
 
@@ -562,12 +596,18 @@ void ComboWidget::updateComboFlow(bool inwidget) {
 
 
 
-         QString myother;
-         if (conf().contains("otherkey")) {
-             myother = conf()["otherkey"].toString();
+         if (myother.isEmpty() && conf().contains("otherkey")) {
+             myother = conf()["otherkey"].toString().trimmed();
          }
+	if (myother.isEmpty() ) {
+//		myother = mykeyvalue;
 
-         SYD << tr("..............................->updateComboFlow...myother: |%1|")
+	 }
+         SYD << tr("..............................->updateComboFlow...keyvalue: |%1|")
+                .arg(mykeyvalue);
+
+
+         SYD << tr("..............................->updateComboFlow...*myother: |%1|")
                 .arg(myother);
 
          mypath.replace("{#keyvalue0}",mykeyvalue);
@@ -589,11 +629,11 @@ void ComboWidget::updateComboFlow(bool inwidget) {
 
          if (!QFile::exists(mypath)) {
 
-             SYW << tr("No es posible leer el archivo \"%1\", por favor consulte al administrador")
-
+             
+             if (!mypath.startsWith("SELECT ",Qt::CaseInsensitive)) {
+			SYW << tr("No es posible leer el archivo \"%1\", por favor consulte al administrador")
                     .arg(mypath.section("/",-1));
 
-             if (!mypath.startsWith("SELECT ",Qt::CaseInsensitive)) {
                  return;
               }
              SYD << tr("..............................--->updateComboFlow...PATH_COMBOFLOW..*IN..path: |%1|")
@@ -626,7 +666,7 @@ void ComboWidget::updateComboFlow(bool inwidget) {
              SYD << tr("..............................--->updateComboFlow...SETTING (1): |%1|")
                     .arg(mypath);
              mypath = query.value(0).toString();
-             SYD << tr("..............................--->updateComboFlow...SETTING (2): |%1|")
+             SYD << tr("..............................--->updateComboFlow...SETTING (2) MYPATH_CURR(2): |%1|")
                     .arg(mypath);
 
 
@@ -657,10 +697,16 @@ void ComboWidget::updateComboFlow(bool inwidget) {
                         fieldtype = 2;
                     }
 
-                    SYD << tr("...ComboWidget::updateComboFlow...fieldtype:%1")
+                    SYD << tr("...ComboWidget::updateComboFlow...INFOS...fieldtype:%1")
                            .arg(fieldtype);
+		    SYD << tr("...ComboWidget::updateComboFlow...mykeyvalue:|%1|")
+                           .arg(mykeyvalue);
+		    SYD << tr("...ComboWidget::updateComboFlow...myother:|%1|")
+                           .arg(myother);
+
+
                     infos = mywf->textualInfos(mykeyvalue,fieldtype,myother);
-                    SYD << tr("...ComboWidget::updateComboFlow...(textualinfo)..infos.count():%1")
+                    SYD << tr("...ComboWidget::updateComboFlow...(textualinfo)..INFOS....infos.count():%1")
                            .arg(infos.count());
                     if ( infos.count() > 0 ){
                         SYD << tr("\n\n...(infochuchu) ComboWidget::updateComboFlow...(textualinfo)...infos.at(0):%1")
@@ -692,9 +738,6 @@ void ComboWidget::updateComboFlow(bool inwidget) {
 
                    QMap<QString,bool> myperms;
                    QList<int> deleted;
-                   SYD << tr(".................ComboWidget::updateComboFlow.......COMBOINFO...infos.count():|%1|")
-                          .arg(infos.count());
-
                    for (int i=0; i < infos.count(); i++ ) {
                        myperms = MainWindow::doPermiseExecOperationAction(namewf + "." + infos.at(i)  );
                         SYD << tr("..............ComboWidget::updateComboFlow.....(list)....operation;|%1|").arg(namewf + "." + infos.at(i));
@@ -784,7 +827,7 @@ void ComboWidget::updateComboFlow(bool inwidget) {
 
 }
 
-QString ComboWidget::findkeyvalue(const QString& k) {
+QString ComboWidget::findkeyvalue(const QString& k, QString &other) {
     QString result = k;
     if (!conf().contains("changefor")) {
         return result;
@@ -794,6 +837,7 @@ QString ComboWidget::findkeyvalue(const QString& k) {
     }
     QStringList mylist = k.split(",",QString::SkipEmptyParts);
 
+    int i = 0;
     foreach(QString myfield, mylist) {
         QStringList fields = myfield.split(";",QString::SkipEmptyParts);
         if (fields.count() < 2 ) {
@@ -803,6 +847,9 @@ QString ComboWidget::findkeyvalue(const QString& k) {
                 .split(",",QString::SkipEmptyParts).contains(fields.at(0))){
             return fields.at(1);
         }
+	else {
+		other = fields.at(1);
+	}
     }
 
 
@@ -1071,11 +1118,38 @@ void ComboWidget::updateComboListTable(bool inwidget) {
 
      }
      if ( inwidget ) {
-//        varbox->addItems( _itemvaluelist );
     }
      if (!isTextParent()) {
-//         varbox->addItem(tr("<Cualquiera>"));
      }
+
+        QMap<QString,bool> myperms;
+        QStringList deleted;
+        QStringList actived;
+ 
+	foreach(QString item,_itemvaluelist) {
+		QString mykey = caption()  + "."+ getRealValue(item);
+		QMap<QString,QString> hierarchy;
+
+		if ( MainWindow::doPermiseExecOperation( mykey, hierarchy,"read" ) ) {
+				actived.append(item);
+		}
+		else {
+			deleted.append(item);
+		}
+
+
+	}
+	   // Borrar los eliminados
+
+	if (actived.count() > 0 ) {
+		foreach(QString del, deleted) {
+			SYD << tr("....ComboWidget::ListTable...deleted...removing...ITEMKEY:|%1|").arg(del);
+				_itemvaluelist.removeAll(del);	
+				realvalues.remove(del);
+	
+		}
+	}
+
 
      _options = _itemvaluelist;
      //** Para parámetros
@@ -1524,7 +1598,8 @@ void ComboWidget::updateComboTaskSafet(bool inwidget) {
 		   .arg(mykeyvalue);
 
 
-	    mykeyvalue = findkeyvalue(mykeyvalue);
+	    QString othervalue = "";
+	    mykeyvalue = findkeyvalue(mykeyvalue,othervalue);
 
 	    SYD << tr("......ComboWidget::updateComboTaskSafet..(2).._EXCLUDE mykeyvalue:|%1|")
 		   .arg(mykeyvalue);
@@ -1687,7 +1762,9 @@ void ComboWidget::updateComboTaskSafet(bool inwidget) {
 	    if (mylist.count() > 1) {
 		mykeydata = mylist.at(1);
 	    }
-	    mykeyvalue = findkeyvalue(mykeyvalue);
+
+	    QString othervalue = "";
+	    mykeyvalue = findkeyvalue(mykeyvalue,othervalue);
 
 
 	    SYD << tr("......ComboWidget::updateComboTaskSafet..(0)..*mykeydata*:|%1|")
@@ -1820,7 +1897,9 @@ void ComboWidget::updateComboVariableSafet(bool inwidget) {
     }
 
     SYD << tr("............ComboWidget::updateComboVariableSafet...keyvalue (before): |%1|").arg(conf()["keyvalue"].toString());
-    QString mykeyvalue = findkeyvalue(conf()["keyvalue"].toString());
+
+	    QString othervalue = "";
+    QString mykeyvalue = findkeyvalue(conf()["keyvalue"].toString(),othervalue);
 
     delete  MainWindow::configurator;
     SYD << tr("...ComboWidget::updateComboVariableSafet...MainWindow::mymainwindow is NULL: %1")
@@ -1892,7 +1971,9 @@ void ComboWidget::updateComboRecursivefilterSafet(bool inwidget) {
         SYW << tr("Se necesita una clave para actualizar el widget de Variables de Flujo de Trabajos");
         return;
     }
-    QString mykeyvalue = findkeyvalue(conf()["keyvalue"].toString());
+
+	    QString othervalue = "";
+    QString mykeyvalue = findkeyvalue(conf()["keyvalue"].toString(),othervalue);
 
 
     delete  MainWindow::configurator;
@@ -1928,7 +2009,9 @@ void ComboWidget::updateComboAutofilterSafet(bool inwidget) {
          return;
      }
           SYD << tr("...ComboWidget::updateComboAutofilterSafet...(2)...");
-     QString mykeyvalue = findkeyvalue(conf()["keyvalue"].toString());
+
+	    QString othervalue = "";
+     QString mykeyvalue = findkeyvalue(conf()["keyvalue"].toString(),othervalue);
 
      SYD << tr("...ComboWidget::updateComboAutofilterSafet...(3)...mykeyvalue:|%1|").arg(mykeyvalue);
 

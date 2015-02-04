@@ -95,7 +95,7 @@ public slots:
     QStringList& itemsValueList() { return _itemvaluelist;}
     QStringList& itemsRealValueList() { return _itemrealvaluelist;}
   //  QComboBox* combo() { return varbox; }
-    QString findkeyvalue(const QString& k);
+    QString findkeyvalue(const QString& k, QString& other  );
 protected:
 //    QComboBox* varbox;
 //    QPushButton* signbutton;

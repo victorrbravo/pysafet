@@ -1098,9 +1098,7 @@ CmdWidget* DomModel::selWidgetFromField(const QString& command, const QString& f
                          qDebug("ListLiteral...mywidget->setConf(myconf)...(2)...");
                          return mywidget;
                      case ComboFlow:
-
-
-                          SYD << tr("DOMMODEL ComboFlow: keyvalue: |%1|").arg(keyvalue);
+                          SYD << tr("DOMMODEL ComboFlow: ...KEYSINFO...keyvalue(2): |%1|").arg(keyvalue);
                           myconf.insert("keyvalue", keyvalue);
                           mywidget = new ComboWidget(field,ComboWidget::Flow, parent);
                          mywidget->setConf(myconf);
