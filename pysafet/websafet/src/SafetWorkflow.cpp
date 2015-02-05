@@ -1676,6 +1676,11 @@ QString SafetWorkflow::calculateSQL(const QString& currsql, const QString& info,
     QString df = "";
     QStringList mylist = currsql.split("::",QString::SkipEmptyParts);
 
+        SYD << tr(".......SafetWorkflow::calculateSQL...currsql:|%1|").arg(currsql);
+	if (mylist.count() == 0 ) {
+		return currsql;	
+	}
+
     df = mylist.at(0);
 
     if (mylist.count() > 1 ) {
@@ -1976,7 +1981,7 @@ QStringList SafetWorkflow::listNextStates(const QString& id, SafetWorkflow::Next
      QString code = generateCodeGraph("png",id,true);
      SYD << tr("....SafetWorkflow::listNextStates...id:|%1|")
             .arg(id);
-     SYA << tr("...SafetWorkflow::listNextStates GENERATECODEGRAPH:\n|%1|")
+     SYA << tr("...SafetWorkflow::listNextStates ***GENERATECODEGRAPH:\n|%1|")
             .arg(code);
 
      SafetYAWL::_isstatstokenfound = false;
@@ -3113,7 +3118,7 @@ QString SafetWorkflow::renderGraph(const QString& code, const char* ext) {
 }
 
 QString SafetWorkflow::getJSONMiles(const QList<SafetWorkflow::Miles>& miles,
-                                 QList<QSqlField>& myfields) {
+                                 QList<QSqlField>& myfields, const QString& info) {
     QString result;
     QTextStream out(&result);
 
@@ -3158,10 +3163,12 @@ QString SafetWorkflow::getJSONMiles(const QList<SafetWorkflow::Miles>& miles,
     out << "\n\"tasks\": [\n";
 
     for( int i = 0; i < miles.count(); i++) {
-        QString cadena("");
+
+    	QString cadena = "";
+	cadena = "";
+
         out << "\t[ ";
             cadena.append(" ");
-//            cadena.append(tr("\"Tarea\""));
             cadena.append("\"");
             cadena.append(QString("%1").arg(miles.at(i).id));
             cadena.append("\", ");
@@ -3170,12 +3177,16 @@ QString SafetWorkflow::getJSONMiles(const QList<SafetWorkflow::Miles>& miles,
             cadena.append(miles.at(i).nametask);
             cadena.append("\", ");
             cadena.append(" ");
-//            cadena.append(tr("\"Rol\""));
             cadena.append("\"");
-            cadena.append(miles.at(i).rol);
+
+		SYD << tr("getJSONMiles....myrols.........(9)......");
+	     cadena.append(calculateSQL(miles.at(i).rol,info,info));
+
+		SYD << tr("getJSONMiles....myrols.........(10)......");
             cadena.append("\", ");
             cadena.append(" ");
 //            cadena.append(tr("\"Fecha\""));
+
             cadena.append("\"");
             cadena.append(miles.at(i).ts.toString("dd/MM/yyyy hh:mmap"));
             cadena.append("\", ");
@@ -3190,17 +3201,32 @@ QString SafetWorkflow::getJSONMiles(const QList<SafetWorkflow::Miles>& miles,
             cadena.append(miles.at(i).humanwait);
             cadena.append("\"");
             cadena.append(", ");
+
 //            cadena.append(tr("\"Porc\""));
             cadena.append("\"");
-            cadena.append(miles.at(i).porc);
+		SYD << tr("getJSONMiles....myrols.........(3)......PORC...(1)...porc:|%1|")
+		.arg(miles.at(i).porc);
+	    
+	    QString myvalue = calculateSQL(miles.at(i).porc,info,info);
+	     cadena.append(myvalue);
+		SYD << tr("getJSONMiles....myrols.........(3)......PORC...(2)...myvalue:|%1|")
+		.arg(myvalue);
+	
             cadena.append("\"");
             cadena.append(", ");
-//            cadena.append(tr("\"Faltante\""));
             cadena.append("\"");
-            cadena.append(miles.at(i).porcremaining);
+		SYD << tr("getJSONMiles....myrols.........(3)......PORC...(1)...porcremaining:|%1|")
+		.arg(miles.at(i).porcremaining);
+		myvalue = calculateSQL(miles.at(i).porcremaining,info,info);
+		QRegExp rx("\\d+");
+		if (rx.exactMatch(myvalue) ) {
+			myvalue = myvalue + "%";
+		}
+	     cadena.append(myvalue);
+		SYD << tr("getJSONMiles....myrols.........(3)......PORC...(2)....porcremaining....myvalue:|%1|")
+		.arg(myvalue);
             cadena.append("\"");
             cadena.append(", ");
-//            cadena.append(tr("\"Nota\""));
             cadena.append("\"");
             cadena.append(miles.at(i).note);
             cadena.append("\"");
@@ -3208,10 +3234,11 @@ QString SafetWorkflow::getJSONMiles(const QList<SafetWorkflow::Miles>& miles,
             out << "],\n";
             cadena.clear();
     }
+
+
     out << "\n  ]\n";
 
     out << "\n}\n";
-    //result.chop(2);
 
     return result;
 }
@@ -3397,26 +3424,29 @@ QString SafetWorkflow:: generateGraph(char* filetype, QString& json, const QStri
         }
 
         SafetWorkflow::ExtraInfoSearchKey& sk = searchKey();
-        SYD << tr("...sk.key():|%1|").arg(sk.key);
-        SYD << tr("sk.extrainfo.keys().count(): |%1|").arg(sk.extrainfo.keys().count());
+        SYD << tr("...***sk.key():|%1|").arg(sk.key);
+        SYD << tr("***sk.extrainfo.keys().count(): |%1|").arg(sk.extrainfo.keys().count());
 
         QDateTime previewdate;
 
-
         for( int i = 0; i < sk.extrainfo.keys().count(); i++) {
             QString mykey = sk.extrainfo.keys().at(i);
-            SYD << tr("...%1->%2")
+            SYD << tr("...(%1)->(%2)")
                    .arg(mykey)
                    .arg(sk.extrainfo[ mykey]);
 
             QString mydata = sk.extrainfo[ mykey];
 
-            if (codenodes.contains(mykey)) {
+		SYD << tr("looking..mykey:|%1|").arg(mykey);
+            if (!codenodes.contains(mykey)) {
+		SYD << tr("continue. NO CONTAINS.mykey:|%1|").arg(mykey);
                 continue;
             }
 
             QStringList mylist = mydata.split(QRegExp(";|<br/>"));
             if (mylist.count() < 3 ) {
+
+		SYD << tr("continue..mylist.count():|%1|").arg(mylist.count());
                 continue;
             }
 
@@ -3437,6 +3467,9 @@ QString SafetWorkflow:: generateGraph(char* filetype, QString& json, const QStri
 
 
             mymile.humandate = mylist.at(2);
+
+	   SYD << tr("......CHECKPORC..(1)..:|%1|").arg(mylist.at(0));
+
             QStringList myinfolist = mylist.at(0).split(QRegExp("\\s+"),QString::SkipEmptyParts);
             /**
               * FIXME: Chequear si es el rol del que registra o el rol del responsable"
@@ -3444,6 +3477,8 @@ QString SafetWorkflow:: generateGraph(char* filetype, QString& json, const QStri
             mymile.rol = myinfolist.at(0);
             mymile.porc = "";
             if (myinfolist.count() > 1 ) {
+
+		   SYD << tr("......CHECKPORC..(2)..:|%1|").arg(myinfolist.at(1));
                 mymile.porc = myinfolist.at(1);
             }
 
@@ -3456,7 +3491,7 @@ QString SafetWorkflow:: generateGraph(char* filetype, QString& json, const QStri
 
             if (mytask != NULL) {
                 bool ok;
-                int tporc = mytask->textualinfo().toInt(&ok);
+                int tporc = calculateSQL(mytask->textualinfo(),sk.key,sk.key).toInt(&ok);
                 int posc = mymile.porc.indexOf("%");
                 int cporc  = 0;
                 cporc =  mymile.porc.mid(0,posc).toInt(&ok);
@@ -3604,7 +3639,8 @@ QString SafetWorkflow:: generateGraph(char* filetype, QString& json, const QStri
 
     }
 
-    json = SafetWorkflow::getJSONMiles(ordermiles,myfields);
+    SYD << tr("...........generateGraph...getJSONMiles.......info:|%1|").arg(info);
+    json = SafetWorkflow::getJSONMiles(ordermiles,myfields,info);
 
 
     QString einfocoloured = SafetYAWL::getConf()["ExtraInfo/coloured"];

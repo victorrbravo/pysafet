@@ -225,7 +225,7 @@ public:
           \return cadena JSON
           */
 
-        static QString getJSONMiles(const QList<SafetWorkflow::Miles>& miles,QList<QSqlField>& myfields);
+        static QString getJSONMiles(const QList<SafetWorkflow::Miles>& miles,QList<QSqlField>& myfields, const QString& info = "");
         /**
          * @brief calculateSQL
          * @param currsql sentencia SQL

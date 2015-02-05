@@ -2464,6 +2464,7 @@ void MainWindow::executeWithoutJSON() {
     }
       jquerycolumns += " ],\n";
 
+      SYD << tr("..........GETTABLE......(1).......");
       jquerycolumns += "\n \"tasks\": [ " + currentADocuments + "]\n";
 
       jquerycolumns += "\n};\n\n";
@@ -6679,6 +6680,7 @@ QString MainWindow::generateTableCompared(const QString& first, const QString& s
     QString result;
 
 
+    SYD << tr(".....MainWindow::generateTableCompared....taskmark..");
 
     QStringList myfirstnodelist, mysecondnodelist;
     myfirstnodelist = first.split("\n",QString::SkipEmptyParts);
@@ -7159,6 +7161,8 @@ QString MainWindow::generateTableCompared(const QString& first, const QString& s
      //      .arg(taskcurrent);
 
            //taskscompleted +"\n\n" + tasksupcoming + "\n\n" + taskcurrent;
+      SYD << tr("..........GETTABLE......(2).......");
+
    tasks = QString("{ %1\n  \"tasks\":%2\n }")
            .arg(taskscolumn)
            .arg(taskcurrent);
@@ -8085,7 +8089,7 @@ bool MainWindow::genGraph() {
 
        _currenttable = myjson;
 
-       SYD << tr("\n\n...MainWindow::genGraph()..............currentTable:\n|%1|")
+       SYD << tr("\n\n...MainWindow::genGraph()..............**currentTable:\n|%1|")
         .arg(_currenttable);
 
        if ( img.isEmpty() ) {
@@ -8339,7 +8343,7 @@ void MainWindow::listDocuments(const QString& key) {
 
 
 
-    SYD << tr("..............****MainWindow::listDocuments....");
+    SYD << tr("..............****MainWindow::listDocuments..LISTDOCUMENT..");
 
     SYD << tr(".....listDocuments...MainWindow::listDocuments....code:\n|%1|\n")
            .arg(code);
@@ -9525,7 +9529,7 @@ QString MainWindow::currentADATA()  const {
 QString MainWindow::currentTable() {
     QString result = _currenttable;
 
-    SYD << tr("\n\n...MainWindow::currentTable....:\n%1\n")
+    SYD << tr("\n\n...***MainWindow::currentTable....:\n%1\n")
            .arg(result);
     _currenttable = QLatin1String("");
     return result;
