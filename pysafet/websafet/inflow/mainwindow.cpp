@@ -2880,9 +2880,11 @@ bool MainWindow::toInputUsers(const QString& action) {
 
 
         QString fileconf = "auth.conf";
+        QString pathfileconf = SafetYAWL::pathconf + "/" + "auth.conf";
 
-        SYD << tr(".......MainWindow::toInputUsers....fileconf........:|%1|").arg(fileconf);
-        if (QFile::exists(fileconf)) {
+        SYD << tr(".......MainWindow::toInputUsers....fileconf........READING:|%1|").arg(fileconf);
+        SYD << tr(".......MainWindow::toInputUsers....pathfileconf........READING:|%1|").arg(pathfileconf);
+        if (QFile::exists(pathfileconf)) {
              foreach(QString s, results) {
                  SYD << tr("........MainWindow::toInputUsers....s:|%1|").arg(s);
 
