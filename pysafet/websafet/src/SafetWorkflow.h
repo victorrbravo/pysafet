@@ -893,6 +893,8 @@ public:
     bool isBackNode(SafetNode *node, const QString &nodename);
     QString currentGraphJSON(const QString& codegraph);
     void evalAutofilters();
+    void evalRecursivefilters();
+
 
 private:
    QMap<QString,QStringList> _nexts;

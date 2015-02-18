@@ -4567,6 +4567,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
                     .arg(data.map["Cargar_archivo_flujo"])
                     .arg(data.map["Filtro_recursivo"]);
 
+
             parseArgs( texto );
 
             if (! executeParsed() ) {
@@ -5046,8 +5047,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
         }
         else if (parser.operationName().startsWith(tr("Comparar_gráfico_de_flujo"))) {
 
-
-            // Colocando configuración de comparación por defecto
+           // Colocando configuración de comparación por defecto
             SafetYAWL::getConf().getMap()["Plugins.Graphviz/plugins.graphviz.extrainfo.show"]
                     = "InfoText,InfoDate";
             // Colocando configuración de comparación por defecto
@@ -5078,11 +5078,9 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
             SYD << tr("MainWindow::toInputConsole....Comparar_grafico...code: |%1|")
                    .arg(code);
 
-
             QString datetag = graphs()[namegraph].second;
 
             // Para Gráfico Planificado ********
-
             doRestoreGraph(Safet::PLANNEDGRAPHSFILENAME);
             if ( !graphs().contains(nameplannedgraph)) {
                 SYE << tr("No se encuentra el nombre de grafo seleccionado (Planificado) : \"%1\"")
@@ -7550,6 +7548,9 @@ bool MainWindow::executeParsed() {
            }
 
            configurator->setAutofilters( commands['a']);
+           if (commands.contains('r')) {
+               SYD << tr("COMMANDS....r:|%1|").arg(commands['r']);
+           }
            configurator->setRecursivefilters( commands['r']);
            SafetYAWL::streamlog.initAllStack();
            configurator->openXML(commands['f']);
@@ -8173,6 +8174,8 @@ void MainWindow::evalParsValues(SafetWorkflow *wf) {
     wf->putParameters(_currparsvalues);
     SYD << tr("....evalParsValues...AUTO_REPLACE*");
     wf->evalAutofilters();
+    wf->evalRecursivefilters();
+
 }
 
 void MainWindow::setConffileValues(const QMap<QString,QString>& values) {

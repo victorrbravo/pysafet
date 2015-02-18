@@ -66,8 +66,7 @@ void SafetTask::addChild(SafetXmlObject* o) {
 		contain = mywf->variablesId().contains(ovar->id());
 		//(*SafetYAWL::evalExit())( SafetYAWL::streamlog.eval(!contain, tr("La variable <%1> esta repetida").arg(ovar->id())) );
                 if (contain ) {
-                    SafetYAWL::streamlog
-                            << SafetLog::Error
+                   SYE
                             <<
                     tr("La variable \"%1\" esta repetida").arg(ovar->id());
                     return;
@@ -105,27 +104,24 @@ void SafetTask::addChild(SafetXmlObject* o) {
                 mywf->autofiltersId().insert(myaf->id());
                 break;
         case 11: // filtros Recursivos
-                qDebug("..............CARGANDO FILTRO RECURSIVO.................(1)....");
+
                 myrf = qobject_cast<SafetRecursivefilter*>(o);
                 mywf = qobject_cast<SafetWorkflow*>(parent());
+                recursivefilterlist.append(myrf);
+                SYD << tr("....Filtro:|%1|").arg(myrf->id());
                 Q_CHECK_PTR( mywf );
                 myyawl = qobject_cast<SafetYAWL*>(mywf->parent());
                 Q_CHECK_PTR( myyawl );
                 Q_CHECK_PTR( myrf );
-                //qDebug("...myrf->id(): |%s| ...: mywf->isActiveFilter( myrf->id() ):%d",
-                //       qPrintable(myrf->id()), mywf->isActiveFilter( myrf->id() ) );
+                SYD << tr("....Filtro:|%1|...........(1)...").arg(myrf->id());
                 if ( myyawl->isActiveRecursiveFilter(myrf->id()) ) {
-//                     sourceaf = myrf->source();
-//                     qDebug("... SafetTask::addChild...sourceaf...: %s", qPrintable(sourceaf));
-//                     if ( mywf->searchTask( sourceaf ) == NULL && mywf->searchCondition( sourceaf) == NULL ) {
-//                          SafetYAWL::streamlog  << SafetLog::Error
-//                             << tr("El autofiltro \"%1\" no se puede crear porque el destino no existe: \"%2\"").arg(myaf->id()).arg(sourceaf);
-//                          break;
-//                     }
+
                       myrf->setFiltertask( this );
-                //     qDebug("...rflist = myrf->createTasks();....");
                      rflist = myrf->createTasks(id().left(2).toLower());
+
+
                 }
+                SYD << tr("....Filtro:|%1|...........(3)...").arg(myrf->id());
                 mywf->recursivefiltersId().insert(myrf->id());
                 break;
 

@@ -172,6 +172,28 @@ void SafetWorkflow::evalAutofilters() {
 
 }
 
+
+void SafetWorkflow::evalRecursivefilters() {
+    SafetYAWL *myyawl = qobject_cast<SafetYAWL*>(parent());
+    SYD << tr(".....SafetWorkflow::evalAutofilters()...(1)..");
+    Q_CHECK_PTR(myyawl);
+    SYD << tr(".....SafetWorkflow::evalAutofilters()...(2)..");
+    foreach(SafetTask* task, getTasklist()) {
+        QList<SafetRecursivefilter*> mylistrf = task->getRecursivefilters();
+        foreach(SafetRecursivefilter* myfilter, mylistrf) {
+            if ( myyawl->isActiveRecursiveFilter( myfilter->id() ) ) {
+                myfilter->setFiltertask( task );
+                QList<SafetTask*> aflist = myfilter->createTasks(task->id().left(2).toLower());
+            }
+        }
+    }
+    SYD << tr(".....SafetWorkflow::evalAutofilters()...(3)..");
+}
+
+
+
+
+
 bool SafetWorkflow::putParameters(const QMap<QString,QString>& p) {
     bool result = false;
 
@@ -258,6 +280,33 @@ bool SafetWorkflow::putParameters(const QMap<QString,QString>& p) {
 
 
         }
+
+        SYD << tr(".........SafetWorkflow::putParameters RECURSIVEFILTERCOUNT:|%1|")
+               .arg(task->getRecursivefilters().count());
+
+
+        foreach(SafetRecursivefilter *filter, task->getRecursivefilters()) {
+            strin = filter->filter();
+            bool doit = false;
+            strout = replaceArg(strin,list,doit);
+            strout.replace("_USERNAME", SafetYAWL::currentAuthUser());
+            if (strin != strout ) {
+                filter->setFilter(strout);
+            }
+            doit = false;
+            strin = filter->initial();
+            SYD << tr(".........SafetWorkflow::putParameters...RECURSIVE....initial...(1)..:|%1|").arg(strin);
+            strout = replaceArg(strin,list,doit);
+            strout.replace("_USERNAME", SafetYAWL::currentAuthUser());
+            SYD << tr(".........SafetWorkflow::putParameters...RECURSIVE....initial...(2)..strout:|%1|").arg(strout);
+            if (strin != strout ) {
+                filter->setInitial(strout);
+                SYD << tr(".........SafetWorkflow::putParameters...RECURSIVE....initial...(2)..setting:|%1|").arg(strout);
+            }
+        }
+
+
+
 
         foreach(SafetPort *port, task->getPorts()) {
             if (port->type() == "split" ) {

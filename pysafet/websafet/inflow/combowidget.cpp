@@ -1585,13 +1585,22 @@ void ComboWidget::updateComboVariableSafet(bool inwidget) {
 
 
 void ComboWidget::updateComboRecursivefilterSafet(bool inwidget) {
-    if (MainWindow::configurator == NULL ) return;
+    if (MainWindow::configurator == NULL ) {
+        SYW << tr("Configurator is NULL");
+        return;
+    }
     if ( !conf().contains("keyvalue") ) {
         SYW << tr("Se necesita una clave para actualizar el widget de Variables de Flujo de Trabajos");
         return;
     }
-    QString mykeyvalue = findkeyvalue(conf()["keyvalue"].toString());
 
+    QString mykeyvalue = findkeyvalue(conf()["keyvalue"].toString());
+    SYD << tr("........updateComboRecursivefilterSafet....mykeyvalue...(1)...:|%1|").arg(mykeyvalue);
+    if (mykeyvalue.isEmpty()) {
+         mykeyvalue = SafetYAWL::combovarglobal0;
+    }
+
+    SYD << tr("........updateComboRecursivefilterSafet....mykeyvalue...(2)...:|%1|").arg(mykeyvalue);
 
     delete  MainWindow::configurator;
     MainWindow::configurator = new SafetYAWL();
