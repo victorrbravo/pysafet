@@ -1699,7 +1699,11 @@ QString SafetWorkflow::calculateSQL(const QString& currsql, const QString& info,
         return result;
      }
 
-    SYD << tr(".......SafetWorkflow::calculateSQL...CALCULATESQL.....currsql (1): |%1|")
+    if (result.endsWith("%")) {
+        result.chop(1);
+    }
+
+    SYD << tr(".......SafetWorkflow::calculateSQL...CALCULATESQL.....currsql CURRSQL:(1): |%1|")
            .arg(result);
 
     SYD << tr(".......SafetWorkflow::calculateSQL...CALCULATESQL.....info: |%1|")
