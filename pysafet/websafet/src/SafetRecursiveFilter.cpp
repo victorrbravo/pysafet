@@ -86,7 +86,13 @@ void SafetRecursivefilter::linkTasks(SafetTask* tasksource, SafetTask* tasktarge
     SafetConnection *myconnection = new SafetConnection();
     Q_CHECK_PTR( myconnection );
     myconnection->setQuery( sql );
+    SYD
+        << tr("..........SafetRecursivefilter::linkTasks...RECURSIVE_QUERY:|%1|")
+           .arg(myconnection->query());
     myconnection->setOptions( opts );
+    SYD
+        << tr("..........SafetRecursivefilter::linkTasks...RECURSIVE_QUERY:|%1|")
+           .arg(myconnection->options());
     myconnection->setTokenlink(tokenlink());
     myconnection->setParent( qobject_cast<SafetXmlObject*>(myport));
 
@@ -111,9 +117,6 @@ void SafetRecursivefilter::linkTasks(SafetTask* tasksource, SafetTask* tasktarge
      }
 
 
-     if ( myport->getConnectionlist().count() > 0 ) {
-         myport->setPattern("or");
-     }
 
      bool adding = true;
      foreach(SafetConnection *currconn, myport->getConnectionlist()) {
@@ -128,14 +131,25 @@ void SafetRecursivefilter::linkTasks(SafetTask* tasksource, SafetTask* tasktarge
         myport->addConnection( myconnection);
 
     }
+
+
+        if ( myport->getConnectionlist().count() > 1 ) {
+            myport->setPattern("or");
+        }
+
+
+
         SYD
             << tr("FiltroRecursivo(Recursivefilter): Agregando conexion a la tarea\"%1\"" )
             .arg(parentTask->id());
 
 }
 
+
+
+
 SafetTask* SafetRecursivefilter::createTask(const QString& title, const QString& namefield,
-                                            const QString& info) {
+                                            const QString& info, SafetTask *&parenttask) {
     Q_CHECK_PTR ( filtertask );
     Q_CHECK_PTR ( filtertask->parent() );
 
@@ -148,6 +162,7 @@ SafetTask* SafetRecursivefilter::createTask(const QString& title, const QString&
         if (currtask->id() == currid) {
             SYW << tr("...........SafetRecursivefilter::createTask...La tarea \"%1\" ya existe")
                    .arg(currid);
+            parenttask = currtask;
             return NULL;
         }
 
@@ -201,6 +216,7 @@ SafetTask* SafetRecursivefilter::createTask(const QString& title, const QString&
             << tr("Agregando a la variable de filtro recursivo: \"%2\" la tarea \"%1\"").arg(mytask->id()).arg(myvariable->id());
 
     listnewtasks.push_back( mytask);
+    parenttask = mytask;
     return mytask;
 
 }
@@ -295,29 +311,35 @@ void SafetRecursivefilter::generateRecursiveTask() {
                 SYD << tr("........SafetRecursivefilter::generateRecursiveTask..........(continue)...newsql:|%1|")
                        .arg(newsql);
                 parenttask = curvalue.second.first;                
+                SYD << tr("............RecursiveFilter......(3)SETTING parenttask:|%1|")
+                       .arg(parenttask==NULL?"NULL":parenttask->id());
                 if (parenttask == NULL ) {
                     SYD << tr("........SafetRecursivefilter::generateRecursiveTask....parenttask is NULL");
                     parenttask = curvalue.second.second;
+                    SYD << tr("............RecursiveFilter......(4)SETTING parenttask:|%1|")
+                           .arg(parenttask==NULL?"NULL":parenttask->id());
 
                 }
                 QString info = tr("info");
                 if (curvalue.first.split(";").count() > 1 ) {
                     info = curvalue.first.split(";").at(1);
                 }
-                SYD << tr("........SafetRecursivefilter::generateRecursiveTask...<=*0.CREATETASK:d:|%1|...name:|%2|...info:|%3|")
+                SYD << tr("........SafetRecursivefilter::111111....CREATETASK:d:|%1|...name:|%2|...info:|%3|")
                        .arg(d).arg(namefield).arg(info);
-                newtask = createTask(d,namefield,info);
+                SafetTask* nextparenttask = NULL;
+
+                newtask = createTask(d,namefield,info,nextparenttask);
                 if (newtask != NULL ) {
                     SYD << tr("........SafetRecursivefilter::generateRecursiveTask...<=*0.SI_ENLAZO");
-                    linkTasks(parenttask,newtask, basicsql,d);
-                    parenttask = newtask;
+                    linkTasks(parenttask,newtask, basicsql,d);                    
                 }
-                else {
-                    SYD << tr("........SafetRecursivefilter::generateRecursiveTask...<=*0.NO_ENLAZO");
+                parenttask = nextparenttask;
+                SYD << tr("............RecursiveFilter......(2)SETTING parenttask:|%1|")
+                       .arg(parenttask==NULL?"NULL":parenttask->id());
 
 
-
-                }
+                SYD << tr("");
+                SYD << tr("");
                 continue;
             }
             else {
@@ -344,10 +366,12 @@ void SafetRecursivefilter::generateRecursiveTask() {
                 }
             }
             howchildren++;
-            SYD << tr("........SafetRecursivefilter::generateRecursiveTask...>0.CREATETASK:d:|%1|...name:|%2|...info:|%3|")
+            SYD << tr("........SafetRecursivefilter::00000....CREATETASK:d:|%1|...name:|%2|...info:|%3|")
                    .arg(d).arg(namefield).arg(info);
 
-            newtask = createTask(d,namefield,info);
+            SafetTask* nextparenttask = NULL;
+            newtask = createTask(d,namefield,info,nextparenttask);
+
 
             linkTasks(parenttask,newtask, basicsql,d);
             curvalue.first = d +";"+info;
@@ -369,7 +393,14 @@ void SafetRecursivefilter::generateRecursiveTask() {
                .arg(fields.second);
         newsql = fields.second.arg(curvalue.first.split(";").at(0));
         parenttask = curvalue.second.second;
+        SYD << tr("............RecursiveFilter......(1)SETTING parenttask:|%1|")
+               .arg(parenttask==NULL?"NULL":parenttask->id());
+
         newtask= curvalue.second.first;
+        SYD << tr("");
+        SYD << tr("");
+        SYD << tr("");
+        SYD << tr("");
 
     }
      return;

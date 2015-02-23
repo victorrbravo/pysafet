@@ -104,7 +104,7 @@ public:
       * \brief Crear una tarea
       */
     SafetTask* createTask(const QString& title, const QString& namefield,
-                          const QString& info = QString(tr("No_info")));
+                          const QString& info, SafetTask*& parenttask);
 
 
     /*
