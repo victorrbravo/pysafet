@@ -7295,6 +7295,7 @@ QString MainWindow::generateGraphCompared(const QString& first, const QString& s
         uncomplete = true;
     }
     else {
+
         SYD << tr(".........***generateGraphCompared...MYFIRSTLIST:|%1|")
         .arg(myfirstlist.at(rlnodes-1));
 
@@ -7304,8 +7305,7 @@ QString MainWindow::generateGraphCompared(const QString& first, const QString& s
         QStringList statsplanned;
     if ( (plnodes-1) < mysecondlist.count() ) {
     statsplanned = mysecondlist.at(plnodes-1).split("...",QString::SkipEmptyParts);
-        SYD << tr(".........***generateGraphCompared...MYSECONDLIST:|%1|")
-        .arg(mysecondlist.at(rlnodes-1));
+
     }
 
 
