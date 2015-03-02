@@ -6719,6 +6719,8 @@ QString MainWindow::generateTableCompared(const QString& first, const QString& s
                                       );
 
     QString currentnode;
+
+    SYD << trUtf8("..............myfirst:|%1|").arg(myfirstnodelist.count());
     for(int i=0; i < myfirstnodelist.count(); i++ ) {
         QString myfirst = myfirstnodelist.at(i);
         QStringList myfirstlist = myfirst.split(",",QString::SkipEmptyParts);
@@ -6741,9 +6743,18 @@ QString MainWindow::generateTableCompared(const QString& first, const QString& s
 
 
     if ( currentnode.isEmpty()) {
-        SYW << trUtf8("NO se encuentra el nodo donde se encuentra la clave para el gráfico a comparar");
-        currentnode = "inicial";
+        SYW << trUtf8("NO se encuentra el nodo para la clave para el gráfico a comparar");
+	if (myfirstnodelist.count()> 0 ) {
+		currentnode = myfirstnodelist.at(0).split(",",QString::SkipEmptyParts).at(0);
+
+	} 
+	else{
+	        currentnode = "inicial";
+	}
     }
+    SYD << tr(".....MainWindow::generateTableCompared....currentnode (PASS):|%1|")
+           .arg(currentnode);
+
 
     bool passnode = false;
 
@@ -7213,10 +7224,21 @@ QString MainWindow::generateGraphCompared(const QString& first, const QString& s
            .arg(currentnode);
 
 
+
     if ( currentnode.isEmpty()) {
-        SYW << trUtf8("NO se encuentra el nodo donde se encuentra la clave para el gráfico a comparar");
-        currentnode = "inicial";
+        SYW << trUtf8("No se encuentra la clave para el gráfico a comparar");
+	if (myfirstnodelist.count()> 0 ) {
+		currentnode = myfirstnodelist.at(0).split(",",QString::SkipEmptyParts).at(0);
+
+	} 
+	else{
+	        currentnode = "inicial";
+	}
     }
+    SYD << tr(".....MainWindow::generateTableCompared....currentnode (PASS2):|%1|")
+           .arg(currentnode);
+
+
 
     bool passnode = false;
 
@@ -7295,19 +7317,20 @@ QString MainWindow::generateGraphCompared(const QString& first, const QString& s
         uncomplete = true;
     }
     else {
-
         SYD << tr(".........***generateGraphCompared...MYFIRSTLIST:|%1|")
         .arg(myfirstlist.at(rlnodes-1));
 
 
     }
+ SYD << tr(".........***generateGraphCompared....(TEST1)");
+
 
         QStringList statsplanned;
     if ( (plnodes-1) < mysecondlist.count() ) {
-    statsplanned = mysecondlist.at(plnodes-1).split("...",QString::SkipEmptyParts);
-
+	    statsplanned = mysecondlist.at(plnodes-1).split("...",QString::SkipEmptyParts);
     }
 
+ SYD << tr(".........***generateGraphCompared....(TEST2)");
 
         int nstatsreal = 0;
         if ( statsreal.count() > 2 ) {
@@ -7323,6 +7346,7 @@ QString MainWindow::generateGraphCompared(const QString& first, const QString& s
 
         bool isdelay = false;
 
+ SYD << tr(".........***generateGraphCompared....(TEST3)");
 
         if (statsreal.count() < 4 ) {
 

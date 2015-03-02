@@ -1812,17 +1812,23 @@ QString SafetTextParser::getValueForFunction(const QString& v, const QString &fo
 
      foreach(QString k, vmap.keys()) {
 
-         SYD << tr("......key:|%1|: |%2|....")
+         SYD << tr(".............VALUEFUNCTION..........key:|%1|: |%2|....")
                 .arg(k)
                 .arg(vmap[k]);
           QString mypattern = QString("{#%1}").arg(k);
           newv.replace(mypattern,vmap[k]);
      }
 
+     SYD << tr("");
+     SYD << tr("");
+
      if (newv.indexOf("{#currvalue#")!= -1) {
+
          SafetWorkflow* mywf = MainWindow::configurator->getWorkflows().at(0);
          Q_CHECK_PTR(mywf);
          QRegExp rx("\\{#currvalue#([a-zA-Z0-9_]+)\\}");
+
+         SYD << tr("SafetTextParser::getValueForFunction...mykeyvalue (currvalue)....(1)");
 
          int pos = newv.indexOf(rx);
          if (pos == -1) {
@@ -1831,23 +1837,46 @@ QString SafetTextParser::getValueForFunction(const QString& v, const QString &fo
 
          }
          QString mykeyvalue = rx.cap(1);
-         SYD << tr("SafetTextParser::getValueForFunction...mykeyvalue (currvalue):")
+         SYD << tr("SafetTextParser::getValueForFunction...mykeyvalue mykeyvalue:|%1|")
                 .arg(mykeyvalue);
          if ( !vmap.contains(mykeyvalue)) {
              SYE << tr("El atributo \"function\" no se encuentra correctamente definido. El campo \"%1\" no se encuentra en la base de datos")
                     .arg(mykeyvalue);
              return "";
          }
+         SYD << tr("SafetTextParser::getValueForFunction...VALUEFUNCTION....vmap[mykeyvalue]:|%1|")
+                .arg(vmap[mykeyvalue]); 
 
-        QStringList infos = mywf->textualInfos(vmap[mykeyvalue]);
+      	foreach(QString k, vmap.keys()) {
+
+         SYD << tr(".............VALUEFUNCTION..........key:|%1|: |%2|....")
+                .arg(k).arg(vmap[k]);
+
+	}
+
+        bool iscon =            vmap.contains("id_actividad");
+
+         SYD << tr(".............VALUEFUNCTION............iscon:|%1|")
+		.arg(iscon);
+
+        QStringList infos;
+        if ( vmap.contains("id_actividad") ) {
+		SYD << tr("ID_ACTIVIDAD:|%1|").arg(vmap["id_actividad"]);
+		infos = mywf->textualInfos(vmap[mykeyvalue],0,vmap["id_actividad"]);
+	}
+	else {
+		infos = mywf->textualInfos(vmap[mykeyvalue],0);
+	}
         QString mycurrvalue = "";
         if (infos.count() > 0) {
             mycurrvalue = infos.at(0);
         }
-        SYD << tr("SafetTextParser::getValueForFunction...currvalue:|%1|").arg(mycurrvalue);
+        SYD << tr("SafetTextParser::getValueForFunction...mycurrvalue:|%1|").arg(mycurrvalue);
         newv.replace(rx,mycurrvalue);
 
      }
+
+     SYD << tr("");
 
      newv.replace("_USERNAME", SafetYAWL::currentAuthUser());
      QString command = "SELECT "+newv+";";

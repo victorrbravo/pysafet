@@ -1639,7 +1639,9 @@ QString SafetWorkflow::printNodeInformation(SafetNode *node, const QString& next
      QString currvariable = "n/a";
      if (mytask != NULL && !mytask->textualinfo().isEmpty()) {
          QString postfix = SafetYAWL::getConf()["GeneralOptions/textualinfo.postfix"];
-         nodetextinfo = QString(",TextualInfo:%1%2,").arg(calculateSQL(mytask->textualinfo(),info)).arg(postfix);
+         QString currtextual = mytask->textualinfo();
+
+         nodetextinfo = QString(",TextualInfo:%1%2,").arg(calculateSQL(currtextual,info)).arg(postfix);
 
       }
 
@@ -1708,11 +1710,17 @@ QString SafetWorkflow::calculateSQL(const QString& currsql, const QString& info,
 
     SYD << tr(".......SafetWorkflow::calculateSQL...CALCULATESQL.....info: |%1|")
            .arg(info);
-
+    SYD << tr(".......SafetWorkflow::calculateSQL...CALCULATESQL.....OTHERINFO...otherinfo: |%1|")
+           .arg(otherinfo);
     QString newsql = result;
 
     newsql.replace("{#keyvalue0}",info);
-    newsql.replace("{#keyvalue1}",otherinfo);
+    if (!otherinfo.isEmpty())  {
+        newsql.replace("{#keyvalue1}",otherinfo);
+    }
+    else {
+        newsql.replace("{#keyvalue1}",info);
+    }
     QSqlQuery query( SafetYAWL::currentDb );
     query.prepare(  newsql );
     bool executed = query.exec();
