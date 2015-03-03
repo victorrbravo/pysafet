@@ -614,29 +614,37 @@ SafetDocument SafetWorkflow::getDocuments(const QString& idvariable, QList<QSqlF
 
     query = getSQLDocuments(*curvar);
     SafetDocument mydocument;
-    howmanydocuments = 0;
+    int tmphowmany = 0;
+
+
 
     getQuerySize(query);
     if ( getQuerySize(query) >  0 ) {
         switch (of) {
             case SafetWorkflow::XML:
-                str = mydocument.getXmlQuery(query,howmanydocuments,info);
+                str = mydocument.getXmlQuery(query,tmphowmany,info);
                 break;
             case SafetWorkflow::JSON:
             SYD << tr("....SafetWorkflow::getDocuments...recorriendo..JSON");
-                str = mydocument.getJsonQuery(query,fields,howmanydocuments,info);
+                str = mydocument.getJsonQuery(query,fields,tmphowmany,info);
                 break;
         case SafetWorkflow::JSONARRAY:
                 SYD << tr("....SafetWorkflow::getDocuments...recorriendo..JSONARRAY");
-            str = mydocument.getJsonArrayQuery(query,fields,howmanydocuments,info);
+            str = mydocument.getJsonArrayQuery(query,fields,tmphowmany,info);
             break;
             case SafetWorkflow::SVG:
                 break;
             default:;
         }
     }
+    SYD << tr("....SafetWorkflow::getDocuments...entrando...(before)...tmphowmany:|%1|")
+           .arg(tmphowmany);
+
     SYD << tr("....SafetWorkflow::getDocuments...entrando...(before)...howmanydocuments:|%1|")
            .arg(howmanydocuments);
+    if (howmanydocuments == 0 ) {
+        howmanydocuments = tmphowmany;
+    }
 
     SYD << tr("....SafetWorkflow::getDocuments...recorriendo..(1)");
     foreach (QString myfile, mydocument.availableFiles()) {
