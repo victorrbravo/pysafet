@@ -1208,7 +1208,8 @@ QString ComboWidget::html() {
     }
 
     QString mypreffix = caption().left(4);
-    result += QString("<select name=\"%1\" id=\"%1\" class=\"text ui-widget-content ui-corner-all\"")
+    result +=  "<div class=\"form-group\" >\n";
+    result += QString("<select name=\"%1\" id=\"%1\" class=\"combobox input-large\"")
             .arg(caption());
 
 
@@ -1243,6 +1244,7 @@ QString ComboWidget::html() {
 
     result += QLatin1String("</select>");
 
+    result += QLatin1String("</div>");
 
     if (isenables ) {
 
@@ -1277,6 +1279,7 @@ QString ComboWidget::html() {
         result += "\n";
 
         result += QLatin1String("\n</script>\n");
+
     }
 
 
@@ -1310,7 +1313,7 @@ QString ComboWidget::htmlForKey(const QString& k, const QString& otherk) {
         return result;
     }
 
-//    QString result = QString("<select name=\"%1\" id=\"%1\" class=\"text ui-widget-content ui-corner-all\">\n")
+//    QString result = QString("<select name=\"%1\" id=\"%1\" class=\"combobox input-large\">\n")
 //            .arg(caption());
 
     QString result;

@@ -1314,6 +1314,7 @@ QString MainWindow::generateFormHead(const QString& o) {
 
 
     if (!firstkeymodifyfield.isEmpty()) {
+/*
         result +=  QString("$( \"#parsdialog\" ).dialog({\n"
                            "  autoOpen: false,\n"
                            "   height: 400,\n"
@@ -1361,6 +1362,7 @@ QString MainWindow::generateFormHead(const QString& o) {
                 .arg(hostURL())
                 .arg(firstkeymodifyfield)
                 .arg(modname);
+                */
     }
 
     if (keymodifyfields.count() > 0 ) {
@@ -1540,9 +1542,7 @@ QString MainWindow::generateModifyHTML(const QString& operation, const QString& 
 QString MainWindow::generateFormFooter(const QString& o) {
     QString purl = o.section("/",-1);
     if (purl.split(":").count() < 2) {
-        SafetYAWL::streamlog
-                << SafetLog::Error
-                   <<  tr("Al obtener el formulario la operación \"%1\" es Inválida")
+        SYE                   <<  tr("Al obtener el formulario la operación \"%1\" es Inválida")
                       .arg(purl);
         return QLatin1String("");
     }
@@ -1809,16 +1809,20 @@ QString MainWindow::menuForm(const QString& o, bool forwidget, const QString& fi
 
     result += QString("<span id=\"safetspan\" name=\"safetspan\"></span> \n");
 
-    result += QString("<table><tr><td></td><td><button type=\"submit\"   id=\"safetsubmit\" "
-                      "name=\"safetsubmit\""
-                       " >Enviar</button>"
-                      "<button id=\"safetcancel\" name=\"safetcancel\" type=\"reset\">Limpiar</button>"
+
+    result += QString("<table><tr><td></td><td>"
+                      "<div class=\"button\">"
+                      "<button type=\"submit\" class=\"btn btn-primary\" id=\"safetsubmit\" name=\"safetsubmit\">"
+                       " Enviar "
+                      "</button>"
+                      "</div>"
+                      //"<button id=\"safetcancel\" name=\"safetcancel\" type=\"reset\">Limpiar</button>"
                       "</td></tr>\n"
                       );
     result += QString("\n</table>"
                 "\n</form>\n");
 
-        result += addParametersDialog(formurl);
+        //result += addParametersDialog(formurl);
 
 
     SYD << tr(".................MainWindow::menuForm......MENUFORM(2).......result:|%1|")
