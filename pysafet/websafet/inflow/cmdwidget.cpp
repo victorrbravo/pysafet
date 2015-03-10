@@ -134,13 +134,30 @@ QString CmdWidget::html() {
 
     }
     else  {
-        result += QString("<input %2 name=\"%1\" alt=\"Esto es un campo tipo texto\" id=\"%1\""
+    
+     result +=
+                QString(""
+                     // "<div class= \"col-md-3\">"
+                          "<div class=\"form-group\" >"
+                          "<input %2 class=\"form-control\" id=\"%1\" name=\"%1\" %4  >"
+                        "</div>"
+                      //"</div>"
+                        )
+                .arg(_caption)
+                .arg(_typeinput)
+                .arg(readonly)
+                .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc));
+
+
+
+        /*result += QString("<input %2 name=\"%1\" alt=\"Esto es un campo tipo texto\" id=\"%1\""
                           " %4 "
                          "   size=\"55\"  %3></input>")
                 .arg(_caption)
                 .arg(_typeinput)
                 .arg(readonly)
-                .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc));
+                .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc));*/
+
 
     }
 

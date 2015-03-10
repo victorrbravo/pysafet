@@ -101,6 +101,7 @@ const QString COMMAMARK = "##SAFETCOMMA##";
 const QString BRACKETOPENMARK = "##SAFETBRACKETOPEN##";
 const QString BRACKETCLOSEMARK = "##SAFETBRACKETCLOSE##";
 const QString MPIPEMARK = "##SAFETPIPE##";
+const QString NA = "noname";
 
 const QString ALL = "Safet::all";
 
@@ -858,7 +859,7 @@ public:
 
 
 
-     QString checkUserRegister(const QString &fullname, const QString &account,const  QString &email, const QString &passone,const  QString &passtwo);
+     QString checkUserRegister(const QString &fullname, const QString &account,const  QString &email, const QString &passone,const  QString &passtwo,const QString& ticket = "");
 
      QStringList getInfoOfUser(const QString &user);
 
