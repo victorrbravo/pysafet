@@ -1290,8 +1290,10 @@ QString MainWindow::generateFormHead(const QString& o) {
                           "                  document.getElementById(myname).value = myvalue; \n   "
                           "               }                                     \n "
                           "               else {                                 \n"
+                          "                  console.log(\"PUTTING myname:\"+myname); \n"
+                          "                  console.log(\"PUTTING myvalue:\"+myvalue); \n"
                           "                 $(\"#\"+myname).html(myvalue);\n     \n"
-                          "                 console.log(\"putting myvalue:\"+myname); \n"
+                          "                  console.log(\"putting myvalue:\"+myname); \n"
                           "               }                                      \n"
                           "          } else {"
                           "               document.getElementById(myname).value = myvalue;\n"
@@ -1414,12 +1416,12 @@ QString MainWindow::generateModifyHTML(const QString& operation, const QString& 
     DomModel* mymodel = new DomModel(inputPath(),NULL);
     Q_CHECK_PTR( mymodel );
     QStringList mylist;
-    SafetYAWL::streamlog
-            << SafetLog::Debug
-               << tr("MainWindow::generateModifyHTML...operacion: |%1|..fieldname:|%2|...key:|%3|")
+    SYD
+               << tr("MainWindow::generateModifyHTML...operation: |%1|..fieldname:|%2|...key:|%3|")
                   .arg(operation)
                   .arg(fieldname)
                   .arg(key);
+
 
     if (operation.startsWith(QLatin1String("Listar_"))
             || operation.endsWith(QLatin1String("Siguiente_estado"),Qt::CaseInsensitive)
@@ -1462,6 +1464,27 @@ QString MainWindow::generateModifyHTML(const QString& operation, const QString& 
 
                    SYD << tr("(formfieldkey)...MainWindow::generateModifyHTML...result:|%1|")
                       .arg(result);
+    }
+    else if (operation == "modificar_usuario" && fieldname == "Estado"  ) {
+
+
+        SYD << tr("......MainWindow::generateModifyHTML.EVALUATING: ....KEY:|%1|")
+               .arg(key);
+        SYD << tr("......MainWindow::generateModifyHTML.EVALUATING: ....SECONDKEY:|%1|")
+               .arg(secondkey);
+        foreach(QString f, form) {
+            SYD << tr("......MainWindow::generateModifyHTML.EVALUATING: ....f:|%1|")
+                   .arg(f);
+        }
+
+        result = QString("%1")
+            .arg(formFieldsForKey(operation,fieldname, key,mymodel,secondkey,form));
+
+
+        SYD << tr("......MainWindow::generateModifyHTML.EVALUATING: result:|%1|")
+               .arg(result);
+
+         return result;
     }
     else if (operation.startsWith(tr("agregar_ticket") ) ) {
         SYD << tr("......MainWindow::generateModifyHTML....agregar_ticket....key:|%1|")
@@ -1531,10 +1554,9 @@ QString MainWindow::generateModifyHTML(const QString& operation, const QString& 
     else  {
         result = mymodel->getUpdateString(operation,fieldname,key,mylist);
 
-                   SYD << tr("........***MainWindow::generateModifyHTML: ->|%1|")
+                   SYD << tr("........getUpdateString..MainWindow::generateModifyHTML: ->|%1|")
                       .arg(result);
     }
-//    result = "Componente: AppPequenita";
 
     return result;
 }
@@ -1606,10 +1628,14 @@ QString MainWindow::formFieldsForKey(const QString& o, const QString& fieldname,
             //newitem = tr("No hay widget para \"%1\"\n").arg(trimfield);
         }
         else {
-             SYD << tr("............**MainWindow::formFieldsForKey............(1)...");
+             SYD << tr("...........***MainWindow::formFieldsForKey.......CHANGEFOR.....(1)...");
             if (!mywidget->conf().contains("changefor")) {
                 continue;
             }
+            SYD << tr("...........***MainWindow::formFieldsForKey.......CHANGEFOR.....(2)...keyvalue:|%1|")
+                   .arg(keyvalue);
+            SYD << tr("...........***MainWindow::formFieldsForKey.......CHANGEFOR.....(3)...otherkey:|%1|")
+                   .arg(otherkey);
             SYD << tr("MainWindow::formFieldsForKey: |%1|")
                    .arg(fieldname);
             if ( !mywidget->conf()["changefor"].toString().split(",",QString::SkipEmptyParts).
@@ -1620,7 +1646,7 @@ QString MainWindow::formFieldsForKey(const QString& o, const QString& fieldname,
                   .arg(mywidget->htmlForKey(keyvalue, otherkey))
                    .arg(SafetYAWL::LISTHTMLSEPARATOR)
                    .arg(trimfield);
-                SYD << tr("MainWindow::formFieldsForKey....newitem:%1")
+                SYD << tr("MainWindow::formFieldsForKey....CHANGEFOR....newitem:|%1|")
                           .arg(newitem);
 
 

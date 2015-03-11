@@ -794,7 +794,7 @@ CmdWidget* DomModel::selWidgetFromField(const QString& command, const QString& f
                                         QString keyvalue, const QStringList& form) {
 
 
-    SYD << tr("............DomModel::selWidgetFromField.....................kevalue:|%1|")
+    SYD << tr("............DomModel::selWidgetFromField.....................keyvalue:|%1|")
            .arg(keyvalue);
      if ( !docok ) {
          return NULL;

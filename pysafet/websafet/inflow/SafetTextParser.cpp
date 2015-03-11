@@ -831,9 +831,9 @@ QList<QPair<QString,QString> > SafetTextParser::getFieldsValues(const QDomElemen
                         leftfield = infotitles;
                     }
 
-                            SYE << tr("ERROR DE VALIDACIÓN:"
-                                  "No ha ingresado el (los) campo(s) "
-                                  "\"<b>%1</b>\" (obligatorio)").arg(leftfield);
+                            SYE << tr(
+                                  "No ha ingresado el campo "
+                                  "\"%1\" (es obligatorio para procesar la acción)").arg(leftfield);
                     return fieldspairnull;
                 }
                 continue;
@@ -915,7 +915,7 @@ QList<QPair<QString,QString> > SafetTextParser::getFieldsValues(const QDomElemen
 
                 usertip = "n/a";
                 SYE << tr("Error de validación: No es válido el valor "
-                          "<b>\"%2\"</b> del campo <b>%1</b> :\"%3\"")
+                          "\"%2\" del campo \"%1\" :\"%3\"")
                        .arg(namefield)
                        .arg(value)
                        .arg(usertip);
@@ -945,14 +945,14 @@ QList<QPair<QString,QString> > SafetTextParser::getFieldsValues(const QDomElemen
 
                     if (usertip.isEmpty()) {
                                 SYE << tr("Error de validación: No es válido el valor "
-                                      "<b>\"%2\"</b> del campo <b>%1</b>")
+                                      "\"%2\" del campo \"%1\"")
                                 .arg(namefield)
                                 .arg(value);
                     }
                     else {
 
                                 SYE << tr("Error de validación: No es válido el valor "
-                                      "<b>\"%2\"</b> del campo <b>%1</b> :\"%3\"")
+                                      "\"%2\" del campo \"%1\" :\"%3\"")
                                 .arg(namefield)
                                 .arg(value)
                                 .arg(usertip);
@@ -1581,7 +1581,7 @@ QPair<QString,QString> SafetTextParser::buildFields(const QDomElement& ecommand,
                             SafetYAWL::streamlog
                                     << SafetLog::Error
                                     << tr("Error de validación (Campo No obligatorio): "
-                                          "No es válido el valor <b>%2</b> del campo <b>%1</b>")
+                                          "No es válido el valor \"%2\" del campo \"%1\"")
                                     .arg(namefield)
                                     .arg(value);
                             return fieldsnullpair;
@@ -1590,7 +1590,7 @@ QPair<QString,QString> SafetTextParser::buildFields(const QDomElement& ecommand,
                             SafetYAWL::streamlog
                                     << SafetLog::Error
                                     << tr("Error de validación (Campo No obligatorio): "
-                                          "No es válido el valor <b>%2</b> del campo <b>%1</b>"
+                                          "No es válido el valor \"%2\" del campo \"%1\""
                                           ":\"%3\"")
                                     .arg(namefield)
                                     .arg(value)
@@ -2095,11 +2095,15 @@ QStringList SafetTextParser::processXml(bool doquery,bool dopermises) {
                               ", y compruebe resultados.")
                            .arg(command);
 
+//                SYE
+//                        <<    tr("%2. \"%3\". \"%1\"")
+//                              .arg(query.lastError().databaseText())
+//                              .arg(query.lastError().number())
+//                              .arg(query.lastError().type());
+
                 SYE
-                        <<    tr("<b>Mensaje:</b> (%2/%3) %1")
-                              .arg(query.lastError().databaseText())
-                              .arg(query.lastError().number())
-                              .arg(query.lastError().type());
+                        <<    tr("%1")
+                              .arg(query.lastError().databaseText());
 
                 return QStringList();
             }
