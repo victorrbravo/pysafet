@@ -1466,7 +1466,7 @@ QString MainWindow::generateModifyHTML(const QString& operation, const QString& 
                       .arg(result);
     }
     else if (  (operation == "modificar_usuario" && fieldname == "Estado")
-               || (operation == "modificar_usuario" && fieldname == "Pais")) {
+               || (operation == "modificar_usuario" && (fieldname == "País" || fieldname == "Pais")) ) {
 
 
         SYD << tr("......MainWindow::generateModifyHTML.EVALUATING: ....KEY:|%1|")
@@ -3295,7 +3295,7 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
      QString filename = "deftrac.xml";
 
 
-     parser.processInput( xml );
+     parser.processInput( xml.toLatin1() );
 
      parser.openXml(filepath + "/" + filename);
      //QStringList names = parser.loadNameConfs();
