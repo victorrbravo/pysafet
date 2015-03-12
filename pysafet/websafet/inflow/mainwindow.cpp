@@ -1465,7 +1465,8 @@ QString MainWindow::generateModifyHTML(const QString& operation, const QString& 
                    SYD << tr("(formfieldkey)...MainWindow::generateModifyHTML...result:|%1|")
                       .arg(result);
     }
-    else if (operation == "modificar_usuario" && fieldname == "Estado"  ) {
+    else if (  (operation == "modificar_usuario" && fieldname == "Estado")
+               || (operation == "modificar_usuario" && fieldname == "Pais")) {
 
 
         SYD << tr("......MainWindow::generateModifyHTML.EVALUATING: ....KEY:|%1|")
@@ -3089,13 +3090,15 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
 
 
      SafetTextParser parser;
-     SYD << tr("MainWindow::toInputForm:...... |%1|")
+
+
+     SYD << tr("MainWindow::toInputForm:...*LATIN1... (1) |%1|")
                        .arg(action);
 
 
      QString newaction = extractParameters(action);
      bool issignaction = false;
-     SYD << tr("MainWindow::toInputForm:...... (before prove signer |%1|")
+     SYD << tr("MainWindow::toInputForm:........|%1|")
                        .arg(newaction);
 
 

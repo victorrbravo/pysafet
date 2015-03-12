@@ -461,6 +461,46 @@ QString SafetWorkflow::replaceArg(const QString& strin, const QMap<QString,QStri
 
 }
 
+
+
+QString SafetWorkflow::extractKeyForField(const QString& key, const QString& strin) {
+
+    SYD << tr(".........SafetWorkflow::extractKeyForField.EXTRACTKEY..key:|%1|...strin:|%2|")
+           .arg(key)
+           .arg(strin);
+    QString result = key;
+
+    QStringList mylist = result.split(",",QString::SkipEmptyParts);
+
+    foreach(QString k, mylist) {
+        QStringList fields = k.split(":",QString::SkipEmptyParts);
+        if (fields.count() > 1 ) {
+            QString myfield = " " + fields.at(0); // FIX No incluir el campo id solo
+
+            myfield.replace("á","a");
+            myfield.replace("é","e");
+            myfield.replace("í","i");
+            myfield.replace("ó","o");
+            myfield.replace("ú","u");
+            myfield.replace("ñ","n");
+            myfield.replace("Ñ","N");
+
+            QString myvalue = fields.at(1);
+            SYD << tr(".........SafetWorkflow::extractKeyForField.EXTRACTKEY..field:|%1|...value:|%2|")
+                   .arg(myfield)
+                   .arg(myvalue);
+            if (strin.indexOf(myfield,0,Qt::CaseInsensitive) != -1) {
+                   SYD << tr(".........SafetWorkflow::extractKeyForField.EXTRACTKEY....YES...myvalue:|%1|")
+                          .arg(myvalue);
+                    result = myvalue;
+                  break;
+            }
+        }
+    }
+    return result;
+
+}
+
 QString SafetWorkflow::replaceArg(const QString& strin, const QMap<QString,QString>& l) {
     QString result = strin;
    QString pattern = QString("(\\=|>|<|<\\=|>\\=|IS|IN|LIKE)?\\s*\\{\\#([a-zA-Z0-9_]+)\\}");
@@ -478,6 +518,9 @@ QString SafetWorkflow::replaceArg(const QString& strin, const QMap<QString,QStri
                QString mynumpar = l[numpar].trimmed();
                stringfinded = QString("{#%1}").arg(numpar);
                if (!mynumpar.isEmpty()) {
+
+
+                    mynumpar = extractKeyForField(mynumpar,strin);
                     result.replace(stringfinded,mynumpar);
                }
 

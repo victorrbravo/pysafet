@@ -194,6 +194,13 @@ public:
         static QString removeOutParenthesis(const QString &s);
 
 
+        /**
+         * @brief extractKeyForField extrae una clave de una lista de parámetros
+         * @param key
+         * @return
+         */
+        static QString extractKeyForField(const QString &key, const QString& strin);
+
         static QString replaceArg(const QString &strin, const QMap<QString, QString> &l);
 
         /**
@@ -894,6 +901,7 @@ public:
     QString currentGraphJSON(const QString& codegraph);
     void evalAutofilters();
     void evalRecursivefilters();
+
 
 
 private:
