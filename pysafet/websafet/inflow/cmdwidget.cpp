@@ -83,19 +83,47 @@ QString CmdWidget::html() {
     if (_typeinput == "type=file" && !readonly.isEmpty()) {
 
 
-        result += QString("<input type=\"text\" name=\"%1\" id=\"%1\"    "
-                         "onClick=\"window.open(this.value)\" size=\"80\" "
 
-                         " readonly=\"readonly\" style=\"border: none;color: blue;text-decoration: underline;cursor: pointer;\"       "
-                         "  value=\"sin seleccionar\" ></input>")
-                .arg(_caption);
-        result += QString("<input type=\"file\" name=\"%1\" id=\"%1\"    "
-                         " size=\"55\" "                         
-                          " %2 "
-                         "    >\n"
-                         "  </input>")
-                .arg(_caption)
-                .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc));
+
+        result +=
+                   QString(""
+                           "<div class=\"form-group\" >\n"
+                           "<div class=\"content-img\">"
+                                           "<div class=\"load-img-profile\">"
+                                               "<img src=\"\" id=\"vistaPreviaLogo\"/>"
+                                               "<div class=\"img-content-loader\" data-preview=\"vistaPreviaLogo\" >"
+                                               "<button class=\"btn btn-shoppr\" ><i class=\"fa fa-plus\"></i></button>"
+                                               "<input id=\"%1\" name=\"%1\" type=\"file\" /></div>"
+                                           "</div>"
+                                            "<div class=\"progress\">\n"
+                                           "<div class=\"progress-bar\" id=\"progress-bar\" role=\"progressbar\"></div>"
+                                              "</div>\n"
+                                           "<div class=\"btn btn-primary btn-file-load full-width\" data-preview=\"vistaPreviaLogo\" ><span>Cargar foto</span><input id=\"%1\" name=\"%1\" type=\"file\" /></div>"
+                                       "</div>\n"
+                           "</div>\n"
+                           )
+                   .arg(_caption);
+//                   .arg(_typeinput)
+//                   .arg(readonly)
+//                   .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc));
+
+
+
+
+//        result += QString(
+//                          "<input type=\"text\" name=\"%1\" id=\"%1\"    "
+//                         "onClick=\"window.open(this.value)\" size=\"80\" "
+
+//                         " readonly=\"readonly\" style=\"border: none;color: blue;text-decoration: underline;cursor: pointer;\"       "
+//                         "  value=\"sin seleccionar\" ></input>")
+//                .arg(_caption);
+//        result += QString("<input type=\"file\" name=\"%1\" id=\"%1\"    "
+//                         " size=\"55\" "
+//                          " %2 "
+//                         "    >\n"
+//                         "  </input>")
+//                .arg(_caption)
+//                .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc));
 
 
     }
