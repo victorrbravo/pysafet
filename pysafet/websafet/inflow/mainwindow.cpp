@@ -1231,9 +1231,12 @@ QString MainWindow::generateFormHead(const QString& o) {
         SYD << tr("generateFormHead: ....keymodifyfield: |%1|")
                .arg(keymodifyfield);
 
+        QString mydirmedia = SafetYAWL::getConf()["GeneralOptions/dir.media"];
+
+        QString myid = keymodifyfield;
+        myid.replace(" ","_");
 
          QString newresult =  QString(""
-
 
 
                           "$(\"#%2\").change(\n"
@@ -1248,7 +1251,7 @@ QString MainWindow::generateFormHead(const QString& o) {
                           "   formkey: document.forms[0].elements[1].value},\n"
                           " function(data)"
                           " {\n"
-                          "  console.log(\"data:\"+data);\n"
+                          "  console.log(\"*data: \"+data);\n"
                           "  mylist = data.split(\"<SAFETSEPARATOR/>\");\n"
                           "  htmlsep = false;\n"
                           "  if (mylist.length < 2) {\n"
@@ -1259,10 +1262,14 @@ QString MainWindow::generateFormHead(const QString& o) {
                           "       myname  = \"\";\n"
                           "       myvalue = \"\"; \n"
                           "       myname = mylist[i].substr(0,mylist[i].indexOf(\":\"));\n"
+                          "       console.log(\"myname(*):\" + myname);\n"
+
                           "       if (myname.length == 0 ) {\n"
                           "               continue;\n"
                           "       }\n"
                           "       myvalue = mylist[i].substr(mylist[i].indexOf(\":\")+1);\n"
+                          "       console.log(\"myvalue(*):\" + myvalue);\n"
+
                           "       j= 0;\n"
                           "       for(j=0; j<myname.length;j++){\n"
                           "               if ( (myname.charCodeAt(j)!=32) && (myname.charCodeAt(j)!=13) && (myname.charCodeAt(j)!= 10) ) {\n"
@@ -1270,6 +1277,8 @@ QString MainWindow::generateFormHead(const QString& o) {
                           "               }\n"
                           "       }\n"
                           "       myname = myname.substr(j);\n"
+                          "       console.log(\"myname(j):\" + myname);\n"
+
                           "       j=myvalue.length-1;\n"
                           "       lastpos = myvalue.length;\n"
                           "       for(j=myvalue.length-1;j>0;j--){\n"
@@ -1279,15 +1288,25 @@ QString MainWindow::generateFormHead(const QString& o) {
                           "               lastpos = lastpos -1;\n"
                           "       }\n"
                           "       myvalue = myvalue.substr(0,lastpos);\n"
-                          "       if (myname == \"Mostrar_tabla\") {\n"
+                          "       console.log(\"*myvalue(j):\" + myvalue);\n"
+                          "       if (myvalue.indexOf(\"%4\") != -1)  {                             \n"
+                          "          mynewpreview = \"vistaPrevia\" + myname; \n"
+                          "          console.log(\"preview:\" + mynewpreview);  \n    "
+                          "          $(\"#\" + mynewpreview).attr(\"src\",myvalue);\n"
+                          "         \n"
+                          "       } else if (myname == \"Mostrar_tabla\") {\n"
                                       "safetjson.tasks = eval(myvalue);\n"
                                       "  oTable.fnDestroy();\n"
                                       "safetproccessData();\n"
-                              "       } else if (document.getElementById(myname)) {\n"
+                          "       } else if (document.getElementById(myname)) {\n"
+                                      "       console.log(\"getelement!\");\n"
                           "          if (htmlsep == true ) {\n"
                           "               $(\"#\"+myname).html(myvalue);\n"
                           "               if ( $(\"#\"+myname).is(\"input\") ) {\n "
-                          "                  document.getElementById(myname).value = myvalue; \n   "
+                          "                 document.getElementById(myname).value = myvalue; \n   "
+                          "                 console.log(\"myname(1):\" + myname);\n"
+                          "                 console.log(\"myvalue(1):\" + myvalue);\n"
+
                           "               }                                     \n "
                           "               else {                                 \n"
                           "                  console.log(\"PUTTING myname:\"+myname); \n"
@@ -1296,17 +1315,28 @@ QString MainWindow::generateFormHead(const QString& o) {
                           "                  console.log(\"putting myvalue:\"+myname); \n"
                           "               }                                      \n"
                           "          } else {"
-                          "               document.getElementById(myname).value = myvalue;\n"
+                                      "       console.log(\"getelement(5)!\");\n"
+
+                          "                  document.getElementById(myname).value = myvalue;\n"
+                          "                 console.log(\"myname(2):\" + myname);\n"
+                          "                 console.log(\"myvalue(2):\" + myvalue);\n"
+
                           "          }\n"
-                          "      }\n"
+                          "      } else {\n"
+                          "       console.log(\"no document!(1)\");\n"
+                                "}\n"
+                          "       console.log(\"no document!(2)\");\n"
+
                           "  }\n"
-                            "   $(\"#divForLoading\").hide();\n"
+                          "   $(\"#divForLoading\").hide();\n"
 
                           " });\n"
                           "});\n")
                 .arg(hostURL())
                 .arg(keymodifyfield)
-                 .arg(modname);
+                 .arg(modname)
+                 .arg(mydirmedia)
+                 .arg(myid);
 
 
 

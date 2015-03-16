@@ -85,24 +85,29 @@ QString CmdWidget::html() {
 
 
 
+        QString myid = _caption;
+
+        myid.replace(" ","_");
+
         result +=
                    QString(""
                            "<div class=\"form-group\" >\n"
                            "<div class=\"content-img\">"
                                            "<div class=\"load-img-profile\">"
-                                               "<img src=\"\" id=\"vistaPreviaLogo\"/>"
-                                               "<div class=\"img-content-loader\" data-preview=\"vistaPreviaLogo\" >"
+                                               "<img src=\"\" id=\"vistaPrevia%2\"/>"
+                                               "<div class=\"img-content-loader\" data-preview=\"vistaPrevia%2\" >"
                                                "<button class=\"btn btn-shoppr\" ><i class=\"fa fa-plus\"></i></button>"
                                                "<input id=\"%1\" name=\"%1\" type=\"file\" /></div>"
                                            "</div>"
                                             "<div class=\"progress\">\n"
                                            "<div class=\"progress-bar\" id=\"progress-bar\" role=\"progressbar\"></div>"
                                               "</div>\n"
-                                           "<div class=\"btn btn-primary btn-file-load full-width\" data-preview=\"vistaPreviaLogo\" ><span>Cargar foto</span><input id=\"%1\" name=\"%1\" type=\"file\" /></div>"
+                                           "<div class=\"btn btn-primary btn-file-load full-width\" data-preview=\"vistaPrevia%2\" ><span>Cargar foto</span><input id=\"%1\" name=\"%1\" type=\"file\" /></div>"
                                        "</div>\n"
                            "</div>\n"
                            )
-                   .arg(_caption);
+                   .arg(_caption)
+                   .arg(myid);
 //                   .arg(_typeinput)
 //                   .arg(readonly)
 //                   .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc));
