@@ -169,7 +169,12 @@ void TextEditWidget::insertAndClose() {
 }
 QString TextEditWidget::html() {
     QString result;
-    result = QString("<textarea name=\"%1\" id=\"%1\" COLS=45 ROWS=5></textarea>")
+    result =
+       QString(""
+                 "<div class=\"form-group\" >\n"
+                 "<textarea name=\"%1\" id=\"%1\" COLS=45 ROWS=5></textarea>\n"
+               "</div>\n"
+               )
             .arg(caption());
 
     return result;
