@@ -1790,7 +1790,7 @@ QString MainWindow::menuForm(const QString& o, bool forwidget, const QString& fi
                       "type=\"hidden\" value=\"%1\"/>\n<br/>")
             .arg(cmd);
 
-    result += "<table id=\"safettable\" name=\"safettable\" style=\"\">\n";
+//    result += "<table id=\"safettable\" name=\"safettable\" style=\"\">\n";
 
 
 
@@ -1844,17 +1844,22 @@ QString MainWindow::menuForm(const QString& o, bool forwidget, const QString& fi
 
         if (QString(mywidget->metaObject()->className()) != "OutputWidget" &&  mytype != "type=button") {
             SYD << tr("........MainWindow::menuForm..Yes");
-          newitem = QString("<tr id='%3'><td>%1</td><td>%2</td></tr>\n")
-                  .arg(convertOpToTitle(f))
-                  .arg(mywidget->html())
-                  .arg("safetDiv"+trimfield);
+//          newitem = QString("<tr id='%3'><td>%1</td><td>%2</td></tr>\n")
+//                  .arg(convertOpToTitle(f))
+//                  .arg(mywidget->html())
+//                  .arg("safetDiv"+trimfield);
+
+            newitem = QString("%1\n")
+//                    .arg(convertOpToTitle(f))
+                    .arg(mywidget->html());
         }
         else {
             SYD << tr("........MainWindow::menuForm..No");
-            newitem = QString("<tr id='%2' ><td colspan=\"2\">%1</td></tr>\n")
-                    .arg(mywidget->html())
-                    .arg("safetDiv"+trimfield);
-
+//            newitem = QString("<tr id='%2' ><td colspan=\"2\">%1</td></tr>\n")
+//                    .arg(mywidget->html())
+//                    .arg("safetDiv"+trimfield);
+            newitem = QString("%1\n")
+                    .arg(mywidget->html());
         }
 
 
@@ -1862,7 +1867,7 @@ QString MainWindow::menuForm(const QString& o, bool forwidget, const QString& fi
 
 
     }
-    result += QString("<tr> <td></td><td></td>  </tr>\n</table>\n");
+  //  result += QString("<tr> <td></td><td></td>  </tr>\n</table>\n");
 
     result += QString("<span id=\"safetspan\" name=\"safetspan\"></span> \n");
 

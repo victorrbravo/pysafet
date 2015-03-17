@@ -1186,6 +1186,14 @@ QString ComboWidget::html() {
     QString result;
 
     QStringList myenables;
+    QStringList positions;
+    QString myposition = "";
+    if (conf().contains("position")) {
+         myposition = conf()["position"].toString();
+        positions = myposition.split(",",QString::SkipEmptyParts);
+    }
+    setPosition(myposition);
+
 
     if (conf().contains("enablethis")) {
             myenables = conf()["enablethis"].toString().split(",");
@@ -1208,8 +1216,54 @@ QString ComboWidget::html() {
     }
 
     QString mypreffix = caption().left(4);
-    result +=  "<div class=\"form-group\" >\n";
-    result += QString("<select name=\"%1\" id=\"%1\" class=\"combobox input-large\"")
+
+    int posaction = 0;
+    QString poscol = "md-4";
+    bool removelabel = false;
+    bool hasposition = false;
+
+    foreach(QString p, positions) {
+        hasposition = true;
+        if (p == "open") {
+            posaction = 1;
+        }
+        else if (p == "close") {
+            posaction = 2;
+        }
+        else if (p == "open_and_close") {
+            posaction = 3;
+
+        }
+        else if (p.startsWith("removelabel")) {
+                removelabel = true;
+        }
+        else if (p.startsWith("md")) {
+            poscol = p;
+        }
+    }
+
+
+    if (hasposition) {
+
+        if ( posaction == 1 || posaction ==  3 ) {
+            result += "\n<br/>\n";
+            result += "\n<div class=\"row clearfix\">\n";
+        }
+
+         result += QString("<div class=\"col-%1 column\">\n%2\n")
+                 .arg(poscol)
+                 .arg((removelabel?"":QString("<label for=\"%1\" class=\"col-md-3 control-label\">%1</label>\n").arg(_caption)));
+
+
+    }
+    else {
+        result +=  "<div class=\"form-group\" >\n";
+        result += QString("%1\n")
+                .arg((removelabel?"":QString("<label for=\"%1\" class=\"col-md-3 control-label\">%1</label>\n").arg(_caption)));
+    }
+
+
+    result += QString("<select name=\"%1\" id=\"%1\" class=\"selectpicker\"  ")
             .arg(caption());
 
 
@@ -1244,7 +1298,15 @@ QString ComboWidget::html() {
 
     result += QLatin1String("</select>");
 
+
+
     result += QLatin1String("</div>");
+
+    if (hasposition) {
+        if ( posaction == 2 || posaction ==  3 ) {
+            result += "\n</div>\n";
+        }
+    }
 
     if (isenables ) {
 

@@ -906,6 +906,12 @@ CmdWidget* DomModel::selWidgetFromField(const QString& command, const QString& f
                     myconf.insert("enablethis", attribute.nodeValue().simplified());
                }
 
+               attribute = attributeMap.namedItem("position");
+               if ( !attribute.isNull() ) {
+                    myconf.insert("position", attribute.nodeValue().simplified());
+               }
+
+
                if ( !form.isEmpty() ) {
                 myconf.insert("formstring", form);
                }
