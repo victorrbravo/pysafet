@@ -469,6 +469,7 @@ QList<QPair<QString,QString> > SafetTextParser::getFieldsValues(const QDomElemen
         QString titleString;
         if ( !titleNode.isNull() ) {
             titleString = titleNode.nodeValue().simplified();
+
             titles.insert(namefield, titleString);
         }
 
@@ -583,7 +584,7 @@ QList<QPair<QString,QString> > SafetTextParser::getFieldsValues(const QDomElemen
         if (attrs.namedItem("changekey").nodeValue().length() > 0 ) {
             QString infieldname;
             if (!titleString.isEmpty()) {
-                infieldname = titleString;
+                infieldname = titleString;                
             }
             else {
                 infieldname = e.firstChild().nodeValue().trimmed();
@@ -595,6 +596,8 @@ QList<QPair<QString,QString> > SafetTextParser::getFieldsValues(const QDomElemen
             if (!einput.isNull() ) {
                 QString key = einput.firstChild().nodeValue().trimmed();
                 QString newfield = infieldname+":"+key;
+                SYD << tr(".........SafetTextParser::getFieldsValues..EXTRACTKEY_NEWFIELD...newfield:|%1|")
+                       .arg(newfield);
                 if (!fieldkeysvalues.isEmpty()) {
                     fieldkeysvalues += ",";
                 }
