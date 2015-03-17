@@ -1263,7 +1263,7 @@ QString ComboWidget::html() {
     }
 
 
-    result += QString("<select name=\"%1\" id=\"%1\" class=\"selectpicker\"  ")
+    result += QString("<select name=\"%1\" id=\"%1\" class=\"form-control\"  ")
             .arg(caption());
 
 
