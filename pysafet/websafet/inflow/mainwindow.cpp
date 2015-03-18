@@ -1155,20 +1155,20 @@ QString MainWindow::generateFormHead(const QString& o) {
     result = result + QString("\n");
 
     result += QString("\n"
-	     "<script src=\"%1/jquery-latest.js\"></script>\n"
+    //     "<script src=\"%1/jquery-latest.js\"></script>\n"
   //          "<link type=\"text/css\" href=\"%1/css/ui-lightness/jquery-ui-1.8.8.custom.css\" rel=\"Stylesheet\" />\n"
-            "<script src=\"%1/js/jquery.ui.custom.js\"></script>\n"
-            "<script src=\"%1/jquery.jec-1.3.1.js\"></script>\n"
+  //          "<script src=\"%1/js/jquery.ui.custom.js\"></script>\n"
+    //        "<script src=\"%1/jquery.jec-1.3.1.js\"></script>\n"
             "<script src=\"%1/development-bundle/ui/i18n/jquery.ui.datepicker-es.js\"></script>\n"
-           "<script type=\"text/javascript\" language=\"javascript\" src=\"../media/js/DataTables/media/js/jquery.dataTables.js\"></script>\n"
+      //     "<script type=\"text/javascript\" language=\"javascript\" src=\"../media/js/DataTables/media/js/jquery.dataTables.js\"></script>\n"
 
                      //*** Con Jqwidgets
 
 //            "    <link rel=\"stylesheet\" href=\"../media/jqwidgets/jqwidgets/styles/jqx.base.css\" type=\"text/css\" />\n"
-            "    <script type=\"text/javascript\" src=\"../media/jqwidgets/scripts/gettheme.js\"></script>\n"
-            "    <script type=\"text/javascript\" src=\"../media/jqwidgets/jqwidgets/jqxcore.js\"></script>\n"
-            "    <script type=\"text/javascript\" src=\"../media/jqwidgets/jqwidgets/jqxnumberinput.js\"></script>\n"
-            "    <script type=\"text/javascript\" src=\"../media/jqwidgets/jqwidgets/jqxbuttons.js\"></script>\n"
+  //          "    <script type=\"text/javascript\" src=\"../media/jqwidgets/scripts/gettheme.js\"></script>\n"
+//            "    <script type=\"text/javascript\" src=\"../media/jqwidgets/jqwidgets/jqxcore.js\"></script>\n"
+//            "    <script type=\"text/javascript\" src=\"../media/jqwidgets/jqwidgets/jqxnumberinput.js\"></script>\n"
+//            "    <script type=\"text/javascript\" src=\"../media/jqwidgets/jqwidgets/jqxbuttons.js\"></script>\n"
 )
 
 //            .arg(hostMediaPath());
@@ -1496,8 +1496,11 @@ QString MainWindow::generateModifyHTML(const QString& operation, const QString& 
                       .arg(result);
     }
     else if (  (operation == "modificar_usuario" && fieldname == "Estado")
-               || (operation == "modificar_usuario" && (fieldname == "País" || fieldname == "Pais")) ) {
+               || (operation == "modificar_usuario" && (fieldname == "País" || fieldname == "Pais"))
+               || operation == "agregar_publicación"
+               || (operation == "modificar_publicación" && fieldname == "Categoría") ) {
 
+        SYD << tr("......MainWindow::generateModifyHTML.EVALUATING...ADD_PUBLICATION");
 
         SYD << tr("......MainWindow::generateModifyHTML.EVALUATING: ....KEY:|%1|")
                .arg(key);
@@ -1872,6 +1875,7 @@ QString MainWindow::menuForm(const QString& o, bool forwidget, const QString& fi
     result += QString("<span id=\"safetspan\" name=\"safetspan\"></span> \n");
 
 
+    result += QString("<br/>\n");
     result += QString("<table><tr><td></td><td>"
                       "<div class=\"button\">"
                       "<button type=\"submit\" class=\"btn btn-primary\" id=\"safetsubmit\" name=\"safetsubmit\">"

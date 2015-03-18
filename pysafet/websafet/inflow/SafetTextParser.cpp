@@ -1372,8 +1372,8 @@ QPair<QString,QString> SafetTextParser::buildFields(const QDomElement& ecommand,
                                     SafetYAWL::streamlog
                                             << SafetLog::Error
                                             << tr("ERROR DE VALIDACIÓN:"
-                                                  "No ha ingresado el (los) campo(s) "
-                                                  "\"<b>%1</b>\" (obligatorio)").arg(leftfield);
+                                                  "No ha ingresado el valor de "
+                                                  "\"%1\" (obligatorio)").arg(leftfield);
 
 
                                 return fieldsnullpair;
