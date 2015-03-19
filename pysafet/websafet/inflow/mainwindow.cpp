@@ -1154,27 +1154,24 @@ QString MainWindow::generateFormHead(const QString& o) {
 
     result = result + QString("\n");
 
-    result += QString("\n"
-    //     "<script src=\"%1/jquery-latest.js\"></script>\n"
-  //          "<link type=\"text/css\" href=\"%1/css/ui-lightness/jquery-ui-1.8.8.custom.css\" rel=\"Stylesheet\" />\n"
-  //          "<script src=\"%1/js/jquery.ui.custom.js\"></script>\n"
-    //        "<script src=\"%1/jquery.jec-1.3.1.js\"></script>\n"
+/*      result += QString("\n"
+        "<script src=\"%1/jquery-latest.js\"></script>\n"
+            "<link type=\"text/css\" href=\"%1/css/ui-lightness/jquery-ui-1.8.8.custom.css\" rel=\"Stylesheet\" />\n"
+            "<script src=\"%1/js/jquery.ui.custom.js\"></script>\n"
+            "<script src=\"%1/jquery.jec-1.3.1.js\"></script>\n"
             "<script src=\"%1/development-bundle/ui/i18n/jquery.ui.datepicker-es.js\"></script>\n"
-      //     "<script type=\"text/javascript\" language=\"javascript\" src=\"../media/js/DataTables/media/js/jquery.dataTables.js\"></script>\n"
-
+           "<script type=\"text/javascript\" language=\"javascript\" src=\"../media/js/DataTables/media/js/jquery.dataTables.js\"></script>\n"
                      //*** Con Jqwidgets
-
-//            "    <link rel=\"stylesheet\" href=\"../media/jqwidgets/jqwidgets/styles/jqx.base.css\" type=\"text/css\" />\n"
-  //          "    <script type=\"text/javascript\" src=\"../media/jqwidgets/scripts/gettheme.js\"></script>\n"
-//            "    <script type=\"text/javascript\" src=\"../media/jqwidgets/jqwidgets/jqxcore.js\"></script>\n"
-//            "    <script type=\"text/javascript\" src=\"../media/jqwidgets/jqwidgets/jqxnumberinput.js\"></script>\n"
-//            "    <script type=\"text/javascript\" src=\"../media/jqwidgets/jqwidgets/jqxbuttons.js\"></script>\n"
+            "    <link rel=\"stylesheet\" href=\"../media/jqwidgets/jqwidgets/styles/jqx.base.css\" type=\"text/css\" />\n"
+          "    <script type=\"text/javascript\" src=\"../media/jqwidgets/scripts/gettheme.js\"></script>\n"
+            "    <script type=\"text/javascript\" src=\"../media/jqwidgets/jqwidgets/jqxcore.js\"></script>\n"
+            "    <script type=\"text/javascript\" src=\"../media/jqwidgets/jqwidgets/jqxnumberinput.js\"></script>\n"
+            "    <script type=\"text/javascript\" src=\"../media/jqwidgets/jqwidgets/jqxbuttons.js\"></script>\n"
 )
-
-//            .arg(hostMediaPath());
+            .arg(hostMediaPath());
             .arg("../media");
 
-
+*/
 
     if (keymodifyfields.count() > 0 ) {
     result += QString(
@@ -1237,7 +1234,6 @@ QString MainWindow::generateFormHead(const QString& o) {
         myid.replace(" ","_");
 
          QString newresult =  QString(""
-
 
                           "$(\"#%2\").change(\n"
                           "function() "
@@ -1332,11 +1328,12 @@ QString MainWindow::generateFormHead(const QString& o) {
 
                           " });\n"
                           "});\n")
-                .arg(hostURL())
+                 .arg(hostURL())
                 .arg(keymodifyfield)
                  .arg(modname)
-                 .arg(mydirmedia)
-                 .arg(myid);
+                 .arg(mydirmedia);
+                 //.arg(myid);
+
 
 
 
