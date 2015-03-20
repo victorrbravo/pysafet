@@ -1154,27 +1154,24 @@ QString MainWindow::generateFormHead(const QString& o) {
 
     result = result + QString("\n");
 
-    result += QString("\n"
-	     "<script src=\"%1/jquery-latest.js\"></script>\n"
-  //          "<link type=\"text/css\" href=\"%1/css/ui-lightness/jquery-ui-1.8.8.custom.css\" rel=\"Stylesheet\" />\n"
+/*      result += QString("\n"
+        "<script src=\"%1/jquery-latest.js\"></script>\n"
+            "<link type=\"text/css\" href=\"%1/css/ui-lightness/jquery-ui-1.8.8.custom.css\" rel=\"Stylesheet\" />\n"
             "<script src=\"%1/js/jquery.ui.custom.js\"></script>\n"
             "<script src=\"%1/jquery.jec-1.3.1.js\"></script>\n"
             "<script src=\"%1/development-bundle/ui/i18n/jquery.ui.datepicker-es.js\"></script>\n"
            "<script type=\"text/javascript\" language=\"javascript\" src=\"../media/js/DataTables/media/js/jquery.dataTables.js\"></script>\n"
-
                      //*** Con Jqwidgets
-
-//            "    <link rel=\"stylesheet\" href=\"../media/jqwidgets/jqwidgets/styles/jqx.base.css\" type=\"text/css\" />\n"
-            "    <script type=\"text/javascript\" src=\"../media/jqwidgets/scripts/gettheme.js\"></script>\n"
+            "    <link rel=\"stylesheet\" href=\"../media/jqwidgets/jqwidgets/styles/jqx.base.css\" type=\"text/css\" />\n"
+          "    <script type=\"text/javascript\" src=\"../media/jqwidgets/scripts/gettheme.js\"></script>\n"
             "    <script type=\"text/javascript\" src=\"../media/jqwidgets/jqwidgets/jqxcore.js\"></script>\n"
             "    <script type=\"text/javascript\" src=\"../media/jqwidgets/jqwidgets/jqxnumberinput.js\"></script>\n"
             "    <script type=\"text/javascript\" src=\"../media/jqwidgets/jqwidgets/jqxbuttons.js\"></script>\n"
 )
-
-//            .arg(hostMediaPath());
+            .arg(hostMediaPath());
             .arg("../media");
 
-
+*/
 
     if (keymodifyfields.count() > 0 ) {
     result += QString(
@@ -1237,7 +1234,6 @@ QString MainWindow::generateFormHead(const QString& o) {
         myid.replace(" ","_");
 
          QString newresult =  QString(""
-
 
                           "$(\"#%2\").change(\n"
                           "function() "
@@ -1332,11 +1328,12 @@ QString MainWindow::generateFormHead(const QString& o) {
 
                           " });\n"
                           "});\n")
-                .arg(hostURL())
+                 .arg(hostURL())
                 .arg(keymodifyfield)
                  .arg(modname)
-                 .arg(mydirmedia)
-                 .arg(myid);
+                 .arg(mydirmedia);
+                 //.arg(myid);
+
 
 
 
@@ -1496,8 +1493,11 @@ QString MainWindow::generateModifyHTML(const QString& operation, const QString& 
                       .arg(result);
     }
     else if (  (operation == "modificar_usuario" && fieldname == "Estado")
-               || (operation == "modificar_usuario" && (fieldname == "País" || fieldname == "Pais")) ) {
+               || (operation == "modificar_usuario" && (fieldname == "País" || fieldname == "Pais"))
+               || operation == "agregar_publicación"
+               || (operation == "modificar_publicación" && fieldname == "Categoría") ) {
 
+        SYD << tr("......MainWindow::generateModifyHTML.EVALUATING...ADD_PUBLICATION");
 
         SYD << tr("......MainWindow::generateModifyHTML.EVALUATING: ....KEY:|%1|")
                .arg(key);
@@ -1790,7 +1790,7 @@ QString MainWindow::menuForm(const QString& o, bool forwidget, const QString& fi
                       "type=\"hidden\" value=\"%1\"/>\n<br/>")
             .arg(cmd);
 
-    result += "<table id=\"safettable\" name=\"safettable\" style=\"\">\n";
+//    result += "<table id=\"safettable\" name=\"safettable\" style=\"\">\n";
 
 
 
@@ -1844,17 +1844,22 @@ QString MainWindow::menuForm(const QString& o, bool forwidget, const QString& fi
 
         if (QString(mywidget->metaObject()->className()) != "OutputWidget" &&  mytype != "type=button") {
             SYD << tr("........MainWindow::menuForm..Yes");
-          newitem = QString("<tr id='%3'><td>%1</td><td>%2</td></tr>\n")
-                  .arg(convertOpToTitle(f))
-                  .arg(mywidget->html())
-                  .arg("safetDiv"+trimfield);
+//          newitem = QString("<tr id='%3'><td>%1</td><td>%2</td></tr>\n")
+//                  .arg(convertOpToTitle(f))
+//                  .arg(mywidget->html())
+//                  .arg("safetDiv"+trimfield);
+
+            newitem = QString("%1\n")
+//                    .arg(convertOpToTitle(f))
+                    .arg(mywidget->html());
         }
         else {
             SYD << tr("........MainWindow::menuForm..No");
-            newitem = QString("<tr id='%2' ><td colspan=\"2\">%1</td></tr>\n")
-                    .arg(mywidget->html())
-                    .arg("safetDiv"+trimfield);
-
+//            newitem = QString("<tr id='%2' ><td colspan=\"2\">%1</td></tr>\n")
+//                    .arg(mywidget->html())
+//                    .arg("safetDiv"+trimfield);
+            newitem = QString("%1\n")
+                    .arg(mywidget->html());
         }
 
 
@@ -1862,11 +1867,12 @@ QString MainWindow::menuForm(const QString& o, bool forwidget, const QString& fi
 
 
     }
-    result += QString("<tr> <td></td><td></td>  </tr>\n</table>\n");
+  //  result += QString("<tr> <td></td><td></td>  </tr>\n</table>\n");
 
     result += QString("<span id=\"safetspan\" name=\"safetspan\"></span> \n");
 
 
+    result += QString("<br/>\n");
     result += QString("<table><tr><td></td><td>"
                       "<div class=\"button\">"
                       "<button type=\"submit\" class=\"btn btn-primary\" id=\"safetsubmit\" name=\"safetsubmit\">"

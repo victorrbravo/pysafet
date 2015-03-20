@@ -169,13 +169,54 @@ void TextEditWidget::insertAndClose() {
 }
 QString TextEditWidget::html() {
     QString result;
+    QString mydesc;
+
+    if (conf().contains("desc")) {
+        mydesc = conf()["desc"].toString();
+    }
+
+    QString myposition = "";
+    QStringList positions;
+
+    if (conf().contains("position")) {
+         myposition = conf()["position"].toString();
+            positions = myposition.split(",",QString::SkipEmptyParts);
+    }
+    setPosition(myposition);
+
+    bool removelabel = false;
+
+    foreach(QString p, positions) {
+        if (p == "removelabel") {
+            removelabel = true;
+        }
+    }
+
     result =
        QString(""
+
                  "<div class=\"form-group\" >\n"
-                 "<textarea name=\"%1\" id=\"%1\" COLS=45 ROWS=5></textarea>\n"
+                         "%3\n"
+                        "<textarea name=\"%1\" id=\"%1\" rows=\"3\" class=\"form-control\" %2 ></textarea>\n"
+               "<span id=\"count%1\"  name=\"count%1\"></span>"
+              // "<span class=\"glyphicon glyphicon-picture form-control-feedback\" aria-hidden=\"true\"></span>"
                "</div>\n"
                )
+            .arg(caption())
+            .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc))
+            .arg((removelabel?"":QString("<label for=\"%1\" class=\"col-md-2 control-label\">%1</label>\n").arg(caption())) );
+
+      result += QString(""
+                      "<script>"
+                      "$(\"#%1\").keyup(function(){\n"
+                         "myleft = 140-$(this).val().length;\n"
+                         "mytext = " "+myleft;\n"
+                        "$(\"#count%1\").html(mytext);\n"
+                         "});"
+                      "</script>"
+                      )
             .arg(caption());
+
 
     return result;
 }

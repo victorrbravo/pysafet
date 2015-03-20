@@ -53,6 +53,16 @@ QString CmdWidget::html() {
     QString fieldsaction;
     QStringList options = conf()["options"].toString().split(",");
 
+    QStringList positions;
+    QString myposition = "";
+    if (conf().contains("position")) {
+         myposition = conf()["position"].toString();
+        positions = myposition.split(",",QString::SkipEmptyParts);
+    }
+    setPosition(myposition);
+
+
+
     SYD << tr(".................CmdWidget::html.............CMDOPTIONS.........options:|%1|")
            .arg(conf()["options"].toString());
     if (conf().contains("desc")) {
@@ -85,11 +95,74 @@ QString CmdWidget::html() {
 
 
 
+        SYD << tr("................CmdWidget::html().......CMDWIDGET_POSITION:|%1|:|%2|")
+               .arg(caption())
+               .arg(position());
+
         QString myid = _caption;
 
         myid.replace(" ","_");
 
-        result +=
+
+        if ( positions.count()  > 0  ) {
+
+            SYD << tr("................CmdWidget::html().......*CMDWIDGET_POSITION:|%1|:|%2|")
+                   .arg(caption())
+                   .arg(position());
+
+
+            int posaction = 0;
+            QString poscol = "md-4";
+            foreach(QString p, positions) {
+                if (p == "open") {
+                    posaction = 1;
+                }
+                else if (p == "close") {
+                    posaction = 2;
+                }
+                else if (p.startsWith("md")) {
+                    poscol = p;
+                }
+            }
+
+            SYD << tr("GET_POSITIONS...posaction:|%1|").arg(posaction);
+            SYD << tr("GET_POSITIONS...poscol:|%1|").arg(poscol);
+
+            if (posaction == 1) {
+                result += "\n<div class=\"row clearfix\">\n";
+            }
+
+            result += QString(""
+                       "\n<div class=\"col-%3 column \">\n"
+                              "<div class=\"content-img\">"
+                                              "<div class=\"load-img-profile\">"
+                                                  "<img src=\"\" id=\"vistaPrevia%2\"/>"
+                                                  "<div class=\"img-content-loader\" data-preview=\"vistaPrevia%2\" >"
+                                                  "<button class=\"btn btn-shoppr\" ><i class=\"fa fa-plus\"></i></button>"
+                                                  "<input id=\"%1\" name=\"%1\" type=\"file\" /></div>"
+                                              "</div>"
+                                               "<div class=\"progress\">\n"
+                                              "<div class=\"progress-bar\" id=\"progress-bar\" role=\"progressbar\"></div>"
+                                                 "</div>\n"
+                                              "<div class=\"btn btn-primary btn-file-load full-width\" data-preview=\"vistaPrevia%2\" ><span>Cargar foto</span><input id=\"%1\" name=\"%1\" type=\"file\" /></div>"
+                                   "</div>\n"
+
+                       "</div>\n")
+                    .arg(_caption)
+                    .arg(myid)
+                    .arg(poscol);
+
+            if (posaction == 2) {
+                result += "</div>\n";
+            }
+
+
+
+
+        } else {
+
+
+                    result +=
                    QString(""
                            "<div class=\"form-group\" >\n"
                            "<div class=\"content-img\">"
@@ -108,27 +181,7 @@ QString CmdWidget::html() {
                            )
                    .arg(_caption)
                    .arg(myid);
-//                   .arg(_typeinput)
-//                   .arg(readonly)
-//                   .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc));
-
-
-
-
-//        result += QString(
-//                          "<input type=\"text\" name=\"%1\" id=\"%1\"    "
-//                         "onClick=\"window.open(this.value)\" size=\"80\" "
-
-//                         " readonly=\"readonly\" style=\"border: none;color: blue;text-decoration: underline;cursor: pointer;\"       "
-//                         "  value=\"sin seleccionar\" ></input>")
-//                .arg(_caption);
-//        result += QString("<input type=\"file\" name=\"%1\" id=\"%1\"    "
-//                         " size=\"55\" "
-//                          " %2 "
-//                         "    >\n"
-//                         "  </input>")
-//                .arg(_caption)
-//                .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc));
+        }
 
 
     }
@@ -167,29 +220,78 @@ QString CmdWidget::html() {
 
     }
     else  {
-    
-     result +=
+
+        if ( positions.count()  > 0  ) {
+
+            SYD << tr("................CmdWidget::html().......*CMDWIDGET_POSITION:|%1|:|%2|")
+                   .arg(caption())
+                   .arg(position());
+
+
+            int posaction = 0;
+            QString poscol = "md-4";
+            bool removelabel = false;
+
+            foreach(QString p, positions) {
+                if (p == "open") {
+                    posaction = 1;
+                }
+                else if (p == "close") {
+                    posaction = 2;
+                }
+                else if (p == "open_and_close") {
+                    posaction = 3;
+
+                }
+                else if (p.startsWith("removelabel")) {
+                        removelabel = true;
+                }
+                else if (p.startsWith("md")) {
+                    poscol = p;
+                }
+            }
+
+            SYD << tr("GET_POSITIONS...posaction:|%1|").arg(posaction);
+            SYD << tr("GET_POSITIONS...poscol:|%1|").arg(poscol);
+
+
+
+                if (posaction == 1 || posaction == 3) {
+                    result += "\n<div class=\"row clearfix\">\n";
+                }
+
+                 result += QString(""
+                               "<div class=\"col-%4 column \">\n"
+                                "%5\n"
+                                "<input %2 class=\"form-control\" id=\"%1\" name=\"%1\" %3  >\n"
+                               "</div>\n")
+                            .arg(_caption)
+                            .arg(_typeinput)
+                            .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc))
+                            .arg(poscol)
+                            .arg((removelabel?"":QString("<label for=\"%1\" class=\"col-md-2 control-label\">%1</label>\n").arg(_caption)));
+
+
+                if (posaction == 2 || posaction ==  3) {
+                    result += "</div>\n";
+                }
+
+
+        } else {
+
+                result +=
                 QString(""
-                     // "<div class= \"col-md-3\">"
                           "<div class=\"form-group\" >"
-                          "<input %2 class=\"form-control\" id=\"%1\" name=\"%1\" %4  >"
+                          "<label for=\"%1\" class=\"col-md-1 control-label\">%1</label>"
+                          "<input %2 class=\"form-control\" id=\"%1\" name=\"%1\" %3  >"
                         "</div>"
-                      //"</div>"
                         )
                 .arg(_caption)
                 .arg(_typeinput)
-                .arg(readonly)
                 .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc));
 
+        }
 
-
-        /*result += QString("<input %2 name=\"%1\" alt=\"Esto es un campo tipo texto\" id=\"%1\""
-                          " %4 "
-                         "   size=\"55\"  %3></input>")
-                .arg(_caption)
-                .arg(_typeinput)
-                .arg(readonly)
-                .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc));*/
 
 
     }

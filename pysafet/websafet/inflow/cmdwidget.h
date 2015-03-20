@@ -49,6 +49,8 @@ protected:
 
     QStringList _changefor; // Campos para qlos cambia los datos del widget
 
+    QString _position;
+
 protected:
     QStringList _options;
     QString _usertooltip;
@@ -68,6 +70,10 @@ protected:
     //CmdWidget();
     void setCaption(const QString& c) { _caption = c;}
     QString caption() const { return _caption;}
+
+    void setPosition(const QString& p) { _position = p;}
+    QString position() const { return _position;}
+
     virtual void buildWidget();
     virtual void setFocus ( Qt::FocusReason);
     QString typeInput()  const;
