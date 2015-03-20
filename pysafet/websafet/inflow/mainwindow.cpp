@@ -1394,6 +1394,8 @@ QString MainWindow::generateFormHead(const QString& o) {
                 */
     }
 
+    result += " $('#id').val(6).change();\n";
+
     if (keymodifyfields.count() > 0 ) {
     	result += "});\n\n";
 	
