@@ -94,6 +94,8 @@ const QString RECURSIVEFILTERFLOW_NAMEFIELD = QObject::tr("Filtro_recursivo");
 const QString GRAPHSFILENAME = "graphs";
 const QString PLANNEDGRAPHSFILENAME = "plannedgraphs";
 
+const QString SEPARATOR = "<SAFETSEPARATOR/>";
+const QString SAFETFIRST = "safetfirst";
 const QString COLONMARK = "##SAFETCOLON##";
 const QString AMPMARK_ = "__SAFETAMP__";
 const QString COLONMARK_ = "__SAFETCOLON__";

@@ -1129,7 +1129,14 @@ void MainWindow::log(const QString& message) {
 
 
 QString MainWindow::generateFormHead(const QString& o) {
-    QString purl = o.section("/",-1);
+
+    QStringList actionslist = o.split(Safet::SEPARATOR,QString::SkipEmptyParts);
+    Q_ASSERT(actionslist.count()  > 0);
+
+    QString newo =  actionslist.at(0);
+    QString purl = newo.section("/",-1);
+
+
     QStringList purls = purl.split(":");
     if (purls.count() < 3) {
         SYE
@@ -1145,10 +1152,10 @@ QString MainWindow::generateFormHead(const QString& o) {
 
     //QString myflowname = "/home/vbravo/.safet/flowfiles/flujogeneralPorHitoYPropietario.xml";
     SYD << tr("generateFormHead: purl: %1")
-           .arg(o);
+           .arg(newo);
     QStringList  keymodifyfields = mymodel->fieldsWithAttr(purl);
     SYD << tr("generateFormHead: operacion: %1")
-           .arg(o);
+           .arg(newo);
 
     QString result = "";
 
@@ -1173,9 +1180,9 @@ QString MainWindow::generateFormHead(const QString& o) {
 
 */
 
+    QString myfirsfield = "";
     if (keymodifyfields.count() > 0 ) {
     result += QString(
-//		"<html><head>"
             ""		
 	    "\n" 	
             "<script>\n"
@@ -1187,7 +1194,8 @@ QString MainWindow::generateFormHead(const QString& o) {
                      "return result;\n"
            " }\n"
             );
-}
+            myfirsfield = keymodifyfields.at(0);
+        }
 
    QString firstkeymodifyfield;
     if (keymodifyfields.count() > 0 ) {
@@ -1394,7 +1402,19 @@ QString MainWindow::generateFormHead(const QString& o) {
                 */
     }
 
-    result += " $('#id').val(6).change();\n";
+    if (actionslist.count() > 1 ) {
+        QString myvalue = actionslist.at(1);
+                SYD << tr("........generateFormHead...firstvalue");
+
+                result += QString("\n"
+                        "myval = $('#%2 option%1').val();\n"
+                        "console.log('myval:' + myval);\n"
+                        "$('#id').val(myval).change();\n"
+                        )
+                        .arg(myvalue)
+                        .arg(myfirsfield);
+    }
+
 
     if (keymodifyfields.count() > 0 ) {
     	result += "});\n\n";
