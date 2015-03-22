@@ -50,6 +50,7 @@ protected:
     QStringList _changefor; // Campos para qlos cambia los datos del widget
 
     QString _position;
+    bool _mandatory;
 
 protected:
     QStringList _options;
@@ -73,6 +74,9 @@ protected:
 
     void setPosition(const QString& p) { _position = p;}
     QString position() const { return _position;}
+
+    void setMandatory(bool m) { _mandatory = m;}
+    bool mandatory() const { return _mandatory;}
 
     virtual void buildWidget();
     virtual void setFocus ( Qt::FocusReason);

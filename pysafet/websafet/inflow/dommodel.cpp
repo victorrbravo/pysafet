@@ -893,6 +893,13 @@ CmdWidget* DomModel::selWidgetFromField(const QString& command, const QString& f
                     myconf.insert("exclude", attribute.nodeValue().simplified());
                }
 
+               attribute = attributeMap.namedItem("mandatory");
+               if ( !attribute.isNull() ) {
+                    myconf.insert("mandatory", attribute.nodeValue().simplified());
+                    SYD  << tr("...field:|%1|....UMANDA:|%2|")
+                            .arg(field).arg(attribute.nodeValue().simplified());
+               }
+
 
                attribute = attributeMap.namedItem("changefor");
                if ( !attribute.isNull() ) {
@@ -967,11 +974,10 @@ CmdWidget* DomModel::selWidgetFromField(const QString& command, const QString& f
 
                     case String:
                         SYD << tr(".............DomModel::selWidgetFromField........CmdWidget()...");
-                         mywidget = new CmdWidget(field, parent);
-                         mywidget->setConf(myconf);
+                         mywidget = new CmdWidget(field, parent);                         
                          Q_CHECK_PTR( mywidget );
+                         mywidget->setConf(myconf);
                          mywidget->buildWidget();
-                     //    mywidget->setValidator( validator);
                          return mywidget;
                     case Suggest:
                           mywidget = new SuggestWidget(field, parent);
@@ -1075,11 +1081,6 @@ CmdWidget* DomModel::selWidgetFromField(const QString& command, const QString& f
                             mywidget = new ComboWidget(field,ComboWidget::ConffileSafet, parent);
                          }
                          else {
-                           //mywidget = new ListWidget(field,ListWidget::ConffileSafet, parent);
-//                           QRect myrect = mywidget->geometry();
-//                           myrect.setHeight(300);
-//                           mywidget->setGeometry(myrect);
-
                          }
 
                          mywidget->setConf(myconf);
@@ -1087,18 +1088,10 @@ CmdWidget* DomModel::selWidgetFromField(const QString& command, const QString& f
                          return mywidget;
                          break;
                      case ListTable:
-//                         mywidget = new ListWidget(field,ListWidget::ListTable, parent);
-//                         myrect = mywidget->geometry();
-//                         myrect.setHeight(300);
-//                         mywidget->setGeometry(myrect);
                          mywidget->setConf(myconf);
                          mywidget->buildWidget();
                          return mywidget;
                      case ListLiteral:
-//                         mywidget = new ListWidget(field,ListWidget::ListLiteral, parent);
-//                         myrect = mywidget->geometry();
-//                         myrect.setHeight(300);
-//                         mywidget->setGeometry(myrect);
                          mywidget->setConf(myconf);
                          mywidget->buildWidget();
                          qDebug("ListLiteral...mywidget->setConf(myconf)...(2)...");
@@ -1114,8 +1107,8 @@ CmdWidget* DomModel::selWidgetFromField(const QString& command, const QString& f
 
                          return mywidget;
                          break;
-                   case Unknown:
-			 return NULL;
+                        case Unknown:
+                          return NULL;
                         break;
                     }
                     break;

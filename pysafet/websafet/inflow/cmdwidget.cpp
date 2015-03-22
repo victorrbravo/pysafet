@@ -29,6 +29,7 @@ CmdWidget::CmdWidget(const QString& t, QObject *parent,bool istextparent)
 
     _caption = t;    
 
+    _mandatory = false;
     _validator = NULL;
     _ispassword = false;
     _typeinput = " type=\"text\" ";
@@ -52,6 +53,7 @@ QString CmdWidget::html() {
     QString curraction;
     QString fieldsaction;
     QStringList options = conf()["options"].toString().split(",");
+
 
     QStringList positions;
     QString myposition = "";
@@ -90,6 +92,17 @@ QString CmdWidget::html() {
             readonly = " readonly=\"readonly\" ";            
         }
     }
+
+    QString newcaption = caption();
+
+    if (mandatory()) {
+        newcaption += "<font color=\"red\">*</font>";
+        SYD << tr("...NEWCAPTION:|%1|")
+               .arg(newcaption);
+
+
+    }
+
     if (_typeinput == "type=file" && !readonly.isEmpty()) {
 
 
@@ -269,7 +282,7 @@ QString CmdWidget::html() {
                             .arg(_typeinput)
                             .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc))
                             .arg(poscol)
-                            .arg((removelabel?"":QString("<label for=\"%1\" class=\"col-md-2 control-label\">%1</label>\n").arg(_caption)));
+                            .arg((removelabel?"":QString("<label for=\"%1\" class=\"col-md-2 control-label\">%2</label>\n").arg(_caption).arg(newcaption)));
 
 
                 if (posaction == 2 || posaction ==  3) {
@@ -282,13 +295,14 @@ QString CmdWidget::html() {
                 result +=
                 QString(""
                           "<div class=\"form-group\" >"
-                          "<label for=\"%1\" class=\"col-md-1 control-label\">%1</label>"
+                          "<label for=\"%1\" class=\"col-md-1 control-label\">%4</label>"
                           "<input %2 class=\"form-control\" id=\"%1\" name=\"%1\" %3  >"
                         "</div>"
                         )
                 .arg(_caption)
                 .arg(_typeinput)
-                .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc));
+                .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc))
+                .arg(newcaption);
 
         }
 
@@ -330,7 +344,15 @@ void CmdWidget::setChangefor(const QString& c) {
 }
 
 void CmdWidget::buildWidget() {
-//     lineedit = new QLineEdit;
+
+    if (conf().contains("mandatory")) {
+        QString myvalue = conf()["mandatory"].toString();
+        setMandatory(myvalue.compare("yes") == 0);
+        SYD << tr("CmdWidget::html caption:|%2|...UISMANDATORY:|%1|").arg(myvalue)
+               .arg(caption());
+
+    }
+
 
 }
 

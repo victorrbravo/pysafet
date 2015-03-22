@@ -806,6 +806,7 @@ void ComboWidget::viewdoc() {
 
 void ComboWidget::buildWidget() {
 
+     CmdWidget::buildWidget();
     //FIXME: Chequear si es necesario
 
      updateCombo();
@@ -1215,6 +1216,28 @@ QString ComboWidget::html() {
 
     }
 
+    QString newcaption = caption();
+
+    if (mandatory()) {
+        newcaption += "<font color=\"red\">*</font>";
+        SYD << tr("...NEWCAPTION:|%1|")
+               .arg(newcaption);
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     QString mypreffix = caption().left(4);
 
     int posaction = 0;
@@ -1252,14 +1275,13 @@ QString ComboWidget::html() {
 
          result += QString("<div class=\"col-%1 column\">\n%2\n")
                  .arg(poscol)
-                 .arg((removelabel?"":QString("<label for=\"%1\" class=\"col-md-3 control-label\">%1</label>\n").arg(_caption)));
-
+                 .arg((removelabel?"":QString("<label for=\"%1\" class=\"col-md-3 control-label\">%2</label>\n").arg(_caption).arg(newcaption)));
 
     }
     else {
         result +=  "<div class=\"form-group\" >\n";
         result += QString("%1\n")
-                .arg((removelabel?"":QString("<label for=\"%1\" class=\"col-md-3 control-label\">%1</label>\n").arg(_caption)));
+                .arg((removelabel?"":QString("<label for=\"%1\" class=\"col-md-3 control-label\">%2</label>\n").arg(_caption).arg(newcaption)));
     }
 
 

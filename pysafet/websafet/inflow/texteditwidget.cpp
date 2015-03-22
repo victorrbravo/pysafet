@@ -37,124 +37,10 @@ void TextEditWidget::setText(const QString &newText) {
 
 
 void TextEditWidget::buildWikiWidget() {
-/*    if (!isWiki()){
-        return;
-    }
-    QGridLayout *gridLayout_2;
-    QGridLayout *gridLayout;
-    QHBoxLayout *horizontalLayout;
-    QSpacerItem *horizontalSpacer;
-    QTextEdit *textEdit;
-    QVBoxLayout *verticalLayout;
-    QSpacerItem *verticalSpacer;
 
-    gridLayout_2 = new QGridLayout(this);
-    gridLayout_2->setContentsMargins(0, 0, 0, 0);
-    gridLayout_2->setHorizontalSpacing(0);
-    gridLayout_2->setVerticalSpacing(0);
-    gridLayout = new QGridLayout();
-    gridLayout->setHorizontalSpacing(0);
-    gridLayout->setVerticalSpacing(0);
-
-    horizontalLayout = new QHBoxLayout();
-    horizontalLayout->setSpacing(0);
-    boldbutton = new QToolButton;
-
-    horizontalLayout->addWidget(boldbutton);
-
-    italicbutton = new QToolButton;
-
-    horizontalLayout->addWidget(italicbutton);
-
-    underbutton = new QToolButton;
-
-    horizontalLayout->addWidget(underbutton);
-
-
-    gridLayout->addLayout(horizontalLayout, 0, 0, 1, 1);
-
-    horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-    gridLayout->addItem(horizontalSpacer, 0, 1, 1, 1);
-
-    textedit = new QTextEdit();
-
-    connect(textedit, SIGNAL(currentCharFormatChanged(const QTextCharFormat &)),
-                this, SLOT(currentCharFormatChanged(const QTextCharFormat &)));
-
-    gridLayout->addWidget(textedit, 1, 0, 1, 2);
-
-
-    gridLayout_2->addLayout(gridLayout, 0, 0, 1, 1);
-
-    verticalLayout = new QVBoxLayout();
-    verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-    if ( isTextParent()) {
-        okbutton = new QToolButton(this);
-        verticalLayout->addWidget(okbutton);
-        quitbutton = new QToolButton;
-        verticalLayout->addWidget(quitbutton);
-    }
-
-    verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-    verticalLayout->addItem(verticalSpacer);
-
-
-    gridLayout_2->addLayout(verticalLayout, 0, 1, 1, 1);
-
-
-
-//    textedit = new QTextEdit();
-    textedit->setAcceptRichText(true);
-    textedit->setGeometry(0,0,170,250);
-//    QGridLayout *buttonLayout = new QGridLayout(this);
-
-
-    actionTextBold = new QAction(QIcon(":/textbold.png"), tr("&Negrita"), this);
-    actionTextBold->setShortcut(Qt::CTRL + Qt::Key_B);
-    actionTextBold->setCheckable(true);
-
-    actionTextItalic = new QAction(QIcon(":/textitalic.png"), tr("&Itálica"), this);
-    actionTextItalic->setShortcut(Qt::CTRL + Qt::Key_I);
-    actionTextItalic->setCheckable(true);
-
-    actionTextUnder = new QAction(QIcon(":/textunder.png"), tr("&Subrayado"), this);
-    actionTextUnder->setShortcut(Qt::CTRL + Qt::Key_U);
-    actionTextUnder->setCheckable(true);
-
-    //boldbutton->setIcon(QIcon(":/textbold.png"));
-    boldbutton->setDefaultAction(actionTextBold);
-    boldbutton->setMaximumSize(20,20);
-
-    italicbutton->setMaximumSize(20,20);
-    italicbutton->setDefaultAction(actionTextItalic);
-
-
-    underbutton->setMaximumSize(20,20);
-    underbutton->setDefaultAction(actionTextUnder);
-//    italicbutton  = new QToolButton;
-
-//    okbutton = new QToolButton;
-    if ( isTextParent()) {
-        okbutton->setIcon(QIcon(":/yes.png"));
-        okbutton->setMaximumSize(20,20);
-
-
-        quitbutton->setText( "X");
-        quitbutton->setMaximumSize(20,20);
-
-        connect(okbutton, SIGNAL(clicked()), _texteditparent, SLOT(insertAndClose()) );
-        connect(quitbutton, SIGNAL(clicked()), _texteditparent, SLOT(cancelAndClose()) );
-    }
-    //connect(boldbutton, SIGNAL(clicked()), this, SLOT(setBold()) );
-    connect(actionTextBold, SIGNAL(triggered()), this, SLOT(setBold()));
-    connect(actionTextItalic, SIGNAL(triggered()), this, SLOT(setItalic()));
-    connect(actionTextUnder, SIGNAL(triggered()), this, SLOT(setUnder()));
-    setLayout(gridLayout_2);
-//    setLayout(buttonLayout);
-*/
 }
+
+
 void TextEditWidget::insertAndClose() {
 /*    if ( _texteditparent ) {
         if ( textedit) {
@@ -192,6 +78,18 @@ QString TextEditWidget::html() {
         }
     }
 
+    QString newcaption = caption();
+
+    if (mandatory()) {
+        newcaption += "<font color=\"red\">*</font>";
+        SYD << tr("...NEWCAPTION:|%1|")
+               .arg(newcaption);
+
+
+    }
+
+
+
     result =
        QString(""
 
@@ -204,7 +102,7 @@ QString TextEditWidget::html() {
                )
             .arg(caption())
             .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc))
-            .arg((removelabel?"":QString("<label for=\"%1\" class=\"col-md-2 control-label\">%1</label>\n").arg(caption())) );
+            .arg((removelabel?"":QString("<label for=\"%1\" class=\"col-md-2 control-label\">%2</label>\n").arg(caption()).arg(newcaption)) );
 
       result += QString(""
                       "<script>"
@@ -400,43 +298,9 @@ void TextEditWidget::setUnder() {
 
 
 void TextEditWidget::buildWidget() {
-/*     //CmdWidget::buildWidget();
-     qDebug("...TextEditWidget...buildWidget...");
-     //mainLayout = new QHBoxLayout;
-     QStringList options = conf()["options"].toString().split(",");
-     if ( options.count() > 0 && options.at(0) == "wiki" ) {
-         _iswiki = true;
-         buildWikiWidget();
-         return;
-     }
-     mainLayout = NULL;
-     textedit = new QTextEdit();
-     textedit->setGeometry(0,0,170,250);
-     QString mytip = tr("Campo de Texto Largo. Escriba Ctrl+L para finalizar");
-     if ( conf().contains("validation")) {
-         QStringList mylist = conf()["validation"].toString().split("::");
-         if (mylist.count() > 1 ) {
-             QString usertip = mylist.at(1);
-             mytip = usertip;
-         }
-     }
-     _usertooltip = mytip;
-     textedit->setToolTip(mytip);
+    CmdWidget::buildWidget();
 
-     QGridLayout *buttonLayout = new QGridLayout(this);
-     okbutton = new QToolButton;
-     okbutton->setIcon(QIcon(":/yes.png"));
-     okbutton->setMaximumSize(20,20);
-     quitbutton = new QToolButton;
-     quitbutton->setText( "X");
-     quitbutton->setMaximumSize(20,20);
-     buttonLayout->addWidget(textedit,0,0,2,1,Qt::AlignJustify);
-     buttonLayout->addWidget(okbutton,0,1);
-     buttonLayout->addWidget(quitbutton,1,1);
-     connect(okbutton, SIGNAL(clicked()), _texteditparent, SLOT(insertAndClose()) );
-     connect(quitbutton, SIGNAL(clicked()), _texteditparent, SLOT(cancelAndClose()) );
 
-     setLayout(buttonLayout);*/
 }
 
 void TextEditWidget::setFocus ( Qt::FocusReason reason ) {
