@@ -40,9 +40,28 @@ QString NumberWidget::htmlForKey(const QString& k, const QString& otherk) {
 
 QString NumberWidget::html() {
     QString result;
-    QString mypreffix = caption().left(4);
+//    QString mypreffix = caption().left(4);
     QString wprops;
+
+
+    QString mydesc;
+
+    if (conf().contains("desc")) {
+        mydesc = conf()["desc"].toString();
+    }
+
+
     wprops = conf()["options"].toString().trimmed();
+
+    QStringList positions;
+    QString myposition = "";
+    if (conf().contains("position")) {
+         myposition = conf()["position"].toString();
+        positions = myposition.split(",",QString::SkipEmptyParts);
+    }
+    setPosition(myposition);
+
+
 
     if (wprops.isEmpty()) {
         wprops = "width: '250px', height: '25px', digits: 3, decimalDigits: 0, spinButtons: true,promptChar:' '";
@@ -67,27 +86,75 @@ QString NumberWidget::html() {
             .arg(caption())
             .arg(wprops);
 
-//    result =         "<script  type=\"text/javascript\">\n";
-//    result += QString("$(document).ready(function(){\n");
-//    result += QString("$(\"#%1\").jqxNumberInput("
-//            "{ width: '250px', height: '25px', symbol: 'Bs.',  spinButtons: true });")
-//            .arg(caption());
 
-//    result +=  "\n});";
-//    result +=  "</script>\n";
+    int posaction = 0;
+    QString poscol = "md-4";
+    bool removelabel = false;
+
+    foreach(QString p, positions) {
+        if (p == "open") {
+            posaction = 1;
+        }
+        else if (p == "close") {
+            posaction = 2;
+        }
+        else if (p == "open_and_close") {
+            posaction = 3;
+
+        }
+        else if (p.startsWith("removelabel")) {
+                removelabel = true;
+        }
+        else if (p.startsWith("md")) {
+            poscol = p;
+        }
+    }
 
 
-//    result += QString("\n<input type=\"text\" name=\"%1\" alt=\"Esto es un campo numérico\" id=\"%1\""
-//                     "size=\"55\" %2 ></input>\n")
-//            .arg(caption())
-//            .arg(QString("onChange=\"%1Change(this)\" ").arg(mypreffix));
+    if (posaction == 1 || posaction == 3) {
+        result += "\n<div class=\"row clearfix\">\n";
+    }
 
-        result += QString("\n<div style='margin-top: 3px;' id=\"%1\""
-                         " %2 ></div>\n"
-                          )
-                .arg(caption())
-                .arg("");
-                //.arg(QString("onChange=\"%1Change(this)\" ").arg(mypreffix));
+
+    if (positions.count() == 0 ) {
+            result += QString(""
+                   "<br/>\n"
+                  "<div class=\"form-group\">"
+                      "%3"
+                      "<div class=\"input-group\">"
+                        "<div class=\"input-group-addon\">%1</div>"
+                        "<input type=\"text\" class=\"form-control\" id=\"%1\" name=\"%1\" %2>"
+                        "<div class=\"input-group-addon\">.00</div>"
+                      "</div>"
+                    "</div>"
+                  )
+                    .arg(caption())
+                    .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc))
+                    .arg(removelabel?"":QString("<label class=\"sr-only\" for=\"%1\">%1</label>").arg(caption()));
+    }
+    else {
+            result += QString(""
+                              "<br/>\n"
+                  "<div class=\"col-%4 column \">\n"
+                  "%3"
+                  "<div class=\"input-group\">"
+                    "<div class=\"input-group-addon\">%1</div>"
+                    "<input type=\"text\" class=\"form-control\" id=\"%1\" name=\"%1\"  %2 >"
+                    "<div class=\"input-group-addon\">.00</div>"
+                  "</div>"
+                "</div>"
+              )
+                    .arg(caption())
+                    .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc))
+                    .arg(removelabel?"":QString("<label class=\"sr-only\" for=\"%1\">%1</label>").arg(caption()))
+                    .arg(poscol);
+
+
+    }
+
+    if (posaction == 2 || posaction ==  3) {
+        result += "</div>\n";
+    }
 
 
     SYD << tr("...........NumberWidget::html........changefor:|%1|")
@@ -98,134 +165,15 @@ QString NumberWidget::html() {
 
     }
 
-        result += QString(""
-                    "\n"
-                "<script>\n"                          
-                "function %1Change(myobj) {\n"
-    //              "alert(\"value:\"+myobj.value);\n"
-                          "    $.post(\"%2/loaddata\",{ id:$(this).val(),\n"
-                          "    op:document.getElementById(\"safetoperation\").value,\n"
-                          "    modname:\"%3\",\n"
-                          "    primary:myobj.id,\n"
-                          "    formstring: genFormString(document.forms[0]),\n"
-                          "   formkey: document.forms[0].elements[1].value},\n"
-                          " function(data)"
-                          " {\n"
-                          "  mylist = data.split(\"<SAFETSEPARATOR/>\");\n"
-                          "  htmlsep = false;\n"
-                          "  if (mylist.length < 2) {\n"
-                          "    mylist = data.split(\"<SAFETHTMLSEPARATOR/>\");\n"
-                          "    htmlsep = true;\n "
-                          "  }\n"
-                          "  for(i=0; i < mylist.length;i++){\n"
-                          "       myname  = \"\";\n"
-                          "       myvalue = \"\"; \n"
-                          "       myname = mylist[i].substr(0,mylist[i].indexOf(\":\"));\n"
-                          "       if (myname.length == 0 ) {\n"
-                          "               continue;\n"
-                          "       }\n"
-                          "       myvalue = mylist[i].substr(mylist[i].indexOf(\":\")+1);\n"
-                          "       j= 0;\n"
-                          "       for(j=0; j<myname.length;j++){\n"
-                          "               if ( (myname.charCodeAt(j)!=32) && (myname.charCodeAt(j)!=13) && (myname.charCodeAt(j)!= 10) ) {\n"
-                          "                       break;\n"
-                          "               }\n"
-                          "       }\n"
-                          "       myname = myname.substr(j);\n"
-                          "       j=myvalue.length-1;\n"
-                          "       lastpos = myvalue.length;\n"
-                          "       for(j=myvalue.length-1;j>0;j--){\n"
-                          "               if (myvalue.charAt(j) != ' ') {\n"
-                          "                       break;\n"
-                          "               }\n"
-                          "               lastpos = lastpos -1;\n"
-                          "       }\n"
-                          "       myvalue = myvalue.substr(0,lastpos);\n"
-                          "       if (document.getElementById(myname)) {\n"
-                          "          if (htmlsep == true ) {\n"
-                          "               $(\"#\"+myname).html(myvalue);\n"
-                          "               if ( $(\"#\"+myname).is(\"input\") ) {\n "
-                          "                  document.getElementById(myname).value = myvalue; \n   "
-                          "               }                                     \n "
-                          "               else {                                 \n"
-                          "                 $(\"#\"+myname).html(myvalue);\n     \n"
-                          "               }                                      \n"
-                          "          } else {"
-                          "               document.getElementById(myname).value = myvalue;\n"
-                          "          }\n"
-                          "      }\n"
-                          "  }\n"
-                          " });\n"
 
-                "}\n"
-                "</script>\n"
-                          "")
-                .arg(mypreffix)
-                .arg(MainWindow::mymainwindow->hostURL())
-                .arg("deftrac");
 
     return result;
 }
 
 
 void NumberWidget::buildWidget() {
-     qDebug("...NumberWidget...buildWidget...");
+   CmdWidget::buildWidget();
 
-/*     spinboxedit = NULL;
-     if ( conf().contains("options"))  {
-
-         setOptionsProperties(conf()["options"].toString().split(","));
-         if ( conf()["options"].toString().split(",").contains("decimal") ) {
-             spinboxedit = new QDoubleSpinBox();
-         }
-         else {
-            spinboxedit = new QSpinBox();
-            (qobject_cast<QSpinBox*>(spinboxedit))->setRange(0,9999);
-         }
-     }
-     else {
-         spinboxedit = new QSpinBox();
-         (qobject_cast<QSpinBox*>(spinboxedit))->setRange(0,9999);
-     }
-
-     principalWidget = spinboxedit;
-     QString mytip = tr("Campo Numérico. Escriba un número entero o decimal");
-     if ( conf().contains("validation")) {
-         QStringList mylist = conf()["validation"].toString().split("::");
-         if (mylist.count() > 1 ) {
-             QString usertip = mylist.at(1);
-             mytip = usertip;
-         }
-     }
-     _usertooltip = mytip;
-     spinboxedit->setToolTip(mytip);
-
-     setOptionsProperties(conf()["options"].toString().split(",")); // Colocar las propiedades
-     spinboxedit->setGeometry(0,0,350,30);
-
-
-
-     if (isTextParent()) {
-         okbutton = new QToolButton;
-         okbutton->setGeometry(0,0,25,30);
-         okbutton->setIcon(QIcon(":/yes.png"));
-         quitbutton = new QToolButton;
-         quitbutton->setGeometry(0,0,25,30);
-         quitbutton->setText( "X");
-     }
-     mainLayout = new QHBoxLayout;
-     mainLayout->addWidget(spinboxedit);
-     //mainLayout->addWidget(lblvalidator);
-     mainLayout->setSpacing( 1 );
-
-     if ( isTextParent()) {
-        mainLayout->addWidget(quitbutton);
-        mainLayout->addWidget(okbutton);
-        connect(okbutton, SIGNAL(clicked()), _texteditparent, SLOT(insertAndClose()) );
-        connect(quitbutton, SIGNAL(clicked()), _texteditparent, SLOT(cancelAndClose()) );
-    }
-//     setLayout(mainLayout);
-*/
 }
 
 void NumberWidget::setFocus ( Qt::FocusReason reason ) {
