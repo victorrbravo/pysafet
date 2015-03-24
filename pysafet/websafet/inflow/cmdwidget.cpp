@@ -198,7 +198,7 @@ QString CmdWidget::html() {
 
 
     }
-    else if (_typeinput == "type=radio") {
+    else if (_typeinput == "type=radio" || _typeinput == "type=checkbox") {
         SYD << tr("........CmdWidget::html...TypeRADIO....");
 
         QList<QPair<QString,QString> > myradios;
@@ -225,25 +225,81 @@ QString CmdWidget::html() {
 
         }
         QString radiohtml = "";
+        QString mytype = "radio";
+        if (_typeinput == "type=checkbox") {
+            mytype = "checkbox";
+        }
+        else {
+
+        }
+
         SYD << tr("........CmdWidget::html...TYPERADIO....myradios.count():|%1|")
                .arg(myradios.count());
         for(int i=0; i < myradios.count(); i++) {
             QPair<QString,QString> myradio = myradios.at(i);
-            QString mystr = QString( ""
-//            "<div class=\"radio\">\n"
-              "<label>\n"
-                "<input type=\"radio\" name=\"%1\" id=\"%1_%2\" value=\"%2\">\n"
+            QString myinput = "";
 
-                   "%3\n"
+            if (_typeinput == "type=checkbox") {
+                myinput = QString("<input type=\"checkbox\" name=\"%1\" id=\"%1_%2\" value=\"%2\">\n")
+                                          .arg(caption())
+                                          .arg(myradio.first);
+            }
+            else {
+                myinput = QString("<input type=\"radio\" name=\"%1\" id=\"%1_%2\" value=\"%2\">\n")
+                                          .arg(caption())
+                                          .arg(myradio.first);
+
+            }
+
+            QString mystr = QString( ""
+              "<label>\n"
+                   "%1\n"
+                   "%2\n"
               "</label>"
-//            "</div>\n"
             )
-                    .arg(caption())
-                    .arg(myradio.first)
-                    .arg(myradio.second);
+             .arg(myinput)
+             .arg(myradio.second);
 
             radiohtml += mystr;
+
+
        }
+
+        if (_typeinput == "type=checkbox") {
+            QString myinput = QString("\n<input id=\"%1\"  type=\"hidden\" value=\"False\" name=\"%1\">\n")
+                    .arg(caption());
+
+            radiohtml += myinput;
+
+            for(int i=0; i < myradios.count(); i++) {
+                    QPair<QString,QString> myradio = myradios.at(i);
+                    radiohtml += QString(""
+
+                                 "<script>\n"
+                                 " jQuery(document).ready(function($) {        \n"
+
+                                 "  $(\"#%1_%2\").change(\n"
+                                 "  function() "
+                                 "  {\n"
+                                 "  console.log(\"changeando...\");\n"
+                                 "     if ( document.getElementById(\"%1_%2\").checked ) {\n"
+                                          "  console.log(\"changeando...checked\");\n"
+                                 "         document.getElementById(\"%1\").value = \"True\";\n"
+                                 "      }\n"
+                                 "      else {\n"
+                                          "  console.log(\"changeando...no cheecked\");\n"
+                                 "         document.getElementById(\"%1\").value = \"False\";\n"
+                                 "      }\n"
+                                 "  });\n"
+                                 " });\n"
+                                 "</script>")
+                    .arg(caption())
+                    .arg(myradio.first);
+
+            }
+
+        }
+
 
         SYD << tr("..........CmdWidget::html........RADIOHTML:|%1|")
                .arg(radiohtml);
