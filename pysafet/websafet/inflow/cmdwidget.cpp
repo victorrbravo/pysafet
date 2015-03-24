@@ -198,6 +198,131 @@ QString CmdWidget::html() {
 
 
     }
+    else if (_typeinput == "type=radio") {
+        SYD << tr("........CmdWidget::html...TypeRADIO....");
+
+        QList<QPair<QString,QString> > myradios;
+
+        foreach(QString option, options) {
+            if (option.indexOf(";") != -1 ) {
+                QStringList mylist = option.split(";",QString::SkipEmptyParts);
+                foreach(QString myvalue, mylist) {
+                    QString value = myvalue.section("::",-1);
+                    QString desc = myvalue.section("::",-2,-2);
+                    if (desc.isEmpty()) {
+                        desc = value;
+                    }
+                    SYD << tr("........CmdWidget::html...TypeRADIO..value:|%1|...desc:|%2|")
+                           .arg(value)
+                           .arg(desc);
+                    QPair<QString,QString> myradio(value,desc);
+                    myradios.append(myradio);
+
+                }
+
+
+            }
+
+        }
+        QString radiohtml = "";
+        SYD << tr("........CmdWidget::html...TYPERADIO....myradios.count():|%1|")
+               .arg(myradios.count());
+        for(int i=0; i < myradios.count(); i++) {
+            QPair<QString,QString> myradio = myradios.at(i);
+            QString mystr = QString( ""
+//            "<div class=\"radio\">\n"
+              "<label>\n"
+                "<input type=\"radio\" name=\"%1\" id=\"%1_%2\" value=\"%2\">\n"
+
+                   "%3\n"
+              "</label>"
+//            "</div>\n"
+            )
+                    .arg(caption())
+                    .arg(myradio.first)
+                    .arg(myradio.second);
+
+            radiohtml += mystr;
+       }
+
+        SYD << tr("..........CmdWidget::html........RADIOHTML:|%1|")
+               .arg(radiohtml);
+
+
+
+        if ( positions.count()  > 0  ) {
+
+            SYD << tr("................CmdWidget::html().......*CMDWIDGET_POSITION:|%1|:|%2|")
+                   .arg(caption())
+                   .arg(position());
+
+
+            int posaction = 0;
+            QString poscol = "md-4";
+            bool removelabel = false;
+
+            foreach(QString p, positions) {
+                if (p == "open") {
+                    posaction = 1;
+                }
+                else if (p == "close") {
+                    posaction = 2;
+                }
+                else if (p == "open_and_close") {
+                    posaction = 3;
+
+                }
+                else if (p.startsWith("removelabel")) {
+                        removelabel = true;
+                }
+                else if (p.startsWith("md")) {
+                    poscol = p;
+                }
+            }
+
+            SYD << tr("GET_POSITIONS...posaction:|%1|").arg(posaction);
+            SYD << tr("GET_POSITIONS...poscol:|%1|").arg(poscol);
+
+
+
+                if (posaction == 1 || posaction == 3) {
+                    result += "\n<div class=\"row clearfix\">\n";
+                }
+
+                 result += QString(""
+                               "<div class=\"col-%1 column \">\n"
+                                "%2\n"
+                                "%3\n"
+                               "</div>\n")
+                            .arg(poscol)
+                            .arg((removelabel?"":QString("<label  class=\"col-md-2 control-label\">%2</label>\n").arg(_caption).arg(newcaption)))
+                            .arg(radiohtml);
+
+
+                if (posaction == 2 || posaction ==  3) {
+                    result += "</div>\n";
+                }
+
+
+        } else {
+
+                result +=
+                QString(""
+                          "<div class=\"form-group\">\n"
+                          "<label  class=\"col-md-1 control-label\">%1</label>\n"
+                        "<br/>"
+                        " <div class=\"controls\">\n"
+                          "%2"
+                        "</div>"
+                        "</div>"
+                        )
+                .arg(newcaption)
+                .arg(radiohtml);
+
+        }
+
+
+    }
     else if (_typeinput == "type=button") {
 
         QString formaction = QString("/intranet/defconsole:operacion:%1")
