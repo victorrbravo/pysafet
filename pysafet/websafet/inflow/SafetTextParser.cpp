@@ -646,7 +646,9 @@ QList<QPair<QString,QString> > SafetTextParser::getFieldsValues(const QDomElemen
         SYD << tr("...replacing options: (USERNAME)...|%1|")
                .arg(SafetYAWL::currentAuthUser());
 
-            realvalues[ namefield ] = options;
+            if (options.indexOf("type::radio") == -1 && options.indexOf("type::checkbox") == -1) {
+                        realvalues[ namefield ] = options;
+            }
         }
         if ( ninput.firstChildElement(namefield).isNull() ) {
             if (ninput.firstChildElement(titleNode.nodeValue().trimmed()).isNull()) {
@@ -1207,8 +1209,9 @@ QPair<QString,QString> SafetTextParser::buildFields(const QDomElement& ecommand,
                 SYD << tr("...replacing optionsi(2): (USERNAME)...|%1|")
                        .arg(SafetYAWL::currentAuthUser());
 
-
-                realvalues[ namefield ] = options;
+                if (options.indexOf("type::radio") == -1 && options.indexOf("type::checkbox") == -1) {
+                        realvalues[ namefield ] = options;
+                }
                 qDebug("...realvalues->namefield: |%s|",
                        qPrintable(namefield));
                 qDebug("...realvalues->options: |%s|",

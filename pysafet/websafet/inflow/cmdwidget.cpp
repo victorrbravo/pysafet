@@ -204,7 +204,7 @@ QString CmdWidget::html() {
         QList<QPair<QString,QString> > myradios;
 
         foreach(QString option, options) {
-            if (option.indexOf(";") != -1 ) {
+            if (option.indexOf("::") != -1  && (option != "type::radio" && option != "type::checkbox")) {
                 QStringList mylist = option.split(";",QString::SkipEmptyParts);
                 foreach(QString myvalue, mylist) {
                     QString value = myvalue.section("::",-1);
@@ -242,7 +242,7 @@ QString CmdWidget::html() {
             if (_typeinput == "type=checkbox") {
                 myinput = QString("<input type=\"checkbox\" name=\"%1\" id=\"%1_%2\" value=\"%2\">\n")
                                           .arg(caption())
-                                          .arg(myradio.first);
+                                          .arg(i+1);
             }
             else {
                 myinput = QString("<input type=\"radio\" name=\"%1\" id=\"%1_%2\" value=\"%2\">\n")
@@ -272,7 +272,7 @@ QString CmdWidget::html() {
             radiohtml += myinput;
 
             for(int i=0; i < myradios.count(); i++) {
-                    QPair<QString,QString> myradio = myradios.at(i);
+                    //QPair<QString,QString> myradio = myradios.at(i);
                     radiohtml += QString(""
 
                                  "<script>\n"
@@ -294,7 +294,7 @@ QString CmdWidget::html() {
                                  " });\n"
                                  "</script>")
                     .arg(caption())
-                    .arg(myradio.first);
+                    .arg(i+1);
 
             }
 
