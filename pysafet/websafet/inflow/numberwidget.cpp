@@ -70,21 +70,23 @@ QString NumberWidget::html() {
         wprops.replace("::",":");
     }
 
-    result =  QString(""
-                      "<script  type=\"text/javascript\">\n"
-                      "$(function() {"
-                      "$(\"#%1\").jqxNumberInput({ %2,promptChar: ' ' });\n"
-                      "%3\n"
-                      "  $('#%1').bind('valuechanged', function (event) {\n"
-                      "  var value = event.args.value;\n"
-                      "  $('#%1').jqxNumberInput('val',value);\n"
-                      "  });\n"
-                      "});\n"
+      result = "";
 
-                      "</script>\n"
-                      "")
-            .arg(caption())
-            .arg(wprops);
+//    result =  QString(""
+//                      "<script  type=\"text/javascript\">\n"
+//                      "$(function() {"
+//                      "$(\"#%1\").jqxNumberInput({ %2,promptChar: ' ' });\n"
+//                      "%3\n"
+//                      "  $('#%1').bind('valuechanged', function (event) {\n"
+//                      "  var value = event.args.value;\n"
+//                      "  $('#%1').jqxNumberInput('val',value);\n"
+//                      "  });\n"
+//                      "});\n"
+
+//                      "</script>\n"
+//                      "")
+//            .arg(caption())
+//            .arg(wprops);
 
 
     int posaction = 0;

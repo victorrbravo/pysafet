@@ -64,6 +64,17 @@ QString TextEditWidget::html() {
     QString myposition = "";
     QStringList positions;
 
+    bool iswiki = false;
+
+    QString options = "";
+    if (conf().contains("options")) {
+        options = conf()["options"].toString();
+        if ( options.indexOf("wiki") != -1) {
+            iswiki = true;
+        }
+    }
+
+
     if (conf().contains("position")) {
          myposition = conf()["position"].toString();
             positions = myposition.split(",",QString::SkipEmptyParts);
@@ -89,31 +100,57 @@ QString TextEditWidget::html() {
     }
 
 
+    if (iswiki ) {
+        result =  QString(
 
-    result =
-       QString(""
+                    "<div class=\"form-group\" >\n"
+                    "%2\n<br/>"
+                    "<textarea name=\"%1\" id=\"%1_ckeditor\" rows=\"10\" cols=\"80\">\n"
+                          "...\n"
+                    "</textarea>\n"
+                    "<script>\n"
+                    //"   var mytext = document.getElementById(\"%1_ckeditor\").value;\n"
+                    //"   console.log(\"mytext:\" + mytext);\n"
+                    "   CKEDITOR.replace( '%1' );\n"
+                    //"   mytext = mytext.replace('&lt;','<');\n"
+                    //"   mytext = mytext.replace('&gt;','>');\n"
+                    //"   CKEDITOR.instances.%1_ckeditor.setData(mytext);\n"
+                    "</script>    \n"
+                    "</div>\n"
+                )
+                .arg(caption())
+                .arg((removelabel?"":QString("<label for=\"%1\" class=\"col-md-2 control-label\">%2</label>\n").arg(caption()).arg(newcaption)) );
 
-                 "<div class=\"form-group\" >\n"
-                         "%3\n"
-                        "<textarea name=\"%1\" id=\"%1\" rows=\"3\" class=\"form-control\" %2 ></textarea>\n"
-               "<span id=\"count%1\"  name=\"count%1\"></span>"
-              // "<span class=\"glyphicon glyphicon-picture form-control-feedback\" aria-hidden=\"true\"></span>"
-               "</div>\n"
-               )
-            .arg(caption())
-            .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc))
-            .arg((removelabel?"":QString("<label for=\"%1\" class=\"col-md-2 control-label\">%2</label>\n").arg(caption()).arg(newcaption)) );
 
-      result += QString(""
-                      "<script>"
-                      "$(\"#%1\").keyup(function(){\n"
-                         "myleft = 140-$(this).val().length;\n"
-                         "mytext = " "+myleft;\n"
-                        "$(\"#count%1\").html(mytext);\n"
-                         "});"
-                      "</script>"
-                      )
-            .arg(caption());
+    }
+
+    else {
+
+        result =
+           QString(""
+
+                     "<div class=\"form-group\" >\n"
+                             "%3\n"
+                            "<textarea name=\"%1\" id=\"%1\" rows=\"3\" class=\"form-control\" %2 ></textarea>\n"
+                   "<span id=\"count%1\"  name=\"count%1\"></span>"
+                  // "<span class=\"glyphicon glyphicon-picture form-control-feedback\" aria-hidden=\"true\"></span>"
+                   "</div>\n"
+                   )
+                .arg(caption())
+                .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc))
+                .arg((removelabel?"":QString("<label for=\"%1\" class=\"col-md-2 control-label\">%2</label>\n").arg(caption()).arg(newcaption)) );
+
+          result += QString(""
+                          "<script>"
+                          "$(\"#%1\").keyup(function(){\n"
+                             "myleft = 140-$(this).val().length;\n"
+                             "mytext = " "+myleft;\n"
+                            "$(\"#count%1\").html(mytext);\n"
+                             "});"
+                          "</script>"
+                          )
+                .arg(caption());
+    }
 
 
     return result;

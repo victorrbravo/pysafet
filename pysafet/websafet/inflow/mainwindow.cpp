@@ -1200,6 +1200,8 @@ QString MainWindow::generateFormHead(const QString& o) {
    QString firstkeymodifyfield;
     if (keymodifyfields.count() > 0 ) {
 	    result += QString("var safetCurrentCombos = new Array();\n");
+        result += QString("var CKOBJ = null;\n");
+        result += QString("var CKVALUE = \"\";\n");
 	    result += QString("$(document).ready(function(){\n");
     }
 
@@ -1266,7 +1268,7 @@ QString MainWindow::generateFormHead(const QString& o) {
                           "       myname  = \"\";\n"
                           "       myvalue = \"\"; \n"
                           "       myname = mylist[i].substr(0,mylist[i].indexOf(\":\"));\n"
-                          "       console.log(\"myname(*):\" + myname);\n"
+                          "       console.log(\"****************MYNAME:\" + myname);\n"
 
                           "       if (myname.length == 0 ) {\n"
                           "               continue;\n"
@@ -1324,10 +1326,24 @@ QString MainWindow::generateFormHead(const QString& o) {
                               "   document.getElementById(myname+\"_1\").checked = true;"
                                 "}\n"
                           "   if (document.getElementById(myname) == null ) {\n"
-                          "      console.log(\"MyName is null:\"+myname); \n"
-                          "      mynewname = myname+\"_\"+myvalue; \n"
-                          "      console.log(\"mynewname is null:\"+mynewname); \n"
-                          "      document.getElementById(mynewname).checked = true; \n"
+                          "      myckname = myname +'_ckeditor';\n"
+                          "       myobj =  document.getElementById(myckname);\n"
+                          "         if ( myobj != null ) {\n"
+                          "            console.log(\"ckeditor:\" + myckname );\n                "
+
+                          "             mystr =  \"CKEDITOR.instances.\" + myckname; \n"
+                          "             myckobj =  eval(mystr); \n"
+                          "             console.log(\"myckobj:\" + myckobj);\n          "
+                          "             CKOBJ = myckobj;\n                       "
+                          "             CKVALUE = myvalue;\n                       "
+                          "             myckobj.setData(myvalue);     \n"
+                          "             console.log(\"ckeditor...setup...myvalue:\" + myvalue );\n                "
+                          "          } else {"
+                          "              console.log(\"MyName is null:\"+myname); \n"
+                          "              mynewname = myname+\"_\"+myvalue; \n"
+                          "              console.log(\"mynewname is null:\"+mynewname); \n"
+                          "              document.getElementById(mynewname).checked = true; \n"
+                          "          }\n"
                           "   }\n"
 
                           "}\n"
@@ -1401,40 +1417,12 @@ QString MainWindow::generateFormHead(const QString& o) {
                 */
     }
 
-    if (actionslist.count() > 1 ) {
-        QString myvalue = actionslist.at(1);
-                SYD << tr("........generateFormHead...firstvalue");
-
-                result += QString("\n"
-                        "myval = $('#%2 option%1').val();\n"
-                        "console.log('myval:' + myval);\n"
-                        "$('#id').val(myval).change();\n"
-                        )
-                        .arg(myvalue)
-                        .arg(myfirsfield);
-    }
 
 
     if (keymodifyfields.count() > 0 ) {
-    	result += "});\n\n";
-	
-
-
-	result += "\n"
+    	result += "});\n\n";	        
+        result += "\n"
             "</script>\n"
-/*            "<style>\n"
-            "body { font-size: 80%; }\n"
-            "label, input { display:block; }\n"
-            "input.text { margin-bottom:12px; width:95%; padding: .4em; }\n"
-            "fieldset { padding:0; border:0; margin-top:25px; }\n"
-            "h1 { font-size: 1.2em; margin: .6em 0; }\n"
-            "div#users-contain { width: 350px; margin: 20px 0; }\n"
-            "div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }\n"
-            "div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }\n"
-            ".ui-dialog .ui-state-error { padding: .3em; }\n"
-            ".validateTips { border: 1px solid transparent; padding: 0.3em; }\n"
-            "</style>\n"
-	     "\n" */
 //            "</head>\n"
 //            "<body>\n"
             "";
@@ -1448,6 +1436,30 @@ QString MainWindow::generateFormHead(const QString& o) {
 		"});\n"
 		"</script>\n";
 	}
+
+    if (actionslist.count() > 1 ) {
+        result += QString("<script>\n");
+        result += QString("$(document).ready(function(){\n");
+
+        QString myvalue = actionslist.at(1);
+                SYD << tr("........generateFormHead...**firstvalue");
+
+                result += QString("\n"
+                        " myval = $('#%2 option%1').val();\n"
+                        " console.log('myval:' + myval);\n"
+                        " $('#id').val(myval).change();\n"
+                        " console.log('myval:' + myval);\n"
+                          " console.log('CKOBJ:' + CKOBJ);\n"
+                          " console.log('CKVALUE:' + CKVALUE);\n"
+                         "setTimeout(function(){ "
+                         " if (CKOBJ != null) CKOBJ.setData(CKVALUE); }, 1000); \n"
+                        )
+                        .arg(myvalue)
+                        .arg(myfirsfield);
+                result += "});\n\n";
+                result += QString("</script>\n");
+    }
+
     return result;
 }
 
