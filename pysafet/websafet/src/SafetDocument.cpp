@@ -1386,6 +1386,9 @@ QString SafetDocument::getJsonQuery(QSqlQuery &query, QList<QSqlField>& fields, 
 	QString str;
 	QTextStream out(&str);
 	QSqlRecord rec;
+    QString hashumandate = SafetYAWL::getConf()["Documents/json.hashumandate"];
+
+
 	rec = query.record();
 	
         for( int i = 0; i < rec.count(); i++) {
@@ -1426,9 +1429,17 @@ QString SafetDocument::getJsonQuery(QSqlQuery &query, QList<QSqlField>& fields, 
                       || rec.field(i).name().indexOf(tr("time")) != -1) ) {
 
                 int mytimet = query.value(i).toInt();
+
                 QString myvalue = QDateTime::fromTime_t(mytimet)
-                        .toString(Safet::DateFormat);
+                    .toString(Safet::DateFormat);
+                if (hashumandate == "on") {
+                    int days = 0;
+                    myvalue = myvalue+ "  "+SafetWorkflow::humanizeDate(days,myvalue,
+                                                         Safet::DateFormat);
+                }
+
                 cadena.append(myvalue);
+
 
             }
             else {
