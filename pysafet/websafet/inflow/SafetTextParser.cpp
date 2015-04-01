@@ -1890,6 +1890,9 @@ QString SafetTextParser::getValueForFunction(const QString& v, const QString &fo
      else if ( format == "integer") {
          result = query.record().value(0).toString();
      }
+     else if ( format == "quotes") {
+         result = "'" + query.record().value(0).toString() + "'";
+     }
      else {
          result = query.record().value(0).toString();
          SYD << tr("....SafetTextParser::getValueForFunction... otro formato...");
