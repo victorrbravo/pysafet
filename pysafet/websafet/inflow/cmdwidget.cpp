@@ -161,7 +161,7 @@ QString CmdWidget::html() {
                                    "</div>\n"
 
                        "</div>\n")
-                    .arg(_caption)
+                    .arg(_caption.replace("_"," "))
                     .arg(myid)
                     .arg(poscol);
 
@@ -192,7 +192,7 @@ QString CmdWidget::html() {
                                        "</div>\n"
                            "</div>\n"
                            )
-                   .arg(_caption)
+                   .arg(_caption.replace("_"," "))
                    .arg(myid);
         }
 
@@ -229,9 +229,7 @@ QString CmdWidget::html() {
         if (_typeinput == "type=checkbox") {
             mytype = "checkbox";
         }
-        else {
 
-        }
 
         SYD << tr("........CmdWidget::html...TYPERADIO....myradios.count():|%1|")
                .arg(myradios.count());
@@ -351,7 +349,7 @@ QString CmdWidget::html() {
                                 "%3\n"
                                "</div>\n")
                             .arg(poscol)
-                            .arg((removelabel?"":QString("<label  class=\"col-md-2 control-label\">%2</label>\n").arg(_caption).arg(newcaption)))
+                            .arg((removelabel?"":QString("<label  class=\"col-md-2 control-label\">%2</label>\n").arg(_caption.replace("_"," ")).arg(newcaption)))
                             .arg(radiohtml);
 
 
@@ -372,7 +370,7 @@ QString CmdWidget::html() {
                         "</div>"
                         "</div>"
                         )
-                .arg(newcaption)
+                .arg(newcaption.replace("_"," "))
                 .arg(radiohtml);
 
         }
@@ -483,7 +481,7 @@ QString CmdWidget::html() {
                 .arg(_caption)
                 .arg(_typeinput)
                 .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc))
-                .arg(newcaption);
+                .arg(newcaption.replace("_"," "));
 
         }
 
