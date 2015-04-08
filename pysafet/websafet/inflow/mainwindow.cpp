@@ -412,7 +412,7 @@ QString MainWindow::checkUserRegister(const QString& fullname,
                                       const QString& account,
                                       const QString& email,
                                       const QString& passone,
-                                      const QString& passtwo) {
+                                      const QString& passtwo, const QString& ticket) {
 
 //    QString result = tr("<b>Usuario registrado (%1)</b>. Espere el correo de completación de registro en la cuenta que suministró.")
 //            .arg(account);
@@ -436,7 +436,12 @@ QString MainWindow::checkUserRegister(const QString& fullname,
     QString result = tr("Se ha enviado un correo de bienvenida a su nueva cuenta del sistema SAFET");
     int typecheck = 0;
 
-    typecheck =  (((!fullname.isEmpty()) & FULLNAME))
+    QString newfullname = fullname;
+    if (newfullname.isEmpty()) {
+        newfullname = Safet::NA;
+    }
+
+    typecheck =  (((!newfullname.isEmpty()) & FULLNAME))
      + (((!account.isEmpty()) << 1) & ACCOUNT)
     +  ((((!email.isEmpty()) << 2) & EMAIL))
     +  ((((!passone.isEmpty()) << 3) & PASSONE))
@@ -452,7 +457,7 @@ QString MainWindow::checkUserRegister(const QString& fullname,
            .arg(PASSTWO);
 
     if ( (typecheck & FULLNAME) == 0) {
-        return tr("El campo \"Nombre Completo\" es obligatorio");
+        return tr("El campo \"Nombre Completo\" es obligatorio, debe escribir algún nombre");
     }
 
     if ( (typecheck & ACCOUNT) == 0) {
@@ -473,7 +478,7 @@ QString MainWindow::checkUserRegister(const QString& fullname,
     // Expresiones regulares
 
     QRegExp rx(".{3,}");
-    if (!rx.exactMatch(fullname) ) {
+    if (!rx.exactMatch(newfullname) ) {
         return tr("El nombre completo debe tener una longitud mayor o igual a 3 caracteres");
     }
 
@@ -528,13 +533,17 @@ QString MainWindow::checkUserRegister(const QString& fullname,
 //                .arg(textsha1.toHex().data())
                 .arg(passha1.toHex().data());
 
-        QString myaction = QString("operacion:Agregar_usuario Nombre_cuenta_usuario: %1 Contraseña_usuario: %2 "
+        QString myaction = "";
+
+
+            myaction = QString("operacion:Agregar_usuario Nombre_cuenta_usuario: %1 Contraseña_usuario: %2 "
                "Nombre_completo_usuario: %3 Rol_del_Usuario: %4 Ticket:%5")
                 .arg(account)
                 .arg(newhash)
-                .arg(fullname + " " + email)
+                .arg(newfullname + " " + email)
                 .arg("Administrador")
-                .arg(passtwo);
+                .arg(ticket.isEmpty()?passtwo:ticket);
+
 
 
         SYD << tr(".................CHECKUSER......MainWindow::checkUserRegister....myaction:|%1|")
@@ -1143,6 +1152,8 @@ QString MainWindow::generateFormHead(const QString& o) {
 
     QString result = "";
 
+    result = result + QString("\n");
+
     result += QString("\n"
 	     "<script src=\"%1/jquery-latest.js\"></script>\n"
   //          "<link type=\"text/css\" href=\"%1/css/ui-lightness/jquery-ui-1.8.8.custom.css\" rel=\"Stylesheet\" />\n"
@@ -1162,6 +1173,7 @@ QString MainWindow::generateFormHead(const QString& o) {
 
 //            .arg(hostMediaPath());
             .arg("../media");
+
 
 
     if (keymodifyfields.count() > 0 ) {
@@ -2993,13 +3005,12 @@ bool MainWindow::queryForErrors() {
 
 
     QStack<QPair<QDateTime,QString> > mystack = SafetYAWL::streamlog.stopErrorStack();
-    SafetYAWL::streamlog << SafetLog::Debug << trUtf8("Hay \"%1\" errores guardados en la lista. De inmediato se procede"
+    SYD << trUtf8("Hay \"%1\" errores guardados en la lista. De inmediato se procede"
                                                       " a inicializar la lista de errores.")
             .arg(mystack.count());
     SafetYAWL::streamlog.stopAllStack();
 
     if (mystack.count() > 0 ) { // Verificacion NO exitosa
-        qDebug("........mostrando ... queryerror: (******)");
         QString message = renderMessageStack(mystack,SafetLog::Error);
         QString messagew = renderMessageStack(mystack,SafetLog::Warning);
 	_currenterror = message;
@@ -8615,44 +8626,35 @@ void MainWindow::successVerification(QStringList list, const QString& msg) {
 }
 
 void MainWindow::successVerification(QStringList list, const QString& msg, SafetDocument doc){
-    qDebug("...........**......MainWindow::successVerification(QStringList list, const QString& msg, SafetDocument doc)");
+
 
     QString message;
     if ( msg.isEmpty()) {
-        message = QString("<table><tr><td><font color=green>%1</font></td></tr></table>").arg(tr("Verificación exitosa....<b>ok!</b>"));
+        message = QString("%1").arg(tr("Verificación exitosa"));
     }
     else {
-        message = QString("<table><tr><td><font color=green>%1</font></td></tr></table>").arg(msg);
+        message = QString("%1").arg(msg);
     }
 
 
 }
 
 QString MainWindow::renderMessageStack(QStack<QPair<QDateTime,QString> >& stack, SafetLog::Level l){
-    QString result;
-    qDebug("...Probando el manejo de errores y advertencias: elementos: -->|%d|", stack.count());
-    if ( stack.isEmpty()) return result;
-    QString newtable = QString("<table>%1</table><br/>");
-    QString newrow = QString("<tr>%1</tr>");
-    QString newcol = QString("<td>%2%1</td>");
-    QString rows, cols;
-    if( l == SafetLog::Error) {
-//        rows += QString("<tr><td colspan=2><font color=red>%1</font></td></tr>").arg(tr("Los siguientes errores ocurrieron en la operaci&oacute;n:"));
+    QString result = "";
+
+    if ( stack.isEmpty()) {
+
+        return result;
     }
-    else {
-        rows += QString("<tr><td colspan=2><font color=black>%1</font></td></tr>").arg(tr("Mensajes:"));
-    }
+
+
     while ( !stack.isEmpty() ) {
         QPair<QDateTime,QString> c = stack.pop();
-        if( l == SafetLog::Error) {
-            cols = newcol.arg(c.first.toString(SafetYAWL::streamlog.dateFormat())).arg("<font color=red><b>&rarr;</b></font>");
-        } else {
-            cols = newcol.arg(c.first.toString(SafetYAWL::streamlog.dateFormat())).arg("<font color=black><b>&rarr;</b></font>");
-        }
-        cols += newcol.arg(c.second).arg("");
-        rows += newrow.arg(cols);
+        result += c.second + "\n";
     }
-    result = newtable.arg(rows);
+    if (result.length() > 0 )  {
+        result.chop(1);
+    }
 
     return result;
 }

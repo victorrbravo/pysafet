@@ -917,7 +917,12 @@ private:
          void shrinkNodes(QMap<QString, QString> &nodes);
 
 
-
+         /**
+          * @brief doDeleteNodeAndArcs borrar nodos y sus arcos en el documento de texto del grafo
+          * @param code
+          * @return
+          */
+         QString doDeleteNodeAndArcs(const QString &code,bool showstart = true, bool showend = true);
 };
 
 #endif /*SAFETWORKFLOW_H_*/
