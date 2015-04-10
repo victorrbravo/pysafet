@@ -483,14 +483,14 @@ QString SafetWorkflow::extractKeyForField(const QString& key, const QString& str
             myfield.replace("ó","o");
             myfield.replace("ú","u");
             myfield.replace("ñ","n");
-            myfield.replace("Ñ","N");
+            myfield.replace("N","N");
 
             QString myvalue = fields.at(1);
-            SYD << tr(".........SafetWorkflow::extractKeyForField.EXTRACTKEY..field:|%1|...value:|%2|")
+            SYD << tr(".........SafetWorkflow::extractKeyForField....*EXTRACTKEY..field:|%1|...value:|%2|")
                    .arg(myfield)
                    .arg(myvalue);
             if (strin.indexOf(myfield,0,Qt::CaseInsensitive) != -1) {
-                   SYD << tr(".........SafetWorkflow::extractKeyForField.EXTRACTKEY....YES...myvalue:|%1|")
+                   SYD << tr(".........SafetWorkflow::extractKeyForField.....*EXTRACTKEY....YES...myvalue:|%1|")
                           .arg(myvalue);
                     result = myvalue;
                   break;
@@ -3785,8 +3785,19 @@ QString SafetWorkflow:: generateGraph(char* filetype, QString& json, const QStri
 
 
 
-    SYD << tr("...SafetWorkflow::generateGraph...parseCodeGraph....codeGraph (2):\n|%1|")
+    SYD << tr("...SafetWorkflow::generateGraph...parseCodeGraph....codeGraph (2) (before):\n|%1|")
            .arg(codeGraph);
+
+
+    QString showstart = SafetYAWL::getConf()["Graphs/show.startnode"];
+    QString showend = SafetYAWL::getConf()["Graphs/show.endnode"];
+
+    codeGraph = doDeleteNodeAndArcs(codeGraph,showstart.isEmpty() || showstart == "on",showend.isEmpty() || showend == "on");
+
+
+    SYD << tr("...SafetWorkflow::generateGraph...parseCodeGraph....codeGraph (2) (after):\n|%1|")
+           .arg(codeGraph);
+
 
     parsedCodeGraph = SafetYAWL::curOutputInterface->parseCodeGraph(codeGraph, mymap);
     SafetYAWL::filelog.close();
@@ -3816,6 +3827,78 @@ QString SafetWorkflow:: generateGraph(char* filetype, QString& json, const QStri
 
     return result;
 }
+
+
+QString SafetWorkflow::doDeleteNodeAndArcs(const QString& code, bool showstart, bool showend) {
+
+    QString result = "";
+    if (showstart && showend) {
+        return code;
+    }
+
+    SYD << tr("...........SafetWorkflow::doDeleteNodeAndArcs...showstart:%1")
+           .arg(showstart);
+
+    SYD << tr("...........SafetWorkflow::doDeleteNodeAndArcs...showend:%1")
+           .arg(showend);
+
+    QStringList mynodes = code.split("\n",QString::SkipEmptyParts);
+
+    if (showend == true && showstart == false ) {
+
+        foreach(QString mynode, mynodes) {
+             if (!mynode.startsWith("Nodo:inicial,") ) {
+                    result += mynode;
+                    result += "\n";
+                }
+        }
+
+    }
+    else if (showend == false && showstart == true) {
+
+        foreach(QString mynode, mynodes) {
+             if (!mynode.startsWith("Nodo:final,") ) {
+                     QRegExp rx("Siguiente:(.*)final(.*),");
+                     int pos = mynode.indexOf(rx);
+                     QString newline = mynode;
+                     if (pos >= 0) {
+                         newline.replace(rx.cap(0),QString("Siguiente:%1%2,")
+                                         .arg(rx.cap(1))
+                                         .arg(rx.cap(2)));
+                     }
+                    result += newline;
+                    result += "\n";
+                }
+        }
+
+    }
+    else if (showend == false && showstart == false) {
+        foreach(QString mynode, mynodes) {
+             if (!mynode.startsWith("Nodo:final,") && !mynode.startsWith("Nodo:inicial,")) {
+                    QRegExp rx("Siguiente:(.*)final(.*),");
+                    int pos = mynode.indexOf(rx);
+                    QString newline = mynode;
+                    if (pos >= 0) {
+                        newline.replace(rx.cap(0),QString("Siguiente:%1%2,")
+                                        .arg(rx.cap(1))
+                                        .arg(rx.cap(2)));
+                    }
+
+                    //QString newline =  mynode.replace("Siguiente:final","Siguiente:");
+                    result += newline;
+                    result += "\n";
+                }
+        }
+
+    }
+    return result;
+
+
+
+}
+
+
+
 
 
 QString SafetWorkflow::calculateGraphFormula(const QString& code, SafetWorkflow::ResultType rtype) {

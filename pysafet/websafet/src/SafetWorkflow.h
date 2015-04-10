@@ -925,7 +925,14 @@ private:
          void shrinkNodes(QMap<QString, QString> &nodes);
 
 
-
+         /**
+          * @brief doDeleteNodeAndArcs Borrar los nodos inicial y final dependiendo de un valor de configuración
+          * @param code
+          * @param showstart
+          * @param showend
+          * @return
+          */
+         QString doDeleteNodeAndArcs(const QString &code, bool showstart, bool showend);
 };
 
 #endif /*SAFETWORKFLOW_H_*/
