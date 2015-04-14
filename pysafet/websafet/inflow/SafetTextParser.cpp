@@ -711,8 +711,11 @@ QList<QPair<QString,QString> > SafetTextParser::getFieldsValues(const QDomElemen
                 if (!einput.isNull()) {
                     SYD << tr("....SafetTextParser::buildFields...TYPENODE...(1)...");
                     QString newnumber = einput.firstChild().nodeValue().trimmed();
+                    newnumber.replace("Bs.","");
                     newnumber.replace(".","");
-                    newnumber.replace(",",".");
+                    //newnumber.replace(",",".");
+                    newnumber = QString("'%1'").arg(newnumber);
+
                     SYD << tr("....SafetTextParser::buildFields.TYPENODE namefield:|%1|..\n**value(newnumber):|%2|")
                            .arg(namefield)
                            .arg(newnumber);

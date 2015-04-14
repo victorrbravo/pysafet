@@ -1748,10 +1748,10 @@ QString MainWindow::menuForm(const QString& o, bool forwidget, const QString& fi
     QString formurl = purl;
 
     if ( purls.at(0) == "deftrac" ) {
-        formurl.replace("operacion:","forma:");
+        formurl.replace("operacion:","forma_");
     }
     else if (purls.at(0) == "defconsole" ) {
-        formurl.replace("operacion:","consola:");
+        formurl.replace("operacion:","consola_");
     }
 
     SYD << tr("MainWindow::menuForm...menuForm....formurl:|%1|")
