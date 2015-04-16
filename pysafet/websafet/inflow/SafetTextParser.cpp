@@ -2032,12 +2032,12 @@ QStringList SafetTextParser::processXml(bool doquery,bool dopermises) {
 
 
         if ( dopermises ) {
-//            QMap<QString,QString> myhierarchy = MainWindow::loadPermisesHierarchy();
-//            if (!MainWindow::doPermiseExecOperation(nameoperation,myhierarchy)) {
-//                SYE << tr("Usuario no autorizado para realizar la operacion: %1")
-//                       .arg(nameoperation);
-//                return QStringList();
-//            }
+            QMap<QString,QString> myhierarchy = MainWindow::loadPermisesHierarchy();
+            if (!MainWindow::doPermiseExecOperation(nameoperation,myhierarchy)) {
+                SYE << tr("Usuario no autorizado para realizar la operacion: %1")
+                       .arg(nameoperation);
+                return QStringList();
+            }
         }
         operationname =  nameoperation; // Chequear cuandos se actualiza el nombre de la operación
 

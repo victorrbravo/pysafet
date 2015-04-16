@@ -2271,6 +2271,8 @@ QMap<QString,bool> MainWindow::doPermiseExecOperationAction(const QString& op) {
         nameop = op.mid( QString("operacion:").length() );
     }
 
+        SYD    <<  tr("...........MainWindow::doPermiseExecOperationAction...PERMISE...nameop:|%1|")
+                   .arg(nameop);
 
     if (!MainWindow::permises.contains(nameop))  {
 
@@ -2372,10 +2374,10 @@ QMap<QString,QString> MainWindow::loadPermisesHierarchy() {
 bool MainWindow::doPermiseExecOperation(const QString& op, QMap<QString,QString>& phierarchy,
                                         const QString& permise) {
 
-//    SYD << tr("...MainWindow::doPermiseExecOperation...MainWindow::permises....:|%1|...permise:"
-//              "|%2|")
-//           .arg(MainWindow::permises.count())
-//           .arg(permise);
+    SYD << tr("...MainWindow::doPermiseExecOperation...PERMISE....MainWindow::permises....:|%1|...permise:"
+              "|%2|")
+           .arg(MainWindow::permises.count())
+           .arg(permise);
 
     QString nameop = op;
     if (op.startsWith(QLatin1String("operacion:titulo::"))) {
