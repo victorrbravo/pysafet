@@ -831,7 +831,9 @@ QString MainWindow::generateModulesMenu() {
     return result;
 }
 
-QString MainWindow::menuCommands() {
+
+
+QString MainWindow::menuCommands_old() {
     QString result;
     QString TEMPL  = QString("<a href=\"%2\">%1</a><br/>");
     QString TEMPLONLY  = QString("%1<br/>");
@@ -1059,6 +1061,36 @@ QString MainWindow::menuCommands() {
 
     return result;
 
+}
+
+
+
+
+
+
+
+QString MainWindow::menuCommands() {
+    QString result = "{ ";
+
+
+
+    QString newbody = " \"actions\": [";
+
+    QString type = "title";
+    QString href = "/goform/modificar_anuncio/none";
+    QString action_name = "Modificar anuncio";
+
+    newbody +=  QString("{ \"type\";\"%1\", \"href\":\"%2\", \"action_name\":\"%3\" }")
+            .arg(type)
+            .arg(href)
+            .arg(action_name);
+
+    newbody += " ] ";
+
+    result += newbody;
+    result += " } ";
+
+    return result;
 
 }
 
