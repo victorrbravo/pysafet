@@ -863,9 +863,18 @@ QString MainWindow::menuCommands() {
 
     QString modulename = inputPath().section("/",-1).split(".").at(0);
 
+    SYD << tr("....MainWindow::menuCommands()....................modulename:|%1|")
+           .arg(modulename);
+
+    SYD << tr("....MainWindow::menuCommands()....................inputPath():|%1|")
+           .arg(inputPath());
+
     QMap<QString,bool> myperms;
 
     QStringList commands = mymodel->getCommands(false,true);
+
+    SYD << tr("....MainWindow::menuCommands()....................commands.count():|%1|")
+           .arg(commands.count());
 
     QMap<QString,QString> myactions = mymodel->currentActions();
 
