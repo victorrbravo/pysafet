@@ -1080,7 +1080,7 @@ QString MainWindow::menuCommands() {
     QString href = "/goform/modificar_anuncio/none";
     QString action_name = "Modificar anuncio";
 
-    newbody +=  QString("{ \"type\";\"%1\", \"href\":\"%2\", \"action_name\":\"%3\" }")
+    newbody +=  QString("{ \"type\":\"%1\", \"href\":\"%2\", \"action_name\":\"%3\" }")
             .arg(type)
             .arg(href)
             .arg(action_name);
