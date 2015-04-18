@@ -62,8 +62,8 @@ QMap<QString,QString>& SafetConfFile::readFile(const QString& s, bool iscipher) 
      QRegExp rxComment("\\s*\\#(.*)");
      QRegExp rxSection("\\s*\\[([a-zA-Z0-9\\s\\.\\-]+)\\]");
      QRegExp rxValue(trUtf8("\\s*([a-zA-Z0-9\\$\\./\\*;]+)\\s*\\="
-                        "\\s*([\\*\\[\\]a-zA-Z0-9αινσϊρΡ'\\$\\#/\\-\\._/:!\\?\\^\\$%%\\(\\)<>/\\+]"
-                        "[\\{\\}@\\*\\[\\]a-zA-Z0-9αινσϊρΡ;'\\$\\#/\\-\\._/:!\\?\\^\\$\\s%%\\(\\),;<>/\\s\\+\\?]*)"));
+                        "\\s*([\\*\\[\\]a-zA-Z0-9\\xe1\\xe9\\xed\\xfa\\xf1\\xd1\\xf3'\\$\\#/\\-\\._/:!\\?\\^\\$%%\\(\\)<>/\\+]"
+                        "[\\{\\}@\\*\\[\\]a-zA-Z0-9\\xe1\\xe9\\xed\\xfa\\xf1\\xd1\\xf3;'\\$\\#/\\-\\._/:!\\?\\^\\$\\s%%\\(\\),;<>/\\s\\+\\?]*)"));
 
      if (iscipher) {
 //         qDebug("........iscipher....");
