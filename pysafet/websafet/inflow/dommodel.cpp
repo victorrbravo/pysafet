@@ -95,14 +95,20 @@ QStringList DomModel::getCommands(bool includedesc, bool ascending) {
             QString title;
             QDomNode attribute = attributeMap.namedItem("name");
             QDomNodeList fields;
+
+
+
             if (!attribute.isNull()) {
 
                 fields = node.childNodes().at( i ).firstChild().firstChild().childNodes();
-                if ( fields.count() > 0  ) {
-                    title = "operacion:" + attribute.nodeValue().simplified();
-                }
-                else {
-                    title = attribute.nodeValue().simplified();
+                title = attribute.nodeValue().simplified();
+                QDomNode atttype = attributeMap.namedItem("type");
+                if (!atttype.isNull()) {
+                   QString mytype = QString("type::%1::")
+                           .arg(atttype.nodeValue().simplified());
+                  title = mytype + title;
+                  SYD << tr("........GETCOMMAND...newtitle:|%1|")
+                         .arg(title);
                 }
             }
 
