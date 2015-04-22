@@ -49,6 +49,7 @@ public:
     void setTemplatePath(const QString& t);
     QString templatePath();
     void registerLogin(const QString &user);
+    QMap<QString,QString> doPermiseOperation(const QString& op);
     void registerLogout(const QString &user);
     void log(const QString& message);
     QStringList lastInfoGraph();
@@ -71,7 +72,7 @@ public:
                                     const QString&  newquery  = QString());
 
     bool createBdoc(const QString &content);
-    QString checkUserRegister(const QString &fullname, const QString &account,const  QString &email, const QString &passone,const  QString &passtwo);
+    QString checkUserRegister(const QString &fullname, const QString &account,const  QString &email, const QString &passone,const  QString &passtwo, const QString& ticket);
 	QStringList getInfoOfUser(const QString &user);
     bool sendCheckEmail(const QString &user,const QString &plink);
     

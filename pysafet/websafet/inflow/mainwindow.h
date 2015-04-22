@@ -517,7 +517,9 @@ public:
          \return mapas de tipo de accion (claves) -> permiso para el usuario actual
 
       */
-     static QMap<QString,bool> doPermiseExecOperationAction(const QString& op);
+      QMap<QString,bool> doPermiseExecOperationAction(const QString& op);
+
+      QMap<QString,QString> doPermiseOperation(const QString& op);
 
         /*
           *  \brief Coloca el conjunto de comandos para ser utilizado en la consola

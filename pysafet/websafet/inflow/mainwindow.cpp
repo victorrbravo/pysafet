@@ -38,7 +38,6 @@
 */
 
 //#include <QtGui>
-#include <QtXml>
 //#include <QCloseEvent>
 #include <QGraphicsSvgItem>
 //#include <QToolBar>
@@ -998,7 +997,7 @@ QString MainWindow::menuCommands_old() {
 
         }
 
-        myperms= MainWindow::doPermiseExecOperationAction(c);
+        myperms= doPermiseExecOperationAction(c);
 
         if (myperms.isEmpty()) {
             continue;
@@ -1075,7 +1074,7 @@ QString MainWindow::menuCommands() {
     QString newbody = " \"actions\": [";
 
 
-    QString TEMPL  = QString("{ \"type\":\"%2\", \"href\":\"%3\", \"action_name\":\"%1\", \"icon\":\"%4\" },");
+    QString TEMPL  = QString("{ \"type\":\"%2\", \"href\":\"%3\", \"action_name\":\"%1\", \"icon\":\"%4\", \"template\":\"%5\" },");
 
     DomModel* mymodel = new DomModel(inputPath(),NULL);
     Q_CHECK_PTR( mymodel );
@@ -1126,7 +1125,11 @@ QString MainWindow::menuCommands() {
 
         QString title = c;
 
+        SYD << tr(".......currtype...GETCOMMAND..NEWTITLE:|%1|")
+               .arg(title);
+
         QString currtype = "menu";
+        QString currtemplate = "";
         // ** found type
         QRegExp rxtype("type::(.+)::");
 
@@ -1135,10 +1138,20 @@ QString MainWindow::menuCommands() {
            SYD << tr(".......currtype...GETCOMMAND...currtype:|%1|")
                   .arg(currtype);
            title.replace(rxtype.cap(0),"");
-           SYD << tr(".......currtype...GETCOMMAND..title:|%1|")
-                  .arg(title);
         }
 
+
+
+        QRegExp rxtemp("template::(.+)::");
+
+        if (rxtemp.indexIn(title) >= 0 ) {
+           currtemplate = rxtemp.cap(1);
+           SYD << tr(".......currtype...GETCOMMAND...*currtemplate:|%1|")
+                  .arg(currtemplate);
+           title.replace(rxtemp.cap(0),"");
+           SYD << tr(".......currtype...GETCOMMAND..*currtemplatetitle:|%1|")
+                  .arg(title);
+        }
 
         // ** found type
 
@@ -1154,11 +1167,13 @@ QString MainWindow::menuCommands() {
                     foundsubtitle = false;
                 }
 
-                newbody += currtitle;
+                newbody += "{ \"title\":" + currtitle;
+
 
                 SYD << tr("\n\n.....CURTITLE:...(1)...|%1|")
                        .arg(currtitle);
-                newbody += curroperations;
+                curroperations.chop(1);
+                newbody += " \"items\": [ " + curroperations + "] },";
 //                SYD << tr(".....CURROPERATIONS...(1)...|%1|\n\n")
 //                       .arg(curroperations);
 
@@ -1187,7 +1202,8 @@ QString MainWindow::menuCommands() {
                         .arg(MainWindow::convertOpToTitle(title))
                         .arg("title")
                         .arg("")
-                        .arg(mydirmedia + "/" + icon);
+                        .arg(mydirmedia + "/" + icon)
+                        .arg(currtemplate);
 
 
             } else {
@@ -1195,7 +1211,8 @@ QString MainWindow::menuCommands() {
                         .arg(MainWindow::convertOpToTitle(title))
                         .arg("title")
                         .arg("")
-                        .arg("");
+                        .arg("")
+                        .arg(currtemplate);
             }
             continue;
         }
@@ -1220,9 +1237,14 @@ QString MainWindow::menuCommands() {
                         .arg(MainWindow::convertOpToTitle(title))
                         .arg("subtitle")
                         .arg("")
-                        .arg(mydirmedia + "/" + icon);
-                newbody += TEMPL.arg(MainWindow::convertOpToTitle(title)).arg("subtitle").arg("")
-                        .arg(mydirmedia + "/" + icon);
+                        .arg(mydirmedia + "/" + icon)
+                        .arg(currtemplate);
+                newbody += TEMPL
+                        .arg(MainWindow::convertOpToTitle(title))
+                        .arg("subtitle")
+                        .arg("")
+                        .arg(mydirmedia + "/" + icon)
+                        .arg(currtemplate);
 
 
             }
@@ -1231,21 +1253,24 @@ QString MainWindow::menuCommands() {
                         .arg(MainWindow::convertOpToTitle(title))
                         .arg("subtitle")
                         .arg("")
-                        .arg("");
+                        .arg("")
+                        .arg(currtemplate);
 
                 newbody += TEMPL
                         .arg(MainWindow::convertOpToTitle(title))
                         .arg("subtitle")
                         .arg("")
-                        .arg("");
+                        .arg("")
+                        .arg(currtemplate);
             }
             foundsubtitle = true;
-            curroperations += currstitle;
+            curroperations += "{ \"title\":" + currstitle;
             continue;
 
         }
 
-        myperms= MainWindow::doPermiseExecOperationAction(c);
+        //myperms= MainWindow::doPermiseExecOperationAction(c);
+        myperms= doPermiseExecOperationAction(title);
 
         if (currtype == "ws") {
             continue;
@@ -1276,7 +1301,8 @@ QString MainWindow::menuCommands() {
               curroperations += TEMPL.arg(MainWindow::convertOpToTitle(title)+mycount)
                     .arg("action")
                     .arg("/"+title.replace(QRegExp("_SAFET\\d\\d"),""))
-                    .arg("");
+                    .arg("")
+                      .arg(currtemplate);
 
 
         }
@@ -1288,7 +1314,8 @@ QString MainWindow::menuCommands() {
                         .arg(MainWindow::convertOpToTitle(title.replace(QRegExp("_SAFET\\d\\d"),"")))
                         .arg("action")
                         .arg("")
-                        .arg("");
+                        .arg("")
+                        .arg(currtemplate);
             }
         }
 
@@ -1297,18 +1324,20 @@ QString MainWindow::menuCommands() {
 
     // Fin de los comandos
     if (!curroperations.isEmpty()) {
-        newbody += currtitle;
-        newbody += curroperations;
-        newbody.chop(1);
+        newbody += "{ \"title\":" + currtitle;
+        curroperations.chop(1);
+        newbody += ", \"items\": [ " + curroperations + "] },";
         curroperations = "";
     }
+
+    newbody.chop(1);
 
     result += newbody;
 
 
     result += "] }";
 
-    SYD << tr("....***CURRENTCOMMANDS:|%1|")
+    SYD << tr("......menuCommands()........MENU_JSON:|%1|")
            .arg(result);
 
     return result;
@@ -2519,6 +2548,83 @@ void MainWindow::toClearTextEdit() {
    // limpiar la barra de estado
 
 }
+
+QMap<QString,QString> MainWindow::doPermiseOperation(const QString& op) {
+
+    QMap<QString,QString> result;
+
+    QString nameop = op;
+    if (op.startsWith(QLatin1String("operacion:titulo::"))) {
+        return result;
+    }
+    if (op.startsWith(QLatin1String("operacion:"))) {
+        nameop = op.mid( QString("operacion:").length() );
+    }
+
+        SYD    <<  tr("...........MainWindow::doPermiseExecOperationAction...PERMISE...nameop:|%1|")
+                   .arg(nameop);
+
+    if (!MainWindow::permises.contains(nameop))  {
+
+//        SYD    << tr("La operación \"\"%1\"\" no existe en el archivo de autorización<br/>."
+//                      "Consulte con el administrador para que asigne el permiso solicitado").arg(op);
+        return result;
+    }
+
+    if ( MainWindow::permises[ nameop ].count() < 3) {
+                SYE << tr("La operación \"%1\" solo tiene \"%2\" elementos de información.<br/>Es "
+                      "probable que el archivo de autorización no esté correctamente formado")
+                .arg(nameop).arg(MainWindow::permises[ nameop ].count());
+
+                return result;
+    }
+
+    QStringList mytypes = MainWindow::permises[ nameop ].at(1).split(";");
+
+    QStringList myusers = MainWindow::permises[ nameop ].at(0).split(";");
+    QStringList myroles = MainWindow::permises[ nameop ].at(2).split(";");
+
+   QStringList currentroles = MainWindow::currentrole.split(";",QString::SkipEmptyParts);
+
+    bool foundrole = false;
+    foreach(QString r, currentroles)  {
+        if ( myroles.contains(r) ) {
+            foundrole = true;
+            break;
+        }
+
+    }
+
+    foreach(QString t, mytypes) {
+        QStringList mylist = t.split(":",QString::SkipEmptyParts);
+        if (mylist.count()>1) {
+            if (currentaccount == mylist.at(0)) {
+                result[mylist.at(1)] = "true";
+             }
+            else {
+               if (myusers.contains(currentaccount) || foundrole) {
+                     result[mylist.at(1)] = "true";
+               }
+               else {
+                   result[mylist.at(1)] = "false";
+               }
+            }
+        }
+        else {
+            if (myusers.contains(currentaccount) || foundrole) {
+                result[mylist.at(0)] = "true";
+            }
+            else {
+                result[mylist.at(0)] = "false";
+            }
+        }
+
+
+    }
+
+    return result;
+}
+
 
 
 QMap<QString,bool> MainWindow::doPermiseExecOperationAction(const QString& op) {

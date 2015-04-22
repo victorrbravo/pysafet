@@ -107,7 +107,16 @@ QStringList DomModel::getCommands(bool includedesc, bool ascending) {
                    QString mytype = QString("type::%1::")
                            .arg(atttype.nodeValue().simplified());
                   title = mytype + title;
-                  SYD << tr("........GETCOMMAND...newtitle:|%1|")
+                  SYD << tr("........GETCOMMAND..NEWTYPE...newtitle:|%1|")
+                         .arg(title);
+                }
+
+                QDomNode atttemplate = attributeMap.namedItem("template");
+                if (!atttemplate.isNull()) {
+                   QString mytemplate = QString("template::%1::")
+                           .arg(atttemplate.nodeValue().simplified());
+                  title = mytemplate + title;
+                  SYD << tr("........GETCOMMAND...NEWTEMPLATE template...newtitle:|%1|")
                          .arg(title);
                 }
             }
