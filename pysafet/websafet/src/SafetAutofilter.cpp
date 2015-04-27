@@ -725,7 +725,17 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
              .arg(QVariant::Int);
 
 
-     if ( t != QVariant::DateTime && t != QVariant::UInt && t != QVariant::Int   ) {
+     if ( t != QVariant::DateTime  ) {
+         if (  t == QVariant::UInt || t == QVariant::Int ) {
+             QString myname = query.record().field(0).name().toLower();
+              SYD << tr("generateDateFilters....NODATE...name:|%1|")
+                     .arg(myname);
+              // FIX: colocar una lista en la configuracion de campos no autofiltros
+              if (myname == "category"  || myname =="subcategory") {
+                 SYD << tr("generateDateFilters....NODATE...field");
+                 return false;
+             }
+         }
          error = 0;
             SYD << tr("generateDateFilters....false");
             return false;
