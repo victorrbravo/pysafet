@@ -643,7 +643,11 @@ void ComboWidget::updateComboFlow(bool inwidget) {
                           .arg(infos.count());
 
                    for (int i=0; i < infos.count(); i++ ) {
-                       myperms = MainWindow::doPermiseExecOperationAction(namewf + "." + infos.at(i)  );
+                       if (MainWindow::mymainwindow == NULL) {
+                           SYE << tr("Error to LOAD permises mainwindow is NULL");
+                           break;
+                       }
+                       myperms = MainWindow::mymainwindow->doPermiseExecOperationAction(namewf + "." + infos.at(i)  );
                         SYD << tr("..............ComboWidget::updateComboFlow.....(list)....operation;|%1|").arg(namewf + "." + infos.at(i));
 
                         SYD << tr("..............ComboWidget::updateComboFlow.....(list)....myperms.count();|%1|").arg(myperms.count());
