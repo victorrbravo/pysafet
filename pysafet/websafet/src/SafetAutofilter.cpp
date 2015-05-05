@@ -731,16 +731,16 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
               SYD << tr("generateDateFilters....NODATE...name:|%1|")
                      .arg(myname);
               // FIX: colocar una lista en la configuracion de campos no autofiltros
-              if (myname == "category"  || myname =="subcategory") {
+              if (myname == "category"  || myname =="subcategory")  {
                  SYD << tr("generateDateFilters....NODATE...field");
                  return false;
              }
          }
-         error = 0;
-            SYD << tr("generateDateFilters....false");
-            return false;
-
+         else {
+             return false;
+         }
      }
+
 
      SYD << tr("SafetAutofilter::generateDateFilters....**true");
      getoptions.clear();
