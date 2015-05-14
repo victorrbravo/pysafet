@@ -98,6 +98,7 @@ const QString SEPARATOR = "<SAFETSEPARATOR/>";
 const QString SAFETFIRST = "safetfirst";
 const QString COLONMARK = "##SAFETCOLON##";
 const QString AMPMARK_ = "__SAFETAMP__";
+const QString PIPEMARK_ = "__SAFETPIPE__";
 const QString COLONMARK_ = "__SAFETCOLON__";
 const QString COMMAMARK = "##SAFETCOMMA##";
 const QString BRACKETOPENMARK = "##SAFETBRACKETOPEN##";

@@ -930,7 +930,7 @@ bool SafetYAWL::canTypeConvert(const QString& s, QVariant::Type t) {
 QString SafetYAWL::processOperatorValue(const QString& s, QString& ope) {
 	QString str = s;
 	QRegExp rx;
-        rx.setPattern("^\\s*(<|>|\\=|<\\=|>\\=|\\!\\=|LIKE|IS|NOT IN\\s|IN\\s).*");
+        rx.setPattern("^\\s*(<|>|\\=|<\\=|>\\=|\\!\\=|LIKE|@@|IS|NOT IN\\s|IN\\s).*");
 	rx.setCaseSensitivity(Qt::CaseInsensitive);
 	int pos = rx.indexIn(str);
 	if (pos >= 0 & rx.cap(1).length() >  0 ) {

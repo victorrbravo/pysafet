@@ -285,6 +285,20 @@ bool SafetWorkflow::putParameters(const QMap<QString,QString>& p) {
                .arg(task->getRecursivefilters().count());
 
 
+        SafetVariable *myvar = task->getVariables().at(0);
+        if (myvar == NULL) {
+            SYE << tr("Variable en tarea \"%1\" es nula").arg(task->title());
+        }
+        else {
+            SYD << tr("REPLACING VARIABLES....");
+            strin = myvar->groupby();
+            strout = replaceArg(strin,list);
+            if (strin != strout) {
+                myvar->setGroupby(strout);
+            }
+        }
+
+
         foreach(SafetRecursivefilter *filter, task->getRecursivefilters()) {
             strin = filter->filter();
             bool doit = false;
@@ -372,7 +386,7 @@ bool SafetWorkflow::putParameters(const QMap<QString,QString>& p) {
 QString SafetWorkflow::replaceArg(const QString& strin, const QMap<QString,QString>& l, bool &doit) {
     QString result = strin;
     doit = false; // es defaultvalue
-   QString pattern = QString("(\\=|>|<|<\\=|>\\=|IS|IN|LIKE)?\\s*\\{\\#([a-zA-Z0-9_]+)\\}");
+   QString pattern = QString("(\\=|>|<|<\\=|>\\=|IS|IN|LIKE|@@)?\\s*\\{\\#([a-zA-Z0-9_]+)\\}");
    QRegExp rx;
    rx.setPattern(pattern);
    int pos = 0;
@@ -503,7 +517,7 @@ QString SafetWorkflow::extractKeyForField(const QString& key, const QString& str
 
 QString SafetWorkflow::replaceArg(const QString& strin, const QMap<QString,QString>& l) {
     QString result = strin;
-   QString pattern = QString("(\\=|>|<|<\\=|>\\=|IS|IN|LIKE)?\\s*\\{\\#([a-zA-Z0-9_]+)\\}");
+   QString pattern = QString("(\\=|>|<|<\\=|>\\=|IS|IN|LIKE|@@)?\\s*\\{\\#([a-zA-Z0-9_]+)\\}");
    QRegExp rx;
    rx.setPattern(pattern);
    int pos = 0;
@@ -1065,7 +1079,7 @@ QString SafetWorkflow::evalSQLKeyFilterStack(const QString& sql, QStack<QString>
         //SafetYAWL::debugStack( e ); // Funcion agregada para listar las tareas de la pila
 	if ( e.count() ==  1 ) {
 		QString newsql = e.pop();
-		QString path = newsql.section('|',1,1);
+        QString path = newsql.section('|',-1);
 		newsql.remove("|" + path);
 		SafetSQLParser localparser;
                 localparser.setWorkflow(this);
@@ -4452,7 +4466,7 @@ QString SafetWorkflow::generateSQLPortKeyFilterExpression(SafetPort* port, int c
             port->setOptions(query);
         }
 
-        QStringList optionlist = port->options().split("|");
+        QStringList optionlist = port->options().split("##");
 
         Q_ASSERT_X(option < optionlist.count(),"generateSQLPortKeyFilterExpression",
                    qPrintable(tr("La lista de opciones (options) no es correcta")));
@@ -4853,7 +4867,7 @@ void SafetWorkflow::generateNewKeySet(const QString& s, QSet<QString> &set,
         matchpath = curroption;
     }
 
-    QStringList optionlist = port->options(matchpath).split("|");
+    QStringList optionlist = port->options(matchpath).split("##SAFETPIPE##");
     optionlists.push_back( optionlist );
     querys.push_back( s );
       SafetNode* myparent = qobject_cast<SafetNode*> (port->parent());
@@ -4878,7 +4892,7 @@ void SafetWorkflow::generateNewKeySet(const QString& s, QSet<QString> &set,
         for ( int i = 0; i < port->getConnectionlist().count(); i++ ) {
             if ( i != matchpath ) {
                 querys.push_back(port->getConnectionlist().at(i)->query());
-                QStringList myoptionlist = port->getConnectionlist().at(i)->options().split("|");
+                QStringList myoptionlist = port->getConnectionlist().at(i)->options().split("##SAFETPIPE##");
                 optionlists.push_back(myoptionlist);
             }
         }
@@ -5163,7 +5177,7 @@ QString SafetWorkflow::generateWhereFilter(const QString& f, SafetNode* node, in
 	Q_CHECK_PTR(port);
         int option = 0;
         option = curroption;
-        QStringList optionlist = port->options(option).split("|");
+        QStringList optionlist = port->options(option).split("##SAFETPIPE##");
         if ( option >= optionlist.count() ) option = optionlist.count() -1 ;
 
   //      qDebug("\t\t....optionlist[option]: %s", qPrintable(optionlist[option]));
@@ -6054,7 +6068,7 @@ SafetVariable*  SafetWorkflow::searchVariable(const QString& n) {
 
 
 QStringList SafetWorkflow::UniteWhereset() {
-        QRegExp rx("([a-zA-Z_0-9\\.][a-zA-Z_0-9\\.\\(\\)]*)\\s*(\\=|>|<|<\\=|>\\=|IS|LIKE)\\s*(['\"a-zA-Z_0-9:\\-\\.]+)");
+        QRegExp rx("([a-zA-Z_0-9\\.][a-zA-Z_0-9\\.\\(\\)]*)\\s*(\\=|>|<|<\\=|>\\=|IS|LIKE|@@)\\s*(['\"a-zA-Z_0-9:\\-\\.]+)");
         rx.setCaseSensitivity(Qt::CaseInsensitive);
         QStringList droplist;
 	QList<QString> newwhereset;

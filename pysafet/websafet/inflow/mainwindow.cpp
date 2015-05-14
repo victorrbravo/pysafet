@@ -4756,7 +4756,9 @@ QString MainWindow::replaceMarks(const QString& s) {
     result.replace(Safet::COLONMARK,":");
     result.replace(Safet::COLONMARK_,":");
     result.replace(Safet::AMPMARK_,"&amp;");
+    result.replace(Safet::PIPEMARK_,"|");
     result.replace(Safet::COMMAMARK,",");
+
     result.replace("Safet::aacute","á");
     result.replace("Safet::eacute","é");
     result.replace("Safet::iacute","í");
@@ -4799,7 +4801,7 @@ QString MainWindow::extractParameters(const QString& action) {
             if (pos==-1) {
                 break;
             }
-            mypars[rxpars.cap(2)] = rxpars.cap(3);
+            mypars[rxpars.cap(2)] = replaceMarks(rxpars.cap(3));
             pos += rxpars.cap(0).length()+1;
             result.replace(rxpars.cap(0),"");
 
