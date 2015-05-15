@@ -1072,6 +1072,7 @@ QString MainWindow::menuCommands() {
 
 
     QString newbody = " \"actions\": [";
+    int ilennewbody = newbody.length();
 
 
     QString TEMPL  = QString("{ \"type\":\"%2\", \"href\":\"%3\", \"action_name\":\"%1\", \"icon\":\"%4\", \"template\":\"%5\" },");
@@ -1330,7 +1331,9 @@ QString MainWindow::menuCommands() {
         curroperations = "";
     }
 
-    newbody.chop(1);
+    if ( newbody.length() > ilennewbody ) {
+            newbody.chop(1);
+    }
 
     result += newbody;
 
