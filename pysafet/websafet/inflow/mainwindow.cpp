@@ -2048,6 +2048,7 @@ QString MainWindow::menuForm(const QString& o, bool forwidget, const QString& fi
         formurl.replace("operacion:","consola_");
     }
 
+    formurl  = formurl + "{{SAFETCURRID}}";
     SYD << tr("MainWindow::menuForm...menuForm....formurl:|%1|")
                   .arg(formurl);
 
