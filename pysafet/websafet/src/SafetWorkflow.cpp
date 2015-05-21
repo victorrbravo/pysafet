@@ -5203,6 +5203,27 @@ QList<SafetTask*>& SafetWorkflow::getTasks() {
 	return tasklist;
 }
 
+QString SafetWorkflow::getOptionConnName(const QString& name) {
+    QString result = name;
+    foreach(SafetTask* task, tasklist)   {
+        SafetPort* myport = task->getPorts().at(0);
+        foreach(SafetConnection *conn, myport->getConnectionlist()) {
+            if (conn->source() == name) {
+                return conn->options();
+            }
+        }
+        foreach(SafetConnection *conn, myport->getConnBackList()) {
+            if (conn->source() == name) {
+                return conn->options();
+            }
+        }
+
+    }
+
+    return result;
+
+}
+
 QString SafetWorkflow::listTasks(bool inc, const QString& c) {
      QString result;
      foreach(SafetTask* mytask, tasklist) {

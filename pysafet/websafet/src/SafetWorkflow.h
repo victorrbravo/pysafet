@@ -904,6 +904,7 @@ public:
 
 
 
+    QString getOptionConnName(const QString &name);
 private:
    QMap<QString,QStringList> _nexts;
    QMap<QString,QStringList> _previouses;

@@ -633,6 +633,20 @@ void ComboWidget::updateComboFlow(bool inwidget) {
                    infos = MainWindow::configurator->getWorkflows().at(0)
                            ->listNextStates(mykeyvalue,myns,true);
 
+                   SafetWorkflow* mywf = MainWindow::configurator->getWorkflows().at(0);
+                   Q_CHECK_PTR( mywf );
+                   QStringList newinfos;
+                   foreach(QString info, infos) {
+                       QString newinfo = mywf->getOptionConnName(info);
+                       SYD << tr("NEWCOMBO....combo..NEWINFO:info:|%1|->|%2|").arg(info).arg(newinfo);
+                       if (!newinfo.isEmpty()) {
+                           realvalues[ info ] = newinfo;
+                           newinfos.append(newinfo);
+                       }
+                   }
+                   _itemrealvaluelist = newinfos;
+
+
                    // Solo el nombre del flujo
                    QString namewf = conf()["path"].toString().section("/",-1);
                    namewf = namewf.mid(0,namewf.lastIndexOf("."));
