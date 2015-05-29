@@ -1820,7 +1820,9 @@ QString MainWindow::generateModifyHTML(const QString& operation, const QString& 
                       .arg(result);
     }
     else if (  (operation == "modificar_usuario" && fieldname == "Estado")
+               || (operation == "modificar_perfil" && fieldname == "Estado")
                || (operation == "modificar_usuario" && (fieldname == "País" || fieldname == "Pais"))
+               || (operation == "modificar_perfil" && (fieldname == "País" || fieldname == "Pais"))
                || operation == "agregar_publicación"
                || (operation == "modificar_publicación" && fieldname == "Categoría") ) {
 
