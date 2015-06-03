@@ -522,17 +522,35 @@ QString MainWindow::checkUserRegister(const QString& fullname,
 
 
 
-//        QString newhash = QString("_%1_%2_%3")
-//                .arg(account)
-//                .arg(textsha1.toHex().data())
-//                .arg(passha1.toHex().data());
+        QString useEmail = SafetYAWL::getConf()["Email/used"];
+        QString emailRole = SafetYAWL::getConf()["Email/newrole"];
+        if (emailRole.isEmpty()) {
+            emailRole = "Administrador";
+        }
 
-        QString newhash = QString("%1")
-//                .arg(account)
-//                .arg(textsha1.toHex().data())
+        QString newhash = "";
+        if (useEmail == "on") {
+
+                SYD << tr("........(enviando check).......MainWindow::checkUserRegister...useEmail...on");
+                newhash = QString("_%1_%2_%3")
+                .arg(account)
+                .arg(textsha1.toHex().data())
                 .arg(passha1.toHex().data());
 
+
+        }
+        else {
+            SYD << tr("........(enviando check).......MainWindow::checkUserRegister...useEmail...off");
+            newhash = QString("%1")
+    //                .arg(account)
+    //                .arg(textsha1.toHex().data())
+                    .arg(passha1.toHex().data());
+
+        }
+
         QString myaction = "";
+
+
 
 
             myaction = QString("operacion:Agregar_usuario Nombre_cuenta_usuario: %1 Contraseña_usuario: %2 "
@@ -540,7 +558,7 @@ QString MainWindow::checkUserRegister(const QString& fullname,
                 .arg(account)
                 .arg(newhash)
                 .arg(newfullname + " " + email)
-                .arg("Administrador")
+                .arg(emailRole)
                 .arg(ticket.isEmpty()?passtwo:ticket);
 
 
@@ -562,7 +580,10 @@ QString MainWindow::checkUserRegister(const QString& fullname,
         SYD << tr("........(enviando check).......MainWindow::checkUserRegister............LOCALLINK:|%1|").arg(link);
 
         SYD << tr("...............MainWindow::checkUserRegister...sending email (before)....");
-        sendCheckEmail(account,link);
+        if (useEmail == "on") {
+                SYD << tr("...............MainWindow::checkUserRegister...useEmail...SENDINGEMAIL....useEmail...on");
+                sendCheckEmail(account,link);
+        }
         SYD << tr("...............MainWindow::checkUserRegister...sending email (after)....");
 
 
