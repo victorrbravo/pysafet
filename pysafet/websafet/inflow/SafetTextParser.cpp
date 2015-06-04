@@ -703,20 +703,28 @@ QList<QPair<QString,QString> > SafetTextParser::getFieldsValues(const QDomElemen
         }
 
         if (typeNode.nodeValue().simplified() == "number") {
-            SYD << tr("....SafetTextParser::buildFields...TYPENODE:|NUMBER|");
+            SYD << tr("....SafetTextParser::buildFields...***TYPENODE:|NUMBER|");
                 QDomElement einput = ninput.firstChildElement(namefield);
                 if (einput.isNull()) {
                     einput = ninput.firstChildElement(currtitle);
                 }
                 if (!einput.isNull()) {
-                    SYD << tr("....SafetTextParser::buildFields...TYPENODE...(1)...");
+
+                    SYD << tr("....SafetTextParser::buildFields...checkprice...TYPENODE...(1)...");
                     QString newnumber = einput.firstChild().nodeValue().trimmed();
                     newnumber.replace("Bs.","");
                     newnumber.replace(".","");
                     //newnumber.replace(",",".");
+                    if ((namefield.compare("Precio",Qt::CaseInsensitive) == 0 || namefield.compare("price",Qt::CaseInsensitive) == 0)
+                            && newnumber.indexOf(",")==-1) {
+                        SYD << tr("....SafetTextParser::buildFields...checkprice...TYPENODE...(2)...");
+                            newnumber =   newnumber + ",00";
+                    }
                     newnumber = QString("'%1'").arg(newnumber);
 
-                    SYD << tr("....SafetTextParser::buildFields.TYPENODE namefield:|%1|..\n**value(newnumber):|%2|")
+
+
+                    SYD << tr("....SafetTextParser::buildFields.TYPENODE namefield:|%1|..\n****value(newnumber):|%2|")
                            .arg(namefield)
                            .arg(newnumber);
                     valuemap[namefield] = newnumber;

@@ -520,8 +520,6 @@ QString MainWindow::checkUserRegister(const QString& fullname,
         QByteArray passha1 = QCryptographicHash::hash(QByteArray(qPrintable(passone)),
                                                                        QCryptographicHash::Sha1);
 
-
-
         QString useEmail = SafetYAWL::getConf()["Email/used"];
         QString emailRole = SafetYAWL::getConf()["Email/newrole"];
         if (emailRole.isEmpty()) {
