@@ -3818,22 +3818,29 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
 
          SYD  << tr("..............MainWindow::toInputForm.....data....DATA (2)....");
 
-         QString adjaction = parser.currentDataAction()
-                 .arg(data.map["id"]);
-         bool result = toInputConsole(adjaction,false);
+         QString mydataaction = parser.currentDataAction();
 
-         if (!result ) {
-             SYE << tr("No se ejecuto la acción para el envio de correo");
-             return QString("");
+         QString mycurrent = "";
 
+         if  (!mydataaction.isEmpty()) {
+
+             QString adjaction = mydataaction
+                     .arg(data.map["id"]);
+             bool result = toInputConsole(adjaction,false);
+
+             if (!result ) {
+                 SYE << tr("No se ejecuto la acción para el envio de correo");
+                 return QString("");
+
+             }
+
+             mycurrent = currentDATA();
+             SYD << tr("....MainWindow::toInputForm....ADJDATA:|%1|")
+                    .arg(mycurrent);
          }
 
-         QString mycurrent = currentDATA();
-         SYD << tr("....MainWindow::toInputForm....ADJDATA:|%1|")
-                .arg(mycurrent);
-
-         SYD << tr("....MainWindow::toInputForm..DATAMAPID..***data.map.keys().count():|%1|")
-                .arg(data.map.keys().count());
+             SYD << tr("....MainWindow::toInputForm..DATAMAPID..***data.map.keys().count():|%1|")
+                    .arg(data.map.keys().count());
 
             buildEmail(data.map, mycurrent,data.map["id"]);
 
@@ -3921,6 +3928,9 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
          QString curremail;
          QRegExp rx(Safet::EMAIL_PATTERN);
          int pos = MainWindow::currentrealname.indexOf(rx);
+
+         SYD << tr("....CURRREALNAME:|%1|").arg(MainWindow::currentrealname);
+
 
          if (pos == -1) {
              SYW << tr("Parece que no se encuentra configura su correo de usuario correctamente. "
@@ -4032,8 +4042,14 @@ QString MainWindow::parseForEmail(const QString& t, const QString& idkey, QMap<Q
     QCoreApplication myapp(nargs,argv);
     QScriptEngine myEngine;
 
-    QString mycs = QString("(function(fname) { mydata = %1; try { return mydata[0][fname]; } catch(err) { return \"\" }})")
+    QString mycs = "(function(fname) { return \"\"; })";
+
+
+    if (!cs.isEmpty())  {
+        mycs =     QString("(function(fname) { mydata = %1; try { return mydata[0][fname]; } catch(err) { return \"\" }})")
             .arg(cs);
+
+    }
 
     SYD  << tr("..............MainWindow::parseForEmail.... mycs:|%1|")
             .arg(mycs);
@@ -4431,6 +4447,7 @@ void MainWindow::sendEmail(const QString& recipients, const QString& subject, co
     SYD << tr(".............MainWindow::sendEmail...................(BEGIN)....");
 #ifdef SAFET_SMTP
 
+    SYD << tr(".............MainWindow::sendEmail...................(BEGIN**)....");
     QString myhost = SafetYAWL::getConf()["Email/host"];
     if  (myhost.isEmpty()) {
         myhost = "localhost";
@@ -4447,6 +4464,7 @@ void MainWindow::sendEmail(const QString& recipients, const QString& subject, co
         mypass = "4n0d0";
     }
 
+    SYD << tr(".............MainWindow::sendEmail...................(BEGIN***)....");
     SYD << tr("..........MainWindow::sendEmail....SENDEMAILLOCALHOST .user:|%1|")
            .arg(myuser);
 
