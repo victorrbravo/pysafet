@@ -3103,6 +3103,8 @@ void MainWindow::executeWithJSON( ) {
     tipsdata += "] }";
     QStringList mytips;
 
+    _currentdata = "[" + currentDocuments + " ]";
+
     SYD << tr("....MainWindow::executeWithJSON....SCRIPTENGINE...myscript...searchScript:|%1|")
            .arg(_listprincipalvariable);
     QString myscript = searchScript(_listprincipalvariable);
@@ -4507,7 +4509,7 @@ void MainWindow::sendEmail(const QString& recipients, const QString& subject, co
         QStringList infolist = getInfoOfUser(user);
 
         int ninfo = infolist.count();
-        SYD << tr("..........MainWindow::sendEmail....SENDEMAIL....infolist.count():|%1|")
+        SYD << tr("..........MainWindow::sendEmail....SENDEMAIL..*ADDHEADERS..infolist.count():|%1|")
                .arg(ninfo);
         QString mytext = message;
         if (ninfo > 2 ) {
@@ -4525,10 +4527,17 @@ void MainWindow::sendEmail(const QString& recipients, const QString& subject, co
 
         emessage.addRecipient(new EmailAddress(email));
         emessage.setSubject(subject);
+
         MimeText text;
 
 
+            //text.setHeader();
+            //text.addHeaderLine("MIME-Version: 1.0");
+            //text.addHeaderLine("Content-type: text/html;charset=utf-8");
+
+            text.setContentType("text/html");
             text.setText(mytext);
+
             emessage.addPart(&text);
             smtp.sendMail(emessage);
             if (ishost ) {
