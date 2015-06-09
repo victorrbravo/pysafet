@@ -4512,6 +4512,9 @@ void MainWindow::sendEmail(const QString& recipients, const QString& subject, co
         SYD << tr("..........MainWindow::sendEmail....SENDEMAIL..*ADDHEADERS..infolist.count():|%1|")
                .arg(ninfo);
         QString mytext = message;
+        mytext.replace("_USERNAME", SafetYAWL::currentAuthUser());
+        mytext.replace("_REALNAME",MainWindow::currentrealname);
+
         if (ninfo > 2 ) {
             QString myname = infolist.at(2);
             QRegExp  rx(Safet::EMAIL_PATTERN);
