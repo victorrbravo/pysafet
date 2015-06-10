@@ -3915,6 +3915,17 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
 
      if ( !mypostaction.isEmpty() ) {
 
+
+         QString currfile = SafetYAWL::pathconf + "/" + "templates" + "/" + mypostaction;
+         SYD << tr("...........MainWindow::toInputForm...evaluating EVALPOSTACTION....file:|%1|")
+                .arg(currfile);
+         if (QFile::exists(currfile)) {
+                mypostaction = SafetYAWL::readStringFromFile(currfile).constData();
+                mypostaction.replace("\n"," ");
+
+         }
+
+
          SYD  << tr(".................MainWindow::toInputForm....POSTACTION_APPEND (BEFORE)..."
                     "KEY_RETURNING...results.at(0)->:|%1|")
                  .arg(results.at(0));

@@ -2230,7 +2230,7 @@ QByteArray myxml;
     QFile file(namefile);
 
 if (!file.open(QIODevice::ReadOnly)) {
-    SafetYAWL::streamlog << SafetLog::Error <<
+    SYE <<
     tr("No es posible abrir el archivo: \"%1\"")
     .arg(namefile);
     return myxml;
