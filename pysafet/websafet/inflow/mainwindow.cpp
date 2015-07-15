@@ -9825,6 +9825,53 @@ bool MainWindow::logout() {
 
 QStringList MainWindow::getInfoOfUser(const QString& user) {
 
+    QStringList result;
+    SYD << tr("...........MainWindow::getInfoOfUser....user:|%1|").arg(user);
+    if (user.compare("*") == 0) {
+
+        SYD << tr("...........MainWindow::getInfoOfUser....user is keys:%1")
+               .arg(users.keys().count());
+        foreach(QString mykey, users.keys()) {
+            QStringList mylist = users[mykey];
+            QString newresult = "{ \n ";
+            newresult += QString("\"account\" : \"%1\", \n").arg(mykey);
+            for(int i = 0; i < mylist.count(); i++) {
+                QString myname = "";
+                QString myemail = "";
+                QRegExp rx(Safet::EMAIL_PATTERN);
+                int pos  = 0;
+
+                switch (i) {
+                case 0:
+                    newresult += QString("\"pass\" : \"%1\",\n").arg(mylist.at(i));
+                    break;
+                case 1:
+                    newresult += QString("\"groups\" : \"%1\",\n").arg(mylist.at(i));
+                    break;
+                case 2:
+                    myname = mylist.at(i);
+                    pos = myname.indexOf(rx);
+                    if (pos > 0) {
+                        myemail = rx.cap(0);
+                        myname = myname.replace(myemail,"").trimmed();
+                    }
+                    newresult += QString("\"name\" : \"%1\",\n").arg(myname);
+                    newresult += QString("\"email\" : \"%1\",\n").arg(myemail);
+
+                    break;
+                default:
+                    break;
+                }
+            }
+             newresult.chop(2);
+             newresult += " \n}";
+
+             result.append(newresult);
+        }
+
+        return result;
+
+    }
 
     SYD  << tr("..........MainWindow::getInfoOfUser.......(1)...");
     if (!users.contains(user)) {
