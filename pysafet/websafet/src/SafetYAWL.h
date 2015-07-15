@@ -381,7 +381,7 @@ public:
           */
         static bool replaceTextInFile(const QString& filename, const QString& searchtext, const QString& replacetext,
                                        Qt::CaseSensitivity = Qt::CaseSensitive,
-                                       int replacewith = 0);
+                                       int replacewith = 0,int replacewith2 = 0);
 
 
 

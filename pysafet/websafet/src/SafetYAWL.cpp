@@ -1824,7 +1824,7 @@ QStringList  SafetYAWL::getTempNameFiles(int n) {
 
 bool  SafetYAWL::replaceTextInFile(const QString& filename, const QString& searchtext,
                                    const QString& replacetext,  Qt::CaseSensitivity cs,
-                                   int replacewith) {
+                                   int replacewith, int replacewith2) {
 
     bool found = false;
     QStringList list = SafetYAWL::getTempNameFiles(1);
@@ -1862,6 +1862,9 @@ bool  SafetYAWL::replaceTextInFile(const QString& filename, const QString& searc
             if (replacewith > 0 ) {
                 newreplacetext.replace("||cap||",rx.cap(replacewith));
             }
+            if (replacewith2 > 0 ) {
+                newreplacetext.replace("||cap0||",rx.cap(replacewith2));
+            }
             line.replace(rx, newreplacetext);
         }
         out << line.toLatin1();
@@ -1870,12 +1873,11 @@ bool  SafetYAWL::replaceTextInFile(const QString& filename, const QString& searc
     qDebug("...finalizando lectura....");
     file.close();
     tempfile.close();
-    SafetYAWL::streamlog << SafetLog::Debug << QObject::tr("Se escribió el archivo con texto reemplazado: \"%1\"").arg(tempname);
+    SYD <<  QObject::tr("Se escribio el archivo con texto reemplazado: \"%1\"").arg(tempname);
     bool result = QFile::remove(filename);    
     qDebug("...borrando...: %s", qPrintable(filename));
     if (!result ) {
-        SafetYAWL::streamlog
-                << SafetLog::Error <<
+        SYE <<
         QObject::tr("No es posible eliminar el archivo en la ubicacion: \"%1\"").arg(filename);
     }
     result = QFile::rename(tempname, filename);

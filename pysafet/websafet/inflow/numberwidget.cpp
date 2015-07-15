@@ -72,22 +72,6 @@ QString NumberWidget::html() {
 
       result = "";
 
-//    result =  QString(""
-//                      "<script  type=\"text/javascript\">\n"
-//                      "$(function() {"
-//                      "$(\"#%1\").jqxNumberInput({ %2,promptChar: ' ' });\n"
-//                      "%3\n"
-//                      "  $('#%1').bind('valuechanged', function (event) {\n"
-//                      "  var value = event.args.value;\n"
-//                      "  $('#%1').jqxNumberInput('val',value);\n"
-//                      "  });\n"
-//                      "});\n"
-
-//                      "</script>\n"
-//                      "")
-//            .arg(caption())
-//            .arg(wprops);
-
 
     int posaction = 0;
     QString poscol = "md-4";
@@ -188,10 +172,13 @@ bool NumberWidget::isValid(QString& value) {
     bool okint, okfloat;
     QString newvalue = value;
 
+    //newvalue.replace("Bs.","");
+
     newvalue.replace(".","");
     newvalue.replace(",",".");
 
-    SYD << tr("....NumberWidget...validating...NUMBERWIDGET...newvalue:|%1|")
+
+    SYD << tr("....NumberWidget...validating...NUMBERWIDGET..VALIDMONEY.newvalue:|%1|")
            .arg(newvalue);
 
     int vi = newvalue.toInt(&okint);

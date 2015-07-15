@@ -6355,10 +6355,11 @@ void MainWindow::proccessConfFile(const QString& sql, const QString& filename, b
 
      QString searchtext = QString("\\s*(%1)\\s*\\=\\s*([αινσϊρΡa-zA-Z0-9\\*\\$\\#/\\-\\._/:!\\?\\^\\$\\(\\)#%\\x3c\\x3e\\x2f@]"
                              "[αινσϊρΡa-zA-Z0-9\\*\\$\\#/\\-\\._/:!\\?\\^\\$\\s\\(\\);#%\\x3c\\x3e\\x2f@]*)"
-                             "[αινσϊρΡa-zA-Z0-9\\*\\$\\#/\\-\\._/:!\\?\\^\\$\\(\\);#%\\x3c\\x3e\\x2f@]")
+                             "[αινσϊρΡa-zA-Z0-9\\*\\$\\#/\\-\\._/:!\\?\\^\\$\\(\\);#%\\x3c\\x3e\\x2f]")
              .arg(firstkeyfield);
      QString replacetext;
      QString currentfirstkeyfield;
+     QString currentsecondkeyfield = secondkeyfield;
      if ( !isdeleting ) {
         replacetext = tr ("%1 = %2").arg(firstkeyfield).arg(secondkeyfield);
 
@@ -6414,9 +6415,9 @@ void MainWindow::proccessConfFile(const QString& sql, const QString& filename, b
          else {
              secondkeyfield = "";
          }
-         searchtext = tr("\\s*(%1)\\s*\\=\\s*([αινσϊρΡa-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$,;\\x3c\\x3e\\x2f]"
-                         "[αινσϊρΡa-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$\\s,;\\x3c\\x3e\\x2f]*"
-                         "[αινσϊρΡa-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$,;\\x3c\\x3e\\x2f])").arg(firstkeyfield);
+         searchtext = tr("\\s*(%1)\\s*\\=\\s*([αινσϊρΡa-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$,;\\x3c\\x3e\\x2f@]"
+                         "[αινσϊρΡa-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$\\s,;\\x3c\\x3e\\x2f@]*"
+                         "[αινσϊρΡa-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$,;\\x3c\\x3e\\x2f@])").arg(firstkeyfield);
          if (!isdeleting) {
             replacetext  = tr("%1 = %2").arg(firstkeyfield).arg(secondkeyfield);
 
@@ -6449,9 +6450,9 @@ void MainWindow::proccessConfFile(const QString& sql, const QString& filename, b
                                .arg(numberreg);
 
              //qDebug("...nextkey: %s",qPrintable(nextkey));
-             searchtext = tr("\\s*(%1)\\s*\\=\\s*([αινσϊρΡa-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$,;\\(\\)\\x3c\\x3e\\x2f]"
-                             "[αινσϊρΡa-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$\\s,;\\(\\)\\x3c\\x3e\\x2f]*"
-                             "[αινσϊρΡa-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$,;\\(\\)\\x3c\\x3e\\x2f])").arg(nextkey);
+             searchtext = tr("\\s*(%1)\\s*\\=\\s*([αινσϊρΡa-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$,;\\(\\)\\x3c\\x3e\\x2f@]"
+                             "[αινσϊρΡa-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$\\s,;\\(\\)\\x3c\\x3e\\x2f@]*"
+                             "[αινσϊρΡa-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$,;\\(\\)\\x3c\\x3e\\x2f@])").arg(nextkey);
 
              QString replacekey = QString("%1.%2").arg(currprefkey)
                                   .arg(numberreg-1);
@@ -6466,7 +6467,59 @@ void MainWindow::proccessConfFile(const QString& sql, const QString& filename, b
 
 
              }
-             if ( !result ) break;
+             if ( !result ) {
+
+
+
+                 searchtext = QString("[^;](%1;)([a-z0-9_]*)").arg(currentsecondkeyfield);
+                 SYD << tr(".........**DELETING FROM OPERATIONS......searchtext:|%1|")
+                        .arg(searchtext);
+
+                 replacetext = QString("||cap||");
+
+                 SafetYAWL::replaceTextInFile(fileconf,
+                                           searchtext,
+                                           replacetext,
+                                           Qt::CaseSensitive,
+                                           2);
+
+                 searchtext = QString("([a-z0-9_]*)(;%1)$").arg(currentsecondkeyfield);
+                 SYD << tr(".........**DELETING FROM OPERATIONS......searchtext:|%1|")
+                        .arg(searchtext);
+
+                 replacetext = QString("||cap||");
+
+                 SafetYAWL::replaceTextInFile(fileconf,
+                                           searchtext,
+                                           replacetext,
+                                           Qt::CaseSensitive,
+                                           1);
+
+                 searchtext = QString("(\\=\\s*)(%1)$").arg(currentsecondkeyfield);
+                 SYD << tr(".........**DELETING FROM OPERATIONS......searchtext:|%1|")
+                        .arg(searchtext);
+
+                 replacetext = QString("||cap||admin");
+
+                 SafetYAWL::replaceTextInFile(fileconf,
+                                           searchtext,
+                                           replacetext,
+                                           Qt::CaseSensitive,1);
+
+                 searchtext = QString("([a-z0-9_]*)(;%1;)([a-z0-9_]*)").arg(currentsecondkeyfield);
+                 SYD << tr(".........**DELETING FROM OPERATIONS......searchtext:|%1|")
+                        .arg(searchtext);
+
+                 replacetext = QString("||cap||;||cap0||");
+
+                 SafetYAWL::replaceTextInFile(fileconf,
+                                           searchtext,
+                                           replacetext,
+                                           Qt::CaseSensitive,
+                                           1,3);
+
+                 break;
+             }
              numberreg++;
 
 
