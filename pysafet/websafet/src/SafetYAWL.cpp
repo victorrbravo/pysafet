@@ -1856,7 +1856,6 @@ bool  SafetYAWL::replaceTextInFile(const QString& filename, const QString& searc
     while ( !in.atEnd()) {
         QString line = in.readLine();
         int pos = rx.indexIn(line);
-        //qDebug("......line: %s", qPrintable(line));
         if  ( pos != -1 ) {
             found = true;
             if (replacewith > 0 ) {
@@ -1864,6 +1863,20 @@ bool  SafetYAWL::replaceTextInFile(const QString& filename, const QString& searc
             }
             if (replacewith2 > 0 ) {
                 newreplacetext.replace("||cap0||",rx.cap(replacewith2));
+                SYD << tr("....**newreplacetext two....replace.cap(1):|%1|")
+                       .arg(rx.cap(1));
+                SYD << tr("....**newreplacetext two....replace.cap(2):|%1|")
+                       .arg(rx.cap(2));
+
+                SYD << tr("....**newreplacetext two....replace.cap(3):|%1|")
+                       .arg(rx.cap(3));
+
+                SYD << tr("....**newreplacetext two....line:|%3|..replacewith2:|%2|....newreplacetext:|%1|....searchtext:|%4|")
+                       .arg(newreplacetext)
+                       .arg(replacewith2)
+                       .arg(line)
+                       .arg(searchtext);
+
             }
             line.replace(rx, newreplacetext);
         }

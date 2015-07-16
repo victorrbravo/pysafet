@@ -6471,7 +6471,7 @@ void MainWindow::proccessConfFile(const QString& sql, const QString& filename, b
 
 
 
-                 searchtext = QString("[^;](%1;)([a-z0-9_]*)").arg(currentsecondkeyfield);
+                 searchtext = QString("[^;](%1;)([a-z0-9_]+[a-z0-9_;]*)").arg(currentsecondkeyfield);
                  SYD << tr(".........**DELETING FROM OPERATIONS......searchtext:|%1|")
                         .arg(searchtext);
 
@@ -6483,7 +6483,7 @@ void MainWindow::proccessConfFile(const QString& sql, const QString& filename, b
                                            Qt::CaseSensitive,
                                            2);
 
-                 searchtext = QString("([a-z0-9_]*)(;%1)$").arg(currentsecondkeyfield);
+                 searchtext = QString("([a-z0-9_;]*[a-z0-9_]+)(;%1)$").arg(currentsecondkeyfield);
                  SYD << tr(".........**DELETING FROM OPERATIONS......searchtext:|%1|")
                         .arg(searchtext);
 
@@ -6506,11 +6506,12 @@ void MainWindow::proccessConfFile(const QString& sql, const QString& filename, b
                                            replacetext,
                                            Qt::CaseSensitive,1);
 
-                 searchtext = QString("([a-z0-9_]*)(;%1;)([a-z0-9_]*)").arg(currentsecondkeyfield);
+                 searchtext = QString("([a-z0-9_;]*[a-z0-9_]+)(;%1;)([a-z0-9_]+[a-z0-9_;]*)").arg(currentsecondkeyfield);
                  SYD << tr(".........**DELETING FROM OPERATIONS......searchtext:|%1|")
                         .arg(searchtext);
 
                  replacetext = QString("||cap||;||cap0||");
+
 
                  SafetYAWL::replaceTextInFile(fileconf,
                                            searchtext,
