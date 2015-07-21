@@ -300,6 +300,14 @@ QString graphvizPlugin::checkSES(const QString& s, ExtraInfoShow ex,
                   if ( usegradient ) {
                       color.setHsv(h,s,v);
                   }
+                  else {
+                      if (porc == 0.0) {
+                          s = int(porc*255.0);
+                          color.setHsv(h,s,v);
+
+                      }
+                  }
+
 
                   scolor = "," + QString("fillcolor=\"#%1%2%3\"").arg(color.red(),2,16)
                           .arg(color.green(),2,16).arg(color.blue(),2,16);
@@ -670,7 +678,7 @@ QString graphvizPlugin::renderGraph(const QString&  code, const QString& info,
 
     fpin = fopen (qPrintable(infile),"r");
     Q_CHECK_PTR(fpin);
-    g = agread(fpin,NULL);
+    g = agread(fpin);
     fclose(fpin);
     char filetype[10];
     //strncpy(filetype,qPrintable(info), strlen(filetype));
