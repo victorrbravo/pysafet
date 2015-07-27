@@ -876,7 +876,9 @@ QString SafetYAWL::addQuotes(const QString& value) {
     QString result;
 
     bool addquotes =  !(SafetYAWL::canTypeConvert(value, QVariant::Bool)
-                        && !SafetYAWL::canTypeConvert(value, QVariant::Int));
+                        && !SafetYAWL::canTypeConvert(value, QVariant::Int)
+                        && !value.startsWith("("));
+
     if ( addquotes ) {
          result = "'"+ value + "'";
     }
@@ -895,6 +897,7 @@ bool SafetYAWL::canTypeConvert(const QString& s, QVariant::Type t) {
 
 	switch ( t ) {
 		case QVariant::Int:
+            news = news.trimmed();
             rx.setPattern("[\\d]+[\\d\\.]*");
             SYD << tr("...SafetYAWL::canTypeConvert...t:%1").arg(t);
             SYD << tr("...SafetYAWL::canTypeConvert...news:%1").arg(news);

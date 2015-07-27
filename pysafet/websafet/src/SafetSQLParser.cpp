@@ -122,6 +122,19 @@ bool SafetSQLParser::parse(const QString& s) {
 	Q_ASSERT_X(pos > -1,"parse", qPrintable(tr("La cadena evaluada (%1) NO es una sentencia SQL").arg(_str)));
 	QString fields = rxSql.cap(1);
 	_fields  = fields.split(QRegExp("\\s*,\\s*"));
+    QStringList newfields;
+    for(int i= 0; i < _fields.count(); i++) {
+        QString newfield = _fields.at(i);
+        if (i < (_fields.count()-1) ) {
+            QString first = _fields.at(i);
+            QString second = _fields.at(i+1);
+            if (first.contains("(") && second.contains(")") ) {
+                newfield = first +","+second;
+            }
+        }
+        newfields.append(newfield);
+    }
+    _fields = newfields;
 	_tablesource = rxSql.cap(2);
 	if (rxSql.cap(3).length() > 0 ) {
         Q_ASSERT_X(rxSql.cap(4).length( )>0,"parse",qPrintable(tr("La clausula WHERE está incompleta")));

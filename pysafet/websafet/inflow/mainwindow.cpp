@@ -172,11 +172,11 @@ MainWindow::MainWindow(const QString& path)
 
      filecompleters.append( _dirInput+_pathdoc);
 
+
      filecompleters.append( _dirInput + SAFETCONSOLEFILE );
      filecompleters.append( _dirInput + SAFETCONFIGFILE );
      filecompleters.append( _dirInput + SAFETMANAGEMENTSIGNFILE );
      filecompleters.append( _dirInput + SAFETUSERSFILE );
-
 
 
      loadSettings();
@@ -207,7 +207,6 @@ MainWindow::MainWindow(const QString& path)
      SafetYAWL::streamlog.setDevice(&SafetYAWL::filelog);
 
      SafetYAWL::streamlog.turnOnAll();
-
 
 
 
