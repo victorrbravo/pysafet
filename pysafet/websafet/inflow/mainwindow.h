@@ -910,7 +910,7 @@ public:
        * @param idkey
        * @return
        */
-      int numberOfDocuments(const QString &t, const QString &idkey, QString& currvalue);
+      int numberOfDocuments(const QString &t, const QString &idkey, QStringList& currvalues);
 
       /**
        * @brief genTicket

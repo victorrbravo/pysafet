@@ -767,9 +767,9 @@ bool MainWindow::checkAndExecEvents() {
         flowaction.chop(1);
 
 
-        QString currvalue;
+        QStringList currvalues;
         int ndocs = numberOfDocuments(QString("{#safetdocumentid:%1:%2}")
-                                      .arg(flowname).arg(flowvar),QString(""),currvalue);
+                                      .arg(flowname).arg(flowvar),QString(""), currvalues);
 
 
 
@@ -785,14 +785,20 @@ bool MainWindow::checkAndExecEvents() {
 
         if ( ndocs > 0 ) { // Se cumple la condición
 
-            flowaction = flowaction.arg(currvalue);
-            SYD << tr("...MainWindow::checkAndExecEvents..........CONDICION_NDOCS.......*ndocs: |%1|")
-                   .arg(ndocs);
-            SYD << tr("...MainWindow::checkAndExecEvents...(after)...EJECUTANDO...:|%1|")
-                   .arg(flowaction);
-            toInputForm(flowaction,false);
-            SYD << tr("...MainWindow::checkAndExecEvents...EJECUTADA...:|%1|")
-                   .arg(flowaction);
+            for(int i = 0; i < ndocs; i++) {
+                QString mycurrvalue = currvalues.at(i);
+                SYD << tr("...MainWindow::checkAndExecEvents...CS_currvalue:|%1|")
+                       .arg(mycurrvalue);
+
+                QString myflowaction = flowaction.arg(mycurrvalue);
+                SYD << tr("...MainWindow::checkAndExecEvents..........CONDICION_NDOCS.......*ndocs: |%1|")
+                       .arg(ndocs);
+                SYD << tr("...MainWindow::checkAndExecEvents...(after)...EJECUTANDO...:|%1|")
+                       .arg(myflowaction);
+                toInputForm(myflowaction,false);
+                SYD << tr("...MainWindow::checkAndExecEvents...**EJECUTADA...:|%1|")
+                       .arg(myflowaction);
+            }
 
         }
         else {
@@ -4217,7 +4223,7 @@ QString MainWindow::parseForEmail(const QString& t, const QString& idkey, QMap<Q
 }
 
 int MainWindow::numberOfDocuments(const QString& t, const QString& idkey,
-                                  QString& currvalue) {
+                                  QStringList& currvalues) {
 
     QRegExp rx;
     SYD << tr("............MainWindow::numberOfDocuments.....(1)...");
@@ -4273,7 +4279,7 @@ int MainWindow::numberOfDocuments(const QString& t, const QString& idkey,
 
         QList<QSqlField> fields;
     SafetDocument mydoc = MainWindow::configurator->getWorkflows().at(0)->getDocuments(varname,
-                                                                                    fields,dcount,
+                                                                                    fields, dcount,
                                                                                     SafetWorkflow::JSON, idkey);
 
     int result = dcount;
@@ -4281,10 +4287,10 @@ int MainWindow::numberOfDocuments(const QString& t, const QString& idkey,
 
 
 
-    SYD << tr("........MainWindow::numberOfDocuments....***result:|%1|")
+    SYD << tr("........MainWindow::numberOfDocuments....***result...dcount:|%1|")
            .arg(dcount);
 
-    SYD << tr("............MainWindow::numberOfDocuments.....mydoc.documents():|%1|")
+    SYD << tr("............MainWindow::numberOfDocuments.....CSDOCUMENTS....mydoc.documents():|%1|")
            .arg(mydoc.documents());
 
     QString cs = "[ " +mydoc.documents() + " ]";
@@ -4295,37 +4301,44 @@ int MainWindow::numberOfDocuments(const QString& t, const QString& idkey,
     QCoreApplication myapp(nargs,argv);
     QScriptEngine myEngine;
 
-    QString mycs = QString("(function(fname) { mydata = %1; try { return mydata[0][fname]; } catch(err) { return \"\" }})")
-            .arg(cs);
-
-    QScriptValue myfun;
-    QScriptValue myvalue;
-    QScriptValueList args;
+    for (int i=0; i < dcount; i++) {
 
 
-    args.append("id");
+        QString mycs = QString("(function(fname) { mydata = %1; try { return mydata[%2][fname]; } catch(err) { return \"\" }})")
+                .arg(cs)
+                .arg(i);
 
-    try  {
 
-       myfun = myEngine.evaluate(mycs);
-       myvalue = myfun.call(QScriptValue(),args);
-       currvalue = myvalue.toString();
-       if ( currvalue == "undefined") {
-           SYD << tr(".....MainWindow::numberOfDocuments..........FIELDNAME:|%1|.No!.->UNDEFINED<--...")
-                  .arg("id");
-           SYE << tr("Ocurrio un error al contar el numero de documentos, no se encuentra el campo \"id\"");
-           currvalue = "";
-           return result;
-       }
+        QScriptValue myfun;
+        QScriptValue myvalue;
+        QScriptValueList args;
+
+
+        args.append("id");
+        QString currvalue = "";
+
+        try  {
+
+            myfun = myEngine.evaluate(mycs);
+            myvalue = myfun.call(QScriptValue(),args);
+            currvalue = myvalue.toString();
+            if ( currvalue == "undefined") {
+                SYD << tr(".....MainWindow::numberOfDocuments..........FIELDNAME:|%1|.No!.->UNDEFINED<--...")
+                       .arg("id");
+                SYE << tr("Ocurrio un error al contar el numero de documentos, no se encuentra el campo \"id\"");
+                currvalue = "";
+            }
+
+            currvalues.append(currvalue);
+
+        }
+        catch(...) {
+            SYW << tr("IMPORTANTE:Ocurrió un error (excepcion) al evaluar el script (two)");
+        }
+        SYD << tr(".....MainWindow::numberOfDocuments..........ID_currvalue:|%1|")
+               .arg(currvalue);
 
     }
-    catch(...) {
-        SYW << tr("IMPORTANTE:Ocurrió un error (excepcion) al evaluar el script (two)");
-    }
-    SYD << tr(".....MainWindow::numberOfDocuments..........ID_currvalue:|%1|")
-           .arg(currvalue);
-
-
 
     return result;
 }
