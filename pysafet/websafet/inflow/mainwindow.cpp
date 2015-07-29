@@ -1523,6 +1523,7 @@ QString MainWindow::generateFormHead(const QString& o) {
 	    result += QString("$(document).ready(function(){\n");
     }
 
+    int keyscount = 0;
     foreach(QString keymodifyfield, keymodifyfields) {
         if ( firstkeymodifyfield.isEmpty()) {
             if ( keymodifyfield.startsWith(QLatin1String("::literal:"))) {
@@ -1665,20 +1666,24 @@ QString MainWindow::generateFormHead(const QString& o) {
                           "   }\n"
 
                           "}\n"
+                                      "%5"
                           "   $(\"#divForLoading\").hide();\n"
 
                           " });\n"
+
                           "});\n")
                  .arg(hostURL())
                 .arg(keymodifyfield)
                  .arg(modname)
-                 .arg(mydirmedia);
-                 //.arg(myid);
+                 .arg(mydirmedia)
+                 .arg(keyscount == 0?"\nif (typeof safetProcessAfter == 'function') { safetProcessAfter(); }\n":"");
+
 
 
 
 
          result += newresult;
+         keyscount++;
 
     }
 
@@ -1726,7 +1731,7 @@ QString MainWindow::generateFormHead(const QString& o) {
                            "                 $( \"#safeform\" ).submit();\n"
                            "});\n"
                            "$( \"#safetcancel\" ).button().click(function() {\n"
-                           "        $( \"#safeform\" ).reset();\n"
+                           "        $( \"#safeform\" ).reset();\n"s
                            "});\n"
                           )
                 .arg(hostURL())
@@ -1737,9 +1742,10 @@ QString MainWindow::generateFormHead(const QString& o) {
 
 
 
-    if (keymodifyfields.count() > 0 ) {
+    if (keymodifyfields.count() > 0 ) {        
     	result += "});\n\n";	        
         result += "\n"
+
             "</script>\n"
 //            "</head>\n"
 //            "<body>\n"
@@ -1748,15 +1754,16 @@ QString MainWindow::generateFormHead(const QString& o) {
 	else {
 		result += "\n"
 			"<script>\n"
-		"$(document).ready(function(){\n"
+        "$(document).ready(function(){\n"
 		"$( \"#safetsubmit\" ).button().click(function() {});\n"
 		"$( \"#safetcancel\" ).button().click(function() {});\n"
+
 		"});\n"
 		"</script>\n";
 	}
 
     if (actionslist.count() > 1 ) {
-        result += QString("<script>\n");
+        result += QString("<script type=\"text/javascript\">\n");
         result += QString("$(document).ready(function(){\n");
 
         QString myvalue = actionslist.at(1);
