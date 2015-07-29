@@ -131,14 +131,16 @@ QString TextEditWidget::html() {
 
                      "<div class=\"form-group\" >\n"
                              "%3\n"
-                            "<textarea name=\"%1\" id=\"%1\" rows=\"3\" class=\"form-control\" %2 ></textarea>\n"
-                   "<span id=\"count%1\"  name=\"count%1\"></span>"
-                  // "<span class=\"glyphicon glyphicon-picture form-control-feedback\" aria-hidden=\"true\"></span>"
+                            "<textarea name=\"%1\" id=\"%1\" "
+                   //" cols=\"40\"  style=\"width:200px; height:50px;\"   "
+                   " cols=\"80\"    "
+                   " rows=\"5\" class=\"form-control\" %2 ></textarea>\n"
+                   "<span id=\"count%1\"  name=\"count%1\"></span>\n"
                    "</div>\n"
                    )
                 .arg(caption())
                 .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc))
-                .arg((removelabel?"":QString("<label for=\"%1\" class=\"col-md-2 control-label\">%2</label>\n").arg(caption()).arg(newcaption)) );
+                .arg((removelabel?"":QString("<label for=\"%1\" class=\"col-md-2 control-label\">%2</label><br/>").arg(caption()).arg(newcaption)) );
 
           result += QString(""
                           "<script>"
