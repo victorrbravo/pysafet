@@ -360,18 +360,28 @@ QString CmdWidget::html() {
 
         } else {
 
+                QString mycaption = newcaption.replace(QRegExp("_+")," ");
+                QString mynumber = "1";
+                if (mycaption.length() > 6) {
+                    mynumber = "3";
+                }
+
+                if (mycaption.length() > 6) {
+                    mynumber = "4";
+                }
                 result +=
                 QString(""
                           "<div class=\"form-group\">\n"
-                          "<label  class=\"col-md-1 control-label\">%1</label>\n"
+                          "<label  class=\"col-md-%3 control-label\">%1</label>\n"
                         "<br/>"
                         " <div class=\"controls\">\n"
                           "%2"
                         "</div>"
                         "</div>"
                         )
-                .arg(newcaption.replace("_"," "))
-                .arg(radiohtml);
+                .arg(mycaption)
+                .arg(radiohtml)
+                .arg(mynumber);
 
         }
 

@@ -43,6 +43,9 @@ QString NumberWidget::html() {
 //    QString mypreffix = caption().left(4);
     QString wprops;
 
+    QString mycaption = caption();
+    mycaption.replace("_"," ");
+
 
     QString mydesc;
 
@@ -63,14 +66,8 @@ QString NumberWidget::html() {
 
 
 
-    if (wprops.isEmpty()) {
-        wprops = "width: '250px', height: '25px', digits: 3, decimalDigits: 0, spinButtons: true,promptChar:' '";
-    }
-    else {
-        wprops.replace("::",":");
-    }
 
-      result = "";
+    result = "";
 
 
     int posaction = 0;
@@ -102,38 +99,90 @@ QString NumberWidget::html() {
     }
 
 
-    if (positions.count() == 0 ) {
+    QString myinput = QString("<input type=\"text\" class=\"form-control\" id=\"%1\" name=\"%1\" %2>"
+                              "<div class=\"input-group-addon\">.00</div>")
+            .arg(caption())
+            .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc));
+
+    if (!wprops.isEmpty()) {
+        wprops.replace("::",":");
+
+        myinput = QString(
+
+                    "<link rel=\"stylesheet\" href=\"/static/jqwidgets/styles/jqx.base.css\" type=\"text/css\" />\n"
+                   "<script type=\"text/javascript\" src=\"/static/jqwidgets/jqxcore.js\"></script>\n"
+                   "<script type=\"text/javascript\" src=\"/static/jqwidgets/jqxtooltip.js\"></script>\n"
+                    "<script type=\"text/javascript\" src=\"/static/jqwidgets/jqxbuttons.js\"></script>\n"
+                   "\n<script type=\"text/javascript\" src=\"/static/jqwidgets/jqxnumberinput.js\"></script>\n"
+                    );
+
+        myinput +=  QString(""
+                              "\n<script  type=\"text/javascript\">\n"
+                            "$(document).ready(function() {\n"
+                              "  $(\"#%1_div\").jqxNumberInput({ %2 });\n"
+//                              "   myvalue = document.getElementById(\"%1\").value;\n"
+//                              "   console.log(\"myvalue number 1:\" + myvalue);\n"
+//                              "   $(\"#%1_div\").jqxNumberInput('val',myvalue);\n"
+
+                              "  $(\"#%1_div\").on('change', function (event) {\n"
+                                                 "  var myvalue = event.args.value;\n"
+                                                 "  console.log(\"myvalue number 2:\" + myvalue);\n"
+                                                 "  document.getElementById(\"%1\").value = myvalue;\n"
+                                                 "});\n"
+
+                              "});"
+
+                              "</script>\n"
+
+                              "")
+                    .arg(caption())
+                    .arg(wprops);
+
+        myinput += QString(
+                        "\n<div style='margin-top: 3px;' id=\"%1_div\""
+                                "></div>\n\n"
+                        "<input type=\"hidden\" class=\"form-control\" id=\"%1\" name=\"%1\" >\n"
+                                 )
+                       .arg(caption());
+
+//        myinput = QString("<input type=\"text\" class=\"form-control\" id=\"%1\" name=\"%1\" %2>")
+//                    .arg(caption())
+//                    .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc));
+
+    }
+
+    if (positions.count() == 0 ) {                
             result += QString(""
                    "<br/>\n"
-                  "<div class=\"form-group\">"
-                      "%3"
+                  "<div id=\"panel_%1\" name=\"panel_%1\" class=\"form-group\">"
+                      "%2"
                       "<div class=\"input-group\">"
-                        "<div class=\"input-group-addon\">%1</div>"
-                        "<input type=\"text\" class=\"form-control\" id=\"%1\" name=\"%1\" %2>"
+                        "<div class=\"input-group-addon\">%4</div>"
+                        "%3"
                         "<div class=\"input-group-addon\">.00</div>"
                       "</div>"
                     "</div>"
                   )
                     .arg(caption())
-                    .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc))
-                    .arg(removelabel?"":QString("<label class=\"sr-only\" for=\"%1\">%1</label>").arg(caption()));
+                    .arg(removelabel?"":QString("<label class=\"sr-only\" for=\"%1\">%1  </label>").arg(mycaption))
+                    .arg(myinput)
+                    .arg(mycaption);
     }
     else {
             result += QString(""
                               "<br/>\n"
-                  "<div class=\"col-%4 column \">\n"
-                  "%3"
+                  "<div id=\"panel_%1\" name=\"panel_%1\" class=\"col-%3 column \">\n"
+                  "%2"
                   "<div class=\"input-group\">"
-                    "<div class=\"input-group-addon\">%1</div>"
-                    "<input type=\"text\" class=\"form-control\" id=\"%1\" name=\"%1\"  %2 >"
-                    "<div class=\"input-group-addon\">.00</div>"
-                  "</div>"
-                "</div>"
+                    "<div class=\"input-group-addon\"> %5 </div>\n"
+                    "%4"
+                  "</div>\n"
+                "</div>\n"
               )
                     .arg(caption())
-                    .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc))
-                    .arg(removelabel?"":QString("<label class=\"sr-only\" for=\"%1\">%1</label>").arg(caption()))
-                    .arg(poscol);
+                    .arg( removelabel?"":QString("<label class=\"sr-only\" for=\"%1\">%1  </label>").arg(mycaption) )
+                    .arg(poscol)
+                    .arg(myinput).arg(mycaption).arg(mycaption);
 
 
     }

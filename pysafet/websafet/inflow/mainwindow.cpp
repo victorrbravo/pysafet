@@ -1668,6 +1668,7 @@ QString MainWindow::generateFormHead(const QString& o) {
                           "}\n"
                                       "%5"
                           "   $(\"#divForLoading\").hide();\n"
+                          "     console.log(\"saliendo...\");\n"
 
                           " });\n"
 

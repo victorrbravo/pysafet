@@ -11,8 +11,8 @@ myinflow.setMediaPath(mymedia )
 myinflow.setHostURL(myurl) 
 
 #myconsult = u"operacion:Listar_datos Cargar_archivo_flujo: %s/.safet/flowfiles/carteleratresf.xml Variable: vToDo " % (myhome)
-myconsult = u"operacion:Generar_gráfico_con_autofiltro Cargar_archivo_flujo: /home/victor/.safet/flowfiles/carteleratodos.xml Autofiltro:por_finalizado parameters.ByProject:2"
-#myconsult = u"operacion:Generar_gráfico_coloreado Cargar_archivo_flujo: /home/victor/.safet/flowfiles/carteleratodos.xml parameters.ByProject:2"
+myconsult = u"operacion:Generar_gráfico_con_autofiltro Cargar_archivo_flujo: /home/vbravo/.safet/flowfiles/carteleratodos.xml Autofiltro:por_finalizado parameters.ByProject:2"
+#myconsult = u"operacion:Generar_gráfico_coloreado Cargar_archivo_flujo: /home/vbravo/.safet/flowfiles/carteleratodos.xml parameters.ByProject:2"
 
 print myconsult
 

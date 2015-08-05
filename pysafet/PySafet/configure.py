@@ -53,7 +53,7 @@ makefile.INCDIR_QT.append("../websafet/src")
 #makefile.LFLAGS.append("-L../trac/seguridad/safet/libsafet/trunk/lib")
 #makefile.LFLAGS.append("-L../libsafet/src")
 makefile.LFLAGS.append("-L../websafet/lib")
-makefile.extra_libs = ["safet","QtNetwork","QtSvg","QtSql","tar"]
+makefile.extra_libs = ["safet","QtNetwork","QtSvg","QtSql","QtScript","tar"]
 
 # Generate the Makefile itself.
 makefile.generate()
