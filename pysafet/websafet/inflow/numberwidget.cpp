@@ -109,11 +109,12 @@ QString NumberWidget::html() {
 
         myinput = QString(
 
-                    "<link rel=\"stylesheet\" href=\"/static/jqwidgets/styles/jqx.base.css\" type=\"text/css\" />\n"
-                   "<script type=\"text/javascript\" src=\"/static/jqwidgets/jqxcore.js\"></script>\n"
-                   "<script type=\"text/javascript\" src=\"/static/jqwidgets/jqxtooltip.js\"></script>\n"
-                    "<script type=\"text/javascript\" src=\"/static/jqwidgets/jqxbuttons.js\"></script>\n"
-                   "\n<script type=\"text/javascript\" src=\"/static/jqwidgets/jqxnumberinput.js\"></script>\n"
+                    ""
+//                    "<link rel=\"stylesheet\" href=\"/static/jqwidgets/styles/jqx.base.css\" type=\"text/css\" />\n"
+//                   "<script type=\"text/javascript\" src=\"/static/jqwidgets/jqxcore.js\"></script>\n"
+//                   "<script type=\"text/javascript\" src=\"/static/jqwidgets/jqxtooltip.js\"></script>\n"
+//                    "<script type=\"text/javascript\" src=\"/static/jqwidgets/jqxbuttons.js\"></script>\n"
+//                   "\n<script type=\"text/javascript\" src=\"/static/jqwidgets/jqxnumberinput.js\"></script>\n"
                     );
 
         myinput +=  QString(""
