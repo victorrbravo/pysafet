@@ -6213,27 +6213,27 @@ QString SafetWorkflow::humanizeDate(int seconds) {
 
     if (months > 0 ) {
         if (months == 1) {
-            result =  result + tr("un mes ");
+            result =  result + tr("un Mes ");
         }
         else {
             result = result + tr("%1 meses").arg(months);
         }
         if (weeks > 1) {
-            result = result + tr(" y %1 semana%2").arg(weeks).arg(weeks>1?"s ":"");
+            result = result + tr(" y %1 Semana%2").arg(weeks).arg(weeks>1?"s ":"");
         }
 
     }
     else {
         if (weeks > 0) {
             if (weeks == 1) {
-                result =  result + tr("una semana ");
+                result =  result + tr("una Semana ");
             }
             else {
-                result = result + tr("%1 semanas ").arg(weeks);
+                result = result + tr("%1 Semanas ").arg(weeks);
             }
 
             if (days > 1) {
-                result = result + tr("y %1 dia%2").arg(days).arg(days>1?"s ":"");
+                result = result + tr("y %1 día%2").arg(days).arg(days>1?"s ":"");
             }
         }
 
@@ -6246,17 +6246,17 @@ QString SafetWorkflow::humanizeDate(int seconds) {
                     result =  tr("anteayer");
                 }
                 else {
-                    result = result + tr("%1 dias").arg(days);
+                    result = result + tr("%1 Días").arg(days);
                 }
                 if (hours > 1) {
                     if (result == tr("ayer")) {
-                        result = tr("un dia") + tr(" y %1 hora%2").arg(hours).arg(hours>1?"s ":"");
+                        result = tr("un dia") + tr(" y %1 Hora%2").arg(hours).arg(hours>1?"s ":"");
                     }
                     else if (result == tr("anteayer")) {
-                        result = tr("dos  dias") + tr(" y %1 hora%2").arg(hours).arg(hours>1?"s ":"");
+                        result = tr("dos  dias") + tr(" y %1 Hora%2").arg(hours).arg(hours>1?"s ":"");
                     }
                     else {
-                        result = result + tr(" y %1 hora%2").arg(hours).arg(hours>1?"s ":"");
+                        result = result + tr(" y %1 Hora%2").arg(hours).arg(hours>1?"s ":"");
                     }
 
                 }
@@ -6264,10 +6264,10 @@ QString SafetWorkflow::humanizeDate(int seconds) {
             else {
                 if (hours > 0) {
                     if (hours == 1) {
-                        result = result + tr("una hora ");
+                        result = result + tr("una Hora ");
                     }
                     else {
-                        result = result + tr("%1 horas ").arg(hours);
+                        result = result + tr("%1 Horas ").arg(hours);
                     }
                     if (minutes > 1) {
                         result = result + tr("y %1 minuto%2").arg(minutes).arg(minutes>1?"s ":"");
@@ -6284,7 +6284,7 @@ QString SafetWorkflow::humanizeDate(int seconds) {
                     }
                     else {
                         if (seconds > 1) {
-                            result = result + tr("%1 segundos ").arg(seconds);
+                            result = result + tr("%1 Segundos ").arg(seconds);
                         }
                         else {
                             result = result + tr("solo un momento");
@@ -6381,7 +6381,7 @@ QString SafetWorkflow::humanizeDate(int &pdays, const QString& d, const QString&
             result =  result + tr("un mes ");
         }
         else {
-            result = result + tr("%1 meses").arg(months);
+            result = result + tr("%1 Meses").arg(months);
         }
         if (weeks > 1) {
             result = result + tr(" y %1 semana%2").arg(weeks).arg(weeks>1?"s ":"");
