@@ -518,6 +518,9 @@ public:
       \brief Humanizar la fecha en formato "Hace X dias, X semanas..."
       */
 
+    static QString humanizeDateDetails(int &pdays, const QString &d, const QString &formatin, QDateTime now, HumanizeDateType typetime, bool humanize);
+    static QString humanizeDateSimple(int &pdays, const QString &d, const QString &formatin, QDateTime now, HumanizeDateType typetime, bool humanize);
+
     static QString humanizeDate(int &pdays, const QString& d, const QString& formatin,
                                 QDateTime now = QDateTime::currentDateTime(),
                                 SafetWorkflow::HumanizeDateType typetime = SafetWorkflow::None, bool humanize = true);

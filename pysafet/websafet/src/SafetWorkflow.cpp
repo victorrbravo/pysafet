@@ -6330,10 +6330,10 @@ QString SafetWorkflow::humanizeDate(int seconds) {
 }
 
 
-
-QString SafetWorkflow::humanizeDate(int &pdays, const QString& d, const QString& formatin,
+QString SafetWorkflow::humanizeDateDetails(int &pdays, const QString& d, const QString& formatin,
                                     QDateTime now,
                                     HumanizeDateType typetime, bool humanize) {
+
     QString result = "";
     QDateTime mydate;
     QString newformatin = formatin;
@@ -6346,7 +6346,9 @@ QString SafetWorkflow::humanizeDate(int &pdays, const QString& d, const QString&
 
     if (humanize == false) {
         return QString("%1").arg(seconds);
+
     }
+
 
     int months;
     int weeks;
@@ -6491,5 +6493,142 @@ QString SafetWorkflow::humanizeDate(int &pdays, const QString& d, const QString&
     }
 
     return contexttime;
+
+
+}
+
+QString SafetWorkflow::humanizeDateSimple(int &pdays, const QString& d, const QString& formatin,
+                                    QDateTime now,
+                                    HumanizeDateType typetime, bool humanize) {
+    QString result = "";
+    QDateTime mydate;
+    QString newformatin = formatin;
+    if (d.length() == 16) {
+           newformatin.replace("yyyy","yy");
+    }
+    mydate = QDateTime::fromString(d,newformatin);
+
+    int seconds = now.secsTo(mydate) ;
+
+    if (humanize == false) {
+        return QString("%1").arg(seconds);
+
+    }
+
+    QDateTime mynow = QDateTime::currentDateTime();
+
+    int months;
+    int weeks;
+    int days;
+    int hours;
+    int minutes;
+    int timediff;
+    if (seconds < 0) {
+        seconds = -1*seconds; // cambiarlo a valor positivo
+    }
+
+    // Valor devuelto pdays *****
+    pdays = seconds/ ( 60 * 60 * 24 );
+    // Valor devuelto pdays *****
+
+    timediff = seconds;
+    months = timediff / ( 60 * 60 * 24 * 7 * 4);
+    timediff =  timediff - months*( 60 * 60 * 24 * 7 * 4);
+    weeks = timediff / ( 60 * 60 * 24 * 7);
+    timediff =  timediff - weeks*( 60 * 60 * 24 * 7);
+    days = timediff / ( 60 * 60 * 24 );
+    timediff =  timediff - days*( 60 * 60 * 24);
+    hours = timediff / ( 60 * 60 );
+    timediff =  timediff - hours*( 60 * 60 );
+    minutes = timediff / ( 60 );
+    timediff =  timediff - minutes*( 60 );
+    seconds = timediff - minutes;
+
+
+    if (months > 0 ) {
+        if (months == 1) {
+            result =  result + tr("un mes ");
+        }
+        else {
+            result =  tr("más de un mes ");
+        }
+     }
+    else {
+        if (weeks > 0) {
+            if (weeks == 1) {
+                result =  result + tr("una semana ");
+            }
+            else {
+                result = result + tr("menos de un mes ");
+            }
+
+        }
+        else {
+            if (days > 0) {
+                if (days == 1) {
+                    result = tr("ayer");
+                }
+                else if ( days == 2 ) {
+                    result =  tr("anteayer");
+                }
+                else {
+                    result = "menos de una semana";
+                }
+            }
+            else {
+                if (hours > 0) {
+                    if (hours == 1) {
+                        result = result + tr("una hora ");
+                    }
+                    else {
+                        int currh = mynow.time().hour();
+                        if ( (currh - hours) <= 0) {
+                               result = tr("ayer ");
+                        }
+                        else {
+                            result = tr("algunas horas ");
+                        }
+                    }
+                }
+                else {
+                    if (minutes > 0 ) {
+                        if (minutes == 1) {
+                            result = result + tr("un minuto ");
+                        }
+                        else {
+                            result = tr("unos minutos ");
+                        }
+                    }
+                    else {
+                        if (seconds > 1) {
+                            result = tr("unos segundos ");
+                        }
+                        else {
+                            result = result + tr("solo un momento");
+                        }
+                    }
+                }
+            }
+        }
+    }
+    QString contexttime = result;
+
+    return contexttime;
+
+}
+
+
+QString SafetWorkflow::humanizeDate(int &pdays, const QString& d, const QString& formatin,
+                                    QDateTime now,
+                                    HumanizeDateType typetime, bool humanize) {
+
+    QString  humanstyle = SafetYAWL::getConf()["Result/dates.human"];
+
+    if (humanstyle == "HumanSimple") {
+        return humanizeDateSimple(pdays,d,formatin,now,typetime,humanize);
+    }
+
+    return humanizeDateDetails(pdays,d,formatin,now,typetime,humanize);
+
 
 }

@@ -181,7 +181,6 @@ MainWindow::MainWindow(const QString& path)
 
      loadSettings();
 
-
      // ********* Cargar Widgets Plugins
      int countplug = 0;
 //     SafetYAWL::fileout.close();
@@ -586,6 +585,7 @@ QString MainWindow::checkUserRegister(const QString& fullname,
 
     return result;
 }
+
 
 
 
@@ -2928,6 +2928,7 @@ void MainWindow::toLoadWeb() {
 }
 
 
+
 void MainWindow::executeJSCodeAfterLoad(/* bool ok */ ) {
     QString typeresult = SafetYAWL::getConf()["Result/output.type"];
 
@@ -3982,6 +3983,7 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
 }
 
 
+
 QString MainWindow::postAction() {
     if (_plugs.isEmpty()) {
         return QString("");
@@ -4025,7 +4027,6 @@ void MainWindow::buildEmail(QMap<QString,QString>& data, const QString& cs,  QSt
          SYE << tr("No se ha incluido el asunto");
          return;
       }
-
 
      SYD << tr(".....MainWindow::parseForEmail............**newtemplate:|%1|")
             .arg(newtemplate);
