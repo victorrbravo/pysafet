@@ -368,7 +368,7 @@ bool MainWindow::sendCheckEmail(const QString& user, const QString& plink) {
            message.setSubject("Activación de cuenta - Sistema Tibisay");
            mytext = QString("Para ACTIVAR  la cuenta del usuario \"%1\" debe seguir el enlace %2."
                                     "\n\nGracias por su atención.\n\n"
-                                    "Sistema Tibisay.")
+                                    "Weetup 2015.")
                    .arg(user)
                    .arg(plink);
 
@@ -377,7 +377,7 @@ bool MainWindow::sendCheckEmail(const QString& user, const QString& plink) {
            message.setSubject("Reinicio de contraseña");
            mytext = QString("Para reiniciar la contraseña del su usuario \"%1\" debe seguir el enlace %2."
                                     "\n\nGracias por su atención.\n\n"
-                                    "Sistema Tibisay.")
+                                    "Weetup 2015.")
                    .arg(user)
                    .arg(plink);
        }
@@ -4024,7 +4024,8 @@ void MainWindow::buildEmail(QMap<QString,QString>& data, const QString& cs,  QSt
       if (!data.contains("asunto") ) {
 
          SYD << tr(".....MainWindow::buildEmail............asunto NO CONTAIN");
-         SYE << tr("No se ha incluido el asunto");
+         SYW << tr("No se ha incluido el asunto");
+         data["asunto"] = "sin asunto";
          return;
       }
 
@@ -4052,12 +4053,48 @@ void MainWindow::buildEmail(QMap<QString,QString>& data, const QString& cs,  QSt
      SYD << tr(".....MainWindow::buildEmail............RECIPIENTS...recipients:|%1|")
             .arg(recipients);
 
-     SYD << tr(".....MainWindow::buildEmail............asunto:|%1|")
+     SYD << tr(".....MainWindow::buildEmail.........SAFETASUNTO...asunto:|%1|")
             .arg(data["asunto"]);
 
 
+     /** Parseando guardado de email **/
 
-     sendEmail(recipients,data["asunto"],newtemplate);
+     QString savesql;
+     if ( data.contains("base")) {
+     SYD << tr(".....MainWindow::buildEmail.........SAFETBASE...base:|%1|")
+            .arg(data["base"]);
+
+
+         QString mydb = data["base"];
+         QStringList mypars = mydb.split("__", QString::SkipEmptyParts);
+
+
+         SYD  << tr("......buildEmail...SAVEBD:..mypars.count():%1")
+                 .arg(mypars.count());
+         if (mypars.count() >= 2 ) {
+             QString notetable = mypars.at(0);
+             QString notefield = mypars.at(1);
+	     QString notekeyfield = "last_notification";
+	
+	     if (mypars.count() >= 3) {
+			notekeyfield = mypars.at(2);
+	     }
+
+             savesql = QString("UPDATE %1 SET %2='%4' WHERE id = {#%3};")
+                     .arg(notetable)
+                     .arg(notefield)
+		     .arg(notekeyfield)
+                     .arg("%1");
+             SYD  << tr("......buildEmail...**SAVEBD...1:..savesql:\"%1\"")
+                     .arg(savesql);
+             savesql = parseForEmail(savesql,idkey,data,cs);
+             SYD  << tr("......buildEmail...**SAVEBD...2:..savesql:\"%1\"")
+                     .arg(savesql);
+
+         }
+     }
+
+     sendEmail(recipients,data["asunto"],newtemplate,savesql);
 
 }
 
@@ -4477,7 +4514,8 @@ bool MainWindow::replaceDocumentid(QString& t, const QString& idkey) {
 
 
 
-void MainWindow::sendEmail(const QString& recipients, const QString& subject, const QString& message) {
+void MainWindow::sendEmail(const QString& recipients, const QString& subject, const QString& message,
+                            QString &savesql) {
     SYD << tr(".............MainWindow::sendEmail...................(BEGIN)....");
 #ifdef SAFET_SMTP
 
@@ -4524,7 +4562,7 @@ void MainWindow::sendEmail(const QString& recipients, const QString& subject, co
 
         QString namesender = SafetYAWL::getConf()["Email/namesender"];
         if  (namesender.isEmpty()) {
-            namesender = "Sistema Tibisay - SAFET";
+            namesender = tr("Weetup - 2015");
         }
 
     foreach(QString email, mylist) {
@@ -4572,6 +4610,34 @@ void MainWindow::sendEmail(const QString& recipients, const QString& subject, co
 
             text.setContentType("text/html");
             text.setText(mytext);
+
+            if (!savesql.isEmpty()) {
+
+                SYA << tr("....sendEmail...saving Email on database..initializing");
+                SYD << tr("....sendEmail...saving Email on SAVEDB...database..initializing...savesql 1:\"%1\"")
+                       .arg(savesql);
+
+		QString esctext = mytext;
+		esctext.replace("'","''");
+                savesql = savesql.arg(esctext);
+
+                SYD << tr("....sendEmail...saving Email SAVEDB...ESCAPESQL..on database..initializing...savesql 2:\"%1\"")
+                       .arg(savesql);
+
+                QSqlQuery query( SafetYAWL::currentDb );
+                QString command = savesql;
+
+                query.prepare(  command );
+               bool executed = query.exec();
+               if (!executed ) {
+                    SYE << tr("Problema al ejecutar consulta de guardado de correo: \"%1\" ")
+                           .arg(command);
+                }
+               SYA << tr("....sendEmail...saving Email on database..result: %1")
+                      .arg(executed?"Correcto":"No");
+
+
+            }
 
             emessage.addPart(&text);
             smtp.sendMail(emessage);
