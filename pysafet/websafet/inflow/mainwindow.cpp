@@ -1561,6 +1561,15 @@ QString MainWindow::generateFormHead(const QString& o) {
 
         QString myid = keymodifyfield;
         myid.replace(" ","_");
+	 QString myFunctionAfter = "";
+        if (keyscount == 0) {
+         myFunctionAfter = QString("\nif (typeof safetProcessAfter == 'function') { safetProcessAfter(); }\n");
+        }
+        else if (keyscount > 0) {
+
+            myFunctionAfter = QString("\nif (typeof safetProcessAfter%1 == 'function') { safetProcessAfter%1(); }\n")
+                    .arg(keyscount);
+        }
 
          QString newresult =  QString(""
 
@@ -1677,7 +1686,8 @@ QString MainWindow::generateFormHead(const QString& o) {
                 .arg(keymodifyfield)
                  .arg(modname)
                  .arg(mydirmedia)
-                 .arg(keyscount == 0?"\nif (typeof safetProcessAfter == 'function') { safetProcessAfter(); }\n":"");
+		 .arg(myFunctionAfter);
+        //         .arg(keyscount == 0?"\nif (typeof safetProcessAfter == 'function') { safetProcessAfter(); }\n":"");
 
 
 
@@ -3918,9 +3928,18 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
 
      if ( results.isEmpty() ) {
          if ( queryForErrors() ) {
-             return QString("");
+
+                _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\" } ")
+             .arg(parser.currId())
+             .arg("false"); 
+
+			return QString("");
          }
      }
+
+	_currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\" } ")
+             .arg(parser.currId())
+             .arg("true");
 
      QString mypostaction = parser.currentPostAction();
      SYD << tr(".........MainWindow::toInputForm................*RETURNING..postaction:|%1|")

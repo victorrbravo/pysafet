@@ -45,6 +45,7 @@ Q_OBJECT
 
 	QSet<QString> _values;
 	QSet<QString> _fields;
+
 	QMap<QString,QString> _commands;
 
 	QString _xmlstring;
@@ -54,7 +55,7 @@ Q_OBJECT
     	bool docok;
 	QString currcommand, currnametable;
         QString _curvaluekey;
-
+	QString _currid;
 
 
         QPair<QString,QString> fieldspair;
@@ -87,7 +88,7 @@ public:
        // Validacion de campos obligatorios
        enum MandatoryClass  { OneOfAll, TwoOfAll };
 
-
+	QString currId() const { return  _currid;}
        
         bool checkIsField(const QString& f);
 

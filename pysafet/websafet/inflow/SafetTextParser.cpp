@@ -36,7 +36,7 @@ SafetTextParser::SafetTextParser(QObject *parent)
 	domDocument = NULL;
 	inputDomDocument = NULL;
         currentcommand = -1;
-
+	_currid = "-1";
         _dommodel = NULL;
 }
 
@@ -2129,7 +2129,42 @@ QStringList SafetTextParser::processXml(bool doquery,bool dopermises) {
             }
 
             if ( executed ) {
-                SYA     << tr("Consulta SQL:\n\"%1\"\n ejecutada satisfactoriamente...OK!").arg(command);
+                SYA     << tr("*Consulta SQL:\n\"%1\"\n ejecutada satisfactoriamente...OK!").arg(command);
+
+		SYD << tr(".........LASTINSERTID:|%1|").arg(query.lastInsertId().toInt());
+SYD << tr("**processXml...GENCURRJSON...1");
+
+		if (_currid == "-1" ) {
+			QString mysql = command.trimmed();
+			ParsedSqlToData  data = SafetTextParser::parseSql(mysql,true);
+       
+                	QString myseq = data.table + "_id_seq";
+                
+	                SYD << tr("**processXml...GENCURRJSON...sequence:|%1|")
+                       .arg(myseq);
+		
+			QSqlQuery query( SafetYAWL::currentDb );
+               		 QString command = QString("SELECT currval('%1')").arg(myseq);
+      
+        	  	 query.prepare(  command );
+      	          bool executed = query.exec();
+                	if (!executed ) {
+        	            SYA << tr("No se calcula el ultimo ID. Problema con la secuencia \"%1\".").arg(myseq);
+                	}
+      
+              	 bool isnext = query.next();
+               
+                
+              		 QString myid = "-1";
+            		   if (isnext ) {
+                	        myid = query.value(0).toString();
+              		 }
+              		 SYD << tr("**processXml...GENCURRJSON...2.CURRID.myid:|%1|")
+                      .arg(myid);
+   	 		_currid = myid;
+		}
+
+                SYD << tr("**processXml...GENCURRJSON...2");
             }
         }
     }
@@ -2194,6 +2229,7 @@ ParsedSqlToData SafetTextParser::parseSql(const QString& s, bool parsetomap ) {
      QString values = rx.cap(3);
      QString keyfield;
      QString keyvalue;
+
 
      rx.setPattern(insertPattern);
      int pos = rx.indexIn(newsql);
