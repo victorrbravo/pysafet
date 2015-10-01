@@ -4057,7 +4057,41 @@ void MainWindow::buildEmail(QMap<QString,QString>& data, const QString& cs,  QSt
      data["destinatarios"].replace(Safet::BRACKETCLOSEMARK,"}");
      QString recipients = parseForEmail(data["destinatarios"],idkey,data,cs);
 
-     QString myticket = MainWindow::genTicket(recipients.section("@",0,0));
+     /** searching user **/
+
+	 SYD << tr("........buildEmail...........CHECKINGFORTICKET....1...users.count():|%1|")
+            .arg(users.count());
+     SYD << tr("........buildEmail...........CHECKINGFORTICKET....1...recipients:|%1|")
+            .arg(recipients);
+     QString myuser;
+
+     foreach(QString u, users.keys()) {
+         QStringList myfields = users[u];
+         if (myfields.count() < 3) {
+             continue;
+         }
+          QString myfield = myfields.at(2);
+          if (myfield.indexOf(recipients) != -1) {
+              SYD << tr("...buildEmail...Setting user:|%1|")
+                     .arg(myuser);
+              myuser = u;
+              break;
+          }
+
+
+     }
+     SYD << tr("........buildEmail...........CHECKINGFORTICKET....2");
+     if (myuser.isEmpty()) {
+         SYE << tr("Usuario Desconocido para enviarle un correo");
+         return;
+     }
+     SYD << tr("........buildEmail...........CHECKINGFORTICKET....3");
+
+
+     //QString myticket = MainWindow::genTicket(recipients.section("@",0,0));
+     QString myticket = MainWindow::genTicket(myuser);
+	
+     /** searching user **/
 
      newtemplate.replace("_SAFETTICKET",myticket);
 
@@ -10120,14 +10154,16 @@ bool MainWindow::login(const QString& name, const QString& pass) {
     if (users[curuser].count() > 3 ) {
         QStringList curtickets = users[curuser].at(3).split(";",QString::SkipEmptyParts);
         if (curtickets.count() > 0 )  {
-            _currentjson = QString("{ \"ticket\": \"%1\", \"result\": \"%2\" } ")
+            _currentjson = QString("{ \"ticket\": \"%1\", \"result\": \"%2\" , \"currentuser\": \"%3\"} ")
                     .arg(curtickets.at(0))
-                    .arg("true");
+                    .arg("true")
+		    .arg(curuser);
         }
         else {
-            _currentjson = QString("{ \"ticket\": \"%1\", \"result\": \"%2\" } ")
+            _currentjson = QString("{ \"ticket\": \"%1\", \"result\": \"%2\" , \"currentuser\": \"%3\"} ")
                     .arg("n/t")
-                    .arg("false");
+                    .arg("false")
+		    .arg(curuser);
 
         }
     }
