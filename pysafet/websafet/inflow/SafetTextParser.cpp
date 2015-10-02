@@ -2287,9 +2287,9 @@ ParsedSqlToData SafetTextParser::parseSql(const QString& s, bool parsetomap ) {
 
 
      data.table = table;
-     if ( data.fields.count() != data.values.count()) {
+     if ( data.fields.count() > data.values.count()) {
        SYE
-                 << tr("El numero de los nombres de los campos (%1) y el numero de sus valores "
+                 << tr("El numero de los nombres de los campos (%1) es mayor el numero de sus valores "
                        "(%2) correspondientes son diferentes")
                     .arg(data.fields.count())
                     .arg(data.values.count());
