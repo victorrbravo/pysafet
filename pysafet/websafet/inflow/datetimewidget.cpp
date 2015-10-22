@@ -86,7 +86,7 @@ bool DateTimeWidget::isValid(QString& value) {
 }
 
 QString DateTimeWidget::html() {
-    QString result;
+    QString result = "";
 
     QString mydesc;
     QString readonly;
@@ -108,13 +108,91 @@ QString DateTimeWidget::html() {
         }
     }
 
-    result = QString("<input %2 name=\"%1\" alt=\"Esto es un campo tipo texto\" id=\"%1\""
+    QStringList positions;
+    QString myposition = "";
+    if (conf().contains("position")) {
+         myposition = conf()["position"].toString();
+         positions = myposition.split(",",QString::SkipEmptyParts);
+    }
+    setPosition(myposition);
+
+    QString newcaption = caption();
+
+    if (mandatory()) {
+        newcaption += "<font color=\"red\">*</font>";
+
+    }
+
+    //QString mypreffix = caption().left(4);
+
+    int posaction = 0;
+    QString poscol = "md-4";
+    bool removelabel = false;
+    bool hasposition = false;
+    bool hasloading = false;
+
+    SYD << tr("DateTime contains *POSITION.count():|%1|")
+           .arg(positions.count());
+
+
+    foreach(QString p, positions) {
+        hasposition = true;
+        if (p == "open") {
+            posaction = 1;
+        }
+        else if (p == "close") {
+            posaction = 2;
+        }
+        else if (p == "open_and_close") {
+            posaction = 3;
+
+        }
+        else if (p.startsWith("removelabel")) {
+                removelabel = true;
+        }
+        else if (p.startsWith("hasloading")) {
+                hasloading = true;
+        }
+        else if (p.startsWith("md")) {
+            poscol = p;
+        }
+    }
+
+    SYD << tr("DateTime contains *POSITION......postact:|%1|")
+           .arg(posaction);
+
+    if (hasposition) {
+
+        if ( posaction == 1 || posaction ==  3 ) {
+            result += "\n<br/>\n";
+            result += "\n<div class=\"row clearfix\">\n";
+        }
+
+         result += QString("<div class=\"col-%1 column\">\n%2\n")
+                 .arg(poscol)
+                 .arg((removelabel?"":QString("<label  for=\"%1\" class=\"col-md-3 control-label\"> %2 </label>\n")
+                                   .arg(_caption).arg(newcaption.replace("_"," "))));
+
+    }
+    else {
+        result +=  "<div class=\"form-group\" >\n";
+        result += QString("%1\n")
+                .arg((removelabel?"":QString(
+                                      "<label for=\"%1\" class=\"col-md-3 control-label\">%2</label>\n")
+                                  .arg(_caption)
+                                  .arg(newcaption.replace("_"," "))));
+    }
+
+
+    result += QString("<input %2 name=\"%1\" alt=\"Esto es un campo tipo texto\" id=\"%1\""
                       " %4 "
                      "   size=\"15\"  %3></input>")
             .arg(_caption)
             .arg(_typeinput)
             .arg(readonly)
             .arg(mydesc.isEmpty()?"":QString("placeholder=\"%1\"").arg(mydesc));
+
+
 
 
 
@@ -136,6 +214,15 @@ QString DateTimeWidget::html() {
                 "</script>\n"
                 )
             .arg(caption());
+    }
+
+    result += QLatin1String("</div>");
+
+
+    if (hasposition) {
+        if ( posaction == 2 || posaction ==  3 ) {
+            result += "\n</div>\n";
+        }
     }
 
     return result;
