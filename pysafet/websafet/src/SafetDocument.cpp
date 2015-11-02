@@ -1411,8 +1411,11 @@ QString SafetDocument::getJsonQuery(QSqlQuery &query, QList<QSqlField>& fields, 
 		}	   		
         out << "{ ";
         for (int i= 0; i< rec.count(); i++) {
+
+
+
             cadena.append(" ");
-            cadena.append(" \""+rec.fieldName(i)+"\" ");
+            cadena.append(" \""+ rec.fieldName(i) +"\" ");
             cadena.append(": \"");
             if ( rec.field(i).type() == QVariant::Bool ) {
                 if (query.value(i).toString().trimmed() == "true" )
@@ -1449,6 +1452,7 @@ QString SafetDocument::getJsonQuery(QSqlQuery &query, QList<QSqlField>& fields, 
                 if (!value.isEmpty() && QFile::exists(valuefile)) {
                     _availablefiles.append(valuefile);
                 }
+                value.replace("\"","'");
 
                 cadena.append(value);
             }
@@ -1534,6 +1538,7 @@ QString SafetDocument::getJsonArrayQuery(QSqlQuery &query, QList<QSqlField>& fie
                     _availablefiles.append(valuefile);
                 }
 
+                value.replace("\"", "'");
                 cadena.append(value);
             }
             cadena.append("\", ");

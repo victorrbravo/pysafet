@@ -1651,7 +1651,9 @@ QString MainWindow::generateFormHead(const QString& o) {
                                 "}\n"
                           "   if (myvalue == \"true\" ) {\n"
                                 "  console.log(\"MyName is true:\"+myname); \n"
-                              "   document.getElementById(myname+\"_1\").checked = true;"
+                              "   if (document.getElementById(myname+\"_1\") != null ) {\n"
+                              "             document.getElementById(myname+\"_1\").checked = true;"
+                                  "}\n"
                                 "}\n"
                           "   if (document.getElementById(myname) == null ) {\n"
                           "      myckname = myname +'_ckeditor';\n"
@@ -1662,6 +1664,7 @@ QString MainWindow::generateFormHead(const QString& o) {
                           "             mystr =  \"CKEDITOR.instances.\" + myckname; \n"
                           "             myckobj =  eval(mystr); \n"
                           "             console.log(\"myckobj:\" + myckobj);\n          "
+                          //"             myvalue = myvalue.replace(/&#39;/g,\"'\");           "
                           "             CKOBJ = myckobj;\n                       "
                           "             CKVALUE = myvalue;\n                       "
                           "             myckobj.setData(myvalue);     \n"
@@ -1670,7 +1673,9 @@ QString MainWindow::generateFormHead(const QString& o) {
                           "              console.log(\"MyName is null:\"+myname); \n"
                           "              mynewname = myname+\"_\"+myvalue; \n"
                           "              console.log(\"mynewname is null:\"+mynewname); \n"
-                          "              document.getElementById(mynewname).checked = true; \n"
+                          "              if (document.getElementById(mynewname) != null ) {\n"
+                          "                     document.getElementById(mynewname).checked = true; \n"
+                                         "}\n"
                           "          }\n"
                           "   }\n"
 
@@ -4372,9 +4377,10 @@ int MainWindow::numberOfDocuments(const QString& t, const QString& idkey,
     MainWindow::configurator->convertXMLtoObjects();
     MainWindow::configurator->openDataSources();
 
+
      evalConffileValues();
 
-    SYD << tr("............MainWindow::numberOfDocuments.....(3)...");
+    SYD << tr("............MainWindow::numberOfDocuments.......CHECKQUOTES...(3)...");
 
         QList<QSqlField> fields;
     SafetDocument mydoc = MainWindow::configurator->getWorkflows().at(0)->getDocuments(varname,
@@ -4382,7 +4388,6 @@ int MainWindow::numberOfDocuments(const QString& t, const QString& idkey,
                                                                                     SafetWorkflow::JSON, idkey);
 
     int result = dcount;
-
 
 
 

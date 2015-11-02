@@ -3806,10 +3806,23 @@ QString SafetWorkflow:: generateGraph(char* filetype, QString& json, const QStri
     QString showstart = SafetYAWL::getConf()["Graphs/show.startnode"];
     QString showend = SafetYAWL::getConf()["Graphs/show.endnode"];
 
+    QString paintparenttask = SafetYAWL::getConf()["Graphs/paint.parenttask"];
+
     codeGraph = doDeleteNodeAndArcs(codeGraph,showstart.isEmpty() || showstart == "on",showend.isEmpty() || showend == "on");
 
 
+
     SYD << tr("...SafetWorkflow::generateGraph...parseCodeGraph....codeGraph (2) (after):\n|%1|")
+           .arg(codeGraph);
+
+    if (paintparenttask == "yes") {
+        SYD << tr("...SafetWorkflow::generateGraph...parenttask yes");
+
+        codeGraph = doPaintParentNode(codeGraph);
+
+    }
+
+    SYD << tr("...SafetWorkflow::generateGraph...parseCodeGraph....codeGraph (3) parenttask....(after):\n|%1|")
            .arg(codeGraph);
 
 
@@ -3841,6 +3854,86 @@ QString SafetWorkflow:: generateGraph(char* filetype, QString& json, const QStri
 
     return result;
 }
+
+QString SafetWorkflow::doPaintParentNode(const QString& code) {
+
+    QString result = "";
+    QStringList mynodes = code.split("\n",QString::SkipEmptyParts);
+
+    QMap<QString,QString> mymap;
+
+
+    QStringList namenodes;
+
+    foreach(QString mynode, mynodes) {
+            QRegExp rx("Nodo:([a-zA-Z0-9_]+),");
+            int pos = mynode.indexOf(rx);
+            if (pos == -1) {
+                SYW << tr("Nodo \"%1\" no se encuentra (doPaintParentNode)")
+                       .arg(mynode);
+                continue;
+            }
+            QString namenode = rx.cap(1);
+            namenodes.push_front(namenode);
+            mymap[namenode] = mynode;
+            SYD << tr("........doPaintParentNode...|%1|:|%2|")
+                   .arg(namenode)
+                   .arg(mynode);
+
+    }
+
+
+    foreach(QString namenode, namenodes) {
+                QString mynode = mymap[namenode];
+
+                QRegExp rx("Siguiente:([a-zA-Z0-9_;]+),");
+                QString newline = mynode;
+                int pos = mynode.indexOf(rx);
+                SYD << tr("...doPaintParentNode.....node:|%1|..........pos:|%2|")
+                       .arg(namenode)
+                       .arg(pos);
+
+                if (pos >= 0) {
+                    QString mynext = rx.cap(1);
+                    QStringList mynexts = mynext.split(";", QString::SkipEmptyParts);
+                    int counthason = 0;
+                    QString hason = "";
+                    SYD << tr("...doPaintParentNode.....node:|%1|mynext:|%2|")
+                           .arg(namenode)
+                           .arg(mynext);
+                    foreach(QString next, mynexts) {
+                        if (mymap.contains(next)) {
+                            hason = mymap[next].section(",",-1).trimmed();
+                            if (!hason.startsWith("0")) {
+                                counthason++;
+                            }
+                        }
+                    }
+                    if (counthason > 0 && counthason == mynexts.count()) {
+
+                        newline = newline.section(",",0,-3) +  "info.task.color: 1," + hason;
+                        SYD << tr("...doPaintParentNode...node:|%1|...hason:|%2|")
+                               .arg(namenode)
+                               .arg(newline);
+
+                    }
+
+                    SYD << tr("");
+                }
+
+                //QString newline =  mynode.replace("Siguiente:final","Siguiente:");
+                result += newline;
+                result += "\n";
+
+    }
+
+
+    return result;
+
+
+
+}
+
 
 
 QString SafetWorkflow::doDeleteNodeAndArcs(const QString& code, bool showstart, bool showend) {

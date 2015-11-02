@@ -908,6 +908,7 @@ public:
 
 
     QString getOptionConnName(const QString &name);
+    QString doPaintParentNode(const QString &code);
 private:
    QMap<QString,QStringList> _nexts;
    QMap<QString,QStringList> _previouses;
