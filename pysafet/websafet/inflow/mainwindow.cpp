@@ -106,6 +106,7 @@
 // **** Bdoc files
 
 
+
 // Variables Estáticas
 
 SafetYAWL* MainWindow::configurator = NULL;

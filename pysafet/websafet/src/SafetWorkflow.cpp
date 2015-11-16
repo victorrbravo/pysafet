@@ -1185,18 +1185,24 @@ QString SafetWorkflow::generateSQLToken(const QStringList &list, bool final, int
 		QString left,right;		
 		left = rx.cap(1);
 		right = rx.cap(2);
-                SafetYAWL::streamlog
-                        << SafetLog::Debug
+                SYD
                         << tr("rx(1): |%1| rx(2): |%2|")
                         .arg(left)
                         .arg(right);
 
 		if (right.length() > 0  ) { // Caso de una sola tabla en el tokenlink con tabla explicita
-                    SafetYAWL::streamlog
-                            << SafetLog::Debug
+                    SYD
                             << tr("right.length() > 0");
 
-                        QString mysql = " JOIN " +  right + " ON " + right + "." + left
+            QString myfirst =  right + "." + left;
+
+            if (left.indexOf(".") > 1 ) {
+                myfirst =  left;
+            }
+
+
+
+            QString mysql = " JOIN " +  right + " ON " + myfirst
 			+ " = " + ptoken->keysource() + "." +  ptoken->key();					
 			if ( npath > -1 )  {						
 				mysql = mysql + "|" + QString("%1").arg(npath);
@@ -1210,21 +1216,18 @@ QString SafetWorkflow::generateSQLToken(const QStringList &list, bool final, int
 				tokenlinkqueueInPath.enqueue(mysql);
 			}			
 		}	
-                SafetYAWL::streamlog
-                        << SafetLog::Debug
+                SYD
                         << tr("sql");
 
                 sql = sql + " ON " + left + "=" + ptoken->key();
-                SafetYAWL::streamlog
-                        << SafetLog::Debug
+                SYD
                         << tr("found: %2 ... final: %3 sql....|%1|")
                         .arg(sql)
                         .arg(found)
                         .arg(final);
 
                 if ( !found  && final ) {
-                    SafetYAWL::streamlog
-                            << SafetLog::Debug
+                   SYD
                             << tr("Agregando a cola tokenlinkqueue: |%1|")
                             .arg(sql);
 
@@ -1234,12 +1237,8 @@ QString SafetWorkflow::generateSQLToken(const QStringList &list, bool final, int
 	}
 	
 	for(int i=1; i < list.size(); i++) {
-//            SafetYAWL::streamlog
-//                    << SafetLog::Debug
-//                    << tr("Analizando expresion: |%1|")
-//                    .arg(list.at(i));
 
-		QRegExp rx("([a-zA-Z_0-9\\.]+):?([a-zA-Z_0-9\\.]+)?");
+        QRegExp rx("([a-zA-Z_0-9\\.]+):?([a-zA-Z_0-9\\.]+)?");
 		int pos = rx.indexIn(list.at(i));
 		if ( pos > -1 ) {
 			if (linkleft.length() == 0 ) {
@@ -1251,19 +1250,27 @@ QString SafetWorkflow::generateSQLToken(const QStringList &list, bool final, int
 			else if (rx.cap(2).length() > 0  ) {
 				linkright = rx.cap(1);
 				if ( jointable.length() > 0  ) {
-					QString mysql = " JOIN " +  jointable + " ON " + jointable + "." + linkleft
+                    QString myfirst = jointable + "." + linkleft;
+                    if (linkleft.indexOf(".") >  1) {
+                        myfirst = linkleft;
+                    }
+                    QString mysql = " JOIN " +  jointable + " ON " + myfirst
 					+ " = " + rx.cap(2) + "." + linkright;					
 					if ( npath > -1 )  {						
 						mysql = mysql + "|" + QString("%1").arg(npath);
 					}
 					if ( !tokenlinkqueueInPath.contains(mysql)  && !final) {
-                                            SafetYAWL::streamlog
-                                                    << SafetLog::Debug
+                                            SYD
                                                     << tr("Agregando a cola (2)tokenlinkqueueInPath: |%1|")
                                                     .arg(mysql);
 						tokenlinkqueueInPath.enqueue(mysql);
 					}
-					sql = " JOIN " +  rx.cap(2) + " ON " + _tablesource + "." + linkleft
+
+                    myfirst = _tablesource + "." + linkleft;
+                    if (linkleft.indexOf(".") > 1) {
+                        myfirst=  linkleft;
+                    }
+                    sql = " JOIN " +  rx.cap(2) + " ON " + myfirst
                                         + "=" + rx.cap(2) + "." + linkright;
 					jointable = "";
 				}  else {				
@@ -1275,12 +1282,16 @@ QString SafetWorkflow::generateSQLToken(const QStringList &list, bool final, int
 							break;
 						}
 					}
-					sql = sql + " ON " + _tablesource + "." + linkleft
+                    QString myfirst = _tablesource + "." + linkleft;
+                    if (linkleft.indexOf(".") > 1) {
+                        myfirst=  linkleft;
+                    }
+
+                    sql = sql + " ON " + myfirst
 					+ " = " + rx.cap(2) + "." + linkright;
 					if ( !found  && final ) {
-                                            SafetYAWL::streamlog
-                                                    << SafetLog::Debug
-                                                    << tr("Agregando a cola (2) tokenlinkqueue:|%1|")
+                                            SYD
+                                                    << tr("** Quitando tabla...Agregando a cola (2) tokenlinkqueue:|%1|")
                                                     .arg(sql);
 						tokenlinkqueue.enqueue( sql );
 					}		
