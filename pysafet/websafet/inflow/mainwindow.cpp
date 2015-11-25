@@ -1546,6 +1546,7 @@ QString MainWindow::generateFormHead(const QString& o) {
                         mypastlist.append(namef);
                       }
                   }
+
                   continue;
             }
             else {

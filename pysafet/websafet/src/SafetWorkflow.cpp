@@ -1032,6 +1032,17 @@ QSqlQuery SafetWorkflow::getSQLDocuments(const SafetVariable& v) {
             splitoperation = splitoperation+ " " + v.groupby();
         }
 
+      if (splitoperation.indexOf("DISTINCT ",0,Qt::CaseInsensitive) > 0 )     {
+            splitoperation.replace("DISTINCT","",Qt::CaseInsensitive);
+            QRegExp rx("\\s*SELECT\\s");
+            rx.setCaseSensitivity(Qt::CaseInsensitive);
+
+            splitoperation.replace(rx,"SELECT DISTINCT ");
+            SYD << tr(".......replacing SPLITOPERATION...");
+
+        }
+
+
 	QSqlQuery query(splitoperation,SafetYAWL::currentDb); // <-- SafetYAWL::currentDb puntero a db actual
 
 
