@@ -37,7 +37,8 @@
 *
 */
 
-//#include <QtGui>
+
+
 //#include <QCloseEvent>
 #include <QGraphicsSvgItem>
 //#include <QToolBar>
@@ -9080,8 +9081,6 @@ QMap<QString,QDateTime> MainWindow::doGetPlannedGraph(const QString& namegraph) 
 }
 
 
-
-
 void MainWindow::listDocuments(const QString& key) {
 //    char buffer[20];
 //    strncpy(buffer, qPrintable(SafetYAWL::getConf()["Graphviz.Plugins/graphtype"]), 3);
@@ -9097,12 +9096,12 @@ void MainWindow::listDocuments(const QString& key) {
     SYD << tr("..............****MainWindow::listDocuments....");
 
 
+
     QList<SafetWorkflow::Miles> ordermiles;
 
     QString namefields = "completekey,wftask,currkey,rol,timeprev,timecurr,secondswait,porc";
 
     QString namevalues;
-
 
 
 

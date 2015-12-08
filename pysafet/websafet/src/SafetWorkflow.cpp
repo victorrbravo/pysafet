@@ -888,8 +888,7 @@ QString  SafetWorkflow::getStackExpression(const SafetVariable& v, QStack<QStrin
 	Q_CHECK_PTR( SafetYAWL::evalExit() );
 
         if ( sql.length() == 0  ) {
-            SafetYAWL::streamlog
-                    << SafetLog::Error
+            SYE
                     <<
                     tr("La sentencia sql \"%1\" tiene longitud cero").arg(sql);
             return QString("");
@@ -923,7 +922,16 @@ QString  SafetWorkflow::getStackExpression(const SafetVariable& v, QStack<QStrin
  //       qDebug("**...(2)...sql: %s", qPrintable(sql));
         QRegExp rx("^\\s*SELECT\\b"); // Colocar el campo clave en la lista de campos de la sentencia SQL
     	rx.setCaseSensitivity(Qt::CaseInsensitive);
-	sql.replace(rx,"SELECT "+getToken()->key()+",");
+
+
+    QString includ = SafetYAWL::getConf()["Variables/include.id"];
+
+    SYD << tr("...INCLUDEVARIABLE....1...includ:|%1|").arg(includ);
+
+
+    if (includ.compare("no",Qt::CaseInsensitive) != 0 ) {
+            sql.replace(rx,"SELECT "+getToken()->key()+",");
+    }
 
 	 SafetTask* mytask = qobject_cast<SafetTask*> (v.parent());
 	 Q_CHECK_PTR( mytask );
