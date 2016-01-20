@@ -1019,13 +1019,15 @@ bool SafetYAWL::evalStaticValues(const QString& s1, const QString& s2, const QSt
           if ( (s1.compare("true") == 0)  )
               return true;
 
+      bool ok;
+
       result = QString::compare(ope, "=", Qt::CaseInsensitive);
       if ( result == 0 )
         return s1 == s2;
       result = QString::compare(ope, "<", Qt::CaseInsensitive);
       if ( result == 0 ) {
         if (rx.exactMatch(s2)) {
-            return s1 < s2;
+            return s1.toFloat(&ok) < s2.toFloat(&ok);
         }
         else {
             QString news1 = s1;
@@ -1038,7 +1040,7 @@ bool SafetYAWL::evalStaticValues(const QString& s1, const QString& s2, const QSt
       result = QString::compare(ope, ">", Qt::CaseInsensitive);
       if ( result == 0 ) {
           if (rx.exactMatch(s2)) {
-              return s1 > s2;
+              return s1.toFloat(&ok) > s2.toFloat(&ok);
           }
           else {
               QString news1 = s1;
@@ -1053,7 +1055,7 @@ bool SafetYAWL::evalStaticValues(const QString& s1, const QString& s2, const QSt
       result = QString::compare(ope, "<=", Qt::CaseInsensitive);
       if ( result == 0 ) {
           if (rx.exactMatch(s2)) {
-              return s1 <= s2;
+              return s1.toFloat(&ok) <= s2.toFloat(&ok);
           }
           else {
               QString news1 = s1;
@@ -1067,7 +1069,7 @@ bool SafetYAWL::evalStaticValues(const QString& s1, const QString& s2, const QSt
       result = QString::compare(ope, ">=", Qt::CaseInsensitive);
       if ( result == 0 ) {
           if (rx.exactMatch(s2)) {
-              return s1 >= s2;
+              return s1.toFloat(&ok) >= s2.toFloat(&ok);
           }
           else {
               QString news1 = s1;

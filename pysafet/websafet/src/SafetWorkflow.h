@@ -179,7 +179,7 @@ public:
           \param Lista de valores para reemplazar
           \return Cadena reemplazada con el valor del argumento
           */
-        QString replaceArg(const QString& strin, const QMap<QString,QString>& l, bool& doit);
+        QString replaceArg(const QString& strin, const QMap<QString,QString>& l, bool& doit );
         /**
           \brief Cambia los valores "cualquiera". "todos", por expresiones SQL como "like..:"
           \param l lista de Parametros
@@ -339,6 +339,14 @@ private:
 	 * \brief Genera una cadena para de filtro (WHERE) para ser utilizada en la setencia SQL que se
 	 * genera internamente 
 	 */
+
+
+        /*
+         *  \brief Agrega la información de documentsource al grafo
+         *
+         */
+        void addVarfieldtoExtrashow( QMap<QString,QString>& codes,const QString& info);
+
 
         /*
           *\brief Devuelve el conjunto de valores próximos dado un keyvalue actual

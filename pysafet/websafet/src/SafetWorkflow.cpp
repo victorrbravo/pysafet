@@ -200,12 +200,28 @@ bool SafetWorkflow::putParameters(const QMap<QString,QString>& p) {
     QMap<QString,QString> list = changeHumanizeParameters(p);
 
 
+
+    bool dodefaultvalue = false;
+
      QString strin, strout;
+     if (ptoken != NULL)  {
+            strin = ptoken->keysource();
+            strout = replaceArg(strin,p, dodefaultvalue);
+            if ( strin != strout )  {
+                SYD << tr("...SafetWorkflow::putparameters....keysource old:|%1|")
+                       .arg(strin);
+                SYD << tr("...SafetWorkflow::putparameters....keysource new:|%1|")
+                       .arg(strout);
+                ptoken->setKeysource(strout);
+
+            }
+     }
+
     foreach(SafetTask* task, getTasklist()) {
         strin = task->title();
         SYD << tr("....SafetWorkflow::putParameters...strin:|%1|")
                .arg(strin);
-        bool dodefaultvalue = false;
+        dodefaultvalue = false;
         strout = replaceArg(strin,p, dodefaultvalue);
         SYD << tr("....SafetWorkflow::putParameters...strout:|%1|")
                .arg(strout);
@@ -902,8 +918,7 @@ QString  SafetWorkflow::getStackExpression(const SafetVariable& v, QStack<QStrin
 	localparser.setStr(sql);
 	localparser.parse();
         if (localparser.error() ==  SafetParser::INCORRECT) {
-            SafetYAWL::streamlog
-                    << SafetLog::Error
+            SYE
             << tr("NO es correcta la sentencia SQL: \"%1\" ").arg(sql);
             return QString("");
 
@@ -2657,10 +2672,17 @@ QString SafetWorkflow::generateCodeGraph(char* filetype, const QString& info, bo
          checkDisconnectedNodes(newresults,hidenode.first, hidenode.second,info,neworderresults);
       }
 
+     QString includ = SafetYAWL::getConf()["Variables/show.documentsource"];
+
+
+     qDebug(".....include Variables/DOCUMENTSOURCE:|%s|", qPrintable(includ));
 
 
      proccessExtraInfo(newresults,info,neworderresults);
 
+     if (includ.compare("yes",Qt::CaseInsensitive) == 0 ) {
+                  addVarfieldtoExtrashow(newresults,info);
+     }
 
      shrinkNodes(newresults);
 
@@ -2675,6 +2697,113 @@ QString SafetWorkflow::generateCodeGraph(char* filetype, const QString& info, bo
 
      return newresult;
 }
+
+
+
+
+void SafetWorkflow::addVarfieldtoExtrashow(QMap<QString, QString> &newresults, const QString &info) {
+
+    if (info.compare(tr("coloured")) != 0) {
+        qDebug(".......addVarfieldToExtrashow........NOT coloured");
+
+        return;
+    }
+
+
+    QRegExp rx;
+    rx.setPattern("info\\.task\\.color: ([\\d\\.]+), ([\\d]+)\\.\\.\\.([\\d]+)");
+
+    QMap<QString,QPair<double,double> > mydata;
+
+    double total = 0;
+    for(int i=0; i < getTasklist().count(); i++) {
+
+        SafetTask *currtask = getTasklist().at(i);
+        SYD << tr("currtask ...1");
+        QString idtask = currtask->id();
+        SYD << tr("currtask ...2");
+        qDebug("currtask: |%s|", qPrintable(idtask));
+        if (!newresults.contains(idtask)) {
+            SYW << tr("La tarea \"%1\" no se encuentra para agregarle los datos de la variable")
+                   .arg(idtask);
+            continue;
+        }
+        SafetVariable *myvar = currtask->getVariables().at(0);
+
+        QString myvalue = "n/error";
+
+        QSqlQuery currquery = getSQLDocuments(*myvar);
+        if ( currquery.next() ) {
+                myvalue = currquery.value(0).toString();
+                qDebug("...myvalue:|%s|", qPrintable(myvalue));
+        }
+
+        QString mysec = newresults[idtask];
+        if (rx.indexIn(mysec) != -1) {
+            QString myrx = rx.cap(0);
+
+            qDebug("......addVarfieldtoExtrashow..task:|%s|", qPrintable(idtask));
+            qDebug("......addVarfieldtoExtrashow..........rx..1:|%s|",qPrintable(rx.cap(1)));
+            qDebug("......addVarfieldtoExtrashow..........rx..2:|%s|",qPrintable(rx.cap(2)));
+            qDebug("......addVarfieldtoExtrashow..........rx..3:|%s|",qPrintable(rx.cap(3)));
+            qDebug("");
+
+            QString myreplace = QString("info.task.color: %1, %2...%3")
+                    .arg("__PORC__")
+                    .arg(myvalue)
+                    .arg("__TOTAL__");
+            mysec.replace(myrx, myreplace);
+            bool ok;
+
+            mydata[idtask].first = myvalue.toDouble(&ok);
+            total +=  mydata[idtask].first;
+
+
+        }
+
+
+
+        newresults[idtask]  = QString("%1...%2...%3...")
+                .arg(mysec)
+                .arg(myvalue)
+                .arg(" ");
+    }
+
+    if (total == 0 ) {
+        SYE << tr("Error calculando informacion de variables");
+        return;
+    }
+
+
+    foreach(QString key, mydata.keys()) {
+            mydata[key].second = mydata[key].first/total;
+
+    }
+
+
+    for(int i=0; i < getTasklist().count(); i++) {
+
+        SafetTask *currtask = getTasklist().at(i);
+        QString idtask = currtask->id();
+        qDebug("currtask: |%s|", qPrintable(idtask));
+        if (!newresults.contains(idtask)) {
+            SYW << tr("La tarea \"%1\" no se encuentra para agregarle los datos de la variable")
+                   .arg(idtask);
+            continue;
+        }
+
+        qDebug(".......accediendo a |%s|", qPrintable(idtask));
+
+        newresults[idtask].replace("__PORC__",QString("%1").arg(mydata[idtask].second));
+        newresults[idtask].replace("__TOTAL__",QString("%1").arg(total));
+
+    }
+
+}
+
+
+
+
 void  SafetWorkflow::shrinkNodes(QMap<QString,QString>&  nodes) {
 
 
