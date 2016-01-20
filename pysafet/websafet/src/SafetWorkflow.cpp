@@ -2679,12 +2679,13 @@ QString SafetWorkflow::generateCodeGraph(char* filetype, const QString& info, bo
 
 
      proccessExtraInfo(newresults,info,neworderresults);
+     shrinkNodes(newresults);
 
      if (includ.compare("yes",Qt::CaseInsensitive) == 0 ) {
                   addVarfieldtoExtrashow(newresults,info);
      }
 
-     shrinkNodes(newresults);
+
 
      QString newresult;
 
@@ -2692,7 +2693,7 @@ QString SafetWorkflow::generateCodeGraph(char* filetype, const QString& info, bo
                newresult += newresults[nodename ] +  "\n";
      }
 
-     SYD << tr("......NEW..CONNECTED..AFTER_SHRINK...************RESULT:\n%1\n*************")
+     SYD << tr("......NEW..CONNECTED..AFTER_SHRINK...AFTER_ADDVARFIELD************RESULT:\n%1\n*************")
             .arg(newresult);
 
      return newresult;
@@ -2704,14 +2705,14 @@ QString SafetWorkflow::generateCodeGraph(char* filetype, const QString& info, bo
 void SafetWorkflow::addVarfieldtoExtrashow(QMap<QString, QString> &newresults, const QString &info) {
 
     if (info.compare(tr("coloured")) != 0) {
-        qDebug(".......addVarfieldToExtrashow........NOT coloured");
+        SYD << tr(".......addVarfieldToExtrashow........NOT coloured..return");
 
         return;
     }
 
 
     QRegExp rx;
-    rx.setPattern("info\\.task\\.color: ([\\d\\.]+), ([\\d]+)\\.\\.\\.([\\d]+)");
+    rx.setPattern("info\\.task\\.color: ([\\d\\.]+), ([\\d\\+e]+)\\.\\.\\.([\\d\\+e]+)");
 
     QMap<QString,QPair<double,double> > mydata;
 
@@ -2719,9 +2720,9 @@ void SafetWorkflow::addVarfieldtoExtrashow(QMap<QString, QString> &newresults, c
     for(int i=0; i < getTasklist().count(); i++) {
 
         SafetTask *currtask = getTasklist().at(i);
-        SYD << tr("currtask ...1");
+
         QString idtask = currtask->id();
-        SYD << tr("currtask ...2");
+
         qDebug("currtask: |%s|", qPrintable(idtask));
         if (!newresults.contains(idtask)) {
             SYW << tr("La tarea \"%1\" no se encuentra para agregarle los datos de la variable")
@@ -2739,14 +2740,13 @@ void SafetWorkflow::addVarfieldtoExtrashow(QMap<QString, QString> &newresults, c
         }
 
         QString mysec = newresults[idtask];
+        SYD << tr(".......addVarfieldToExtrashow........NOT sec:|%1|")
+               .arg(mysec);
         if (rx.indexIn(mysec) != -1) {
-            QString myrx = rx.cap(0);
 
-            qDebug("......addVarfieldtoExtrashow..task:|%s|", qPrintable(idtask));
-            qDebug("......addVarfieldtoExtrashow..........rx..1:|%s|",qPrintable(rx.cap(1)));
-            qDebug("......addVarfieldtoExtrashow..........rx..2:|%s|",qPrintable(rx.cap(2)));
-            qDebug("......addVarfieldtoExtrashow..........rx..3:|%s|",qPrintable(rx.cap(3)));
-            qDebug("");
+            SYD << tr(".......addVarfieldToExtrashow........NOT ...rx ON");
+
+            QString myrx = rx.cap(0);
 
             QString myreplace = QString("info.task.color: %1, %2...%3")
                     .arg("__PORC__")
@@ -2792,10 +2792,15 @@ void SafetWorkflow::addVarfieldtoExtrashow(QMap<QString, QString> &newresults, c
             continue;
         }
 
-        qDebug(".......accediendo a |%s|", qPrintable(idtask));
+        SYD << tr("...........addVarfieldExtrashow..ADDVARFIELD...idtask:|%1|")
+               .arg(idtask);
 
+        SYD << tr("...........addVarfieldExtrashow..ADDVARFIELD...replace 1:|%1|\n")
+               .arg(newresults[idtask]);
         newresults[idtask].replace("__PORC__",QString("%1").arg(mydata[idtask].second));
         newresults[idtask].replace("__TOTAL__",QString("%1").arg(total));
+        SYD << tr("...........addVarfieldExtrashow..ADDVARFIELD...replace 2:|%1|\n")
+               .arg(newresults[idtask]);
 
     }
 

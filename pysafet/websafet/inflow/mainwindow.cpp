@@ -38,7 +38,6 @@
 */
 
 
-
 //#include <QCloseEvent>
 #include <QGraphicsSvgItem>
 //#include <QToolBar>
@@ -133,7 +132,6 @@ extern "C" {
 #include "libdotar.h"
 }
 #endif
-
 
 //ThreadConsole * MainWindow::myThreadConsole = NULL;
 
