@@ -24,8 +24,8 @@ SafetSQLParser::SafetSQLParser()
 {
 	 _error = CORRECT;
          wf = NULL;
-         rxSql.setPattern("\\(?\\s*SELECT\\s+([a-zA-Z0-9_\\.\\(\\):][a-zA-Z0-9_,'\\s\\.\\(\\)\\-\\|/\\+:]*)\\s+FROM\\s+([a-zA-Z0-9_=\\.\\(\\)]+)\\s?(\\s*WHERE\\s+(.+))?(\\s*(SIGN|PASS)\\s*([a-zA-Z0-9_,;\\s\\.\\(\\)\\*#!\\|]+)?)?");
-         rxSqlSign.setPattern("\\s*([a-zA-Z0-9_][a-zA-Z0-9_\\.\\-]*)(\\s+(SIGN|PASS)\\s+[a-zA-Z0-9_#\\*!\\|][a-zA-Z0-9_\\.\\s,;\\*#!\\|]+)");
+         rxSql.setPattern("\\(?\\s*SELECT\\s+([a-zA-Z0-9_\\.\\(\\):][a-zA-Z0-9_,'\\s\\.\\(\\)\\-\\|/\\+\\=:]*)\\s+FROM\\s+([a-zA-Z0-9_=\\.\\(\\)]+)\\s?(\\s*WHERE\\s+(.+))?(\\s*(SIGN|PASS)\\s*([a-zA-Z0-9_,;\\s\\.\\(\\)\\*#!\\|]+)?)?");
+         rxSqlSign.setPattern("\\s*([a-zA-Z0-9_][a-zA-Z0-9_\\.\\-\\=]*)(\\s+(SIGN|PASS)\\s+[a-zA-Z0-9_#\\*!\\|][a-zA-Z0-9_\\.\\s,;\\*#!\\|]+)");
 
     	 rxSql.setCaseSensitivity(Qt::CaseInsensitive);
          rxSqlSign.setCaseSensitivity(Qt::CaseInsensitive);
