@@ -173,14 +173,6 @@ public:
         bool putParameters(const QMap<QString,QString>& p);
 
         /**
-          \brief Si existe un argumento del tipo {#1},{#2},... lo reemplaza por el elemento
-                correspondiente en la posicion de la lista l
-          \param strin Cadena de entrada
-          \param Lista de valores para reemplazar
-          \return Cadena reemplazada con el valor del argumento
-          */
-        QString replaceArg(const QString& strin, const QMap<QString,QString>& l, bool& doit );
-        /**
           \brief Cambia los valores "cualquiera". "todos", por expresiones SQL como "like..:"
           \param l lista de Parametros
           \return Nueva lista con los parametros en SQL
@@ -201,7 +193,17 @@ public:
          */
         static QString extractKeyForField(const QString &key, const QString& strin);
 
-        static QString replaceArg(const QString &strin, const QMap<QString, QString> &l);
+        /**
+          \brief Si existe un argumento del tipo {#1},{#2},... lo reemplaza por el elemento
+                correspondiente en la posicion de la lista l
+          \param strin Cadena de entrada
+          \param Lista de valores para reemplazar
+          \return Cadena reemplazada con el valor del argumento
+          */
+        QString replaceArg(const QString& strin, const QMap<QString,QString>& l, bool& doit );
+
+
+        static QString replaceArg(const QString &strin, const QMap<QString, QString> &l );
 
         /**
           \brief (Estatica) Colorea los estados con informacion extra (extrainfo)

@@ -966,6 +966,7 @@ void ComboWidget::updateComboListTable(bool inwidget) {
          l["1"]= mykey;
          if (!where.isEmpty()) {
              bool doit = false;
+
             where = SafetWorkflow::replaceArg(where,l);
             SYD << tr("....ComboWidget::updateComboListTable...reemplazando where:|%1|")
                    .arg(where);
@@ -1262,6 +1263,7 @@ QString ComboWidget::html() {
     QString poscol = "md-4";
     bool removelabel = false;
     bool hasposition = false;
+    bool hasloading = false;
 
     foreach(QString p, positions) {
         hasposition = true;
@@ -1277,6 +1279,9 @@ QString ComboWidget::html() {
         }
         else if (p.startsWith("removelabel")) {
                 removelabel = true;
+        }
+        else if (p.startsWith("hasloading")) {
+                hasloading = true;
         }
         else if (p.startsWith("md")) {
             poscol = p;
@@ -1338,9 +1343,20 @@ QString ComboWidget::html() {
 
     result += QLatin1String("</select>");
 
+    if (hasloading) {
+
+        result += QString("\n<div id='divForLoading_%1' name='divForLoading_%1' style='TEXT-ALIGN: center;display: none;'>"
+        "<b>Cargando...</b>"
+        "<img alt='LOADING' height='25' src='/static/loader.gif' width='25'/>"
+        "</div>\n")
+                .arg(caption());
+
+
+    }
 
 
     result += QLatin1String("</div>");
+
 
     if (hasposition) {
         if ( posaction == 2 || posaction ==  3 ) {

@@ -308,7 +308,9 @@ bool SafetWorkflow::putParameters(const QMap<QString,QString>& p) {
         else {
             SYD << tr("REPLACING VARIABLES....");
             strin = myvar->groupby();
-            strout = replaceArg(strin,list);
+            QString mynotfound;
+            bool doit = false;
+            strout = replaceArg(strin,list,doit);
             if (strin != strout) {
                 myvar->setGroupby(strout);
             }
@@ -462,7 +464,13 @@ QString SafetWorkflow::replaceArg(const QString& strin, const QMap<QString,QStri
                             QString defaultvalue = par->defaultvalue();
                             SYD << tr("..(parameter)...par->defaultvalue():|%1|").arg(defaultvalue);
                             if (!defaultvalue.isEmpty()) {
-                                result.replace(rx.cap(0),par->defaultvalue());
+                                if (defaultvalue == "::safetdelete::") {
+                                     result = "";
+                                }
+                                else {
+                                        result.replace(rx.cap(0),par->defaultvalue());
+                                }
+
                                 doit = true;
                             }
                             else {

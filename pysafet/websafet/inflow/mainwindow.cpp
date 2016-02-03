@@ -105,7 +105,6 @@
 
 // **** Bdoc files
 
-
 // Variables Estáticas
 
 SafetYAWL* MainWindow::configurator = NULL;
@@ -115,6 +114,7 @@ MainWindow *MainWindow::mymainwindow = NULL;
 QString MainWindow::currentaccount = "";
 QString MainWindow::currentrole = "";
 QString MainWindow::currentrealname = "";
+
 QString MainWindow::showString = "";
 bool MainWindow::_issigning = false;
 QString MainWindow::_currentCommonName = "";
