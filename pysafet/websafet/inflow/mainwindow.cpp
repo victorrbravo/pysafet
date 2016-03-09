@@ -1871,11 +1871,13 @@ QString MainWindow::generateModifyHTML(const QString& operation, const QString& 
                || (operation == "modificar_usuario" && (fieldname == "País" || fieldname == "Pais"))
                || (operation == "modificar_perfil" && (fieldname == "País" || fieldname == "Pais"))
                || operation == "agregar_publicación"
-               || (operation == "modificar_publicación" && fieldname == "Categoría") ) {
+               || (operation == "modificar_publicación" && fieldname == "Categoría")
+               || (operation == "modificar_publicación" && fieldname == "SubCategoria")
+               || (operation == "modificar_publicación" && fieldname == "SubCategoría")) {
 
-        SYD << tr("......MainWindow::generateModifyHTML.EVALUATING...ADD_PUBLICATION");
+        SYD << tr("......MainWindow::generateModifyHTML.***EVALUATING...ADD_PUBLICATION");
 
-        SYD << tr("......MainWindow::generateModifyHTML.EVALUATING: ....KEY:|%1|")
+        SYD << tr("......MainWindow::generateModifyHTML.(sub)...EVALUATING: ....KEY:|%1|")
                .arg(key);
         SYD << tr("......MainWindow::generateModifyHTML.EVALUATING: ....SECONDKEY:|%1|")
                .arg(secondkey);
