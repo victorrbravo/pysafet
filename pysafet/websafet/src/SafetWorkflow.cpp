@@ -314,6 +314,16 @@ bool SafetWorkflow::putParameters(const QMap<QString,QString>& p) {
             if (strin != strout) {
                 myvar->setGroupby(strout);
             }
+            // para documentsource
+            SYD << tr("REPLACING VARIABLES....2 (documentsource)");
+            strin = myvar->documentsource();
+            mynotfound;
+            doit = false;
+            strout = replaceArg(strin,list,doit);
+            if (strin != strout) {
+                myvar->setDocumentsource(strout);
+            }
+
         }
 
 
@@ -404,7 +414,7 @@ bool SafetWorkflow::putParameters(const QMap<QString,QString>& p) {
 QString SafetWorkflow::replaceArg(const QString& strin, const QMap<QString,QString>& l, bool &doit) {
     QString result = strin;
     doit = false; // es defaultvalue
-   QString pattern = QString("(\\=|>|<|<\\=|>\\=|IS|IN|LIKE|@@)?\\s*\\{\\#([a-zA-Z0-9_]+)\\}");
+   QString pattern = QString("(\\=|>|<|<\\=|>\\=|IS|IN|LIKE|@@|%)?\\s*\\{\\#([a-zA-Z0-9_]+)\\}");
    QRegExp rx;
    rx.setPattern(pattern);
    int pos = 0;
@@ -541,7 +551,7 @@ QString SafetWorkflow::extractKeyForField(const QString& key, const QString& str
 
 QString SafetWorkflow::replaceArg(const QString& strin, const QMap<QString,QString>& l) {
     QString result = strin;
-   QString pattern = QString("(\\=|>|<|<\\=|>\\=|IS|IN|LIKE|@@)?\\s*\\{\\#([a-zA-Z0-9_]+)\\}");
+   QString pattern = QString("(\\=|>|<|<\\=|>\\=|IS|IN|LIKE|@@|%)?\\s*\\{\\#([a-zA-Z0-9_]+)\\}");
    QRegExp rx;
    rx.setPattern(pattern);
    int pos = 0;
@@ -6354,7 +6364,7 @@ SafetVariable*  SafetWorkflow::searchVariable(const QString& n) {
 
 
 QStringList SafetWorkflow::UniteWhereset() {
-        QRegExp rx("([a-zA-Z_0-9\\.][a-zA-Z_0-9\\.\\(\\)]*)\\s*(\\=|>|<|<\\=|>\\=|IS|LIKE|@@)\\s*(['\"a-zA-Z_0-9:\\-\\.]+)");
+        QRegExp rx("([a-zA-Z_0-9\\.][a-zA-Z_0-9\\.\\(\\)]*)\\s*(\\=|>|<|<\\=|>\\=|IS|LIKE|@@|%)\\s*(['\"a-zA-Z_0-9:\\-\\.]+)");
         rx.setCaseSensitivity(Qt::CaseInsensitive);
         QStringList droplist;
 	QList<QString> newwhereset;

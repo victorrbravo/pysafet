@@ -133,6 +133,7 @@ extern "C" {
 }
 #endif
 
+
 //ThreadConsole * MainWindow::myThreadConsole = NULL;
 
 MainWindow::MainWindow(const QString& path)
