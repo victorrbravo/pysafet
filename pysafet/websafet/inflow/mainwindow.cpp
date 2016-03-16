@@ -346,13 +346,13 @@ bool MainWindow::sendCheckEmail(const QString& user, const QString& plink) {
        }
 
        QString namesender = SafetYAWL::getConf()["Email/namesender"];
-       if  (namesender.isEmpty()) {
-           namesender = "Sistema Tibisay - SAFET";
+       if  (namesender.isEmpty()) {           
+           namesender = "Sistema - SAFET";
        }
 
        message.setSender(new EmailAddress(hostsender, namesender));
        if (email.isEmpty()) {
-           email = "vbravo@cenditel.gob.ve";
+           email = "victorrbravo@gmail.com";
 
        }
        message.addRecipient(new EmailAddress(email, uinfo));
@@ -365,19 +365,32 @@ bool MainWindow::sendCheckEmail(const QString& user, const QString& plink) {
        QString mytext;
 
        if (plink.indexOf("/activeaccount") != -1 ) {
-           message.setSubject("Activación de cuenta - Sistema Tibisay");
+           QString mymessage = SafetYAWL::getConf()["Messages/email.subject.active"];
+           if (mymessage.isEmpty()) {
+               mymessage = "Activación de cuenta - Sistema Safet";
+           }
+
+
+
+           message.setSubject(mymessage);
            mytext = QString("Para ACTIVAR  la cuenta del usuario \"%1\" debe seguir el enlace %2."
                                     "\n\nGracias por su atención.\n\n"
-                                    "Weetup 2015.")
+
+                                    "")
                    .arg(user)
                    .arg(plink);
 
         }
        else {
-           message.setSubject("Reinicio de contraseña");
+           QString mymessage = SafetYAWL::getConf()["Messages/email.subject.reset"];
+           if (mymessage.isEmpty()) {
+               mymessage = "Reinicio de contraseña - Sistema Safet";
+           }
+
+           message.setSubject(mymessage);
            mytext = QString("Para reiniciar la contraseña del su usuario \"%1\" debe seguir el enlace %2."
                                     "\n\nGracias por su atención.\n\n"
-                                    "Weetup 2015.")
+                                    "")
                    .arg(user)
                    .arg(plink);
        }
