@@ -427,10 +427,14 @@ QString MainWindow::checkUserRegister(const QString& fullname,
 #define PASSTWO   16
 
 
+    QString mymessage = SafetYAWL::getConf()["Messages/after.register"];
 
+    if (mymessage.isEmpty()) {
+        mymessage = tr("Se enviado un correo de activación de registro.");
+    }
 
     SYD << tr(".....MainWindow::checkUserRegister............entering()");
-    QString result = tr("Se ha enviado un correo de bienvenida a su nueva cuenta del sistema SAFET");
+    QString result = mymessage;
     int typecheck = 0;
 
     QString newfullname = fullname;
