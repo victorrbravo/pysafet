@@ -6542,6 +6542,8 @@ void MainWindow::proccessConfFile(const QString& sql, const QString& filename, b
                                   replacetext);
 
 
+
+
      // Para los otros campos que no son claves
 
      if (isdeleting) {

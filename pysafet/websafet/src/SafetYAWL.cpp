@@ -1842,12 +1842,12 @@ bool  SafetYAWL::replaceTextInFile(const QString& filename, const QString& searc
 
     bool isopen = file.open(QIODevice::ReadOnly | QIODevice::Text);
     if ( !isopen ) {
-        SafetYAWL::streamlog << SafetLog::Error << QObject::tr("Ocurrió un error al tratar de abrir el archivo \"%1\" para aplicar modificaci�n").arg(filename);
+        SYE << QObject::tr("Ocurrio un error al tratar de abrir el archivo \"%1\" para aplicar modificaci�n").arg(filename);
         return false;
     }
     bool isopentemp = tempfile.open(QIODevice::WriteOnly | QIODevice::Text);
     if ( !isopentemp ) {
-        SafetYAWL::streamlog << SafetLog::Error << QObject::tr("Ocurrió un error al tratar de abrir archivo temporal \"%1\" para aplicar modificaci�n").arg(tempname);
+        SYE <<  QObject::tr("Ocurrio un error al tratar de abrir archivo temporal \"%1\" para aplicar modificaci�n").arg(tempname);
         return false;
     }
 
@@ -1860,6 +1860,8 @@ bool  SafetYAWL::replaceTextInFile(const QString& filename, const QString& searc
     QString newreplacetext = replacetext;
     while ( !in.atEnd()) {
         QString line = in.readLine();
+        QString oldline = line;
+
         int pos = rx.indexIn(line);
         if  ( pos != -1 ) {
             found = true;
@@ -1885,8 +1887,14 @@ bool  SafetYAWL::replaceTextInFile(const QString& filename, const QString& searc
             }
             line.replace(rx, newreplacetext);
         }
-        out << line.toLatin1();
-        out << "\n";
+        if (line.trimmed().count() == 0 && (oldline.trimmed().count() > 0 ) ) {
+
+        }
+        else {
+            out << line.toLatin1();
+            out << "\n";
+        }
+
     }
     qDebug("...finalizando lectura....");
     file.close();
@@ -1901,8 +1909,7 @@ bool  SafetYAWL::replaceTextInFile(const QString& filename, const QString& searc
     result = QFile::rename(tempname, filename);
     qDebug("...moviendo...: \"%s\" a \"%s\"", qPrintable(tempname),qPrintable(filename));
     if ( !result ) {
-        SafetYAWL::streamlog
-                << SafetLog::Error <<
+        SYE <<
         QObject::tr("No es posible copiar el archivo en la ubicacion: \"%1\"").arg(tempname);
     }
 
