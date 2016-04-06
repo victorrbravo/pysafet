@@ -916,7 +916,7 @@ int SafetWorkflow::numberOfTokens(const SafetVariable& v) {
            return result;
 }
 
-QString  SafetWorkflow::getStackExpression(const SafetVariable& v, QStack<QString> &splitresults) {
+QString  SafetWorkflow::getStackExpression(const SafetVariable& v, QStack<QPair<QString,QString> > &splitresults) {
 
 	QString sql = v.documentsource();
 	Q_CHECK_PTR( SafetYAWL::evalExit() );
@@ -978,6 +978,8 @@ QString  SafetWorkflow::getStackExpression(const SafetVariable& v, QStack<QStrin
         //SafetYAWL::debugQueue( tokenlinkqueueInPath );
 
 
+    SYD << tr("............SafetWorkflow::getStackExpression GETSTACK_CURR_SQL:|%1|")
+           .arg(sql);
 	return sql;
 }
 
@@ -1045,11 +1047,15 @@ QSqlQuery SafetWorkflow::getSQLDocuments(const SafetVariable& v) {
 
 
 	QString sql = v.documentsource();
-    QStack<QString> splitresults;
-    sql  =getStackExpression(v, splitresults);  // Obtener la pila de resultado desde la variable
-        redefineSplitOperators(splitresults);
+    QStack<QPair<QString,QString> > splitresults;
+    sql  = getStackExpression(v, splitresults);  // Obtener la pila de resultado desde la variable
+
+    redefineSplitOperators(splitresults);
+
 
 	QString splitoperation = evalSQLKeyFilterStack(sql, splitresults);
+    SYD << tr("........(before)...SafetWorkflow::getSQLDocuments DOC_CURR_SQL_splitoperation:|%1|")
+           .arg(splitoperation);
 
 
 
@@ -1126,38 +1132,67 @@ void SafetWorkflow::resetContainers() {
 	// Reiniciar las variables
 }
 
-QString SafetWorkflow::evalSQLKeyFilterStack(const QString& sql, QStack<QString> &e) {
-	QStack<QString> mystack;
+QString SafetWorkflow::evalSQLKeyFilterStack(const QString& sql, QStack<QPair<QString,QString> > &e) {
+    QStack<QPair<QString,QString> > mystack;
+    QString currsql = sql;
         //SafetYAWL::debugStack( e ); // Funcion agregada para listar las tareas de la pila
 	if ( e.count() ==  1 ) {
-		QString newsql = e.pop();
+
+        SYD << tr("...........CURR_SQL_E_IS_1");
+
+        QPair<QString,QString> mypair = e.pop();
+
+
+        QString newsql = mypair.second;
+
+        if (!mypair.first.isEmpty()) {
+            currsql = mypair.first;
+
+        }
         QString path = newsql.section('|',-1);
 		newsql.remove("|" + path);
 		SafetSQLParser localparser;
                 localparser.setWorkflow(this);
-		localparser.setStr(sql);
+        localparser.setStr(currsql);
 		localparser.parse();
-                QString tokenlink = generateJoinString(path.toInt(), localparser.getTablesource() );
-               SYD       << tr("Tokenlink: \"%1\"").arg(tokenlink);
+        QString tokenlink = generateJoinString(path.toInt(), localparser.getTablesource() );
+        // SYD       << tr("Tokenlink: \"%1\"").arg(tokenlink);
 
-		QString joinsql = sql + tokenlink;
+        QString joinsql = currsql + tokenlink;
+
+
 		QString result  = addSQLPrefix(joinsql, newsql);	
-        SYD << tr("...........SafetWorkflow::evalSQLKeyFilterStack.........Consulta 1: \"%1\"").arg(result);
+        SYD << tr("...........SafetWorkflow::evalSQLKeyFilterStack.....CURRPAIR....Consulta 1: \"%1\"").arg(result);
   		return   result;
 	}
 	while (!e.isEmpty() ) {
-		QString newsql, result = e.pop();
+        QPair<QString,QString> mypair = e.pop();
+
+        QString newsql, result = mypair.second;
 			
 		if ( getSQLOperator(result).length() == 0 ) {
-        	              mystack.push(result);
+                     mystack.push(QPair<QString,QString>(mypair.first,result));
+                     SYD << tr(".......SafetWorkflow::evalSQLKeyFilterStack....MYPAIR_newsql..1:|%1|")
+                            .arg(mypair.first);
 
 		} else  {
-			newsql = processSQLOperation(sql, mystack, result);	
+            if (!mypair.first.isEmpty() ) {
+                newsql = processSQLOperation(mypair.first, mystack, result);
+                SYD << tr(".......SafetWorkflow::evalSQLKeyFilterStack....MYPAIR_newsql..processing:|%1|")
+                       .arg(newsql);
+            }
+            else {
+                newsql = processSQLOperation(sql, mystack, result);
+            }
+
 		}
  	}
 
-// 	Q_ASSERT(mystack.count() > 0 );
-        QString result = mystack.pop();
+        QPair<QString,QString> mypair;
+        mypair = mystack.pop();
+        QString result = mypair.second;
+        SYD << tr(".......SafetWorkflow::evalSQLKeyFilterStack...RESULT_ONE_CURRPAIR.MYPAIR_newsql..result:|%1|")
+               .arg(result);
 
         return result;
 }
@@ -1394,7 +1429,7 @@ QString SafetWorkflow::printPaths(const QString& idtask, const QString& info) {
 
 
 
-void SafetWorkflow::redefineSplitOperators(QStack<QString>& splitresults){
+void SafetWorkflow::redefineSplitOperators(QStack<QPair<QString,QString> >& splitresults){
 
     QList<SafetPort*> myports;
     foreach(SafetTask* task, tasklist){
@@ -1405,10 +1440,10 @@ void SafetWorkflow::redefineSplitOperators(QStack<QString>& splitresults){
 
     int countport = 0;
     for(int i=0; i< splitresults.count();i++){
-        if (SafetYAWL::PATTERNS.contains(splitresults.at(i)) ) {
+        if (SafetYAWL::PATTERNS.contains(splitresults.at(i).second) ) {
             if ( countport < myports.count()) {
                 QString newpattern = myports.at(countport)->pattern();
-                splitresults[i] = newpattern;
+                splitresults[i].second = newpattern;
             }
         }
     }
@@ -1417,7 +1452,7 @@ void SafetWorkflow::redefineSplitOperators(QStack<QString>& splitresults){
 
 
 
-void SafetWorkflow::generateKeyFilterStack(const QString& idtask, QStack<QString>& splitresults){
+void SafetWorkflow::generateKeyFilterStack(const QString& idtask, QStack<QPair<QString,QString> >& splitresults){
 
     qDebug("............generating paths..........(1)....");
     QList<QQueue<QString> > paths = generatePaths(idtask);  // Generar los caminos a un nodo
@@ -1443,8 +1478,10 @@ void SafetWorkflow::generateKeyFilterStack(const QString& idtask, QStack<QString
 
         if ( !opeStack.isEmpty() ) {
             ope =  opeStack.pop(); // Chequear operadores
-            if ( getSQLOperator(ope).length() > 0 ) {
-                splitresults.push(ope);
+            if ( getSQLOperator(ope).length() > 0 ) {                
+                splitresults.push(QPair<QString,QString>("",ope));
+                SYD << tr("...OPE_VALUE:|%1|").arg(ope);
+
                 ope =  opeStack.pop(); // Visualizar el operador aqui
             }
         }
@@ -1452,10 +1489,12 @@ void SafetWorkflow::generateKeyFilterStack(const QString& idtask, QStack<QString
         QQueue<QString> path = paths.at(i);
         QStack<QString> reversepath, prevnodes;
         QString splitresult, joinresult;
+        QString currsql;
         int countprevnodes = 0;
 
         // Recorrido (Caminata por cada Path)
-        countprevnodes = walkPath(path,reversepath,prevnodes,splitresult,joinresult,splitPort,joinPort,idtask,ipath); // Recorrido
+        countprevnodes = walkPath(path,reversepath,prevnodes,splitresult,currsql,joinresult,splitPort,joinPort,
+                                  idtask,ipath); // Recorrido
 
 
         myset = lastkeyset; // Se actualiza el conjunto de claves (lastkeyset)
@@ -1465,7 +1504,10 @@ void SafetWorkflow::generateKeyFilterStack(const QString& idtask, QStack<QString
 
         splitresult = generateWhereClauses(splitresult,ipath);        
         //SYD << tr("Consulta Nro %1 generada: \"%2\"").arg(ipath).arg(splitresult);
-        splitresults.push(splitresult+ "|" + QString("%1").arg(ipath));//Agregar numero de camino
+        SYD << tr("ADDING CURR_SQL:|%1|")
+               .arg(currsql);
+
+        splitresults.push(QPair<QString,QString>(currsql,splitresult+ "|" + QString("%1").arg(ipath)));//Agregar numero de camino
         // Operador SPLIT  JOIN
         if ( countprevnodes > 0 ) {
             joinresult  = joinresult + ((joinWhereset.count() > 0 ) ? " AND " : " ");
@@ -1484,7 +1526,9 @@ void SafetWorkflow::generateKeyFilterStack(const QString& idtask, QStack<QString
 }
 
 
-int SafetWorkflow::walkPath(QQueue<QString>& path, QStack<QString>& reversepath, QStack<QString>& prevnodes, QString& splitresult, QString& joinresult,SafetPort* splitPort, SafetPort* joinPort, const QString& idtask, int ipath) {
+int SafetWorkflow::walkPath(QQueue<QString>& path, QStack<QString>& reversepath, QStack<QString>& prevnodes,
+                            QString& splitresult, QString& currsql, QString& joinresult,SafetPort* splitPort, SafetPort* joinPort,
+                            const QString& idtask, int ipath) {
     QString nodename, prevnodename;
     SafetNode *node, *nextnode;
         SafetNode::PortType type = SafetNode::SPLIT;
@@ -1509,10 +1553,20 @@ int SafetWorkflow::walkPath(QQueue<QString>& path, QStack<QString>& reversepath,
 //                    << tr("              ***generateSQLPortKeyFilterExpression...:%1")
 //                    .arg(query);
             splitresult   = generateKeyFilterExpression(query, node, curroption,path,false,ipath);
-//            SafetYAWL::streamlog
-//                    << SafetLog::Debug
-//                    << tr("              ***generateSQLPortKeyFilterExpression..(splitresult).:%1")
-//                    .arg(splitresult);
+
+
+            if (node != NULL) {
+                int classid = SafetYAWL::getClassReference(SafetYAWL::translateNS(node->metaObject()->className()));
+                SYD << tr(".....SafetWorkflow::walkPath....CHECK_CLASSID...classid:|%1|").arg(classid);
+                if (classid == 2) {
+                    SYD << tr(".....SafetWorkflow::walkPath....CHECK_CLASSID...YES");
+                    SafetTask* ptask = qobject_cast<SafetTask*>(node);
+                    currsql = ptask->getVariables().at(0)->documentsource();
+                    SYD << tr(".....SafetWorkflow::walkPath....**CHECK_CLASSID...currsql:|%1|")
+                           .arg(currsql);
+                }
+
+            }
 
         }
 
@@ -5573,46 +5627,73 @@ QString SafetWorkflow::addSQLPrefix(const QString& sql, const QString& s) const 
 
 
 
-QString SafetWorkflow::processSQLOperation(const QString& sql, QStack<QString> &stack, const QString& ope) const {
+QString SafetWorkflow::processSQLOperation(const QString& sql, QStack<QPair<QString,QString> > &stack, const QString& ope) const {
         QString result;
+        QPair<QString,QString> pairresult;
+
 	SafetSQLParser localparser;
         localparser.setWorkflow((SafetWorkflow* const)this);
 	localparser.setStr(sql);
 	localparser.parse();
+    pairresult.first = sql;
 	if ( ope.compare("xor", Qt::CaseInsensitive) == 0 ) {
 		QStack<QString> mystack;
 		while(!stack.isEmpty() ) {
-			QString newsql = stack.pop();
+            QPair<QString,QString> mypair;
+            mypair = stack.pop();
+            QString newsql = mypair.second;
 			QString mypath = newsql.section('|',1,1);
 			newsql.remove("|" + mypath);
 			QString tokenlink = generateJoinString( mypath.toInt(),localparser.getTablesource() );
-			newsql = addSQLPrefix(sql+" "+tokenlink, newsql);
+            if (!mypair.first.isEmpty()) {
+                newsql = addSQLPrefix(mypair.first+" "+tokenlink, newsql);
+                pairresult.first = mypair.first;
+            }
+            else {
+                newsql = addSQLPrefix(sql+" "+tokenlink, newsql);
+                pairresult.first = sql;
+            }
 
 			mystack.push(newsql);
 			result  = result + newsql;							
-			if (!stack.isEmpty() ) 	result = result + " " + getSQLOperator(ope) + " ";			
+            if (!stack.isEmpty() ) 	result = result + " " + getSQLOperator(ope) + " ";
+
+            pairresult.second = result;
+
 		}
-		result = "("+ result + ") UNION (";
+        result = "("+ result + ") UNION (";
 		while(!mystack.isEmpty() ) {
+
 			QString newsql = mystack.pop();
-			result  = result + newsql;				
-			if (!mystack.isEmpty() ) 	result = result + " " + getSQLOperator(ope) + " ";			
+            result  = result + newsql;
+            if (!mystack.isEmpty() ) 	result = result + " " + getSQLOperator(ope) + " ";
 		}	
-		result = result + ")";
+        result = result + ")";
+        pairresult.second = result;
 	}
 	else {
 		while(!stack.isEmpty() ) {
-			QString newsql = stack.pop();
+            QPair<QString,QString> mypair;
+            mypair = stack.pop();
+            QString newsql = mypair.second;
 			QString mypath = newsql.section('|',1,1);
 			newsql.remove("|" + mypath);
 			QString tokenlink = generateJoinString( mypath.toInt(), localparser.getTablesource() );
-			newsql = addSQLPrefix(sql+" "+tokenlink, newsql);			
+            if (!mypair.first.isEmpty()) {
+                newsql = addSQLPrefix(mypair.first+" "+tokenlink, newsql);
+                pairresult.first = mypair.first;
+            }
+            else {
+                newsql = addSQLPrefix(sql+" "+tokenlink, newsql);
+                pairresult.first = sql;
+            }
 
-			result  = result + newsql;
-			if (!stack.isEmpty() ) result = "(" + result + ") " + getSQLOperator(ope) + " ";
+            result  = result + newsql;
+            if (!stack.isEmpty() ) result = "(" + result + ") " + getSQLOperator(ope) + " ";
 		}		
+        pairresult.second = result;
 	}
-	stack.push(result);
+    stack.push(pairresult);
 	return result;
 }
 

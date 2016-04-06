@@ -405,7 +405,7 @@ private:
 	 * \param myqueue Cola de operaciones SQL 
 	 * \param ope
 	 */ 
-    QString processSQLOperation(const QString& sql, QStack<QString> &stack, const QString& ope) const;
+    QString processSQLOperation(const QString& sql, QStack<QPair<QString,QString> > &stack, const QString& ope) const;
 
 	/* 
 	 * \brief Evalua una expresion SQL convirtiendo los operadores YAWL (AND, OR, XOR,etc.) en operadores del
@@ -413,7 +413,7 @@ private:
 	 * \param sql Cadena sql a colocar como prefijo
 	 * \param pila a evaluar
 	 */ 	
-	QString evalSQLKeyFilterStack(const QString& sql, QStack<QString> &e);
+    QString evalSQLKeyFilterStack(const QString& sql, QStack<QPair<QString,QString> > &e);
 	
 	/* 
 	 * \brief Construye una expresión SQL dado la expresion (sql) y el filtro (s) 
@@ -426,7 +426,7 @@ private:
 	
     //QString  getStackExpression(const SafetVariable& v, QStack<QString> &splitresults, QStack<QString> &joinresults);
 
-    QString  getStackExpression(const SafetVariable& v, QStack<QString> &splitresults);
+    QString  getStackExpression(const SafetVariable& v, QStack<QPair<QString,QString> > &splitresults);
 
 	/**
 	\brief Genera una una expresion para evaluación de una cláusula where
@@ -597,13 +597,14 @@ public:
      * \param splitresults  Contenedor de resultados para el operador de entrada (JOIN)
     */
     //void generateKeyFilterStack(const QString& idtask, QStack<QString>& splitresults, QStack<QString>& joinresults);
-    void generateKeyFilterStack(const QString& idtask, QStack<QString>& splitresults);
+    void generateKeyFilterStack(const QString& idtask, QStack<QPair<QString,QString> >& splitresults);
 
     /**
       *  \brief Construye un filtro para el camino dado por "path", las demás parámetros son auxiliares
       *
       */
-    int walkPath(QQueue<QString>& path, QStack<QString>& reversepath, QStack<QString>& prevnodes, QString&  splitresult, QString& joinresult,SafetPort* splitPort, SafetPort* joinPort, const QString& idtask = QString(""), int ipath = 0);
+    int walkPath(QQueue<QString>& path, QStack<QString>& reversepath, QStack<QString>& prevnodes,
+                 QString&  splitresult, QString& currsql, QString& joinresult,SafetPort* splitPort, SafetPort* joinPort, const QString& idtask = QString(""), int ipath = 0);
 
     /**
      * \brief Devuelve un puntero al objeto condición Inicial
@@ -894,7 +895,7 @@ public:
       \brief Calcula los operadores JOIN cambiando los operadores tipo SPLIT por los correspondientes
       tipo SPLIT
       */
-    void redefineSplitOperators(QStack<QString>& splitresults);
+    void redefineSplitOperators(QStack<QPair<QString,QString> >& splitresults);
     
     /**
       * \brief Guardar Estados siguientes y previos (en estructuras _nexts y _previouses)

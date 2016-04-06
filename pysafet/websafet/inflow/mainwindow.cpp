@@ -37,7 +37,6 @@
 *
 */
 
-
 //#include <QCloseEvent>
 #include <QGraphicsSvgItem>
 //#include <QToolBar>
