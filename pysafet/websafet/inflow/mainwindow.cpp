@@ -4171,7 +4171,7 @@ void MainWindow::buildEmail(QMap<QString,QString>& data, const QString& cs,  QSt
          }
      }
 
-     sendEmail(recipients,data["asunto"],newtemplate,savesql);
+     sendEmail(recipients,data,newtemplate,savesql);
 
 }
 
@@ -4591,18 +4591,45 @@ bool MainWindow::replaceDocumentid(QString& t, const QString& idkey) {
 
 
 
-void MainWindow::sendEmail(const QString& recipients, const QString& subject, const QString& message,
+void MainWindow::sendEmail(const QString& recipients, const QMap<QString,QString>& data, const QString& message,
                             QString &savesql) {
     SYD << tr(".............MainWindow::sendEmail...................(BEGIN)....");
 #ifdef SAFET_SMTP
+
+    QString  subject = data["asunto"];
 
     SYD << tr(".............MainWindow::sendEmail...................(BEGIN**)....");
     QString myhost = SafetYAWL::getConf()["Email/host"];
     if  (myhost.isEmpty()) {
         myhost = "localhost";
     }
+    SYD << tr(".........senEmail...ATTACHDIR...myhost:|%1|")
+           .arg(myhost);
 
-    SmtpClient smtp(myhost, 25, SmtpClient::TcpConnection);
+    QString myport = SafetYAWL::getConf()["Email/port"];
+    if  (myport.isEmpty()) {
+        myport = "25";
+    }
+
+    QString attachdir = SafetYAWL::getConf()["Email/attachment.dir"];
+    if  (attachdir.isEmpty()) {
+        attachdir = SafetYAWL::pathconf + "/" + "attachments";
+    }
+
+    SYD << tr(".........senEmail...ATTACHDIR...attachdir:|%1|")
+           .arg(attachdir);
+
+
+    bool ok;
+
+    int currport = myport.toInt(&ok);
+    SYD << tr(".........senEmail...ATTACHDIR...currport:|%1|")
+           .arg(currport);
+
+  //  SmtpClient smtp(myhost,currport, SmtpClient::TcpConnection);
+    SmtpClient smtp(myhost,currport, SmtpClient::TlsConnection);
+
+    SYD << tr("sendEmail EMAIL::TLS");
 
     QString myuser = SafetYAWL::getConf()["Email/user"];
     if  (myuser.isEmpty()) {
@@ -4639,7 +4666,7 @@ void MainWindow::sendEmail(const QString& recipients, const QString& subject, co
 
         QString namesender = SafetYAWL::getConf()["Email/namesender"];
         if  (namesender.isEmpty()) {
-            namesender = tr("Weetup - 2015");
+            namesender = tr("Weetup - 2016");
         }
 
     foreach(QString email, mylist) {
@@ -4717,6 +4744,54 @@ void MainWindow::sendEmail(const QString& recipients, const QString& subject, co
             }
 
             emessage.addPart(&text);
+            SYD << tr(".......sendmail...ATTACHDIR...adjuntos...1");
+
+            if (data.contains("adjuntos")) {
+                SYD << tr(".......sendmail...ATTACHDIR...adjuntos...2...adjuntos:|%1|")
+                       .arg(data["adjuntos"]);
+                QStringList myattachs = data["adjuntos"].split(";",QString::SkipEmptyParts);
+
+
+                SYD << tr(".......sendmail...ATTACHDIR...adjuntos...myattachs.count():|%1|")
+                       .arg(myattachs.count());
+
+
+
+
+
+                foreach(QString myattach, myattachs) {
+                    QString mypath = attachdir + "/" + myattach;
+
+                    if (!QFile::exists(mypath)) {
+                        SYE << tr("No existe el archivo \"%1\" para ser enviado adjunto por correo")
+                               .arg(mypath);
+                        continue;
+                    }
+
+                    QDir::setCurrent(attachdir);
+                    SYD << tr(".......sendEmail...ATTACHDIR...attachdir:|%1|")
+                           .arg(attachdir);
+                    SYD << tr(".......sendEmail...ATTACHDIR...myattach:|%1|")
+                           .arg(myattach);
+
+                    SYD << tr("attach...1");
+
+                    SYD << tr("attach...2");
+                        // the file type can be setted. (by default is application/octet-stream)
+
+
+
+                    emessage.addPart(new MimeAttachment(new QFile(myattach)));
+                     SYD << tr("attach..3.....myattach:|%1|").arg(myattach);
+
+
+                }
+                SYD << tr("attach..4");
+
+
+            }
+            SYD << tr("attach..5");
+
             smtp.sendMail(emessage);
             if (ishost ) {
                 SYA << tr("...........MainWindow::sendEmail....email:|%1|..subject:|%2|.............SENDING_OK\n")

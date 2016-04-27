@@ -476,7 +476,7 @@ public:
      * @param message
      */
 
-     void sendEmail(const QString &recipients, const QString &subject, const QString &message,
+     void sendEmail(const QString &recipients, const QMap<QString,QString>& data, const QString &message,
                      QString &savesql);
     /**
     * \brief Borra todos los archivos que se encuentran en el directorio d
