@@ -4081,6 +4081,14 @@ void MainWindow::buildEmail(QMap<QString,QString>& data, const QString& cs,  QSt
      data["destinatarios"].replace(Safet::BRACKETCLOSEMARK,"}");
      QString recipients = parseForEmail(data["destinatarios"],idkey,data,cs);
 
+     if (data.contains("adjuntos")) {
+         data["adjuntos"] = parseForEmail(data["adjuntos"],idkey,data,cs);
+         SYD << tr(".....MainWindow::parseForEmail............data[adjuntos]:|%1|")
+                .arg(data["adjuntos"]);
+
+     }
+
+
      /** searching user **/
 
 	 SYD << tr("........buildEmail...........CHECKINGFORTICKET....1...users.count():|%1|")
