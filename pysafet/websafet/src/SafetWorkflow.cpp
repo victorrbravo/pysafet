@@ -1251,7 +1251,7 @@ QString SafetWorkflow::generateSQLToken(const QStringList &list, bool final, int
 //                    << SafetLog::Debug
 //                    << tr("(Sola) Analizando expresion: |%1|")
 //                    .arg(list.at(1));
-		sql =  " JOIN " + ptoken->keysource();
+		sql =  " LEFT JOIN " + ptoken->keysource();
 		bool found = false;
 		foreach(QString s, tokenlinkqueue) {
 			if ( s.indexOf( QRegExp("^" + sql+"\\b",Qt::CaseInsensitive) ) > -1   ) {
@@ -1289,7 +1289,7 @@ QString SafetWorkflow::generateSQLToken(const QStringList &list, bool final, int
 
 
 
-            QString mysql = " JOIN " +  right + " ON " + myfirst
+            QString mysql = " LEFT JOIN " +  right + " ON " + myfirst
 			+ " = " + ptoken->keysource() + "." +  ptoken->key();					
 			if ( npath > -1 )  {						
 				mysql = mysql + "|" + QString("%1").arg(npath);
@@ -1341,7 +1341,7 @@ QString SafetWorkflow::generateSQLToken(const QStringList &list, bool final, int
                     if (linkleft.indexOf(".") >  1) {
                         myfirst = linkleft;
                     }
-                    QString mysql = " JOIN " +  jointable + " ON " + myfirst
+                    QString mysql = " LEFT JOIN " +  jointable + " ON " + myfirst
 					+ " = " + rx.cap(2) + "." + linkright;					
 					if ( npath > -1 )  {						
 						mysql = mysql + "|" + QString("%1").arg(npath);
@@ -1357,11 +1357,11 @@ QString SafetWorkflow::generateSQLToken(const QStringList &list, bool final, int
                     if (linkleft.indexOf(".") > 1) {
                         myfirst=  linkleft;
                     }
-                    sql = " JOIN " +  rx.cap(2) + " ON " + myfirst
+                    sql = " LEFT JOIN " +  rx.cap(2) + " ON " + myfirst
                                         + "=" + rx.cap(2) + "." + linkright;
 					jointable = "";
 				}  else {				
-					sql = " JOIN " +  rx.cap(2);
+					sql = " LEFT JOIN " +  rx.cap(2);
 					bool found = false;
 					foreach(QString s, tokenlinkqueue) {
 						if ( s.indexOf( QRegExp("^" + sql+"\\b",Qt::CaseInsensitive) ) > -1   ) {
@@ -4911,10 +4911,11 @@ QString SafetWorkflow::generateJoinString(int numberPath, const QString& nametab
 		if (found) continue;
 		QString path = allsql.section('|',1,1);
 		allsql.remove("|" + path);
-                rx.setPattern("JOIN\\s+([a-zA-Z_0-9\\.\\=']+)");
+                //rx.setPattern("LEFT JOIN\\s+([a-zA-Z_0-9\\.\\=']+)");
+                rx.setPattern("(LEFT)? JOIN\\s+([a-zA-Z_0-9\\.\\=']+)");
 		int pos = allsql.indexOf(rx, Qt::CaseInsensitive);
 		QString mytable;
-		if ( pos > - 1 ) mytable = rx.cap(1);		
+		if ( pos > - 1 ) mytable = rx.cap(2);		
 		
 		if ( numberPath == path.toInt() ) {
 			if ( nametable.length() == 0 || mytable.compare( nametable,Qt::CaseInsensitive) != 0 ) {
