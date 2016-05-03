@@ -4722,10 +4722,15 @@ bool MainWindow::sendEmail(const QString& recipients, const QMap<QString,QString
            .arg(ishost);
 
     if (!ishost) {
-        _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\",  \"error\": \"%3\"} ")
+
+
+        _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\",  \"error\": \"%3\""
+                               "\"datetime\":\"%4\", \"datetime_string\":\"%5\" ")
                  .arg("0")
                  .arg("false")
-                .arg(tr("No connection to Host"));
+                .arg(tr("No connection to Host")
+                .arg(QDateTime::currentDateTime().toTime_t()))
+                .arg(QDateTime::currentDateTime().toString(Safet::DateFormat_secs));
 
         return false;
     }
@@ -4735,10 +4740,15 @@ bool MainWindow::sendEmail(const QString& recipients, const QMap<QString,QString
                .arg(islogin);
 
         if (!islogin) {
-            _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\",  \"error\": \"%3\"} ")
+            _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\",  \"error\": \"%3\""
+                                   "\"datetime\":\"%4\", \"datetime_string\":\"%5\" ")
                      .arg("0")
                      .arg("false")
-                    .arg(tr("No login to Host"));
+                    .arg(tr("No login to Host")
+                    .arg(QDateTime::currentDateTime().toTime_t()))
+                    .arg(QDateTime::currentDateTime().toString(Safet::DateFormat_secs));
+
+
 
             return false;
         }
@@ -4891,7 +4901,7 @@ bool MainWindow::sendEmail(const QString& recipients, const QMap<QString,QString
 //                         .arg("true");
 
                 QDateTime now = QDateTime::currentDateTime();
-                mynewdata = QString(" \"datetime\":\"%1\", ").arg(now.toTime_t());
+                QString mynewdata = QString(" \"datetime\":\"%1\", ").arg(now.toTime_t());
                 mynewdata = mynewdata + " %1";
                 _currentjson = _currentjson.arg(mynewdata);
 
