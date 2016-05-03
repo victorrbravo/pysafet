@@ -402,6 +402,8 @@ bool MainWindow::sendCheckEmail(const QString& user, const QString& plink) {
        SYD << tr("..........MainWindow::sendCheckMail....SENDEMAILLOCALHOST .ishost:|%1|")
               .arg(ishost);
        int islogin = smtp.login();
+       SYD << tr("..........MainWindow::sendCheckMail....SENDEMAILLOCALHOST .islogin:|%1|")
+              .arg(islogin);
 
        if (ishost) {
           smtp.sendMail(message);
@@ -3836,6 +3838,8 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
        * IMPLEMENTACIÓN DE FUNCIONES, TALES COMO "ENVIAR POR CORREO"
        *
        **/
+     bool genjson = true;
+
      if (xml.indexOf("por_correo") > 0) {
          SYD  << tr("..............MainWindow::toInputForm....*****PORCORREO...enviarcorreo..OK!");
          SYD    << tr("MainWindow::evalConffileValues()...(IF2) CONFVALUE....MYNEWVALUE..SafetYAWL::getConf()[\"Email/template.1\"]:|%1|")
@@ -3892,7 +3896,10 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
              SYD << tr("....MainWindow::toInputForm..DATAMAPID..***data.map.keys().count():|%1|")
                     .arg(data.map.keys().count());
 
-            buildEmail(data.map, mycurrent,data.map["id"]);
+            if ( !buildEmail(data.map, mycurrent,data.map["id"]) ) {
+                    genjson = false;
+
+            }
 
 
 
@@ -3961,9 +3968,11 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
          }
      }
 
-	_currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\" } ")
+     if ( genjson ) {
+        _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\" } ")
              .arg(parser.currId())
              .arg("true");
+     }
 
      QString mypostaction = parser.currentPostAction();
      SYD << tr(".........MainWindow::toInputForm................*RETURNING..postaction:|%1|")
@@ -4038,7 +4047,7 @@ QString MainWindow::postAction() {
 
 }
 
-void MainWindow::buildEmail(QMap<QString,QString>& data, const QString& cs,  QString& idkey) {
+bool MainWindow::buildEmail(QMap<QString,QString>& data, const QString& cs,  QString& idkey) {
 
 
 
@@ -4062,14 +4071,24 @@ void MainWindow::buildEmail(QMap<QString,QString>& data, const QString& cs,  QSt
 
          SYD << tr(".....MainWindow::buildEmail............destinatarios NO CONTAIN");
          SYE << tr("El formato de los destinatarios no es correcta");
-         return;
+
+         _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\",  \"error\": \"%3\"} ")
+                  .arg("0")
+                  .arg("false")
+                 .arg(tr("Missing Recipients Email"));
+         return false ;
       }
       if (!data.contains("asunto") ) {
 
          SYD << tr(".....MainWindow::buildEmail............asunto NO CONTAIN");
          SYW << tr("No se ha incluido el asunto");
          data["asunto"] = "sin asunto";
-         return;
+         _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\",  \"error\": \"%3\"} ")
+                  .arg("0")
+                  .arg("false")
+                 .arg(tr("Missing Subject Email"));
+
+         return false ;
       }
 
      SYD << tr(".....MainWindow::parseForEmail............**newtemplate:|%1|")
@@ -4115,7 +4134,12 @@ void MainWindow::buildEmail(QMap<QString,QString>& data, const QString& cs,  QSt
      SYD << tr("........buildEmail...........CHECKINGFORTICKET....2");
      if (myuser.isEmpty()) {
          SYE << tr("Usuario Desconocido para enviarle un correo");
-         return;
+         _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\",  \"error\": \"%3\"} ")
+                  .arg("0")
+                  .arg("false")
+                 .arg(tr("User email unknown"));
+
+         return false;
      }
      SYD << tr("........buildEmail...........CHECKINGFORTICKET....3");
 
@@ -4179,7 +4203,13 @@ void MainWindow::buildEmail(QMap<QString,QString>& data, const QString& cs,  QSt
          }
      }
 
-     sendEmail(recipients,data,newtemplate,savesql);
+    bool result =  sendEmail(recipients,data,newtemplate,savesql);
+
+    SYD << tr("..........sendEmail...result:|%1|")
+           .arg(result);
+
+    return result;
+
 
 }
 
@@ -4599,7 +4629,7 @@ bool MainWindow::replaceDocumentid(QString& t, const QString& idkey) {
 
 
 
-void MainWindow::sendEmail(const QString& recipients, const QMap<QString,QString>& data, const QString& message,
+bool MainWindow::sendEmail(const QString& recipients, const QMap<QString,QString>& data, const QString& message,
                             QString &savesql) {
     SYD << tr(".............MainWindow::sendEmail...................(BEGIN)....");
 #ifdef SAFET_SMTP
@@ -4659,11 +4689,33 @@ void MainWindow::sendEmail(const QString& recipients, const QMap<QString,QString
     smtp.setPassword(mypass);
 
     int ishost = smtp.connectToHost();
-    SYD << tr("..........MainWindow::sendEmail....SENDEMAILLOCALHOST .ishost:|%1|")
+    SYD << tr("..........MainWindow::sendEmail....SENDEMAILL.....ishost:|%1|")
            .arg(ishost);
+
+    if (!ishost) {
+        _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\",  \"error\": \"%3\"} ")
+                 .arg("0")
+                 .arg("false")
+                .arg(tr("No connection to Host"));
+
+        return false;
+    }
+
         int islogin = smtp.login();
-        SYD << tr("..........MainWindow::sendEmail....SENDEMAILLOCALHOST .islogin:|%1|")
+        SYD << tr("..........MainWindow::sendEmail....SENDEMAIL .islogin:|%1|")
                .arg(islogin);
+
+        if (!islogin) {
+            _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\",  \"error\": \"%3\"} ")
+                     .arg("0")
+                     .arg("false")
+                    .arg(tr("No login to Host"));
+
+            return false;
+        }
+
+
+
 
         QStringList mylist = recipients.split(QRegExp(",|;|\\s"),QString::SkipEmptyParts);
 
@@ -4805,11 +4857,21 @@ void MainWindow::sendEmail(const QString& recipients, const QMap<QString,QString
                 SYA << tr("...........MainWindow::sendEmail....email:|%1|..subject:|%2|.............SENDING_OK\n")
                        .arg(email)
                        .arg(subject);
+                _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\"} ")
+                         .arg("1")
+                         .arg("true");
+
             }
             else {
                 SYA << tr("...........MainWindow::sendEmail....email:|%1|..subject:|%2|.............SENDING_NO\n")
                        .arg(email)
                        .arg(subject);
+                _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\",  \"error\": \"%3\"} ")
+                         .arg("0")
+                         .arg("false")
+                        .arg(tr("No send mail"));
+                return false;
+
             }
     }
 
@@ -4817,6 +4879,7 @@ void MainWindow::sendEmail(const QString& recipients, const QMap<QString,QString
   #endif
 
           SYD << tr(".............MainWindow::sendEmail...................(END)....");
+          return true;
 
 
 }
