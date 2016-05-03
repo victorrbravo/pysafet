@@ -4158,20 +4158,36 @@ bool MainWindow::buildEmail(QMap<QString,QString>& data, const QString& cs,  QSt
 
      }
      SYD << tr("........buildEmail...........CHECKINGFORTICKET....2");
-     if (myuser.isEmpty()) {
-         SYE << tr("Usuario Desconocido para enviarle un correo");
-         _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\",  \"error\": \"%3\"} ")
-                  .arg("0")
-                  .arg("false")
-                 .arg(tr("User email unknown"));
+     QString checkuser = SafetYAWL::getConf()["Email/check.user"];
 
-         return false;
+     SYD << tr("........buildEmail...........CHECKINGFORTICKET....checkuser:|%1|")
+            .arg(checkuser);
+
+     QString myticket;
+
+     if (checkuser != "no") {
+
+         if (myuser.isEmpty()) {
+             SYE << tr("Usuario Desconocido para enviarle un correo");
+
+             _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\",  \"error\": \"%3\""
+                                    "\"datetime\":\"%4\", \"datetime_string\":\"%5\" ")
+                      .arg("0")
+                      .arg("false")
+                     .arg(tr("User email unknown")
+                     .arg(QDateTime::currentDateTime().toTime_t()))
+                     .arg(QDateTime::currentDateTime().toString(Safet::DateFormat_secs));
+
+
+             return false;
+         }
+         SYD << tr("........buildEmail...........CHECKINGFORTICKET....3");
+
+
+         //QString myticket = MainWindow::genTicket(recipients.section("@",0,0));
+         myticket = MainWindow::genTicket(myuser);
      }
-     SYD << tr("........buildEmail...........CHECKINGFORTICKET....3");
 
-
-     //QString myticket = MainWindow::genTicket(recipients.section("@",0,0));
-     QString myticket = MainWindow::genTicket(myuser);
 	
      /** searching user **/
 
