@@ -3876,6 +3876,7 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
 
          QString mycurrent = "";
 
+
          if  (!mydataaction.isEmpty()) {
 
              QString adjaction = mydataaction
@@ -3892,16 +3893,27 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
              SYD << tr("....MainWindow::toInputForm....ADJDATA:|%1|")
                     .arg(mycurrent);
          }
+         _currentjson = QString("{ \"result\": \"true\", %1 }");
+         _currentjson = _currentjson.arg(QString(" \"current_id\":\"%1\", %%1").arg(data.map["id"]));
+
 
              SYD << tr("....MainWindow::toInputForm..DATAMAPID..***data.map.keys().count():|%1|")
                     .arg(data.map.keys().count());
 
-            if ( !buildEmail(data.map, mycurrent,data.map["id"]) ) {
-                    genjson = false;
+            if ( buildEmail(data.map, mycurrent,data.map["id"]) ) {
+                _currentjson = _currentjson.arg(" ");
+
+                SYD << tr("............toInputForm YES_BUILDEMAIL_JSON:|%1|")
+                       .arg(_currentjson);
+
 
             }
+            else {
+                SYD << tr("............toInputForm NO_BUILDEMAIL_JSON:|%1|")
+                   .arg(_currentjson);
+            }
 
-
+            genjson = false;
 
      }
      else if (xml.indexOf("cargar_flujo_de_trabajo") > 0) {
@@ -4078,6 +4090,12 @@ bool MainWindow::buildEmail(QMap<QString,QString>& data, const QString& cs,  QSt
                  .arg(tr("Missing Recipients Email"));
          return false ;
       }
+
+      QString mynewdata = QString(" \"recipients\":\"%1\", ").arg(data["destinatarios"]);
+      mynewdata = mynewdata + " %1";
+      _currentjson = _currentjson.arg(mynewdata);
+
+
       if (!data.contains("asunto") ) {
 
          SYD << tr(".....MainWindow::buildEmail............asunto NO CONTAIN");
@@ -4090,6 +4108,11 @@ bool MainWindow::buildEmail(QMap<QString,QString>& data, const QString& cs,  QSt
 
          return false ;
       }
+
+      mynewdata = QString(" \"subject\":\"%1\", ").arg(data["asunto"]);
+      mynewdata = mynewdata + " %1";
+      _currentjson = _currentjson.arg(mynewdata);
+
 
      SYD << tr(".....MainWindow::parseForEmail............**newtemplate:|%1|")
             .arg(newtemplate);
@@ -4106,6 +4129,9 @@ bool MainWindow::buildEmail(QMap<QString,QString>& data, const QString& cs,  QSt
                 .arg(data["adjuntos"]);
 
      }
+     mynewdata = QString(" \"attachments\":\"%1\", ").arg(data["adjuntos"]);
+     mynewdata = mynewdata + " %1";
+     _currentjson = _currentjson.arg(mynewdata);
 
 
      /** searching user **/
@@ -4167,6 +4193,9 @@ bool MainWindow::buildEmail(QMap<QString,QString>& data, const QString& cs,  QSt
 
 
      /** Parseando guardado de email **/
+     mynewdata = QString(" \"template\":\"%1\", ").arg(newtemplate);
+     mynewdata = mynewdata + " %1";
+     _currentjson = _currentjson.arg(mynewdata);
 
      QString savesql;
      if ( data.contains("base")) {
@@ -4809,7 +4838,7 @@ bool MainWindow::sendEmail(const QString& recipients, const QMap<QString,QString
             if (data.contains("adjuntos")) {
                 SYD << tr(".......sendmail...ATTACHDIR...adjuntos...2...adjuntos:|%1|")
                        .arg(data["adjuntos"]);
-                QStringList myattachs = data["adjuntos"].split(";",QString::SkipEmptyParts);
+                QStringList myattachs = data["adjuntos"].split(QRegExp("\\s+"),QString::SkipEmptyParts);
 
 
                 SYD << tr(".......sendmail...ATTACHDIR...adjuntos...myattachs.count():|%1|")
@@ -4857,9 +4886,18 @@ bool MainWindow::sendEmail(const QString& recipients, const QMap<QString,QString
                 SYA << tr("...........MainWindow::sendEmail....email:|%1|..subject:|%2|.............SENDING_OK\n")
                        .arg(email)
                        .arg(subject);
-                _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\"} ")
-                         .arg("1")
-                         .arg("true");
+//                _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\"} ")
+//                         .arg("1")
+//                         .arg("true");
+
+                QDateTime now = QDateTime::currentDateTime();
+                mynewdata = QString(" \"datetime\":\"%1\", ").arg(now.toTime_t());
+                mynewdata = mynewdata + " %1";
+                _currentjson = _currentjson.arg(mynewdata);
+
+                mynewdata = QString(" \"datetime_string\":\"%1\", ").arg(now.toString(Safet::DateFormat_secs));
+                mynewdata = mynewdata + " %1";
+                _currentjson = _currentjson.arg(mynewdata);
 
             }
             else {
