@@ -24,13 +24,13 @@
 * SAFET Sistema Automatizado para la Firma Electr?nica y Estampado de Tiempo
 * Copyright (C) 2008 V?ctor Bravo (vbravo@cenditel.gob.ve), Antonio Araujo (aaraujo@cenditel.gob.ve
 *
-* CENDITEL Fundacion Centro Nacional de Desarrollo e Investigaci?n en Tecnologías Libres
+* CENDITEL Fundacion Centro Nacional de Desarrollo e Investigaci?n en Tecnologï¿½as Libres
 *
 * Este programa es software libre; Usted puede usarlo bajo los t?rminos de la licencia de
 * software GPL versi?n 2.0 de la Free Software Foundation.
 *
 * Este programa se distribuye con la esperanza de que sea ?til, pero SI NINGUNA GARANT?A;
-* tampoco las impl??citas garant??as de MERCANTILIDAD o ADECUACIÓN A UN PROP?SITO PARTICULAR.
+* tampoco las impl??citas garant??as de MERCANTILIDAD o ADECUACIï¿½N A UN PROP?SITO PARTICULAR.
 * Consulte la licencia GPL para m?s detalles. Usted debe recibir una copia de la GPL junto
 * con este programa; si no, escriba a la Free Software Foundation Inc. 51 Franklin Street,
 * 5? Piso, Boston, MA 02110-1301, USA.
@@ -104,7 +104,7 @@
 
 // **** Bdoc files
 
-// Variables Estáticas
+// Variables Estï¿½ticas
 
 SafetYAWL* MainWindow::configurator = NULL;
 //QStatusBar* MainWindow::mystatusbar = NULL;
@@ -144,7 +144,7 @@ MainWindow::MainWindow(const QString& path)
 //    QCoreApplication::addLibraryPath ( "/usr/lib/libsafet" );
 
 
-    _wfnumpars  = 0; // Contador temporal utilizado para calcular el número de parámetro en la función GetWidget
+    _wfnumpars  = 0; // Contador temporal utilizado para calcular el nï¿½mero de parï¿½metro en la funciï¿½n GetWidget
      //** Inicializacion de variables
      //** ...
 
@@ -366,14 +366,14 @@ bool MainWindow::sendCheckEmail(const QString& user, const QString& plink) {
        if (plink.indexOf("/activeaccount") != -1 ) {
            QString mymessage = SafetYAWL::getConf()["Messages/email.subject.active"];
            if (mymessage.isEmpty()) {
-               mymessage = "Activación de cuenta - Sistema Safet";
+               mymessage = "Activaciï¿½n de cuenta - Sistema Safet";
            }
 
 
 
            message.setSubject(mymessage);
            mytext = QString("Para ACTIVAR  la cuenta del usuario \"%1\" debe seguir el enlace %2."
-                                    "\n\nGracias por su atención.\n\n"
+                                    "\n\nGracias por su atenciï¿½n.\n\n"
 
                                     "")
                    .arg(user)
@@ -383,12 +383,12 @@ bool MainWindow::sendCheckEmail(const QString& user, const QString& plink) {
        else {
            QString mymessage = SafetYAWL::getConf()["Messages/email.subject.reset"];
            if (mymessage.isEmpty()) {
-               mymessage = "Reinicio de contraseña - Sistema Safet";
+               mymessage = "Reinicio de contraseï¿½a - Sistema Safet";
            }
 
            message.setSubject(mymessage);
-           mytext = QString("Para reiniciar la contraseña del su usuario \"%1\" debe seguir el enlace %2."
-                                    "\n\nGracias por su atención.\n\n"
+           mytext = QString("Para reiniciar la contraseï¿½a del su usuario \"%1\" debe seguir el enlace %2."
+                                    "\n\nGracias por su atenciï¿½n.\n\n"
                                     "")
                    .arg(user)
                    .arg(plink);
@@ -425,7 +425,7 @@ QString MainWindow::checkUserRegister(const QString& fullname,
                                       const QString& passone,
                                       const QString& passtwo, const QString& ticket) {
 
-//    QString result = tr("<b>Usuario registrado (%1)</b>. Espere el correo de completación de registro en la cuenta que suministró.")
+//    QString result = tr("<b>Usuario registrado (%1)</b>. Espere el correo de completaciï¿½n de registro en la cuenta que suministrï¿½.")
 //            .arg(account);
 //    QString result = tr("Datos: nombres:|%1| cuenta:|%2| email: |%3| passone:|%4| passtwo:|%4|")
 //            .arg(fullname)
@@ -444,7 +444,7 @@ QString MainWindow::checkUserRegister(const QString& fullname,
     QString mymessage = SafetYAWL::getConf()["Messages/after.register"];
 
     if (mymessage.isEmpty()) {
-        mymessage = tr("Se enviado un correo de activación de registro.");
+        mymessage = tr("Se enviado un correo de activaciï¿½n de registro.");
     }
 
     SYD << tr(".....MainWindow::checkUserRegister............entering()");
@@ -472,7 +472,7 @@ QString MainWindow::checkUserRegister(const QString& fullname,
            .arg(PASSTWO);
 
     if ( (typecheck & FULLNAME) == 0) {
-        return tr("El campo \"Nombre Completo\" es obligatorio, debe escribir algún nombre");
+        return tr("El campo \"Nombre Completo\" es obligatorio, debe escribir algï¿½n nombre");
     }
 
     if ( (typecheck & ACCOUNT) == 0) {
@@ -487,7 +487,7 @@ QString MainWindow::checkUserRegister(const QString& fullname,
            .arg((typecheck & FULLNAME));
 
     if ( ((typecheck & PASSONE) == 0) || ((typecheck & PASSTWO) == 0)) {
-        return tr("No puede dejar los campos de asignación de contraseñas vacíos");
+        return tr("No puede dejar los campos de asignaciï¿½n de contraseï¿½as vacï¿½os");
     }
 
     // Expresiones regulares
@@ -499,7 +499,7 @@ QString MainWindow::checkUserRegister(const QString& fullname,
 
     rx.setPattern("[a-zA-Z\\.0-9]{3,}");
     if (!rx.exactMatch(account) ) {
-        return tr("El nombre de la cuenta debe contener caracteres alfanuméricos, y debe tener una longitud mayor o igual a 3 caracteres");
+        return tr("El nombre de la cuenta debe contener caracteres alfanumï¿½ricos, y debe tener una longitud mayor o igual a 3 caracteres");
     }
 
     QString EMAIL_PATTERN =
@@ -508,17 +508,17 @@ QString MainWindow::checkUserRegister(const QString& fullname,
 
     rx.setPattern(EMAIL_PATTERN);
     if (!rx.exactMatch(email) ) {
-        return tr("El correo electrónico debe tener una dirección válida. Por ejemplo: foo@acme.org");
+        return tr("El correo electrï¿½nico debe tener una direcciï¿½n vï¿½lida. Por ejemplo: foo@acme.org");
     }
 
     rx.setPattern(".{6,}");
 
     if (!rx.exactMatch(passone) ) {
-        return tr("La contraseña debe tener más de 6 caracteres");
+        return tr("La contraseï¿½a debe tener mï¿½s de 6 caracteres");
     }
 
 //    if (passone != passtwo) {
-//        return tr("La contraseñas deben ser iguales");
+//        return tr("La contraseï¿½as deben ser iguales");
 //    }
 
     if( users.contains(account)) {
@@ -567,7 +567,7 @@ QString MainWindow::checkUserRegister(const QString& fullname,
 
 
 
-            myaction = QString("operacion:Agregar_usuario Nombre_cuenta_usuario: %1 Contraseña_usuario: %2 "
+            myaction = QString("operacion:Agregar_usuario Nombre_cuenta_usuario: %1 Contraseï¿½a_usuario: %2 "
                "Nombre_completo_usuario: %3 Rol_del_Usuario: %4 Ticket:%5")
                 .arg(account)
                 .arg(newhash)
@@ -801,7 +801,7 @@ bool MainWindow::checkAndExecEvents() {
         SYD << tr("...MainWindow::checkAndExecEvents...saliendo flowaction:|%1|")
                .arg(flowaction);
 
-        if ( ndocs > 0 ) { // Se cumple la condición
+        if ( ndocs > 0 ) { // Se cumple la condiciï¿½n
 
             for(int i = 0; i < ndocs; i++) {
                 QString mycurrvalue = currvalues.at(i);
@@ -855,10 +855,10 @@ QString MainWindow::generateModulesMenu() {
 //                "<div id=\"nav\">"
             "<ul class=\"sf-menu dropdown\">"
                 "<li><a href=\"%1\">Inicio</a></li>"
-                "<li><a href=\"%2\">Gestión</a></li>"
+                "<li><a href=\"%2\">Gestiï¿½n</a></li>"
                 "<li><a href=\"%3\">Consultas</a></li>"
-                "<li><a href=\"%4\">Créditos</a></li>"
-                "<li><a href=\"%5\">Cerrar Sesión</a></li>"
+                "<li><a href=\"%4\">Crï¿½ditos</a></li>"
+                "<li><a href=\"%5\">Cerrar Sesiï¿½n</a></li>"
             "</ul>"
 //        "</div>"
                 )
@@ -942,7 +942,7 @@ QString MainWindow::menuCommands_old() {
            .arg(mydirmedia);
 
 
-    QRegExp rx("icon:([a-zA-Z0-9\\._áéíóúñÑ]+)::");
+    QRegExp rx("icon:([a-zA-Z0-9\\._ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]+)::");
 
     bool foundsubtitle = false;
 
@@ -1160,7 +1160,7 @@ QString MainWindow::menuCommands() {
            .arg(mydirmedia);
 
 
-    QRegExp rx("icon:([a-zA-Z0-9\\._áéíóúñÑ]+)::");
+    QRegExp rx("icon:([a-zA-Z0-9\\._ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]+)::");
 
     bool foundsubtitle = false;
 
@@ -1476,7 +1476,7 @@ QString MainWindow::generateFormHead(const QString& o) {
     QStringList purls = purl.split(":");
     if (purls.count() < 3) {
         SYE
-                   <<  tr("Al obtener el formulario la operación \"%1\" es Inválida")
+                   <<  tr("Al obtener el formulario la operaciï¿½n \"%1\" es Invï¿½lida")
                       .arg(purl);
         return QLatin1String("");
     }
@@ -1753,7 +1753,7 @@ QString MainWindow::generateFormHead(const QString& o) {
                            "         primary: %2 },\n"
                            "         function(data){\n"
                            "            if (data==\"SafetErrorFaltanDatos\") {\n"
-                           "                  alert(\"Debe Seleccionar un opción de flujo de trabajo \\npara ver el Cuadro de Parámetros\");\n"
+                           "                  alert(\"Debe Seleccionar un opciï¿½n de flujo de trabajo \\npara ver el Cuadro de Parï¿½metros\");\n"
                            "                  return;\n"
                            "            }\n               "
                            "            document.getElementById(\"safetfieldset\").innerHTML = data;\n"
@@ -1847,7 +1847,7 @@ QString MainWindow::generateModifyHTML(const QString& operation, const QString& 
             || operation.endsWith(QLatin1String("Siguiente_estado"),Qt::CaseInsensitive)
             || operation.startsWith(QLatin1String("Siguiente_estado"),Qt::CaseInsensitive)
             || operation.startsWith(QLatin1String("Firmar_"),Qt::CaseInsensitive)
-            || operation.startsWith(QLatin1String("Registrar_completación_de_firmas_"),Qt::CaseInsensitive)
+            || operation.startsWith(QLatin1String("Registrar_completaciï¿½n_de_firmas_"),Qt::CaseInsensitive)
             || operation.startsWith(QLatin1String("Cambiar_rol"),Qt::CaseInsensitive)
             || operation.startsWith(QLatin1String("Cambiar_nota"),Qt::CaseInsensitive)
             || operation.startsWith(QLatin1String("Cambiar_info"),Qt::CaseInsensitive)
@@ -1855,10 +1855,10 @@ QString MainWindow::generateModifyHTML(const QString& operation, const QString& 
             || operation.startsWith(QLatin1String("Oficina_"),Qt::CaseInsensitive)
             || operation.startsWith(QLatin1String("Asignar_"),Qt::CaseInsensitive)
             || operation.startsWith(QLatin1String("Confirmar_"),Qt::CaseInsensitive)
-            || operation.startsWith(QLatin1String("Registrar_aprobación_"),Qt::CaseInsensitive)
-            || operation.startsWith(QLatin1String("Registrar_validación_"),Qt::CaseInsensitive)
-            || operation.startsWith(QLatin1String("Agregar_planificación"),Qt::CaseInsensitive)
-             ||   operation.endsWith(QLatin1String("Generar_gráfico_coloreado"),Qt::CaseInsensitive)
+            || operation.startsWith(QLatin1String("Registrar_aprobaciï¿½n_"),Qt::CaseInsensitive)
+            || operation.startsWith(QLatin1String("Registrar_validaciï¿½n_"),Qt::CaseInsensitive)
+            || operation.startsWith(QLatin1String("Agregar_planificaciï¿½n"),Qt::CaseInsensitive)
+             ||   operation.endsWith(QLatin1String("Generar_grï¿½fico_coloreado"),Qt::CaseInsensitive)
              ||   operation.endsWith(QLatin1String("Generar_grafico_coloreado"),Qt::CaseInsensitive)
              ||   operation.endsWith(QLatin1String("con_autofiltro"),Qt::CaseInsensitive)
              ||   operation.endsWith(QLatin1String("con_filtrorecursivo"),Qt::CaseInsensitive)
@@ -1887,12 +1887,12 @@ QString MainWindow::generateModifyHTML(const QString& operation, const QString& 
     }
     else if (  (operation == "modificar_usuario" && fieldname == "Estado")
                || (operation == "modificar_perfil" && fieldname == "Estado")
-               || (operation == "modificar_usuario" && (fieldname == "País" || fieldname == "Pais"))
-               || (operation == "modificar_perfil" && (fieldname == "País" || fieldname == "Pais"))
-               || operation == "agregar_publicación"
-               || (operation == "modificar_publicación" && fieldname == "Categoría")
-               || (operation == "modificar_publicación" && fieldname == "SubCategoria")
-               || (operation == "modificar_publicación" && fieldname == "SubCategoría")) {
+               || (operation == "modificar_usuario" && (fieldname == "Paï¿½s" || fieldname == "Pais"))
+               || (operation == "modificar_perfil" && (fieldname == "Paï¿½s" || fieldname == "Pais"))
+               || operation == "agregar_publicaciï¿½n"
+               || (operation == "modificar_publicaciï¿½n" && fieldname == "Categorï¿½a")
+               || (operation == "modificar_publicaciï¿½n" && fieldname == "SubCategoria")
+               || (operation == "modificar_publicaciï¿½n" && fieldname == "SubCategorï¿½a")) {
 
         SYD << tr("......MainWindow::generateModifyHTML.***EVALUATING...ADD_PUBLICATION");
 
@@ -1930,7 +1930,7 @@ QString MainWindow::generateModifyHTML(const QString& operation, const QString& 
               || operation.startsWith(tr("Borrar_nodo"))
                || operation.startsWith(tr("Inicializar_"))
 //              || operation.startsWith(tr("Cambiar_"))
-              || operation.startsWith(tr("Cambiar_conexión")) ) {
+              || operation.startsWith(tr("Cambiar_conexiï¿½n")) ) {
         QString pathflow = key;
         SYD << tr("......MainWindow::generateModifyHTML....pathflow(key,agregar):|%1|")
                .arg(pathflow);
@@ -1992,7 +1992,7 @@ QString MainWindow::generateModifyHTML(const QString& operation, const QString& 
 QString MainWindow::generateFormFooter(const QString& o) {
     QString purl = o.section("/",-1);
     if (purl.split(":").count() < 2) {
-        SYE                   <<  tr("Al obtener el formulario la operación \"%1\" es Inválida")
+        SYE                   <<  tr("Al obtener el formulario la operaciï¿½n \"%1\" es Invï¿½lida")
                       .arg(purl);
         return QLatin1String("");
     }
@@ -2048,7 +2048,7 @@ QString MainWindow::formFieldsForKey(const QString& o, const QString& fieldname,
         SYD << tr("............**MainWindow::formFieldsForKey............(0)...");
         if (mywidget == NULL ) {
             if (trimfield.isEmpty()) {
-                SYW  << tr("El nombre del campo está vacio (buscando información sobre claves)");
+                SYW  << tr("El nombre del campo estï¿½ vacio (buscando informaciï¿½n sobre claves)");
             }
             else {
                 SYW  << tr("No hay widget para \"%1\"").arg(trimfield);
@@ -2103,7 +2103,7 @@ QString MainWindow::menuForm(const QString& o, bool forwidget, const QString& fi
     purl = purl.section("/",-1);
     QStringList purls = purl.split(":");
     if ( purls.count() < 3) {
-       SYE        <<  tr("Al obtener el formulario la operación \"%1\" es Inválida")
+       SYE        <<  tr("Al obtener el formulario la operaciï¿½n \"%1\" es Invï¿½lida")
                       .arg(purl);
         return QLatin1String("");
     }
@@ -2640,14 +2640,14 @@ QMap<QString,QString> MainWindow::doPermiseOperation(const QString& op) {
 
     if (!MainWindow::permises.contains(nameop))  {
 
-//        SYD    << tr("La operación \"\"%1\"\" no existe en el archivo de autorización<br/>."
+//        SYD    << tr("La operaciï¿½n \"\"%1\"\" no existe en el archivo de autorizaciï¿½n<br/>."
 //                      "Consulte con el administrador para que asigne el permiso solicitado").arg(op);
         return result;
     }
 
     if ( MainWindow::permises[ nameop ].count() < 3) {
-                SYE << tr("La operación \"%1\" solo tiene \"%2\" elementos de información.<br/>Es "
-                      "probable que el archivo de autorización no esté correctamente formado")
+                SYE << tr("La operaciï¿½n \"%1\" solo tiene \"%2\" elementos de informaciï¿½n.<br/>Es "
+                      "probable que el archivo de autorizaciï¿½n no estï¿½ correctamente formado")
                 .arg(nameop).arg(MainWindow::permises[ nameop ].count());
 
                 return result;
@@ -2718,14 +2718,14 @@ QMap<QString,bool> MainWindow::doPermiseExecOperationAction(const QString& op) {
 
     if (!MainWindow::permises.contains(nameop))  {
 
-//        SYD    << tr("La operación \"\"%1\"\" no existe en el archivo de autorización<br/>."
+//        SYD    << tr("La operaciï¿½n \"\"%1\"\" no existe en el archivo de autorizaciï¿½n<br/>."
 //                      "Consulte con el administrador para que asigne el permiso solicitado").arg(op);
         return result;
     }
 
     if ( MainWindow::permises[ nameop ].count() < 3) {
-                SYE << tr("La operación \"%1\" solo tiene \"%2\" elementos de información.<br/>Es "
-                      "probable que el archivo de autorización no esté correctamente formado")
+                SYE << tr("La operaciï¿½n \"%1\" solo tiene \"%2\" elementos de informaciï¿½n.<br/>Es "
+                      "probable que el archivo de autorizaciï¿½n no estï¿½ correctamente formado")
                 .arg(nameop).arg(MainWindow::permises[ nameop ].count());
 
                 return result;
@@ -2838,7 +2838,7 @@ bool MainWindow::doPermiseExecOperation(const QString& op, QMap<QString,QString>
                  SYD << tr("La operacion %1").arg(k);
     }
 //        SYD
-//                << tr("La operación \"\"%1\"\" no existe en el archivo de autorización<br/>."
+//                << tr("La operaciï¿½n \"\"%1\"\" no existe en el archivo de autorizaciï¿½n<br/>."
 //                      "Consulte con el administrador para que asigne el permiso solicitado").arg(op);
 
          SYD << tr("...MainWindow::doPermiseExecOperation...---$PERMISE..(1)...");
@@ -2846,8 +2846,8 @@ bool MainWindow::doPermiseExecOperation(const QString& op, QMap<QString,QString>
     }
 
     if ( MainWindow::permises[ nameop ].count() < 3) {
-                SYE << tr("La operación \"%1\" solo tiene \"%2\" elementos de información.<br/>Es "
-                      "probable que el archivo de autorización no esté correctamente formado")
+                SYE << tr("La operaciï¿½n \"%1\" solo tiene \"%2\" elementos de informaciï¿½n.<br/>Es "
+                      "probable que el archivo de autorizaciï¿½n no estï¿½ correctamente formado")
                 .arg(nameop).arg(MainWindow::permises[ nameop ].count());
         return false;
     }
@@ -2865,7 +2865,7 @@ bool MainWindow::doPermiseExecOperation(const QString& op, QMap<QString,QString>
     }
 
     if (!myusers.contains(currentaccount) && !foundrole) {
-           SYD  << tr("El usuario <b>%1</b> no está autorizado para utilizar la operación <b>\"%2\"</b>.<br/>"
+           SYD  << tr("El usuario <b>%1</b> no estï¿½ autorizado para utilizar la operaciï¿½n <b>\"%2\"</b>.<br/>"
                       "Consulte con el administrador para que asigne el permiso solicitado")
                 .arg(currentaccount).arg(nameop);
         return false;
@@ -2890,7 +2890,7 @@ bool MainWindow::doPermiseExecOperation(const QString& op, QMap<QString,QString>
 
     if (!realtypes.contains(permise) && !MainWindow::checkPermiseInHierarchy(permise,phierarchy,realtypes)) {
                 SYE << tr("El usuario \"%1\" no tiene autorizado  el permiso del tipo \"%3\" "
-                      "que le permita utilizar la operación \"%2\"<br/>"
+                      "que le permita utilizar la operaciï¿½n \"%2\"<br/>"
                       "Consulte con el administrador para que asigne el permiso solicitado")
                 .arg(currentaccount).arg(nameop).arg(permise);
                 SYD << tr("...MainWindow::doPermiseExecOperation...permise:|%2|...realtypes:|%1|")
@@ -3110,7 +3110,7 @@ QStringList MainWindow::generateTips(const QString& cs, const QString& parcialsc
             }
         }
         catch(...) {
-            SYE << tr("IMPORTANTE:Ocurrió un error (excepcion) al evaluar el script (two)");
+            SYE << tr("IMPORTANTE:Ocurriï¿½ un error (excepcion) al evaluar el script (two)");
         }
         SYD << tr("........EVALTIPS....cs tips...currvalue->:|%1|").arg(currvalue);
 
@@ -3354,7 +3354,7 @@ bool MainWindow::toInputUsers(const QString& action) {
     SYD << tr(".......MainWindow::toInputUsers....queryForErrors.....(1)...");
     if ( queryForErrors() ) {
 
-            SYE << tr("Ocurrió un error al procesar la acción en el archivo de usuarios");
+            SYE << tr("Ocurriï¿½ un error al procesar la acciï¿½n en el archivo de usuarios");
            return false;
     }
 
@@ -3488,14 +3488,14 @@ QString MainWindow::genTicket(const QString& user) {
     }
 
     if (!users.contains(user)) {
-        SYW << tr("El usuario \"%1\"para la generación de ticket no se encuentra. No se generará el ticket")
+        SYW << tr("El usuario \"%1\"para la generaciï¿½n de ticket no se encuentra. No se generarï¿½ el ticket")
                .arg(user);
         return result;
     }
 
 
     if (users[user].count() < 4 ) {
-        SYW << tr("El usuario \"%1\" no contiene el campo para generación de tickets. No se generará el ticket")
+        SYW << tr("El usuario \"%1\" no contiene el campo para generaciï¿½n de tickets. No se generarï¿½ el ticket")
                .arg(user);
         return result;
     }
@@ -3637,11 +3637,11 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
 
      /**
        *
-       * pos>=0 indica que es una opción de firma electrónica
+       * pos>=0 indica que es una opciï¿½n de firma electrï¿½nica
        *
        */
      /**
-       * IMPLEMENTACIÓN DE FUNCIONES, TALES COMO "FIRMAR DOCUMENTO"
+       * IMPLEMENTACIï¿½N DE FUNCIONES, TALES COMO "FIRMAR DOCUMENTO"
        *
        **/
 
@@ -3835,7 +3835,7 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
 
 
      /**
-       * IMPLEMENTACIÓN DE FUNCIONES, TALES COMO "ENVIAR POR CORREO"
+       * IMPLEMENTACIï¿½N DE FUNCIONES, TALES COMO "ENVIAR POR CORREO"
        *
        **/
      bool genjson = true;
@@ -3847,7 +3847,7 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
 
          results = parser.processXml(false,withpermises);
          if ( results.count() == 0) {
-             SYE << tr("No se produjo el resultado esperado de la operación.");
+             SYE << tr("No se produjo el resultado esperado de la operaciï¿½n.");
              return QString("");
 
          }
@@ -3884,7 +3884,7 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
              bool result = toInputConsole(adjaction,false);
 
              if (!result ) {
-                 SYE << tr("No se ejecuto la acción para el envio de correo");
+                 SYE << tr("No se ejecuto la acciï¿½n para el envio de correo");
                  return QString("");
 
              }
@@ -3921,7 +3921,7 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
          SYD << tr("Cargar flujo de trabajo...1...");
          results = parser.processXml(false,withpermises);
          if ( results.count() == 0) {
-             SYE << tr("No se produjo el resultado esperado de la operación.");
+             SYE << tr("No se produjo el resultado esperado de la operaciï¿½n.");
              return QString("");
 
          }
@@ -4343,7 +4343,7 @@ QString MainWindow::parseForEmail(const QString& t, const QString& idkey, QMap<Q
 
         }
         catch(...) {
-            SYE << tr("IMPORTANTE:Ocurrió un error (excepcion) al evaluar el script (two)");
+            SYE << tr("IMPORTANTE:Ocurriï¿½ un error (excepcion) al evaluar el script (two)");
             break ;
         }
         SYD << tr(".....MainWindow::buildEmail............FIELDNAME:|%1| : Yes! VALUE:|%2|")
@@ -4406,7 +4406,7 @@ QString MainWindow::parseForEmail(const QString& t, const QString& idkey, QMap<Q
                                myvalue);
            }
            else {
-               SYW << tr("La  posición \"%1\" del parámetro \"%2\" no es válida")
+               SYW << tr("La  posiciï¿½n \"%1\" del parï¿½metro \"%2\" no es vï¿½lida")
                       .arg(pos)
                       .arg(key);
            }
@@ -4451,7 +4451,7 @@ int MainWindow::numberOfDocuments(const QString& t, const QString& idkey,
 
     if (mylist.count() < 2 ) {
 
-        SYW << tr("La etiqueta de DocumentID no se encuentra correctamente escrita en el archivo de configuraciòn safet.conf");
+        SYW << tr("La etiqueta de DocumentID no se encuentra correctamente escrita en el archivo de configuraciï¿½n safet.conf");
         return false;
     }
 
@@ -4539,7 +4539,7 @@ int MainWindow::numberOfDocuments(const QString& t, const QString& idkey,
 
         }
         catch(...) {
-            SYW << tr("IMPORTANTE:Ocurrió un error (excepcion) al evaluar el script (two)");
+            SYW << tr("IMPORTANTE:Ocurriï¿½ un error (excepcion) al evaluar el script (two)");
         }
         SYD << tr(".....MainWindow::numberOfDocuments..........ID_currvalue:|%1|")
                .arg(currvalue);
@@ -4571,7 +4571,7 @@ bool MainWindow::replaceDocumentid(QString& t, const QString& idkey) {
 
     if (mylist.count() < 2 ) {
 
-        SYW << tr("La etiqueta de DocumentID no se encuentra correctamente escrita en el archivo de configuraciòn safet.conf");
+        SYW << tr("La etiqueta de DocumentID no se encuentra correctamente escrita en el archivo de configuraciï¿½n safet.conf");
         return false;
     }
 
@@ -4740,12 +4740,11 @@ bool MainWindow::sendEmail(const QString& recipients, const QMap<QString,QString
     if (!ishost) {
 
 
-        _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\",  \"error\": \"%3\""
-                               "\"datetime\":\"%4\", \"datetime_string\":\"%5\" ")
+        _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\",  \"error\": \"%3\"" "\"datetime\":\"%4\", \"datetime_string\":\"%5\" }")
                  .arg("0")
                  .arg("false")
-                .arg(tr("No connection to Host")
-                .arg(QDateTime::currentDateTime().toTime_t()))
+                .arg(tr("No connection to Host"))
+                .arg(QDateTime::currentDateTime().toTime_t())
                 .arg(QDateTime::currentDateTime().toString(Safet::DateFormat_secs));
 
         return false;
@@ -4756,12 +4755,11 @@ bool MainWindow::sendEmail(const QString& recipients, const QMap<QString,QString
                .arg(islogin);
 
         if (!islogin) {
-            _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\",  \"error\": \"%3\""
-                                   "\"datetime\":\"%4\", \"datetime_string\":\"%5\" ")
+            _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\",  \"error\": \"%3\"" "\"datetime\":\"%4\", \"datetime_string\":\"%5\" } ")
                      .arg("0")
                      .arg("false")
-                    .arg(tr("No login to Host")
-                    .arg(QDateTime::currentDateTime().toTime_t()))
+                    .arg(tr("No login to Host"))
+                    .arg(QDateTime::currentDateTime().toTime_t())
                     .arg(QDateTime::currentDateTime().toString(Safet::DateFormat_secs));
 
 
@@ -4968,7 +4966,7 @@ QString MainWindow::getFlowParameters(const QString& flowfilename){
     if (queryForErrors()) {
         //delete configurator;
         qDebug("...retornando.....executedParsed");
-        return QString("Ocurrió un error inesperado. Consulte al administrador");
+        return QString("Ocurriï¿½ un error inesperado. Consulte al administrador");
     }
 
     configurator->openDataSources();
@@ -5199,13 +5197,13 @@ QString MainWindow::replaceMarks(const QString& s) {
     result.replace(Safet::PIPEMARK_,"|");
     result.replace(Safet::COMMAMARK,",");
 
-    result.replace("Safet::aacute","á");
-    result.replace("Safet::eacute","é");
-    result.replace("Safet::iacute","í");
-    result.replace("Safet::oacute","ó");
-    result.replace("Safet::uacute","ú");
-    result.replace("Safet::ntilde","ñ");
-    result.replace("Safet::Ntilde","Ñ");
+    result.replace("Safet::aacute","ï¿½");
+    result.replace("Safet::eacute","ï¿½");
+    result.replace("Safet::iacute","ï¿½");
+    result.replace("Safet::oacute","ï¿½");
+    result.replace("Safet::uacute","ï¿½");
+    result.replace("Safet::ntilde","ï¿½");
+    result.replace("Safet::Ntilde","ï¿½");
     return result;
 }
 
@@ -5219,8 +5217,8 @@ QString MainWindow::extractParameters(const QString& action) {
 
 
     QRegExp rxpars("(parameters\\.)([a-zA-Z0-9_\\-\\./]+)\\s*:\\s*"
-                   "([a-zA-Z_0-9áéíóúñÑ'\\*=\\.\\-\\(\\),;%#\\x3c\\x3e\\x2f\\[\\]/\\?\\s]+)");
-    QRegExp rxconf("(configurekey\\.)([a-zA-Z0-9_\\-\\./]+)\\s*:\\s*([a-zA-Z_0-9áéíóúñÑ'\\*=\\.\\-\\(\\),;%#\\x3c\\x3e\\x2f\\[\\]/\\s\\{\\}:\\?]+)");
+                   "([a-zA-Z_0-9ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½'\\*=\\.\\-\\(\\),;%#\\x3c\\x3e\\x2f\\[\\]/\\?\\s]+)");
+    QRegExp rxconf("(configurekey\\.)([a-zA-Z0-9_\\-\\./]+)\\s*:\\s*([a-zA-Z_0-9ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½'\\*=\\.\\-\\(\\),;%#\\x3c\\x3e\\x2f\\[\\]/\\s\\{\\}:\\?]+)");
     QMap<QString,QString> mypars;
     QMap<QString,QString> myconfigs;
 
@@ -5339,7 +5337,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
     }
 
     ParsedSqlToData data;
-    showString = QString("<a href=\"operacion:::%1\" title=\"%1\">%1</a>&nbsp;&nbsp;&nbsp;").arg("Ver gráfico de flujo de trabajo");
+    showString = QString("<a href=\"operacion:::%1\" title=\"%1\">%1</a>&nbsp;&nbsp;&nbsp;").arg("Ver grï¿½fico de flujo de trabajo");
     if ( results.count() > 0) {
         data = SafetTextParser::parseSql(results.at(0),true);
 
@@ -5452,7 +5450,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
 
         }
 
-        else if ( parser.operationName().compare(QString::fromLatin1("Generar_gráfico_básico"),Qt::CaseSensitive) == 0) {
+        else if ( parser.operationName().compare(QString::fromLatin1("Generar_grï¿½fico_bï¿½sico"),Qt::CaseSensitive) == 0) {
             QString texto = QString("-f %1 -p graphviz -g %2")
                     .arg(data.map["Cargar_archivo_flujo"]);
 
@@ -5465,7 +5463,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
             //processMainWindowThread();
             //return false;
         }
-        else if ( parser.operationName().compare(QLatin1String("Generar_gráfico_coloreado"),Qt::CaseSensitive) == 0 ||
+        else if ( parser.operationName().compare(QLatin1String("Generar_grï¿½fico_coloreado"),Qt::CaseSensitive) == 0 ||
 		parser.operationName().compare(QLatin1String("Generar_grafico_coloreado"),Qt::CaseSensitive) == 0 
 
               ) {
@@ -5480,7 +5478,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
 
 
         }
-        else if ( parser.operationName().compare("Generar_gráfico_con_autofiltro",Qt::CaseSensitive) == 0) {
+        else if ( parser.operationName().compare("Generar_grï¿½fico_con_autofiltro",Qt::CaseSensitive) == 0) {
             QString texto = QString("-f %1 -p graphviz -g -k coloured -a %2")
                     .arg(data.map["Cargar_archivo_flujo"])
                     .arg(data.map["Autofiltro"]);
@@ -5496,7 +5494,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
             //return false;
 
         }
-        else if ( parser.operationName().compare("Generar_gráfico_con_filtrorecursivo",Qt::CaseSensitive) == 0) {
+        else if ( parser.operationName().compare("Generar_grï¿½fico_con_filtrorecursivo",Qt::CaseSensitive) == 0) {
             QString texto = QString("-f %1 -p graphviz -g -k coloured -r %2")
                     .arg(data.map["Cargar_archivo_flujo"])
                     .arg(data.map["Filtro_recursivo"]);
@@ -5513,12 +5511,12 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
             //return false;
 
         }
-        else if (parser.operationName().startsWith("Generar_gráfico_para_clave") ||
-                 parser.operationName().startsWith("Generar_gráfico_de_seguimiento") ||
+        else if (parser.operationName().startsWith("Generar_grï¿½fico_para_clave") ||
+                 parser.operationName().startsWith("Generar_grï¿½fico_de_seguimiento") ||
                 parser.operationName().startsWith("Generar_grafico_para_clave")
 ) {
 
-            SYD << tr("......**MainWindow::toInputConsole....Generar_gráfico_para_clave.....(1)...");
+            SYD << tr("......**MainWindow::toInputConsole....Generar_grï¿½fico_para_clave.....(1)...");
 
 
             QString currflow = "";
@@ -5551,7 +5549,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
                     .arg(currflow)
                     .arg(currid);
 
-                        SYD << tr("......**MainWindow::toInputConsole....Generar_gráfico_para_clave...TEXTO..(1)..texto:|%1|")
+                        SYD << tr("......**MainWindow::toInputConsole....Generar_grï¿½fico_para_clave...TEXTO..(1)..texto:|%1|")
                                .arg(texto);
             parseArgs( texto );
             if (! executeParsed() ) {
@@ -5562,7 +5560,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
 
 
         }
-        else if (parser.operationName().startsWith("Restaurar_gráfico_de_flujo")) {
+        else if (parser.operationName().startsWith("Restaurar_grï¿½fico_de_flujo")) {
 
             QString namegraph = MainWindow::replaceMarks(data.map["Nombre_grafo"]);
             SYD << tr("......**MainWindow::toInputConsole....namegraph: |%1|")
@@ -5636,14 +5634,14 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
 
             }
             else {
-                _currentjson = tr("Ocurrió un error al tratar de recuperar próximos estados. Vea el registro para detalles##SAFETMESSAGE##");
+                _currentjson = tr("Ocurriï¿½ un error al tratar de recuperar prï¿½ximos estados. Vea el registro para detalles##SAFETMESSAGE##");
             }
 
 
         }
 
-        else if (parser.operationName().startsWith(tr("Agregar_planificación"))) {
-            SYD << tr(".........MainWindow::toInputConsole...(1)...Agregar_planificación");
+        else if (parser.operationName().startsWith(tr("Agregar_planificaciï¿½n"))) {
+            SYD << tr(".........MainWindow::toInputConsole...(1)...Agregar_planificaciï¿½n");
             QString pathgraph = MainWindow::replaceMarks(data.map["Cargar_archivo_flujo"]);
             SYD << tr("......***MainWindow::toInputConsole....compare...pathgraph: |%1|")
                    .arg(pathgraph);
@@ -5658,16 +5656,16 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
                    .arg(namegraph);
 
             if ( doGeneratePlannedGraph(pathgraph, namegraph,idactivity) ) {
-                _currentjson = tr("Se guardó el flujo de trabajo de planificación \"%1\" con éxito##SAFETMESSAGE##")
+                _currentjson = tr("Se guardï¿½ el flujo de trabajo de planificaciï¿½n \"%1\" con ï¿½xito##SAFETMESSAGE##")
                         .arg(namegraph);
             }
             else {
-                _currentjson = tr("No se guardó  el grafo de planificacion. Vea el registro para detalles##SAFETMESSAGE##");
+                _currentjson = tr("No se guardï¿½  el grafo de planificacion. Vea el registro para detalles##SAFETMESSAGE##");
             }
 
 
         }
-        else if (parser.operationName().startsWith(tr("Ver_listado_estadísticas"))) {
+        else if (parser.operationName().startsWith(tr("Ver_listado_estadï¿½sticas"))) {
             bool ok;
             uint seconds = data.map["Desde"].toUInt(&ok);
             QDateTime myfromdate = QDateTime::fromTime_t(seconds);
@@ -5714,8 +5712,8 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
 
 
         }
-        else if (parser.operationName().startsWith(tr("Agregar_nodo_a_gráfico_de_flujo"))) {
-            SYD << tr(".....MainWindow::toInputConsole....Agregar_nodo_a_gráfico_de_flujo...:");
+        else if (parser.operationName().startsWith(tr("Agregar_nodo_a_grï¿½fico_de_flujo"))) {
+            SYD << tr(".....MainWindow::toInputConsole....Agregar_nodo_a_grï¿½fico_de_flujo...:");
             QString namegraph = MainWindow::replaceMarks(data.map["Nombre_grafo"]);
             QString beforenode = MainWindow::replaceMarks(data.map["Nodo_anterior"]);
             QString newnamenode = MainWindow::replaceMarks(data.map["Nombre_nuevo_nodo"]);
@@ -5759,8 +5757,8 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
             }
 
         }
-        else if (parser.operationName().startsWith(tr("Borrar_nodo_de_gráfico_de_flujo"))) {
-            SYD << tr(".....MainWindow::toInputConsole....Borrar_nodo_de_gráfico_de_flujo...:");
+        else if (parser.operationName().startsWith(tr("Borrar_nodo_de_grï¿½fico_de_flujo"))) {
+            SYD << tr(".....MainWindow::toInputConsole....Borrar_nodo_de_grï¿½fico_de_flujo...:");
             QString namegraph = MainWindow::replaceMarks(data.map["Nombre_grafo"]);
             QString deletenode = MainWindow::replaceMarks(data.map["Nodo_a_borrar"]);
 
@@ -5798,7 +5796,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
 
             SYD << tr(".....--->MainWindow::toInputConsole....Cambiar_nota_de_nodo...result:|%1|").arg(result);
             if (!result.isEmpty()) {
-                _currentjson = tr("Se cambió la nota de la tarea \"%1\" "
+                _currentjson = tr("Se cambiï¿½ la nota de la tarea \"%1\" "
                                   "a \"%2\" satisfactoriamente!\n##SAFETMESSAGE##")
                         .arg(taskname)
                         .arg(newnote);
@@ -5826,7 +5824,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
 
             SYD << tr(".....--->MainWindow::toInputConsole....Cambiar_rol_de_tarea...result:|%1|").arg(result);
             if (!result.isEmpty()) {
-                _currentjson = tr("Se cambió el rol de la tarea \"%1\" "
+                _currentjson = tr("Se cambiï¿½ el rol de la tarea \"%1\" "
                                   "a \"%2\" satisfactoriamente!\n##SAFETMESSAGE##")
                         .arg(taskname)
                         .arg(newrol);
@@ -5839,26 +5837,26 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
 
 
         }
-        else if (parser.operationName().startsWith(tr("Cambiar_información_del_nodo"))) {
+        else if (parser.operationName().startsWith(tr("Cambiar_informaciï¿½n_del_nodo"))) {
 
-            SYD << tr("\n.....--->MainWindow::toInputConsole....Cambiar_información_del_nodo........(1)");
+            SYD << tr("\n.....--->MainWindow::toInputConsole....Cambiar_informaciï¿½n_del_nodo........(1)");
             QString namegraph = MainWindow::replaceMarks(data.map["Nombre_grafo"]);
             QString taskname = MainWindow::replaceMarks(data.map["Tarea_a_cambiar"]);
             QString newinfo = MainWindow::replaceMarks(data.map["Informacion_del_nodo"]);
 
-            SYD << tr(".....--->MainWindow::toInputConsole....Cambiar_información_del_nodo...namegraph:|%1|").arg(namegraph);
-            SYD << tr(".....--->MainWindow::toInputConsole....Cambiar_información_del_nodo...taskname:|%1|").arg(taskname);
-            SYD << tr(".....--->MainWindow::toInputConsole....Cambiar_información_del_nodo...newinfo:|%1|").arg(newinfo);
+            SYD << tr(".....--->MainWindow::toInputConsole....Cambiar_informaciï¿½n_del_nodo...namegraph:|%1|").arg(namegraph);
+            SYD << tr(".....--->MainWindow::toInputConsole....Cambiar_informaciï¿½n_del_nodo...taskname:|%1|").arg(taskname);
+            SYD << tr(".....--->MainWindow::toInputConsole....Cambiar_informaciï¿½n_del_nodo...newinfo:|%1|").arg(newinfo);
 
             QString result ;
             SafetYAWL::streamlog.initAllStack();
             result = changeRoleXMLWorkflow(namegraph,
                                            taskname,newinfo,"textualinfo");
 
-            SYD << tr(".....--->MainWindow::toInputConsole....Cambiar_información_del_nodo...result:|%1|").arg(result);
+            SYD << tr(".....--->MainWindow::toInputConsole....Cambiar_informaciï¿½n_del_nodo...result:|%1|").arg(result);
 
             if (!result.isEmpty()) {
-                _currentjson = tr("¡Cambiado textualinfo \"%2\" satisfactoriamente!##SAFETMESSAGE##")
+                _currentjson = tr("ï¿½Cambiado textualinfo \"%2\" satisfactoriamente!##SAFETMESSAGE##")
                         .arg(result);
             }
             else {
@@ -5868,8 +5866,8 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
 
         }
 
-        else if (parser.operationName().startsWith(tr("Cambiar_conexión_de_gráfico_de_flujo"))) {
-            SYD << tr(".....MainWindow::toInputConsole....Cambiar_conexión_de_gráfico_de_flujo...:");
+        else if (parser.operationName().startsWith(tr("Cambiar_conexiï¿½n_de_grï¿½fico_de_flujo"))) {
+            SYD << tr(".....MainWindow::toInputConsole....Cambiar_conexiï¿½n_de_grï¿½fico_de_flujo...:");
             QString namegraph = MainWindow::replaceMarks(data.map["Nombre_grafo"]);
             QString nodesource = MainWindow::replaceMarks(data.map["Nodo_origen"]);
             QString nodetarget = MainWindow::replaceMarks(data.map["Nodo_destino_actual"]);
@@ -5885,7 +5883,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
                                   nodetarget,
                                   newnodetarget);
             if (!result.isEmpty()) {
-                _currentjson = tr("Se cambió la conexión en el grafo  \"%1\" de \"%2\""
+                _currentjson = tr("Se cambiï¿½ la conexiï¿½n en el grafo  \"%1\" de \"%2\""
                                   "a \"%3\" satisfactoriamente!\n##SAFETMESSAGE##")
                         .arg(result)
                         .arg(nodetarget)
@@ -5897,12 +5895,12 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
             }
 
         }
-        else if (parser.operationName().startsWith(tr("Cambiar_fecha_de_planificación"))) {
+        else if (parser.operationName().startsWith(tr("Cambiar_fecha_de_planificaciï¿½n"))) {
             QString namegraph = MainWindow::replaceMarks(data.map["Nombre_grafo"]);
-            SYD << tr("......**MainWindow::toInputConsole....Cambiar_fecha_de_planificación...namegraph: |%1|")
+            SYD << tr("......**MainWindow::toInputConsole....Cambiar_fecha_de_planificaciï¿½n...namegraph: |%1|")
                    .arg(namegraph);
             QString nametask = MainWindow::replaceMarks(data.map["Tarea"]);
-            SYD << tr("......**MainWindow::toInputConsole....Cambiar_fecha_de_planificación...nametask: |%1|")
+            SYD << tr("......**MainWindow::toInputConsole....Cambiar_fecha_de_planificaciï¿½n...nametask: |%1|")
                    .arg(nametask);
 
             bool ok;
@@ -5910,7 +5908,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
             QDateTime mydate = QDateTime::fromTime_t(seconds+Safet::ONEDAYMINUSONE);
             QString namedate = mydate.toString("dd/MM/yyyy hh:mmap");
 
-            SYD << tr("\n\n......**MainWindow::toInputConsole....Cambiar_fecha_de_planificación...namedate: |%1|")
+            SYD << tr("\n\n......**MainWindow::toInputConsole....Cambiar_fecha_de_planificaciï¿½n...namedate: |%1|")
                    .arg(namedate);
 
             doRestoreGraph(Safet::PLANNEDGRAPHSFILENAME);
@@ -5922,14 +5920,14 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
             MainWindow::graphs()[namegraph].first = code;
             doSaveCompleteMapGraphs(Safet::PLANNEDGRAPHSFILENAME);
 
-            _currentjson = tr("¡Del grafo \"%3\" Se cambió la fecha de la tarea \"%1\" a \"%2\" satisfactoriamente!##SAFETMESSAGE##")
+            _currentjson = tr("ï¿½Del grafo \"%3\" Se cambiï¿½ la fecha de la tarea \"%1\" a \"%2\" satisfactoriamente!##SAFETMESSAGE##")
                     .arg(nametask)
                     .arg(namedate)
                     .arg(namegraph);
 
 
         }
-        else if (parser.operationName().startsWith(tr("Copiar_fechas_de_planificación"))) {
+        else if (parser.operationName().startsWith(tr("Copiar_fechas_de_planificaciï¿½n"))) {
             QString source = MainWindow::replaceMarks(data.map["Nombre_grafo_origen"]);
             QString target = MainWindow::replaceMarks(data.map["Nombre_grafo_destino"]);
 
@@ -5979,12 +5977,12 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
                     .arg(target);
 
         }
-        else if (parser.operationName().startsWith(tr("Comparar_gráfico_de_flujo"))) {
+        else if (parser.operationName().startsWith(tr("Comparar_grï¿½fico_de_flujo"))) {
 
-           // Colocando configuración de comparación por defecto
+           // Colocando configuraciï¿½n de comparaciï¿½n por defecto
             SafetYAWL::getConf().getMap()["Plugins.Graphviz/plugins.graphviz.extrainfo.show"]
                     = "InfoText,InfoDate";
-            // Colocando configuración de comparación por defecto
+            // Colocando configuraciï¿½n de comparaciï¿½n por defecto
 
             QString namegraph = MainWindow::replaceMarks(data.map["Nombre_grafo"]);
             SYD << tr("......**MainWindow::toInputConsole....compare...namegraph: |%1|")
@@ -5997,7 +5995,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
                 SYE << tr("No se ha cargardo el Objeto para generar flujos de trabajo");
                 return false;
             }
-            QString code, codeplanned; // Código Real y Planificado
+            QString code, codeplanned; // Cï¿½digo Real y Planificado
             evalConffileValues();
 
             doRestoreGraph();
@@ -6014,7 +6012,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
 
             QString datetag = graphs()[namegraph].second;
 
-            // Para Gráfico Planificado ********
+            // Para Grï¿½fico Planificado ********
             doRestoreGraph(Safet::PLANNEDGRAPHSFILENAME);
             if ( !graphs().contains(nameplannedgraph)) {
                 SYE << tr("No se encuentra el nombre de grafo seleccionado (Planificado) : \"%1\"")
@@ -6046,15 +6044,15 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
                    .arg(_currenttable);
 
         }
-        else if (parser.operationName().compare("Borrar_estadística",Qt::CaseSensitive) == 0 ) {
+        else if (parser.operationName().compare("Borrar_estadï¿½stica",Qt::CaseSensitive) == 0 ) {
 
             QString namestats = data.map["Clave_completa"];
-            SYD << tr("....MainWindow::toInputConsole...Borrar_estadística...(1)...namestats:"
+            SYD << tr("....MainWindow::toInputConsole...Borrar_estadï¿½stica...(1)...namestats:"
                       "|%1|")
                    .arg(namestats);
 
             QString delall = data.map["borrar_todos"];
-            SYD << tr("....MainWindow::toInputConsole...Borrar_estadística...(1)...borrar_todos:"
+            SYD << tr("....MainWindow::toInputConsole...Borrar_estadï¿½stica...(1)...borrar_todos:"
                       "|%1|")
                    .arg(delall);
 
@@ -6067,8 +6065,8 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
 
             if (!myrepo.fileExists()) {
 
-                _currentjson = tr("La base de datos de estadísticas está vacía."
-                                 "No se eliminó ningún registro.##SAFETMESSAGE##");
+                _currentjson = tr("La base de datos de estadï¿½sticas estï¿½ vacï¿½a."
+                                 "No se eliminï¿½ ningï¿½n registro.##SAFETMESSAGE##");
 
                 return true;
             }
@@ -6076,7 +6074,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
 
             if ( myrepo.deleteRecords("graphs",whereclause) > 0 ) {
                 _currentjson = tr("Se ha(n) eliminado el(los) registro(s) seleccionado(s) "
-                                  "de la base de datos de Estadísticas##SAFETMESSAGE##");
+                                  "de la base de datos de Estadï¿½sticas##SAFETMESSAGE##");
             }
 
 
@@ -6084,8 +6082,8 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
 
 
         }
-        else if (parser.operationName().startsWith("Borrar_gráfico_de_flujo") ||
-                 parser.operationName().startsWith("Borrar_planificación") ) {
+        else if (parser.operationName().startsWith("Borrar_grï¿½fico_de_flujo") ||
+                 parser.operationName().startsWith("Borrar_planificaciï¿½n") ) {
 
             QString mygraphfilename = Safet::GRAPHSFILENAME;
             QString namegraph = MainWindow::replaceMarks(data.map["Nombre_grafo"]);
@@ -6095,7 +6093,7 @@ bool  MainWindow::toInputConsole(const QString& action,bool withpermises) {
                 SYE << tr("No se ha cargardo el Objeto para generar flujos de trabajo");
                 return false;
             }
-            if (parser.operationName().startsWith("Borrar_planificación") ) {
+            if (parser.operationName().startsWith("Borrar_planificaciï¿½n") ) {
                 mygraphfilename = Safet::PLANNEDGRAPHSFILENAME;
             }
             if ( deleteGraph(namegraph,mygraphfilename) ) {
@@ -6279,7 +6277,7 @@ bool MainWindow::doGeneratePlannedGraph(const QString &pathflow, const QString& 
         out <<  msg+SafetYAWL::LISTSEPARATORCHARACTER+pathflow+SafetYAWL::LISTSEPARATORCHARACTER+idactivity;
     myfile.close();
 
-    SYA << tr("Se guardó un gráfico de flujo de trabajo con el nombre: "
+    SYA << tr("Se guardï¿½ un grï¿½fico de flujo de trabajo con el nombre: "
               "\"%1\"")
            .arg(name);
 
@@ -6325,7 +6323,7 @@ bool MainWindow::deleteGraph(const QString& n, const QString& gfn) {
            .arg(pathgraphfile);
     QFile myfile(pathgraphfile);
     if( !myfile.open(QIODevice::ReadOnly)) {
-        SYE  << tr("No es posible leer gráficos de la ruta: \"%1\"")
+        SYE  << tr("No es posible leer grï¿½ficos de la ruta: \"%1\"")
                 .arg(pathgraphfile);
         return false;
     }
@@ -6440,7 +6438,7 @@ void MainWindow::toInputSign() {
                 bool result = configurator->signDocumentsFromData(data,nametowrite,list,mydoc);
                 if (result ) {
                     setPathOfSafetDocument(nametowrite);
-                    successVerification(list,tr("Firma electrónica (digidoc) realizada "
+                    successVerification(list,tr("Firma electrï¿½nica (digidoc) realizada "
                                                 "exitosamente sobre \"%1\"....ok!")
                                         .arg(nametowrite), mydoc);
                     return;
@@ -6477,7 +6475,7 @@ void MainWindow::toInputSign() {
                     return;
                 }
                 setPathOfSafetDocument(nametowrite);
-                successVerification(list,tr("Firma electrónica (digidoc) realizada "
+                successVerification(list,tr("Firma electrï¿½nica (digidoc) realizada "
                                             "exitosamente sobre \"%1\"....ok!")
                                     .arg(nametowrite), mydoc);
                 QStack<QPair<QDateTime,QString> > mystack = SafetYAWL::streamlog.stopErrorStack();
@@ -6510,7 +6508,7 @@ void MainWindow::toInputSign() {
             list << tr("Ver firmas del documento(%1)").arg(nsigns) << tr("Mostrar carpeta del contenedor") << tr("Enviar contenedor por correo-e");
 
 
-            successVerification(list,tr("Verificada correctamente la <b>Firma Electrónica</b>"
+            successVerification(list,tr("Verificada correctamente la <b>Firma Electrï¿½nica</b>"
                                         " sobre el archivo \"<b>%1</b>\"...ok!")
                                 //.arg(digidocfilename), safetDocument);
                                 .arg(doc.getPathOfSafetDocument()), doc);
@@ -6533,7 +6531,7 @@ void MainWindow::toInputSign() {
         }
     }
     if ( false) {
-        qDebug("Verificación de Firma(s) INVÁLIDA...*NOT NOT NOT*");
+        qDebug("Verificaciï¿½n de Firma(s) INVï¿½LIDA...*NOT NOT NOT*");
     }
     else {
 
@@ -6616,12 +6614,12 @@ void MainWindow::proccessConfFile(const QString& sql, const QString& filename, b
      QRegExp rx;
      QString newsql = sql;
      newsql.replace("'","");
-      QString updatePattern = "UPDATE\\s+([áéíóúñÑa-zA-Z0-9_\\.\\(\\)#%][áéíóúñÑa-zA-Z0-9_,'\\.\\(\\)\\-#%\\x3c\\x3e\\x2f]*)"
+      QString updatePattern = "UPDATE\\s+([ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9_\\.\\(\\)#%][ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9_,'\\.\\(\\)\\-#%\\x3c\\x3e\\x2f]*)"
                              "\\s+SET\\s+"
-                             "([áéíóúñÑa-zA-Z0-9_\\.\\(\\)\\*;#%@][áéíóúñÑa-zA-Z0-9_,'\\=\\.\\(\\)\\-\\s\\*;#%@]*"
-                             "[áéíóúñÑa-zA-Z0-9_,'\\=\\.\\(\\)\\-\\*;#@]\\s+)?WHERE\\s+"
-                             "([áéíóúñÑa-zA-Z0-9_\\.\\(\\)\\*;#%][áéíóúñÑa-zA-Z0-9_,'\\=\\.\\(\\)\\s\\-\\*;#%\\x3c\\x3e\\x2f]*"
-                             "[áéíóúñÑa-zA-Z0-9_,'\\=\\.\\(\\)\\-\\*;#%\\x3c\\x3e\\x2f])";
+                             "([ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9_\\.\\(\\)\\*;#%@][ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9_,'\\=\\.\\(\\)\\-\\s\\*;#%@]*"
+                             "[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9_,'\\=\\.\\(\\)\\-\\*;#@]\\s+)?WHERE\\s+"
+                             "([ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9_\\.\\(\\)\\*;#%][ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9_,'\\=\\.\\(\\)\\s\\-\\*;#%\\x3c\\x3e\\x2f]*"
+                             "[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9_,'\\=\\.\\(\\)\\-\\*;#%\\x3c\\x3e\\x2f])";
 
      //UPDATE lista SET database.user.1='vbravo' WHERE database.db.1='dbtracrootve'
      qDebug("        (###)......updatePattern: |%s|", qPrintable(updatePattern));
@@ -6631,10 +6629,10 @@ void MainWindow::proccessConfFile(const QString& sql, const QString& filename, b
                              "VALUES\\s+\\(([a-zA-Z0-9_'\\./\\(\\)@][a-zA-Z0-9_,'\\=\\.\\-/\\*\\s\\x3c\\x3e\\x2f@]*)\\)\\s*";
 
 
-     QString deletePattern = "DELETE FROM\\s+([áéíóúñÑa-zA-Z0-9_\\.\\(\\)][áéíóúñÑa-zA-Z0-9_,'\\.\\(\\)\\-]*)"
+     QString deletePattern = "DELETE FROM\\s+([ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9_\\.\\(\\)][ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9_,'\\.\\(\\)\\-]*)"
                              "\\s+WHERE\\s+"
-                             "([áéíóúñÑa-zA-Z0-9_\\.\\(\\)\\*;][áéíóúñÑa-zA-Z0-9_,'\\=\\.\\(\\)\\s\\-\\*;\\x3c\\x3e\\x2f]*"
-                             "[áéíóúñÑa-zA-Z0-9_,'\\=\\.\\(\\)\\-\\*;\\x3c\\x3e\\x2f])";
+                             "([ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9_\\.\\(\\)\\*;][ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9_,'\\=\\.\\(\\)\\s\\-\\*;\\x3c\\x3e\\x2f]*"
+                             "[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9_,'\\=\\.\\(\\)\\-\\*;\\x3c\\x3e\\x2f])";
 
 
      bool isdeleting = false;
@@ -6693,7 +6691,7 @@ void MainWindow::proccessConfFile(const QString& sql, const QString& filename, b
      SYD << tr(".....MainWindow::proccessConfFile...keyfield: |%1|").arg(keyfield);
      if ( keyfield.split("=",QString::SkipEmptyParts).count() != 2 ) {
          SYE << tr("Ocurrio un error con la sentencia SQL \"%1\" formada por la entrada."
-                                                       "No se encuentra la asignación de campos con el operador '='."
+                                                       "No se encuentra la asignaciï¿½n de campos con el operador '='."
                                                        " Realice una lectura del registro para conocer donde se encuentra"
                                                       "el error").arg(newsql);
          return;
@@ -6727,9 +6725,9 @@ void MainWindow::proccessConfFile(const QString& sql, const QString& filename, b
 
      //qDebug("   processConffile...(1)...firstkeyfield: %s", qPrintable(firstkeyfield));
 
-     QString searchtext = QString("\\s*(%1)\\s*\\=\\s*([áéíóúñÑa-zA-Z0-9\\*\\$\\#/\\-\\._/:!\\?\\^\\$\\(\\)#%\\x3c\\x3e\\x2f@]"
-                             "[áéíóúñÑa-zA-Z0-9\\*\\$\\#/\\-\\._/:!\\?\\^\\$\\s\\(\\);#%\\x3c\\x3e\\x2f@]*)"
-                             "[áéíóúñÑa-zA-Z0-9\\*\\$\\#/\\-\\._/:!\\?\\^\\$\\(\\);#%\\x3c\\x3e\\x2f]")
+     QString searchtext = QString("\\s*(%1)\\s*\\=\\s*([ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9\\*\\$\\#/\\-\\._/:!\\?\\^\\$\\(\\)#%\\x3c\\x3e\\x2f@]"
+                             "[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9\\*\\$\\#/\\-\\._/:!\\?\\^\\$\\s\\(\\);#%\\x3c\\x3e\\x2f@]*)"
+                             "[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9\\*\\$\\#/\\-\\._/:!\\?\\^\\$\\(\\);#%\\x3c\\x3e\\x2f]")
              .arg(firstkeyfield);
      QString replacetext;
      QString currentfirstkeyfield;
@@ -6791,9 +6789,9 @@ void MainWindow::proccessConfFile(const QString& sql, const QString& filename, b
          else {
              secondkeyfield = "";
          }
-         searchtext = tr("\\s*(%1)\\s*\\=\\s*([áéíóúñÑa-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$,;\\x3c\\x3e\\x2f@]"
-                         "[áéíóúñÑa-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$\\s,;\\x3c\\x3e\\x2f@]*"
-                         "[áéíóúñÑa-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$,;\\x3c\\x3e\\x2f@])").arg(firstkeyfield);
+         searchtext = tr("\\s*(%1)\\s*\\=\\s*([ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$,;\\x3c\\x3e\\x2f@]"
+                         "[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$\\s,;\\x3c\\x3e\\x2f@]*"
+                         "[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$,;\\x3c\\x3e\\x2f@])").arg(firstkeyfield);
          if (!isdeleting) {
             replacetext  = tr("%1 = %2").arg(firstkeyfield).arg(secondkeyfield);
 
@@ -6826,9 +6824,9 @@ void MainWindow::proccessConfFile(const QString& sql, const QString& filename, b
                                .arg(numberreg);
 
              //qDebug("...nextkey: %s",qPrintable(nextkey));
-             searchtext = tr("\\s*(%1)\\s*\\=\\s*([áéíóúñÑa-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$,;\\(\\)\\x3c\\x3e\\x2f@]"
-                             "[áéíóúñÑa-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$\\s,;\\(\\)\\x3c\\x3e\\x2f@]*"
-                             "[áéíóúñÑa-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$,;\\(\\)\\x3c\\x3e\\x2f@])").arg(nextkey);
+             searchtext = tr("\\s*(%1)\\s*\\=\\s*([ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$,;\\(\\)\\x3c\\x3e\\x2f@]"
+                             "[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$\\s,;\\(\\)\\x3c\\x3e\\x2f@]*"
+                             "[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½a-zA-Z0-9\\$\\#/\\-\\._/:!\\?\\^\\$,;\\(\\)\\x3c\\x3e\\x2f@])").arg(nextkey);
 
              QString replacekey = QString("%1.%2").arg(currprefkey)
                                   .arg(numberreg-1);
@@ -7239,7 +7237,7 @@ bool MainWindow::doSaveGraph(const QStringList& mypars) {
    SYD << tr(".............MainWindow::doSaveGraph.............mypars.count():|%1|").arg(mypars.count());
 
    if ( mypars.count() < 4 ) {
-       SYE << tr("El nùmero de parametros a guardar debe ser cuatro (4): nombre, codigo, fecha + ruta del flujo y clave");
+       SYE << tr("El nï¿½mero de parametros a guardar debe ser cuatro (4): nombre, codigo, fecha + ruta del flujo y clave");
        return false;
    }
 
@@ -7339,7 +7337,7 @@ void MainWindow::doRestoreGraph(const QString& gfn) {
            .arg(pathgraphfile);
     QFile myfile(pathgraphfile);
     if( !myfile.open(QIODevice::ReadOnly)) {
-        SYE  << tr("No es posible leer gráficos de la ruta: \"%1\"")
+        SYE  << tr("No es posible leer grï¿½ficos de la ruta: \"%1\"")
                 .arg(pathgraphfile);
         return;
     }
@@ -7409,7 +7407,7 @@ void MainWindow::doRenderGraph(const QString& code, const QString& datetag) {
             QString img = SafetYAWL::curOutputInterface->renderGraph(parsedCodeGraph, type, mymap);
 
     if (img.startsWith("ERROR")) {
-            SYE << tr("Ocurrió el siguiente error al generar el gráfico de flujo \"%1\"")
+            SYE << tr("Ocurriï¿½ el siguiente error al generar el grï¿½fico de flujo \"%1\"")
             .arg(img);
         queryForErrors();
         return ;
@@ -7602,7 +7600,7 @@ QString MainWindow::generateTableCompared(const QString& first, const QString& s
     bool ok;
     int prodays = SafetYAWL::getConf()["DefaultValues/graphs.daysproject"].toInt(&ok);
     if (prodays <= 0 ) {
-        SYE << tr("El parámetro \"%1\" no tiene un valor válido")
+        SYE << tr("El parï¿½metro \"%1\" no tiene un valor vï¿½lido")
                .arg("DefaultValues/graphs.daysproject");
         return QString();
     }
@@ -7652,7 +7650,7 @@ QString MainWindow::generateTableCompared(const QString& first, const QString& s
 
 
     if ( currentnode.isEmpty()) {
-        SYW << trUtf8("NO se encuentra el nodo donde se encuentra la clave para el gráfico a comparar");
+        SYW << trUtf8("NO se encuentra el nodo donde se encuentra la clave para el grï¿½fico a comparar");
         currentnode = "inicial";
     }
 
@@ -7693,7 +7691,7 @@ QString MainWindow::generateTableCompared(const QString& first, const QString& s
             }
         }
         if ( !issecondfound ) {
-            SYW << tr(" Generando comparación de grafos: no se encontró el \"%1\"")
+            SYW << tr(" Generando comparaciï¿½n de grafos: no se encontrï¿½ el \"%1\"")
                    .arg(myfirstlist.at(0));
             continue;
 //            return QString();
@@ -7737,8 +7735,8 @@ QString MainWindow::generateTableCompared(const QString& first, const QString& s
                .arg(realnode)
                .arg(plannode);
         if ( realnode != plannode ) {
-            SYE     << tr("Los gráficos seleccionados son diferentes."
-                          " No tienen los mismos nodos en la misma posición."
+            SYE     << tr("Los grï¿½ficos seleccionados son diferentes."
+                          " No tienen los mismos nodos en la misma posiciï¿½n."
                           " El primer nodo tiene nombre \"%1\". "
                           " El segundo nodo tiene nombre \"%2\"." )
                        .arg(myfirstlist.at(0))
@@ -8094,7 +8092,7 @@ QString MainWindow::generateGraphCompared(const QString& first, const QString& s
     bool ok;
     int prodays = SafetYAWL::getConf()["DefaultValues/graphs.daysproject"].toInt(&ok);
     if (prodays <= 0 ) {
-        SYE << tr("El parámetro \"%1\" no tiene un valor válido")
+        SYE << tr("El parï¿½metro \"%1\" no tiene un valor vï¿½lido")
                .arg("DefaultValues/graphs.daysproject");
         return QString();
     }
@@ -8123,7 +8121,7 @@ QString MainWindow::generateGraphCompared(const QString& first, const QString& s
 
 
     if ( currentnode.isEmpty()) {
-        SYW << trUtf8("NO se encuentra el nodo donde se encuentra la clave para el gráfico a comparar");
+        SYW << trUtf8("NO se encuentra el nodo donde se encuentra la clave para el grï¿½fico a comparar");
         currentnode = "inicial";
     }
 
@@ -8152,7 +8150,7 @@ QString MainWindow::generateGraphCompared(const QString& first, const QString& s
             }
         }
         if ( !issecondfound ) {
-            SYE << tr(" Generando comparación de grafos: no se encontró el \"%1\"")
+            SYE << tr(" Generando comparaciï¿½n de grafos: no se encontrï¿½ el \"%1\"")
                    .arg(myfirstlist.at(0));
             return QString();
         }
@@ -8184,8 +8182,8 @@ QString MainWindow::generateGraphCompared(const QString& first, const QString& s
                .arg(realnode)
                .arg(plannode);
         if ( realnode != plannode ) {
-            SYE     << tr("Los gráficos seleccionados son diferentes."
-                          " No tienen los mismos nodos en la misma posición."
+            SYE     << tr("Los grï¿½ficos seleccionados son diferentes."
+                          " No tienen los mismos nodos en la misma posiciï¿½n."
                           " El primer nodo tiene nombre \"%1\". "
                           " El segundo nodo tiene nombre \"%2\"." )
                        .arg(myfirstlist.at(0))
@@ -8508,7 +8506,7 @@ void MainWindow::about()
 }
 
 // *****************************************************************************************
-// Método para la Consola
+// Mï¿½todo para la Consola
 
 
 void MainWindow::doGetSignDocument() {
@@ -8554,7 +8552,7 @@ bool MainWindow::executeParsed() {
            configurator->openDataSources();
 
            configurator->convertXMLtoObjects();
-           evalConffileValues(); // Evaluar el mapa de configuración actual
+           evalConffileValues(); // Evaluar el mapa de configuraciï¿½n actual
            Q_CHECK_PTR(configurator);
            SafetWorkflow* mywf = configurator->getWorkflow();
            Q_CHECK_PTR(mywf);
@@ -8763,7 +8761,7 @@ bool MainWindow::parse(int &argc, char **argv) {
         }
 
        if (verbose_flag)
-         streamText << tr("La opción (verbose) está activa\n");
+         streamText << tr("La opciï¿½n (verbose) estï¿½ activa\n");
 
        /* Print any remaining command line arguments (not options). */
        if (optind < argc)
@@ -8864,7 +8862,7 @@ streamText << tr("Tipee 'safet --version' o 'safet -V' para ver la version del c
 streamText << endl;
 streamText << endl;
 streamText << tr("Los comandos reciben parametros de tipo variable, clave o subcomando, o algunos") << endl;
-streamText << tr("de los comandos no requieren ningun parametro. Si no se proveen parámetros a") << endl;
+streamText << tr("de los comandos no requieren ningun parametro. Si no se proveen parï¿½metros a") << endl;
 streamText << tr("estos comandos, se generara un mensaje de error.") << endl;
 streamText << endl;
 streamText << tr("Comandos disponibles:") << endl;
@@ -9088,13 +9086,13 @@ QString MainWindow::normalize(const QString& text) {
     QString normtl  = text;
 
     normtl.replace(QRegExp("\\s+")," ");
-    normtl.replace("á","a");
-    normtl.replace("é","e");
-    normtl.replace("í","i");
-    normtl.replace("ó","o");
-    normtl.replace("ú","u");
-    normtl.replace("ñ","n");
-    normtl.replace("Ñ","N");
+    normtl.replace("ï¿½","a");
+    normtl.replace("ï¿½","e");
+    normtl.replace("ï¿½","i");
+    normtl.replace("ï¿½","o");
+    normtl.replace("ï¿½","u");
+    normtl.replace("ï¿½","n");
+    normtl.replace("ï¿½","N");
     normtl.replace(" ","_");
 
     return normtl;
@@ -9154,7 +9152,7 @@ void MainWindow::evalParsValues(SafetWorkflow *wf) {
    // QVector<QString> mytmpvt(20);
     int countpars = _currparsvalues.keys().count();
     if ( countpars > 20 ) {
-                   SYE << tr("El número de parametros del flujo de trabajo es excesivo: \"%1\""
+                   SYE << tr("El nï¿½mero de parametros del flujo de trabajo es excesivo: \"%1\""
                          ".Tiene que ser menor o igual a veinte (20)")
                       .arg(countpars);
         return;
@@ -9284,7 +9282,7 @@ QMap<QString,QDateTime> MainWindow::doGetPlannedGraph(const QString& namegraph) 
     QString code =  graphs()[namegraph].first;
 
     if (code.isEmpty()) {
-        SYW << tr("El registro para el grafo \"%1\" está vacío")
+        SYW << tr("El registro para el grafo \"%1\" estï¿½ vacï¿½o")
                .arg(namegraph);
         return result;
     }
@@ -9342,10 +9340,10 @@ void MainWindow::listDocuments(const QString& key) {
             if (!myrepo.createTable("graphs","completekey text primary key,wftask text, currkey text,"
                                     "rol text,timeprev integer, timecurr "
                                "integer, secondswait integer, porc integer"))  {
-               SYW << tr("...MainWindow::listDocuments....No se pudo crear el archivo de estadísticas");
+               SYW << tr("...MainWindow::listDocuments....No se pudo crear el archivo de estadï¿½sticas");
             }
             else {
-               SYW << tr("...MainWindow::listDocuments....Creado el archivo de estadísticas");
+               SYW << tr("...MainWindow::listDocuments....Creado el archivo de estadï¿½sticas");
             }
 
         }
@@ -9486,7 +9484,7 @@ void MainWindow::listDocuments(const QString& key) {
         SYD << tr("...antes de ejecutar: executeJSCodeAfterLoad");
        // generateJScriptreports(myjson,myfields);
    //     executeJSCodeAfterLoad();
-        SYD << tr("...después de ejecutar: executeJSCodeAfterLoad");
+        SYD << tr("...despuï¿½s de ejecutar: executeJSCodeAfterLoad");
 
 
 
@@ -9589,7 +9587,7 @@ void MainWindow::successVerification(QStringList list, const QString& msg) {
     Q_CHECK_PTR(dockShowResult);
     QString message;
     if ( msg.isEmpty()) {
-        message = QString("<table><tr><td><font color=green>%1</font></td></tr></table>").arg(tr("Verificación exitosa....<b>ok!</b>"));
+        message = QString("<table><tr><td><font color=green>%1</font></td></tr></table>").arg(tr("Verificaciï¿½n exitosa....<b>ok!</b>"));
     }
     else {
         message = QString("<table><tr><td><font color=green>%1</font></td></tr></table>").arg(msg);
@@ -9607,7 +9605,7 @@ void MainWindow::successVerification(QStringList list, const QString& msg, Safet
 
     QString message;
     if ( msg.isEmpty()) {
-        message = QString("%1").arg(tr("Verificación exitosa"));
+        message = QString("%1").arg(tr("Verificaciï¿½n exitosa"));
     }
     else {
         message = QString("%1").arg(msg);
@@ -10102,7 +10100,7 @@ void MainWindow::doDelAllFilesOnDirectory(const QString &d) {
     if ( !dir.exists() ) {
         SafetYAWL::streamlog
                 << SafetLog::Error
-                << tr("No se puede eliminar archivos de un directorio vacío: \"%1\"")
+                << tr("No se puede eliminar archivos de un directorio vacï¿½o: \"%1\"")
                 .arg(d);
         return;
     }
@@ -10115,15 +10113,15 @@ void MainWindow::doDelAllFilesOnDirectory(const QString &d) {
     QStringList filelist = dir.entryList(QDir::Files);
     SafetYAWL::streamlog
             << SafetLog::Debug
-            << tr("(Carga de configuración) "
-                  ". Número de archivos a eliminar: \"%1\"").arg(filelist.count());
+            << tr("(Carga de configuraciï¿½n) "
+                  ". Nï¿½mero de archivos a eliminar: \"%1\"").arg(filelist.count());
     foreach(QString f, filelist) {
         bool isdeleting = dir.remove(f);
         if ( !isdeleting) {
             SafetYAWL::streamlog
                     << SafetLog::Warning
                     <<
-            tr("(Carga de la configuración) No se borró el archivo: \"%1\"")
+            tr("(Carga de la configuraciï¿½n) No se borrï¿½ el archivo: \"%1\"")
                    .arg(f);
         }
 
@@ -10367,7 +10365,7 @@ bool MainWindow::login(const QString& name, const QString& pass) {
     if ( !users.contains(curuser) ) {
 
         SYE  <<
-        tr("El usuario \"%1\" no existe en la base de datos de autorización")
+        tr("El usuario \"%1\" no existe en la base de datos de autorizaciï¿½n")
                 .arg(curuser);
 
         return false;
@@ -10380,8 +10378,8 @@ bool MainWindow::login(const QString& name, const QString& pass) {
 
     if ( users[curuser].at(0) != QString(hashvalue.toHex().data()) && !isticket) {
         SYE  <<
-            trUtf8("La contraseña o usuario \"%1\" no son correctos para ingresar al sistema.");
-        SYD << tr("....MainWindow::login....contraseña incorrecta");
+            trUtf8("La contraseï¿½a o usuario \"%1\" no son correctos para ingresar al sistema.");
+        SYD << tr("....MainWindow::login....contraseï¿½a incorrecta");
         return false;
     }
 
@@ -10435,7 +10433,7 @@ void MainWindow::doSaveConfiguration(const QString& fileName) {
 
     SYD << tr(".........MainWindow::doSaveConfiguration.................(1)....");
     if(fileName.isEmpty()) {
-        SYE << tr("El nombre de archivo \"%1\" colocado como parámetro no puede ser vacío")
+        SYE << tr("El nombre de archivo \"%1\" colocado como parï¿½metro no puede ser vacï¿½o")
                .arg(fileName);
         return;
     }
@@ -10595,7 +10593,7 @@ QString MainWindow::delNodeToXMLWorkflow(const QString& fname,
     bool iscontent = doc.setContent(&file);
 
     if (!iscontent) {
-        SYE << tr("El formato del archivo XML \"%1\" no es válido")
+        SYE << tr("El formato del archivo XML \"%1\" no es vï¿½lido")
                .arg(fname);
         return result;
     }
@@ -10754,7 +10752,7 @@ QString MainWindow::changeConnXMLWorkflow(const QString& fname,
     QFile file(fname);
     if (!QFile::exists(fname) ) {
         SYE << tr("El archivo de flujo de trabajo \"%1\" no existe en el sistema de archivos"
-                  ".No es posible cambiar la conexión en el archivo")
+                  ".No es posible cambiar la conexiï¿½n en el archivo")
                .arg(fname);
         return result;
     }
@@ -10762,7 +10760,7 @@ QString MainWindow::changeConnXMLWorkflow(const QString& fname,
     bool isopen = file.open(QIODevice::ReadOnly);
     if (!isopen ) {
         SYE << tr("El archivo de flujo de trabajo \"%1\" no se puede leer"
-                  ".No es posible cambiar la conexión en el archivo")
+                  ".No es posible cambiar la conexiï¿½n en el archivo")
                .arg(fname);
 
         return result;
@@ -10771,7 +10769,7 @@ QString MainWindow::changeConnXMLWorkflow(const QString& fname,
 
     bool iscontent = doc.setContent(&file);
     if (!iscontent) {
-        SYE << tr("El formato del archivo XML \"%1\" no es válido")
+        SYE << tr("El formato del archivo XML \"%1\" no es vï¿½lido")
                .arg(fname);
         return result;
     }
@@ -10868,7 +10866,7 @@ QString MainWindow::changeRoleXMLWorkflow(const QString& fname,
     QFile file(fname);
     if (!QFile::exists(fname) ) {
         SYE << tr("El archivo de flujo de trabajo \"%1\" no existe en el sistema de archivos"
-                  ".No es posible cambiar la conexión en el archivo")
+                  ".No es posible cambiar la conexiï¿½n en el archivo")
                .arg(fname);
         return result;
     }
@@ -10876,7 +10874,7 @@ QString MainWindow::changeRoleXMLWorkflow(const QString& fname,
     bool isopen = file.open(QIODevice::ReadOnly);
     if (!isopen ) {
         SYE << tr("El archivo de flujo de trabajo \"%1\" no se puede leer"
-                  ".No es posible cambiar la conexión en el archivo")
+                  ".No es posible cambiar la conexiï¿½n en el archivo")
                .arg(fname);
 
         return result;
@@ -10885,7 +10883,7 @@ QString MainWindow::changeRoleXMLWorkflow(const QString& fname,
 
     bool iscontent = doc.setContent(&file);
     if (!iscontent) {
-        SYE << tr("El formato del archivo XML \"%1\" no es válido")
+        SYE << tr("El formato del archivo XML \"%1\" no es vï¿½lido")
                .arg(fname);
         return result;
     }
@@ -10989,7 +10987,7 @@ QString MainWindow::addNodeToXMLWorkflow(const QString& fname,
     bool iscontent = doc.setContent(&file);
 
     if (!iscontent) {
-        SYE << tr("El formato del archivo XML \"%1\" no es válido")
+        SYE << tr("El formato del archivo XML \"%1\" no es vï¿½lido")
                .arg(fname);
         return result;
     }
@@ -11235,7 +11233,7 @@ bool MainWindow::delXmlMenuGroupForm(const QString& newff) {
     bool iscontent = doc.setContent(&file);
 
     if (!iscontent) {
-        SYE << tr("El formato del archivo XML de menú de formularios \"%1\" no es válido")
+        SYE << tr("El formato del archivo XML de menï¿½ de formularios \"%1\" no es vï¿½lido")
                .arg(fname);
         qDebug("...no ta bien");
         return false;
@@ -11339,7 +11337,7 @@ bool MainWindow::addXmlMenuGroupForm(const QString& newff) {
     bool iscontent = doc.setContent(&file);
 
     if (!iscontent) {
-        SYE << tr("El formato del archivo XML de menú de formularios \"%1\" no es válido")
+        SYE << tr("El formato del archivo XML de menï¿½ de formularios \"%1\" no es vï¿½lido")
                .arg(fname);
         qDebug("...no ta bien");
         return false;
