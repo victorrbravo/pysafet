@@ -4740,7 +4740,7 @@ bool MainWindow::sendEmail(const QString& recipients, const QMap<QString,QString
     if (!ishost) {
 
 
-        _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\",  \"error\": \"%3\"" "\"datetime\":\"%4\", \"datetime_string\":\"%5\" }")
+        _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\",  \"error\": \"%3\", \"datetime\":\"%4\", \"datetime_string\":\"%5\" }")
                  .arg("0")
                  .arg("false")
                 .arg(tr("No connection to Host"))
@@ -4755,7 +4755,7 @@ bool MainWindow::sendEmail(const QString& recipients, const QMap<QString,QString
                .arg(islogin);
 
         if (!islogin) {
-            _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\",  \"error\": \"%3\"" "\"datetime\":\"%4\", \"datetime_string\":\"%5\" } ")
+            _currentjson = QString("{ \"id\": \"%1\", \"result\": \"%2\",  \"error\": \"%3\" \"datetime\":\"%4\", \"datetime_string\":\"%5\" } ")
                      .arg("0")
                      .arg("false")
                     .arg(tr("No login to Host"))
