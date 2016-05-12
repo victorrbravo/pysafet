@@ -4919,7 +4919,7 @@ bool MainWindow::sendEmail(const QString& recipients, const QMap<QString,QString
                 mynewdata = mynewdata + " %1";
                 _currentjson = _currentjson.arg(mynewdata);
 
-                mynewdata = QString(" \"datetime_string\":\"%1\", ").arg(now.toString(Safet::DateFormat_secs));
+                mynewdata = QString(" \"datetime_string\":\"%1\" ").arg(now.toString(Safet::DateFormat_secs));
                 mynewdata = mynewdata + " %1";
                 _currentjson = _currentjson.arg(mynewdata);
 
