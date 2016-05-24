@@ -956,7 +956,7 @@ bool SafetYAWL::evalSQLValue(const QString& exp) {
    query.prepare(  command );
    bool executed = query.exec();
    if (!executed ) {
-        SYE << tr("Problema con la secuencia \"%1\", no se ejecutó correctamente la sentencia SQL: \"%2\"")
+        SYE << tr("Problema con la secuencia \"%1\", no se ejecutó correctamente la sentencia SafetYAWL...SQL: \"%2\"")
                .arg(exp).arg(command);
         return false;
     }

@@ -1058,10 +1058,17 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
 //                            .arg(nextIteDate.toTime_t());
            }
             else if ( t == QVariant::Double  ) {
-                newfilter = QString(">=%1 AND %3<%2")
+                newfilter = QString(">%1%3<%2%3%4%3%5")
                             .arg(iteDouble)
                             .arg(nextIteDouble)
-                            .arg(table+"."+fieldname);
+                            .arg(Safet::SEPARATORMARK)
+                            .arg(table+"."+fieldname)
+                            .arg(fieldname);
+
+//                newfilter = QString(">=%1 AND %3<%2")
+//                            .arg(iteDouble)
+//                            .arg(nextIteDouble)
+//                            .arg(table+"."+fieldname);
 
                 SYD << tr("newfilter NEW_DOUBLE...double:|%1|")
                        .arg(newfilter);
