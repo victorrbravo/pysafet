@@ -56,7 +56,7 @@ class SafetAutofilter : public SafetXmlObject
 
 public:
      enum FilterType { None, String, Date, DateTime, Integer, Float};
-     enum ForDatePeriod { Hour, Week, Month, Year, Quarter};
+     enum ForDatePeriod { Hour, Week, Month, Year, Quarter, Price};
 
      enum DateFormat { ISO, DATESTRING, SECONDS };
 private:

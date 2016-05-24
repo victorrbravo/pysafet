@@ -101,8 +101,8 @@
 
 #include "inflowfirmadoc.h"
 
-
 // **** Bdoc files
+
 
 // Variables Estáticas
 
@@ -113,6 +113,8 @@ MainWindow *MainWindow::mymainwindow = NULL;
 QString MainWindow::currentaccount = "";
 QString MainWindow::currentrole = "";
 QString MainWindow::currentrealname = "";
+
+
 
 QString MainWindow::showString = "";
 bool MainWindow::_issigning = false;

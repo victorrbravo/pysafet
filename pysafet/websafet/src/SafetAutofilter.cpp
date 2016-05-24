@@ -75,6 +75,7 @@ QList<SafetTask*> SafetAutofilter::createTasks(const QString& prefix) {
      int nweek = 1;
      int nmonth = 1;
      int nquarter = 1;
+     int nprice = 1;
      ForDatePeriod myperiod = SafetAutofilter::Hour;
      if (logvar == "week") {
          SYD << tr (".......Autofilter::createTask...WEEK");
@@ -88,6 +89,10 @@ QList<SafetTask*> SafetAutofilter::createTasks(const QString& prefix) {
      else if (logvar == "quarter" ) {
          myperiod = SafetAutofilter::Quarter;
      }
+     else if (logvar == "price" ) {
+         myperiod = SafetAutofilter::Price;
+     }
+
      else {
         hinc = logvar.toInt(&ok);
      }
@@ -127,6 +132,12 @@ QList<SafetTask*> SafetAutofilter::createTasks(const QString& prefix) {
 
                       SYD << tr("..SafetAutofilter::createTask adding MONTH:|%1|").arg(title);
                   nmonth++;
+              }
+              else if ( myperiod == SafetAutofilter::Price) {
+                  title = title.remove("_")+tr("Plus%1").arg(nprice);
+
+                      SYD << tr("..SafetAutofilter::createTask adding_Price:|%1|").arg(title);
+                  nprice++;
               }
 
               else {
@@ -722,11 +733,15 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
              .arg(t)
              .arg(QVariant::DateTime)
              .arg(QVariant::UInt)
+              .arg(QVariant::Double)
              .arg(QVariant::Int);
 
 
+     SYD   << tr("...SafetAutofilter::generateDateFilters....*1");
      if ( t != QVariant::DateTime  ) {
-         if (  t == QVariant::UInt || t == QVariant::Int ) {
+         SYD   << tr("...SafetAutofilter::generateDateFilters....*2");
+         if (  t == QVariant::UInt || t == QVariant::Int || t == QVariant::Double ) {
+             SYD   << tr("...SafetAutofilter::generateDateFilters....*3");
              QString myname = query.record().field(0).name().toLower();
               SYD << tr("generateDateFilters....NODATE...name:|%1|")
                      .arg(myname);
@@ -783,14 +798,23 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
      }
      QString fieldname = orderquery.record().fieldName(0);
      QDateTime iteDateFirst;
+     double doubleFirst = 0;
+
+
      if ( t == QVariant::DateTime  ) {
           iteDateFirst = orderquery.value(0).toDateTime();
+     } else if ( t == QVariant::Double  ) {
+         doubleFirst = orderquery.value(0).toDouble(&ok);
+         SYD << tr("......doubleFirst ok:|%1|").arg(doubleFirst);
+
      } else if ( t == QVariant::Int  ) {
           iteDateFirst = QDateTime::fromTime_t(orderquery.value(0).toUInt(&ok));
           if ( !ok ){
                SYE << tr("Error al convertir la fecha \"%1\"  del campo \"%2\"").arg(orderquery.value(0).toString(),fieldname);
           }
      }
+     SYD << tr("Primer double para el autofiltro \"%1\": \"%2\"").arg(fieldname)
+            .arg(doubleFirst);
      SYD << tr("Primera fecha para el autofiltro \"%1\": \"%2\"").arg(fieldname)
                .arg(iteDateFirst.toString() );
 //     qDebug("..first: %s", qPrintable(orderquery.value(0).toDateTime().toString()));
@@ -802,8 +826,12 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
          return false;
      }
      QDateTime iteDateLast;
+     double doubleLast = 0;
      if ( t == QVariant::DateTime  ) {
           iteDateLast = orderquery.value(0).toDateTime();
+     } else if ( t == QVariant::Double  ) {
+          doubleLast = orderquery.value(0).toDouble(&ok);
+
      } else if ( t == QVariant::Int  ) {
           iteDateLast = QDateTime::fromTime_t(orderquery.value(0).toUInt(&ok));
           if ( !ok ){
@@ -811,9 +839,24 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
           }
 
      }
+     SYD << tr("Ultimo double para el autofiltro \"%1\": \"%2\"").arg(fieldname)
+            .arg(doubleLast);
+
      SYD << tr("Ultima fecha para el autofiltro  \"%1\": \"%2\"").arg(fieldname)
                .arg(iteDateLast.toString() );
      QDateTime iteDate, nextIteDate;
+     double nextIteDouble = doubleFirst;
+
+     double iteDouble = doubleFirst;
+
+     double passDouble = (doubleLast - doubleFirst) / 3.0;
+
+     SYD << tr(".........iteDouble..ITE_DOUBLE.passDouble:|%1|")
+            .arg(passDouble);
+
+     SYD << tr(".........iteDouble..ITE_DOUBLE.iteDouble:|%1|")
+            .arg(iteDouble);
+
      iteDate = iteDateFirst;
      QString dateformat = "yyyy-MM-dd hh:mm:ss";
      QString valuedateformat = "ddd yy/MM/dd hh:mm";
@@ -829,6 +872,9 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
      else if (logvar == "week") {
          myperiod = SafetAutofilter::Week;
      }
+     else if (logvar == "price") {
+         myperiod = SafetAutofilter::Price;
+     }
 
 
      int forday1 = 0;
@@ -842,6 +888,7 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
      int nweek = 1;
      int nmonth = 1;
      int nquarter =  1;
+     int nprice = 1;
      int ncount = 0;
      QTime starttime(0,0,0);
      QTime endtime(23,59,59);
@@ -975,6 +1022,18 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
             }
 
                 break;
+            case SafetAutofilter::Price:
+            {
+
+                iteDouble = nextIteDouble;
+                nextIteDouble = nextIteDouble + passDouble;
+                  SYD << tr(".........ITERATING DOUBLE......nextIteDouble:|%1|")
+                         .arg(nextIteDouble);
+
+            }
+
+                break;
+
 
             default:
                 nextIteDate = iteDate.addSecs(logvar.toInt(&ok)*3600);
@@ -997,7 +1056,21 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
 
 //                newfilter = QString(">%1")
 //                            .arg(nextIteDate.toTime_t());
-               }
+           }
+            else if ( t == QVariant::Double  ) {
+                newfilter = QString(">=%1 AND %3<%2")
+                            .arg(iteDouble)
+                            .arg(nextIteDouble)
+                            .arg(table+"."+fieldname);
+
+                SYD << tr("newfilter NEW_DOUBLE...double:|%1|")
+                       .arg(newfilter);
+
+
+//                newfilter = QString(">%1")
+//                            .arg(nextIteDate.toTime_t());
+           }
+
 
            SYD << tr("......Proxima Fecha del Filtro: \"%1\"").arg(nextIteDate.toString());
            SYD << tr(".....Agregando CHECKING...filtro de fecha: \"%1\"").arg(newfilter);
@@ -1025,6 +1098,7 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
                 SYD << tr(".....Agregando CHECKING...NEXTDAY: \"%1\"").arg(nextIteDate.toString(valuedateformat));
 
 
+
            }
            else if (myperiod ==  SafetAutofilter::Quarter) {
 
@@ -1040,7 +1114,17 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
 
 
            }
+           else if (myperiod ==  SafetAutofilter::Price) {
+               newvalue = QString("%1 a %2")
+                       .arg(iteDouble)
+                       .arg(nextIteDouble);
 
+                getvaluesoptions.append(newvalue);
+                nprice++;
+                getoptions.append(newfilter);
+                SYD << tr(".....Agregando CHECKING...Price...newfilter: \"%1\"").arg(newfilter);
+
+           }
            else {
 
               newvalue = QString("%1").arg(iteDate.toString(valuedateformat));
@@ -1051,10 +1135,23 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
 
 
 
-           if (nextIteDate >= iteDateLast ) {
-               break;
+
+           if (myperiod ==  SafetAutofilter::Price) {
+               if (nextIteDouble >= doubleLast) {
+                   SYD << tr("...BREAKING double PRICE...OK");
+                   break;
+               }
+                   SYD << tr("...NOT BREAKING double PRICE...OK");
+               iteDouble = nextIteDouble;
+
            }
-           iteDate = nextIteDate;
+           else {
+               if (nextIteDate >= iteDateLast ) {
+                   break;
+               }
+                iteDate = nextIteDate;
+           }
+
            SYD << tr(".....Agregando CHECKING...WEEK...NEW....ITEDATE (1): \"%1\"").arg(iteDate.toString(Safet::DateFormat));
            if (myperiod == SafetAutofilter::Week ) {
                SYD << tr(".....adding CHECKING...WEEK...**");
@@ -1064,6 +1161,8 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
            SYD << tr(".....Agregando CHECKING...WEEK...NEW....ITEDATE (2): \"%1\"\n").arg(iteDate.toString(Safet::DateFormat));
      }
 
+     SYD << tr("...not_BREAKING double getoptions...count:|%1|")
+            .arg(getoptions.count());
 
      SYD << tr("..........generateDateFilter....RETURNING...(1)...");
      return true;
