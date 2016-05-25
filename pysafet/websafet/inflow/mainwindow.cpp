@@ -5227,37 +5227,8 @@ QString MainWindow::extractParameters(const QString& action) {
     QMap<QString,QString> mypars;
     QMap<QString,QString> myconfigs;
 
-    QStringList parlist = action.split("parameters.",QString::SkipEmptyParts);
-    SYD << tr("...MainWindow::extractParameters...PARLIST...parlist.count()):|%1|")
-           .arg(parlist.count());
-
-    int pos = 0;
-    foreach(QString par, parlist) {
-
-        pos = 0;
-        QString newpar = "parameters."+par;
-        SYD << tr("...MainWindow::extractParameters...PARLIST...par:|%1|")
-               .arg(newpar);
-
-        while (pos < newpar.length()) {
-            pos = newpar.indexOf(rxpars,pos);
-            if (pos==-1) {
-                break;
-            }
-            mypars[rxpars.cap(2)] = replaceMarks(rxpars.cap(3));
-            pos += rxpars.cap(0).length()+1;
-            result.replace(rxpars.cap(0),"");
-
-        }
-    }
-    SYD << tr("...MainWindow::extractParameters...PARLIST...par....result:|%1|")
-           .arg(result);
-
-    SYD << tr("...MainWindow::extractParameters...mypars.count()):|%1|")
-           .arg(mypars.count());
-
     // para configuraciones
-    pos = 0;
+    int pos = 0;
     while (pos < action.length()) {
         pos = action.indexOf(rxconf,pos);
         SYD << tr("...MainWindow::extractParameters...CONFIGUREKEY..EXTRACT..config pos:|%1|")
@@ -5266,17 +5237,73 @@ QString MainWindow::extractParameters(const QString& action) {
         if (pos==-1) {
             break;
         }
+        QString myfield  = rxconf.cap(2);
+        QString myvalue  = rxconf.cap(3);
+
         SYD << tr("...MainWindow::extractParameters...config key:|%1|")
-               .arg(rxconf.cap(2));
+               .arg(myfield);
 
-        SYD << tr("...MainWindow::extractParameters...config value:|%1|")
-               .arg(rxconf.cap(3));
 
-        myconfigs[rxconf.cap(2)] = rxconf.cap(3);
+        SYD << tr("...MainWindow::extractParameters...config value:|%1|\n")
+               .arg(myvalue);
+
+        myconfigs[myfield] = myvalue;
         pos += rxconf.cap(0).length()+1;
         result.replace(rxconf.cap(0),"");
 
     }
+
+
+    SYD << tr("...MainWindow::extractParameters...AFTER_CONFIGS_action:|%1|")
+           .arg(result);
+
+    //QStringList parlist = action.split(QRegExp("((parameters)|(configurekey))."),QString::SkipEmptyParts);
+    QStringList parlist = result.split("parameters.",QString::SkipEmptyParts);
+    SYD << tr("...MainWindow::extractParameters...PARLIST...*parlist.count()):|%1|")
+           .arg(parlist.count());
+
+    if (parlist.count() > 1) {
+          parlist.removeFirst();
+    }
+
+    SYD << tr("...MainWindow::extractParameters...PARLIST...*parlist.count())...2:|%1|")
+        .arg(parlist.count());
+
+    pos = 0;
+
+    foreach(QString par, parlist) {
+
+        pos = 0;
+        QString newpar = "parameters."+par;
+        SYD << tr("...MainWindow::extractParameters...*PARLIST...par:|%1|")
+               .arg(newpar);
+
+        while (pos < newpar.length()) {
+            pos = newpar.indexOf(rxpars,pos);
+            if (pos==-1) {
+                break;
+            }
+            QString myfield = rxpars.cap(2);
+            QString myvalue = replaceMarks(rxpars.cap(3));
+
+            SYD << tr("....par field:|%1|")
+                    .arg(myfield);
+            SYD << tr("....par field:|%1|\n")
+                    .arg(myvalue);
+
+            mypars[myfield] = myvalue;
+            pos += rxpars.cap(0).length()+1;
+            result.replace(rxpars.cap(0),"");
+
+        }
+    }
+    SYD << tr("...MainWindow::extractParameters...PARLIST...AFTER_PARS...par....result:|%1|")
+           .arg(result);
+
+    SYD << tr("...MainWindow::extractParameters...mypars.count()):|%1|")
+           .arg(mypars.count());
+
+
     if (mypars.count()> 0 ) {
         setParsValues(mypars);
     }
@@ -9214,6 +9241,15 @@ void MainWindow::evalConffileValues() {
     SYD << tr("....MainWindow::evalConffileValues...MYWF...mywf(4)..._currconfvalues.keys().count():|%1|")
            .arg(_currconfvalues.keys().count());
 
+    foreach(QString key, SafetYAWL::getConf().getMap().keys()) {
+
+        SYD << tr("CONF_KEY...key:|%1|...value:|%2|")
+               .arg(key)
+               .arg(SafetYAWL::getConf().getMap()[key]);
+
+
+    }
+
     for(int i=0; i< _currconfvalues.keys().count();i++) {
         QString mykey = _currconfvalues.keys().at(i);
         QString myvalue = _currconfvalues[mykey];
@@ -9224,7 +9260,7 @@ void MainWindow::evalConffileValues() {
                       .arg(SafetYAWL::getConf().getMap()[mykey]);
             SYD    << tr("MainWindow::evalConffileValues()...CONFKEY....mykey:|%1|")
                       .arg(mykey);
-            SYD    << tr("MainWindow::evalConffileValues()...CONFVALUE....mykey:|%1|")
+            SYD    << tr("MainWindow::evalConffileValues()...***CONFVALUE....myvalue:|%1|")
                       .arg(myvalue);
             SafetYAWL::getConf().getMap()[mykey] = myvalue;
 
