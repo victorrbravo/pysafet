@@ -21,7 +21,7 @@
 #include "SafetConnection.h"
 #include "SafetSQLParser.h"
 #include "SafetWorkflow.h"
-
+#include <cmath>
 
 SafetAutofilter::SafetAutofilter() {
 
@@ -728,13 +728,13 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
      Q_ASSERT( query.record().count() > 0  );
      bool ok;
      QVariant::Type t = query.record().field(0).type();
-     SYD   << tr("...SafetAutofilter::generateDateFilters..Tipo del registro"
-                   " a realizar autofiltro: |%1| (Datetime:|%2|,UInt:|%3,Int:|%4|)")
-             .arg(t)
-             .arg(QVariant::DateTime)
-             .arg(QVariant::UInt)
-              .arg(QVariant::Double)
-             .arg(QVariant::Int);
+//     SYD   << tr("...SafetAutofilter::generateDateFilters..Tipo del registro"
+//                   " a realizar autofiltro: |%1| (Datetime:|%2|,UInt:|%3,Int:|%4|)")
+//             .arg(t)
+//             .arg(QVariant::DateTime)
+//             .arg(QVariant::UInt)
+//              .arg(QVariant::Double);
+
 
 
      SYD   << tr("...SafetAutofilter::generateDateFilters....*1");
@@ -859,7 +859,14 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
 
      double iteDouble = doubleFirst;
 
-     double passDouble = (doubleLast - doubleFirst) / 3.0;
+     QString divlimit = SafetYAWL::getConf()["Autofilter/double.limit.step"];
+
+     double pass = 3.0;
+     if (!divlimit.isEmpty() ) {
+         pass = divlimit.toDouble(&ok);
+     }
+
+     double passDouble = (doubleLast - doubleFirst) / pass;
 
      SYD << tr(".........iteDouble..ITE_DOUBLE.passDouble:|%1|")
             .arg(passDouble);
@@ -1036,9 +1043,18 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
             {
 
                 iteDouble = nextIteDouble;
+
                 nextIteDouble = nextIteDouble + passDouble;
-                  SYD << tr(".........ITERATING DOUBLE......nextIteDouble:|%1|")
-                         .arg(nextIteDouble);
+
+                int next = (int) round(nextIteDouble);
+
+                if ( (next % 500) != 0) {
+
+                    int ndouble=  next / 500;
+                    ndouble++;
+                    nextIteDouble = (double) ndouble*500;
+
+                 }
 
             }
 
@@ -1068,7 +1084,7 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
 //                            .arg(nextIteDate.toTime_t());
            }
             else if ( t == QVariant::Double  ) {
-                newfilter = QString(">%1%3<%2%3%4%3%5")
+                newfilter = QString(">%1%3<=%2%3%4%3%5")
                             .arg(iteDouble)
                             .arg(nextIteDouble)
                             .arg(Safet::SEPARATORMARK)
