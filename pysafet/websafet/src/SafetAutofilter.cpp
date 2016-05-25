@@ -830,7 +830,17 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
      if ( t == QVariant::DateTime  ) {
           iteDateLast = orderquery.value(0).toDateTime();
      } else if ( t == QVariant::Double  ) {
-          doubleLast = orderquery.value(0).toDouble(&ok);
+
+          QString mylast = SafetYAWL::getConf()["Autofilter/double.limit.last"];
+          if (!mylast.isEmpty() ) {
+              doubleLast = mylast.toDouble(&ok);
+              if ( !(ok == true && doubleLast > 0) )  {
+                  doubleLast = orderquery.value(0).toDouble(&ok);
+              }
+          }
+          else {
+              doubleLast = orderquery.value(0).toDouble(&ok);
+          }
 
      } else if ( t == QVariant::Int  ) {
           iteDateLast = QDateTime::fromTime_t(orderquery.value(0).toUInt(&ok));

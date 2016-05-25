@@ -9241,19 +9241,20 @@ void MainWindow::evalConffileValues() {
     SYD << tr("....MainWindow::evalConffileValues...MYWF...mywf(4)..._currconfvalues.keys().count():|%1|")
            .arg(_currconfvalues.keys().count());
 
-    foreach(QString key, SafetYAWL::getConf().getMap().keys()) {
+//    foreach(QString key, SafetYAWL::getConf().getMap().keys()) {
 
-        SYD << tr("CONF_KEY...key:|%1|...value:|%2|")
-               .arg(key)
-               .arg(SafetYAWL::getConf().getMap()[key]);
+//        SYD << tr("CONF_KEY...key:|%1|...value:|%2|")
+//               .arg(key)
+//               .arg(SafetYAWL::getConf().getMap()[key]);
 
 
-    }
+//    }
+
 
     for(int i=0; i< _currconfvalues.keys().count();i++) {
         QString mykey = _currconfvalues.keys().at(i);
         QString myvalue = _currconfvalues[mykey];
-        SYD    << tr("MainWindow::evalConffileValues()...CONTAINS....mykey:|%1|")
+        SYD    << tr("MainWindow::evalConffileValues()...CONTAINS....**mykey:|%1|")
                   .arg(mykey);
         if ( SafetYAWL::getConf().getMap().contains(mykey)) {
             SYD    << tr("MainWindow::evalConffileValues()...CURRVALUE....mycurrvalue:|%1|")
@@ -9270,8 +9271,7 @@ void MainWindow::evalConffileValues() {
         }
     }
 
-    SYD    << tr("MainWindow::evalConffileValues()...CONFVALUE....MYNEWVALUE..SafetYAWL::getConf()[\"Email/template.1\"]:|%1|")
-              .arg(SafetYAWL::getConf()["Email/template.1"]);
+
 
     _currconfvalues.clear();
     SYD << tr("....MainWindow::evalConffileValues...mywf(5)...");
