@@ -169,8 +169,19 @@ QList<SafetTask*> SafetAutofilter::createTasks(const QString& prefix) {
           SafetTask *mytask = new SafetTask();
           mytask->setParent( qobject_cast<SafetXmlObject*> (wf) );
           Q_CHECK_PTR( mytask );
-          mytask->setId(title);
-          mytask->setTitle(getvaluesoptions.at(i++));
+          if ( myperiod == SafetAutofilter::Price) {
+              QString myid = getvaluesoptions.at(i);
+              myid.replace(" ","_");
+
+              mytask->setId(myid);
+              mytask->setTitle(QString("Tarea_%1").at(i+1));
+          }
+          else {
+            mytask->setId(title);
+            mytask->setTitle(getvaluesoptions.at(i));
+          }
+          i++;
+
           mytask->setReport( report() );
           //** Para el puerto
           SafetPort* myport = new SafetPort();         
@@ -1148,7 +1159,7 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
 
            }
            else if (myperiod ==  SafetAutofilter::Price) {
-               newvalue = QString("%1 a %2")
+               newvalue = QString("De Bs%1 a Bs%2")
                        .arg(iteDouble)
                        .arg(nextIteDouble);
 

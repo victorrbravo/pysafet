@@ -39,7 +39,6 @@
 
 
 
-
 //#include <QCloseEvent>
 #include <QGraphicsSvgItem>
 //#include <QToolBar>
@@ -96,6 +95,8 @@
 
 #include "bdocdocument.h"
 #endif
+
+
 
 //#include "inflowfirmadoc.h"
 #ifdef SAFET_SMTP
