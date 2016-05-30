@@ -194,7 +194,7 @@ QList<SafetTask*> SafetAutofilter::createTasks(const QString& prefix) {
           //** Para la variable
           SafetVariable* myvariable = new SafetVariable();
           Q_CHECK_PTR( myvariable );
-          myvariable->setId( "v"+title);
+          myvariable->setId( "v"+mytask->id());
           SYD  << tr(".......SafetAutofilter::createTasks().... la tarea de autofiltro: \"%1\"").arg(mytask->id());
           if ( v != NULL ) {
                myvariable->setDocumentsource( v->documentsource() );
