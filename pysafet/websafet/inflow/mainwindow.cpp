@@ -287,6 +287,11 @@ MainWindow::MainWindow(const QString& path)
 
     SYD << tr("....MainWindow::MainWindow...loadInfo()....(1)");
 
+    SYD << tr("check ADDING_PAR...1");
+
+    checkDefaultValuesParameters();
+
+    SYD << tr("check ADDING_PAR...2");
 
 
 }
@@ -5217,6 +5222,36 @@ QString MainWindow::replaceMarks(const QString& s) {
     return result;
 }
 
+void MainWindow::checkDefaultValuesParameters() {
+    SYD << tr("...checkDefaultValuesParameters....1");
+    if (MainWindow::configurator == NULL ) {
+        SYD << tr("...checkDefaultValuesParameters....configurator is NULL");
+        return;
+    }
+    SafetWorkflow* mywf = MainWindow::configurator->getWorkflows().at(0);
+    if (mywf == NULL) {
+
+        SYD << tr("...checkDefaultValuesParameters....wf is NULL");
+        return;
+    }
+
+
+    foreach(SafetParameter* par, mywf->getParameterlist()) {
+
+        if  (!_currparsvalues.keys().contains(par->title())) {
+             if (!par->defaultvalue().isEmpty()) {
+                 _currparsvalues[par->title()] = par->defaultvalue();
+                 SYD << tr("....extractParameters...ADDING_PAR_DEFAULTVALUE:|%1| |%2|")
+                        .arg(par->title())
+                        .arg(par->defaultvalue());
+             }
+
+        }
+
+    }
+
+
+}
 
 QString MainWindow::extractParameters(const QString& action) {
     QString result = action;
@@ -8593,6 +8628,12 @@ bool MainWindow::executeParsed() {
            Q_CHECK_PTR(configurator);
            SafetWorkflow* mywf = configurator->getWorkflow();
            Q_CHECK_PTR(mywf);
+           SYD << tr("check ADDING_PAR...1");
+
+           checkDefaultValuesParameters();
+
+           SYD << tr("check ADDING_PAR...2");
+
            evalParsValues(mywf);
 
       }

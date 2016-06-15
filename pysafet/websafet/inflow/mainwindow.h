@@ -1135,6 +1135,7 @@ private:
     QString doListUsers(const QString &selectrol);
     QString searchScript(const QString &namevar);
     QString menuCommands_old();
+    void checkDefaultValuesParameters();
 private slots:
     void executeJSCodeAfterLoad( /*bool ok */ );
 
