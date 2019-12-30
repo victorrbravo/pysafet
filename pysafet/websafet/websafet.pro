@@ -94,9 +94,9 @@ message( "... Verificación de librería Libglib2.0: OK" )
 }
 message( "... Verificación de encabezados de Libgraphviz: OK" )
 
-!exists( /usr/lib/libgvc.so ) {
-       error(" ... Ocurrió un error en la búsqueda de la librería Libgraphviz. Por favor instale la librería Libgraphviz")
-}
+#!exists( /usr/lib/libgvc.so ) {
+#       error(" ... Ocurrió un error en la búsqueda de la librería Libgraphviz. Por favor instale la librería Libgraphviz")
+#}
 message( "... Verificación de librería Libgraphviz: OK" )
 
 

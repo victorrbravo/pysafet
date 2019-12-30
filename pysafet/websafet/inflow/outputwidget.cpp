@@ -215,7 +215,7 @@ QString OutputWidget::html() {
 
     if (!checkConfs()) {
         SYW << tr("No se actualizó la información del widget \"OutputWidget\"");
-        return false;
+        return "";
     }
 
 

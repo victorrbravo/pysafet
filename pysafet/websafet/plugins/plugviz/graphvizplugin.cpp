@@ -678,7 +678,7 @@ QString graphvizPlugin::renderGraph(const QString&  code, const QString& info,
 
     fpin = fopen (qPrintable(infile),"r");
     Q_CHECK_PTR(fpin);
-    g = agread(fpin);
+    g = agread(fpin,NULL);
     fclose(fpin);
     char filetype[10];
     //strncpy(filetype,qPrintable(info), strlen(filetype));
