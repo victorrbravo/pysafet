@@ -1,1 +1,1 @@
-{ global: initSafet; local: *; };
+{ global: PyInit_Safet; local: *; };

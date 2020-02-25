@@ -73,6 +73,7 @@ QList<SafetTask*> SafetAutofilter::createTasks(const QString& prefix) {
      int hcount = 0;
      int hinc = 0;
      int nweek = 1;
+     int nday = 1;
      int nmonth = 1;
      int nquarter = 1;
      int nprice = 1;
@@ -80,6 +81,11 @@ QList<SafetTask*> SafetAutofilter::createTasks(const QString& prefix) {
      if (logvar == "week") {
          SYD << tr (".......Autofilter::createTask...WEEK");
          myperiod = SafetAutofilter::Week;
+     }
+     else if (logvar == "day" ) {
+
+        SYD << tr (".......Autofilter::createTask...DAY_AUTOFILTER");
+	     myperiod = SafetAutofilter::Day;
      }
      else if (logvar == "month" ) {
 
@@ -119,6 +125,11 @@ QList<SafetTask*> SafetAutofilter::createTasks(const QString& prefix) {
               if ( myperiod == SafetAutofilter::Week) {
                   title = title.remove("_")+tr("Week_%1").arg(nweek);
                   nweek++;
+              }
+	      else if ( myperiod == SafetAutofilter::Day) {
+		  SYD << tr("2.DAY_AUTOFILTER...%d").arg(nday);
+                  title = title.remove("_")+tr("Day_%1").arg(nday);
+                  nday++;
               }
               else if ( myperiod == SafetAutofilter::Quarter) {
                   title = title.remove("_")+tr("Quarter_%1").arg(nquarter);
@@ -897,6 +908,9 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
      else if (logvar == "quarter") {
          myperiod = SafetAutofilter::Quarter;
      }
+     else if (logvar == "day") {
+         myperiod = SafetAutofilter::Day;
+     }
      else if (logvar == "week") {
          myperiod = SafetAutofilter::Week;
      }
@@ -914,12 +928,17 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
 
 
      int nweek = 1;
+     int nday  = 1;
      int nmonth = 1;
      int nquarter =  1;
      int nprice = 1;
      int ncount = 0;
      QTime starttime(0,0,0);
      QTime endtime(23,59,59);
+   SYD << tr("...DAY_AUTOFILTER....SafetAutofilter::generateDateFilters...DAY...iteDateLast:|%1|")
+                       .arg(iteDateLast.toString(Safet::DateFormat));
+
+
      while ( true ) {
            QString newfilter;
            bool ok;
@@ -949,10 +968,10 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
                    SYD << tr("........SafetAutofilter::generateDateFilters...forday1:|%1|")
                           .arg(forday1);
 
-                    initweek = true;
+                   initweek = true;
                     nextIteDate = iteDateFirst.addSecs(forday7);
                     nextIteDate  = nextIteDate.addDays(-1);
-                }
+               }
                 else {
                     //int daysdiscount = 1*(24*3600);
                     //forday7 = 7*(24*3600)-daysdiscount;
@@ -1023,7 +1042,30 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
             }
 
                 break;
+	    case SafetAutofilter::Day:
 
+		SYD << tr("3. DAY_AUTOFILTER...1");    
+		if (initweek == false ) {
+
+                    nextIteDate = iteDateFirst.addSecs(1);
+//                    nextIteDate  = nextIteDate.addDays(-1);
+		    nextIteDate.setTime(endtime);
+		    iteDate.setTime(starttime);				
+        	    nextIteDate.setTime(endtime); 	    
+		    initweek = true;
+		} else {
+        	        nextIteDate  = nextIteDate.addDays(1);	
+	        
+                	nextIteDate.setTime(endtime);
+			iteDate.setTime(starttime);
+ 		}
+			 SYD << tr("....DAY_AUTOFILTER....SafetAutofilter::generateDateFilters...DAY....date1:|%1|")
+                	       .arg(iteDate.toString(Safet::DateFormat));
+
+	                SYD << tr(".....DAY_AUTOFILTER...SafetAutofilter::generateDateFilters...DAY...date2:|%1|")
+        	               .arg(nextIteDate.toString(Safet::DateFormat));
+
+		break;
             case SafetAutofilter::Month:
             {
                 QDate myinitdate;
@@ -1130,7 +1172,18 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
                 getoptions.append(newfilter);
 
            }
-           else if (myperiod ==  SafetAutofilter::Month) {
+	   else if (myperiod ==  SafetAutofilter::Day) {
+                //newvalue = tr("Day%1").arg(nweek);
+
+               newvalue = QString("%1 a %2").arg(iteDate.toString(Safet::DateOnlyFormat))
+                       .arg(nextIteDate.toString(Safet::DateOnlyFormat));
+                nday++;
+                getvaluesoptions.append(newvalue);
+                getoptions.append(newfilter);
+
+           }
+ 
+	   else if (myperiod ==  SafetAutofilter::Month) {
 
                newvalue = QString("%1 a %2").arg(iteDate.toString(Safet::DateOnlyFormat))
                        .arg(nextIteDate.toString(Safet::DateOnlyFormat));
@@ -1197,7 +1250,8 @@ bool SafetAutofilter::generateDateFilters(const QSqlQuery& query, const QString&
            }
 
            SYD << tr(".....Agregando CHECKING...WEEK...NEW....ITEDATE (1): \"%1\"").arg(iteDate.toString(Safet::DateFormat));
-           if (myperiod == SafetAutofilter::Week ) {
+           if (myperiod == SafetAutofilter::Week ||
+			   myperiod == SafetAutofilter::Day ) {
                SYD << tr(".....adding CHECKING...WEEK...**");
                iteDate = iteDate.addDays(1);
 

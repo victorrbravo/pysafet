@@ -911,9 +911,22 @@ SafetCondition* SafetWorkflow::searchCondition(const QString& idcon) {
 
 
 int SafetWorkflow::numberOfTokens(const SafetVariable& v) {
-    QSqlQuery myquery =  getSQLDocuments(v);
-           int result = SafetWorkflow::getQuerySize( myquery );
-           return result;
+	QSqlQuery myquery =  getSQLDocuments(v);    
+	bool ok;
+	int result = 0;
+
+	if ( true ) { 
+        	while (myquery.next()) {        
+			int value = myquery.value(0).toInt(&ok);    
+			result += value;
+		}	
+        	myquery.first();
+	        myquery.previous();
+	} else {
+		SYD << tr("Searching1 ..SECOND OPTION....1");
+	        return  SafetWorkflow::getQuerySize( myquery );	           
+	}
+	return result;
 }
 
 QString  SafetWorkflow::getStackExpression(const SafetVariable& v, QStack<QPair<QString,QString> > &splitresults) {
@@ -1092,6 +1105,7 @@ QSqlQuery SafetWorkflow::getSQLDocuments(const SafetVariable& v) {
 
 	QSqlQuery query(splitoperation,SafetYAWL::currentDb); // <-- SafetYAWL::currentDb puntero a db actual
 
+	SYD << tr("SPLITOPERATION ...searching count:%1").arg(splitoperation);
 
         if ( query.lastError().type() != QSqlError::NoError ) {
                 
@@ -2828,8 +2842,9 @@ void SafetWorkflow::addVarfieldtoExtrashow(QMap<QString, QString> &newresults, c
             bool ok;
 
             mydata[idtask].first = myvalue.toDouble(&ok);
+	    SYD << tr("SEARCHING1.....myvalue:%1").arg(myvalue);
             total +=  mydata[idtask].first;
-
+	    SYD << tr("SEARCHING1.... total:%1").arg(total);
 
         }
 

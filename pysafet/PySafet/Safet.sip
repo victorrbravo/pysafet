@@ -5,7 +5,6 @@
 %Import QtSql/QtSqlmod.sip
 %Import QtGui/QtGuimod.sip
 %Import QtNetwork/QtNetworkmod.sip
-%Import QtWebKit/QtWebKitmod.sip
 %Import QtSvg/QtSvgmod.sip
 
 class MainWindow : QObject

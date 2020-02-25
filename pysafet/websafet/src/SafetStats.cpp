@@ -146,13 +146,21 @@ QStringList SafetStats::processInfo(SafetNode* node, SafetStats::StatsType t,
      }
 
      QString extrainfo;
+
+     QString fullpaint = SafetYAWL::getConf()["Stats/fullpaint"].trimmed();
      if (isreported ) {
          if ( _totaltokens != 0 ) {
              porc = double(fichas) / double(_totaltokens) ;
          }
          switch ( t ) {
          case Coloured:
-             newinfo += tr(", ")+getInfoString(attr).arg(porc, 0, 'g', 2);
+ 	
+		if ( fullpaint.length() > 0 && fullpaint.compare("on", Qt::CaseInsensitive) == 0 && 
+				porc > 0.0 ) {
+	      	 	porc = 1.0;
+		} 	     
+		newinfo += tr(", ")+getInfoString(attr).arg(porc, 0, 'g', 2);
+		
              newinfo += tr(", %1...%2").arg(fichas).arg(_totaltokens);
 
              if ( actived ) {
