@@ -914,8 +914,8 @@ int SafetWorkflow::numberOfTokens(const SafetVariable& v) {
 	QSqlQuery myquery =  getSQLDocuments(v);    
 	bool ok;
 	int result = 0;
-
-	if ( true ) { 
+        QString firstfield = SafetYAWL::getConf()["Stats/firstfield"].trimmed();
+	if ( firstfield.length()> 0 && firstfield.compare("on", Qt::CaseInsensitive) == 0 ) {
         	while (myquery.next()) {        
 			int value = myquery.value(0).toInt(&ok);    
 			result += value;
