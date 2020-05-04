@@ -29,6 +29,7 @@ public:
     QString mediaPath();
     QString inputPath();
     void setInputPath(const QString& p);
+    QString convertCSV(const QString& csv);
     QString menuCommands();
     QString menuForm(const QString &o);	 
     QString hostURL();
