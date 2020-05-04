@@ -1116,8 +1116,91 @@ QString MainWindow::menuCommands_old() {
 }
 
 
+QString MainWindow::cleanField(const QString& field) {
+
+	std::vector<std::pair<QString, QString>> replacements { 
+	    { "\"", "" },
+	    { "á", "a"  },
+	    { "é", "e"  },
+	    { "í", "i"  },
+	    { "ó", "o"  },
+	    { "ú", "u"  },
+	    { " ", "_"  },
+	    { "Ñ", "N"  },
+	    { "*", ""  },
+	    { "ñ¯", "n" }
+	};
+	QString result = field.trimmed();
+
+	for ( auto const &r : replacements) { 
+	    result.replace(r.first, r.second);
+	}
+	return result;	    
+}
 
 
+QString  MainWindow::convertCSV(const QString& csv) {
+	    QString result = "";
+    QRegExp rx(",");
+    QRegExp newline("\\n");
+    QString nameoperation = QString("operacion:agregar_caso");
+    SafetYAWL::streamlog <<  SafetLog::Debug << tr("...................................lines yeah 1");
+    QStringList lines = csv.split(newline);
+    if ( lines.length() == 0 || lines.length() == 1) {
+    SafetYAWL::streamlog <<  SafetLog::Error << tr("CSV File is in bad number of lines: %1")
+    .arg(lines.length());
+
+        return result;
+    }
+
+    SafetYAWL::streamlog <<  SafetLog::Debug << tr("lines 0 %1")
+    .arg(lines.at(0));
+    QStringList fields = lines.at(0).split(rx);
+    lines.removeFirst();
+    foreach(QString line, lines) {                            
+            QStringList values = line.split(rx);
+            int count = 0;
+            if (fields.length() != values.length()) {
+                SafetYAWL::streamlog
+                << SafetLog::Error <<
+                tr("CSV File bad format line: %3 field len:%1 values len:%2")
+                .arg(fields.length()).arg(values.length())
+                .arg(count);        
+                return result;
+            }
+	    QString newaction = "";
+            foreach(QString value, values) {
+		QString newfield  = MainWindow::cleanField(fields.at(count));
+		if ( newfield.length() > 1 ) {
+			newfield = newfield.mid(0,1).toUpper() + newfield.mid(1).toLower(); 	
+		}
+		QString newvalue = MainWindow::cleanField(value);	       
+		if ( newvalue.isEmpty () ) {
+			continue;
+		}
+		if (newfield.indexOf("Fecha", 0, Qt::CaseInsensitive) != -1 ) {
+			QDateTime mydate = QDateTime::fromString(newvalue, "dd/MM/yyyy");
+			if (!mydate.isValid() ) {
+				 mydate = QDateTime::fromString(newvalue, "d/M/yyyy");
+				 QDate initDate = QDate(1970,1,1);
+				 if (!mydate.isValid() ) {
+						mydate = QDateTime::fromString(newvalue, "yyyy-MM-dd");
+				 }
+				 else {
+					 mydate = QDateTime(initDate);
+				 }
+			}
+			newvalue = QString("%1").arg(mydate.toTime_t());		
+		}
+                QString newinput =  newfield + ":" + newvalue.trimmed();
+                newaction += newinput  + " ";
+                count++;
+            }
+	    newaction = nameoperation + " " + newaction.trimmed();
+            result += newaction + SafetYAWL::LISTSEPARATORCHARACTER;
+    }
+    return result;
+}
 
 
 

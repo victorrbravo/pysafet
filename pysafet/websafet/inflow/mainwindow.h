@@ -666,6 +666,12 @@ public:
       * \brief Obtener una cadena HTML, con el menú para acceder
         a las operaciones de Formulario
         */
+
+    static QString cleanField(const QString& field);
+
+    static QString convertCSV(const QString& csv);
+
+
     QString menuCommands();
 
     /**

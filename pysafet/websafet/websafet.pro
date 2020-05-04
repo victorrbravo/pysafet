@@ -17,6 +17,8 @@ CONFIG += qt \
  warn_off \
  debug_and_release \
 
+INCLUDEPATH += /usr/include
+
 # Mensaje
 message( "Configuración y compilación de SAFET" )
 
@@ -110,9 +112,9 @@ message( "... Verificación de encabezados de x11proto-xext-dev: OK" )
 !exists( /usr/include/libtar.h ) {
        error(" ... Ocurrió un error en la búsqueda de encabezados de libtar-dev. Por favor instale la librería libtar-dev")
 }
-!exists( /usr/lib/libtar.a ) {
-       error(" ... Ocurrió un error en la búsqueda de encabezados de libtar-dev. Por favor instale la librería libtar-dev")
-}
+#!exists( /usr/lib/libtar.a ) {
+#       error(" ... Ocurrió un error en la búsqueda de encabezados de libtar-dev. Por favor instale la librería libtar-dev")
+#}
 message( "... Verificación de encabezados de libtar-dev: OK" )
 
 # Compilador g++
