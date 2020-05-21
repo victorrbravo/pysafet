@@ -6,23 +6,23 @@
 
 #include "sipAPISafet.h"
 
-#line 230 "Safet.sip"
+#line 231 "Safet.sip"
 #include "../websafet/src/SafetYAWL.h"
 #line 12 "./sipSafetSafetYAWL.cpp"
 
 #line 27 "/usr/share/sip/PyQt4/QtCore/qstring.sip"
 #include <qstring.h>
 #line 16 "./sipSafetSafetYAWL.cpp"
-#line 258 "Safet.sip"
+#line 259 "Safet.sip"
 #include "../websafet/src/SafetYAWL.h"
 #line 19 "./sipSafetSafetYAWL.cpp"
-#line 101 "Safet.sip"
+#line 102 "Safet.sip"
 #include "../websafet/src/SafetDocument.h"
 #line 22 "./sipSafetSafetYAWL.cpp"
 #line 27 "/usr/share/sip/PyQt4/QtCore/qstringlist.sip"
 #include <qstringlist.h>
 #line 25 "./sipSafetSafetYAWL.cpp"
-#line 275 "Safet.sip"
+#line 276 "Safet.sip"
 #include "../websafet/src/SafetWorkflow.h"
 #line 28 "./sipSafetSafetYAWL.cpp"
 #line 336 "/usr/share/sip/PyQt4/QtXml/qdom.sip"

@@ -6,7 +6,7 @@
 
 #include "sipAPISafet.h"
 
-#line 89 "Safet.sip"
+#line 90 "Safet.sip"
 #include "../websafet/src/SafetXmlObject.h"
 #line 12 "./sipSafetSafetXmlObject.cpp"
 

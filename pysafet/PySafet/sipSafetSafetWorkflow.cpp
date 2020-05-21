@@ -6,7 +6,7 @@
 
 #include "sipAPISafet.h"
 
-#line 275 "Safet.sip"
+#line 276 "Safet.sip"
 #include "../websafet/src/SafetWorkflow.h"
 #line 12 "./sipSafetSafetWorkflow.cpp"
 

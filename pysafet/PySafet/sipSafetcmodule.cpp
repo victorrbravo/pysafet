@@ -18,10 +18,10 @@
 #line 351 "/usr/share/sip/PyQt4/QtCore/qcoreevent.sip"
 #include <qcoreevent.h>
 #line 21 "./sipSafetcmodule.cpp"
-#line 89 "Safet.sip"
+#line 90 "Safet.sip"
 #include "../websafet/src/SafetXmlObject.h"
 #line 24 "./sipSafetcmodule.cpp"
-#line 258 "Safet.sip"
+#line 259 "Safet.sip"
 #include "../websafet/src/SafetYAWL.h"
 #line 27 "./sipSafetcmodule.cpp"
 
@@ -177,6 +177,7 @@ const char sipStrings_Safet[] = {
     'p', 'o', 's', 't', 'A', 'c', 't', 'i', 'o', 'n', 0,
     'c', 'r', 'e', 'a', 't', 'e', 'B', 'd', 'o', 'c', 0,
     's', 'e', 't', 'H', 'o', 's', 't', 'U', 'R', 'L', 0,
+    'c', 'o', 'n', 'v', 'e', 'r', 't', 'C', 'S', 'V', 0,
     'M', 'a', 'i', 'n', 'W', 'i', 'n', 'd', 'o', 'w', 0,
     'c', 'o', 'l', 'u', 'm', 'n', 'S', 'p', 'a', 'n', 0,
     'c', 'o', 'n', 's', 't', 'r', 'a', 'i', 'n', 't', 0,

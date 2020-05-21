@@ -6,7 +6,7 @@
 
 #include "sipAPISafet.h"
 
-#line 196 "Safet.sip"
+#line 197 "Safet.sip"
 #include "../websafet/src/SafetVariable.h"
 #line 12 "./sipSafetSafetVariable.cpp"
 
@@ -19,10 +19,10 @@
 #line 115 "/usr/share/sip/PyQt4/QtCore/qlist.sip"
 #include <qlist.h>
 #line 22 "./sipSafetSafetVariable.cpp"
-#line 101 "Safet.sip"
+#line 102 "Safet.sip"
 #include "../websafet/src/SafetDocument.h"
 #line 25 "./sipSafetSafetVariable.cpp"
-#line 89 "Safet.sip"
+#line 90 "Safet.sip"
 #include "../websafet/src/SafetXmlObject.h"
 #line 28 "./sipSafetSafetVariable.cpp"
 #line 336 "/usr/share/sip/PyQt4/QtXml/qdom.sip"
