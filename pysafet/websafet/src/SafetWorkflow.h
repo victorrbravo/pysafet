@@ -143,6 +143,7 @@ public:
 
 
         int numberOfTokens() const {  return ntokens; }
+        int maxOfTokens() const {  return maxtokens; }
 
         /**
           * \brief Retorna el mapa de informacion de los nodos
@@ -158,6 +159,7 @@ public:
           *
           */
         void setNumberOfTokens(int n) { ntokens = n; }
+        void setMaxOfTokens(int n) { if (n > maxtokens) maxtokens = n; }
 
         QStringList& getExtrainfoRols() {return _extrainforols;}
         QStringList& getExtrainfoTSs() {return _extrainfotss;}
@@ -286,6 +288,7 @@ private:
 	int shapecount; // Contador de figuras
 	int oriminy,orimaxy, oriminxx, orimaxx; // Valores originales del archivo SVG
         int ntokens;
+	int maxtokens = 1;
         QString _libdigidocConfigFile; // Ruta del archivo de configuracion
 
 

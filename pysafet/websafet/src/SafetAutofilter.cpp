@@ -189,7 +189,8 @@ QList<SafetTask*> SafetAutofilter::createTasks(const QString& prefix) {
           }
           else {
             mytask->setId(title);
-            mytask->setTitle(getvaluesoptions.at(i));
+//            mytask->setTitle(getvaluesoptions.at(i));
+	      mytask->setTitle("");
           }
           i++;
 
@@ -309,7 +310,8 @@ QList<SafetTask*> SafetAutofilter::createSubTasks(SafetTask* task, QStringList s
         Q_CHECK_PTR( mytask );
 
         mytask->setId(curid);
-        mytask->setTitle(nametask);
+//        mytask->setTitle(nametask);
+        mytask->setTitle("");
         mytask->setReport( subreport() );
         SafetPort* myport = new SafetPort();
         Q_CHECK_PTR( myport );

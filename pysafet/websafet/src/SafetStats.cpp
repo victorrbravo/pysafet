@@ -26,7 +26,7 @@ SafetStats::SafetStats(SafetWorkflow *wf, QObject *parent) {
       stats = 0;
       mywf = wf;
       _totaltokens = -1;
-
+      _maxtokens = 1;
 }
 
 
@@ -90,6 +90,7 @@ QStringList SafetStats::processInfo(SafetNode* node, SafetStats::StatsType t,
      if ( _totaltokens == -1 ) {
         if ( SafetYAWL::_isstatstokenfound ) {
            _totaltokens = 1;
+	   _maxtokens = 1;
         }
         else {
         _totaltokens =  numberAllOfTokens(norender,info);
@@ -97,6 +98,7 @@ QStringList SafetStats::processInfo(SafetNode* node, SafetStats::StatsType t,
     }
 
      mywf->setNumberOfTokens( _totaltokens );
+     mywf->setMaxOfTokens( _maxtokens );
 
      if (node->numtokens() == -1 ) {
          if ( SafetYAWL::_isstatstokenfound ) {
@@ -111,6 +113,9 @@ QStringList SafetStats::processInfo(SafetNode* node, SafetStats::StatsType t,
          fichas = node->numtokens();
      }
 
+	if (fichas > _maxtokens ) {
+		_maxtokens = fichas;
+	}
 
      double porc = 0;
      bool isreported = false;
@@ -149,10 +154,19 @@ QStringList SafetStats::processInfo(SafetNode* node, SafetStats::StatsType t,
 
      QString fullpaint = SafetYAWL::getConf()["Stats/fullpaint"].trimmed();
      if (isreported ) {
-         if ( _totaltokens != 0 ) {
-             porc = double(fichas) / double(_totaltokens) ;
+	     // FIXME: add configuration variable
+         //if ( _totaltokens != 0 ) {
+         //    porc = double(fichas) / double(_totaltokens) ;
+        // }
+	 
+         if ( _maxtokens >= 0 ) {
+	     SYW << QString("_maxtokens %1").arg(_maxtokens);
+	     SYW << QString(" fichas %1").arg(fichas);
+             
+	     porc = double(fichas) / double(_maxtokens) ;
          }
-         switch ( t ) {
+ 
+	 switch ( t ) {
          case Coloured:
  	
 		if ( fullpaint.length() > 0 && fullpaint.compare("on", Qt::CaseInsensitive) == 0 && 
@@ -209,10 +223,12 @@ QStringList SafetStats::processInfo(SafetNode* node, SafetStats::StatsType t,
          default:;
          }
      }
-     result.append(newinfo);
-     if ( textualinfo.length() > 0 ) {
-         result.append(textualinfo);
-     }
+     //if ( fichas != 0 ) {
+	     result.append(newinfo);
+	     if ( textualinfo.length() > 0 ) {
+		 result.append(textualinfo);
+	     }
+     //}
      return result;
 }
 
@@ -252,7 +268,10 @@ QString SafetStats::getInfoString(SafetStats::AttrType o ) {
 
 int SafetStats::numberAllOfTokens(bool norender, const QString& info) {
      Q_CHECK_PTR( mywf );
-     if (mywf->numberOfTokens() > 0 ) return mywf->numberOfTokens();
+     if (mywf->numberOfTokens() > 0 ) {
+	     _maxtokens = mywf->maxOfTokens();
+	     return mywf->numberOfTokens();
+     }
      QList<SafetTask*> mytasks =  mywf->getTasks();
      QList<SafetVariable*>::iterator j;
      SafetVariable *curvar;
@@ -283,27 +302,33 @@ int SafetStats::numberAllOfTokens(bool norender, const QString& info) {
          }
 
          if ( t->numtokens() >= 0 ) {
-             return t->numtokens();
+		int newvalue = t->numtokens();
+	      	if (newvalue > _maxtokens ) {
+			_maxtokens = newvalue;
+		}
+             return newvalue;
          }
          else {
+	    int newvalue = 0;
              for (j = t->getVariables().begin(); j != t->getVariables().end(); ++j) {
                  curvar = *j;
 
                  if (info.length() == 0 || info.compare("coloured",Qt::CaseInsensitive) == 0 ) {
-                     int newvalue = mywf->numberOfTokens(*curvar);
-
+                     newvalue = mywf->numberOfTokens(*curvar);
                      result = result + newvalue;
-                 }
+		 }
                  else {
 
-                     int newvalue = tokensForKey(*curvar,info,norender);
+                     newvalue = tokensForKey(*curvar,info,norender);
                      result = result + newvalue;
-
-
-                 }
-
-             }
+     		 }
+       
+	     }
+	      	 if (newvalue > _maxtokens ) {
+			_maxtokens = newvalue;
+		}
          }
+ 
      }
      return result;
 }

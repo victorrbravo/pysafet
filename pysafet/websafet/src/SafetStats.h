@@ -43,6 +43,7 @@ class SafetStats : public QObject {
      SafetWorkflow* mywf;
      long int stats;
      int _totaltokens;
+     int _maxtokens;
 
      bool _isreportvalue;
 

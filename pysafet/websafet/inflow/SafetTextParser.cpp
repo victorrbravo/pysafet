@@ -1947,12 +1947,13 @@ QString SafetTextParser::processCommand(const QDomElement& e, const QDomNode& ni
         } else if ( curr == "DELETE") {
                 QList<QPair<QString,QString> > listfieldspair;
                 listfieldspair = getFieldsValues(e,ninput,keysforeignmap);
-                if ( listfieldspair.isEmpty() ) {
-                    return "";
-                }
-                curr = curr + " FROM ";
+               curr = curr + " FROM ";
                 curr = curr + currnametable;
                 curr = curr + "  ";
+	        if ( listfieldspair.isEmpty() ) {
+                    return "";
+                }
+ 	
                 Q_ASSERT(listfieldspair.count() > 0 );
                  curr = curr + " WHERE ";
                 for(int i = 0; i < listfieldspair.count();i++) {
