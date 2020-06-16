@@ -1132,6 +1132,10 @@ QString MainWindow::cleanField(const QString& field) {
 	};
 	QString result = field.trimmed();
 
+	if (result.length() == 0  ) {
+		return result;
+	}
+
 	for ( auto const &r : replacements) { 
 	    result.replace(r.first, r.second);
 	}
@@ -1152,9 +1156,6 @@ QString  MainWindow::convertCSV(const QString& csv) {
 
         return result;
     }
-
-    SafetYAWL::streamlog <<  SafetLog::Debug << tr("lines 0 %1")
-    .arg(lines.at(0));
     QStringList fields = lines.at(0).split(rx);
     lines.removeFirst();
     foreach(QString line, lines) {                            
@@ -1175,7 +1176,8 @@ QString  MainWindow::convertCSV(const QString& csv) {
 			newfield = newfield.mid(0,1).toUpper() + newfield.mid(1).toLower(); 	
 		}
 		QString newvalue = MainWindow::cleanField(value);	       
-		if ( newvalue.isEmpty () ) {
+		if ( newvalue.isEmpty() ) {
+			count++;		
 			continue;
 		}
 		if (newfield.indexOf("Fecha", 0, Qt::CaseInsensitive) != -1 ) {
@@ -1185,6 +1187,9 @@ QString  MainWindow::convertCSV(const QString& csv) {
 				 QDate initDate = QDate(1970,1,1);
 				 if (!mydate.isValid() ) {
 						mydate = QDateTime::fromString(newvalue, "yyyy-MM-dd");
+						if (!mydate.isValid() ) {						
+							mydate = QDateTime::fromString(newvalue, "yyyy-MM-ddThh:mm:ss.zzz");
+						}
 				 }
 				 else {
 					 mydate = QDateTime(initDate);

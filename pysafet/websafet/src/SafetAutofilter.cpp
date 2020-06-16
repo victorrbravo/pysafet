@@ -189,8 +189,11 @@ QList<SafetTask*> SafetAutofilter::createTasks(const QString& prefix) {
           }
           else {
             mytask->setId(title);
-//            mytask->setTitle(getvaluesoptions.at(i));
+	    if (mytask->id() != getvaluesoptions.at(i)) {
+	            mytask->setTitle(getvaluesoptions.at(i));
+	    } else {
 	      mytask->setTitle("");
+	    }
           }
           i++;
 
