@@ -153,19 +153,20 @@ QStringList SafetStats::processInfo(SafetNode* node, SafetStats::StatsType t,
      QString extrainfo;
 
      QString fullpaint = SafetYAWL::getConf()["Stats/fullpaint"].trimmed();
+     QString defaultporc = SafetYAWL::getConf()["Stats/default.porc"].trimmed();
      if (isreported ) {
-	     // FIXME: add configuration variable
-         //if ( _totaltokens != 0 ) {
-         //    porc = double(fichas) / double(_totaltokens) ;
-        // }
-	 
-         if ( _maxtokens >= 0 ) {
-	     SYW << QString("_maxtokens %1").arg(_maxtokens);
-	     SYW << QString(" fichas %1").arg(fichas);
-             
-	     porc = double(fichas) / double(_maxtokens) ;
-         }
- 
+	  if ( defaultporc.isEmpty() || defaultporc.compare("on", Qt::CaseInsensitive) == 0 ) {
+         	if ( _totaltokens != 0 ) {
+         		porc = double(fichas) / double(_totaltokens) ;
+        	}
+	  } else {
+		 if ( _maxtokens >= 0 ) {
+		     SYW << QString("_maxtokens %1").arg(_maxtokens);
+		    SYW << QString(" fichas %1").arg(fichas);
+		     
+		     porc = double(fichas) / double(_maxtokens) ;
+		 }
+	}
 	 switch ( t ) {
          case Coloured:
  	
@@ -225,7 +226,10 @@ QStringList SafetStats::processInfo(SafetNode* node, SafetStats::StatsType t,
      }
      //if ( fichas != 0 ) {
 	     result.append(newinfo);
-	     if ( textualinfo.length() > 0 ) {
+//     		bool noactived = SafetYAWL::getConf()["Stats/textual.include"] == QString("off");
+     		bool noactived = false;
+	     if ( !noactived && textualinfo.length() > 0 ) {
+		SYD << tr("Adding textual info Stats.textual.include");
 		 result.append(textualinfo);
 	     }
      //}
@@ -429,7 +433,7 @@ bool SafetStats::checkExtraInfo(SafetWorkflow *wf, QStringList& fields, const QS
             }
             else if (!myrolfield.isEmpty() && !fields.contains(myrolfield)) {
                 //myfields.append(myrolfield);
-                SafetYAWL::_hasextrainfo = true;
+                //SafetYAWL::_haaextrainfo = true;
                 if (!wf->getExtrainfoRols().contains(myrolfield)) {
                     wf->getExtrainfoRols().append(myrolfield);
 
@@ -463,7 +467,8 @@ bool SafetStats::checkExtraInfo(SafetWorkflow *wf, QStringList& fields, const QS
                 if (!wf->getExtrainfoTSs().contains(mytsfield)) {
                     wf->getExtrainfoTSs().append(mytsfield);
                 }
-                SafetYAWL::_hasextrainfo = true;
+//                SafetYAWL::_hasextrainfo = true;
+                //SafetYAWL::hasextrainfo = true;
             }
             if ( !cnrol.isEmpty() && !cnts.isEmpty()) {
                 myextra.rolfied = myrolfield;

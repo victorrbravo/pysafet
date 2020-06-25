@@ -1874,10 +1874,10 @@ QString SafetWorkflow::printNodeInformation(SafetNode *node, const QString& next
           QString attr = SafetYAWL::getConf()["Plugins.Graphviz/stats.attribute"];
           QStringList infos = _mystats->processInfo(node, t, attr,norender,info);
           if (infos.count() > 0 ) {
-            myinfo =  infos.at(0);
-            if ( infos.count() > 1 ) {
-                infonodemap[node->id()] = infos.at(1);
-            }
+            	myinfo =  infos.at(0);
+	        if ( infos.count() > 1 ) {
+        	        infonodemap[node->id()] = infos.at(1);
+            	}	  
           }
 
      }
@@ -1915,7 +1915,6 @@ QString SafetWorkflow::printNodeInformation(SafetNode *node, const QString& next
              currvariable = myvar->id();
          }
      }
-
      QString moreinfo = myinfo.length() == 0?tr(""):myinfo;
      saveStates(node->id(),newnode.split(";",QString::SkipEmptyParts));
      result  = tr("Nodo:") + node->id() +", " + tr("Tipo:")+typeNode+", "
@@ -1928,7 +1927,8 @@ QString SafetWorkflow::printNodeInformation(SafetNode *node, const QString& next
            +tr("Patron:")+ node->port()->pattern()
            +", "
            +tr("Variable:")+ currvariable
-           +title+noderole+nodenote+nodetextinfo+moreinfo;
+           +title+noderole+nodenote + nodetextinfo;
+		result += moreinfo; 
 
      if (_mystats) {
          delete _mystats;
@@ -3947,7 +3947,8 @@ QString SafetWorkflow:: generateGraph(char* filetype, QString& json, const QStri
             }
             newextra += newextrainfo;
 
-            currnode = currnode.section(",",0,-2)+","+newextra;
+    	    currnode = currnode.section(",",0,-2) + "," + newextra;
+
             newCodeGraph += currnode + "\n";
 
         }
@@ -3961,6 +3962,8 @@ QString SafetWorkflow:: generateGraph(char* filetype, QString& json, const QStri
 
         codeGraph = newCodeGraph;
     }
+
+    SYD << tr("newCodeGraph:\n%1").arg(newCodeGraph);
 
     QList<QSqlField> myfields;
     foreach(QString n,  mylist) {

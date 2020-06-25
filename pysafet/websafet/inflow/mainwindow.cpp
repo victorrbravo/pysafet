@@ -3141,9 +3141,20 @@ void MainWindow::executeWithoutJSON() {
     jscriptcolumns += "];\n";
 
 
-    jsondata += jscriptcolumns;
 
-    jsondata += jquerycolumns;
+
+    QString inccols = SafetYAWL::getConf()["Result/json.columns"];
+
+    if (!inccols.compare("off", Qt::CaseInsensitive) == 0 ) {
+    		jsondata += jscriptcolumns;
+		jsondata += jquerycolumns;
+    } else {
+	    	jsondata = jsondata.trimmed();
+	    	if ( jsondata.endsWith(",") ) {
+			jsondata.chop(1);
+		}
+		jsondata += "\n}\n";
+    }
 
     jsondata += "safetlist = [";
     jsondata += currentDocuments;
@@ -3304,7 +3315,19 @@ void MainWindow::executeWithJSON( ) {
         jscriptcolumns.chop(2);
     }
     jscriptcolumns += "  ]\n}\n";
-    jsondata += jscriptcolumns;
+    
+    QString inccols = SafetYAWL::getConf()["Result/json.columns"];
+
+    if (!inccols.compare("off", Qt::CaseInsensitive) == 0 ) {
+    		jsondata += jscriptcolumns;
+    } else {
+	    	jsondata = jsondata.trimmed();
+	    	if ( jsondata.endsWith(",") ) {
+			jsondata.chop(1);
+		}
+		jsondata += "\n}\n";
+    }
+
 
     data += jsondata;
 
