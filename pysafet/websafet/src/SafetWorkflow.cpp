@@ -4796,8 +4796,9 @@ QString SafetWorkflow::generateSQLPortKeyFilterExpression(SafetPort* port, int c
             else {
                 sql  += " AND " ;
             }
-           QString f = generateKeyFilterString();
-            sql += ptoken->key() + " IN " + f;
+//           QString f = generateKeyFilterString();
+            //sql += ptoken->key() + " IN " + f;
+            sql += ptoken->key() + " ";
 
         }
     }
@@ -4823,12 +4824,14 @@ QString SafetWorkflow::generateSQLPortKeyFilterExpression(SafetPort* port, int c
         if ( lastkeyset.toList().count() > 0 ) {
             QRegExp rx("\\s+WHERE\\s+(.)+");
             rx.setCaseSensitivity( Qt::CaseInsensitive );
-            QString f = generateKeyFilterString();
+//            QString f = generateKeyFilterString();
             if ( sql.contains( rx )   ) {
-                sql= sql + " AND " + ptoken->key() + " IN " + f;
+//		sql= sql + " AND " + ptoken->key() + " IN " + f;
+                sql= sql + " AND " + ptoken->key() + " ";
             }
             else {
-                sql= sql + " WHERE " + ptoken->key() + " IN " + f;
+//                sql= sql + " WHERE " + ptoken->key() + " IN " + f;
+                sql= sql + " WHERE " + ptoken->key() + " ";
             }
         }
      }
@@ -5115,9 +5118,9 @@ QString SafetWorkflow::generateKeyFilterExpression(QString& s,SafetNode* node, i
 
             if (issub) {
                 s.remove( strsign );
-
+		SYD << tr("SAFET_NEW_VERSION.........................1");
                 result = generateKeyFilterString();
-
+		SYD << tr("SAFET_NEW_VERSION.........................2");
                 SYD << tr("...........SafetWorkflow::generateKeyFilterExpression.... ..........result:|%1|")
                        .arg(result);
                 return result;
@@ -5168,7 +5171,6 @@ QString SafetWorkflow::generateKeyFilterExpression(QString& s,SafetNode* node, i
 		currentfilterkey = "";
 	}
         result = generateKeyFilterString();
-
 	return result;
 }
 
@@ -5357,31 +5359,98 @@ void SafetWorkflow::proccessQueryFilter(QString pattern, QStringList& querys,
 //            << tr("(proccessQueryFilter) Sentencia SQL: \"%2\" Opcion (onew): \"%1\"").arg(onew)
 //            .arg(querys.at(0));
 
-    while (query.next()) {
-        if ( poslist > -1 )  { // Esto es para admitir el operador "O" a traves ";"
-            keysoptions[ query.value(0).toString().trimmed() ].insert (query.value(1).toString().trimmed());
-            keyfilter = query.record().fieldName(1)+ope+SafetYAWL::addQuotes(lastk.trimmed());
-        }
-        else {
-            foreach(QString ornew, oroptions) {
-                 //qDebug("ornew: |%s|; ope: |%s| value: |%s|", qPrintable(ornew), qPrintable(ope), qPrintable(query.value(1).toString().trimmed()));
-                if ( (found &&  SafetYAWL::evalValues(query.value(1).toString().trimmed(),ornew,ope)) || !found) {                    
-                        set.insert(query.value(0).toString());
-                }
-                else {
-                    keyfilter = query.record().fieldName(1)+ope+SafetYAWL::addQuotes(ornew);
-                    SafetPort *outport = node->outport();
-                    Q_CHECK_PTR( outport );
-                    outport->setFilterkey( keyfilter );
-                    dropkeys[ keyfilter ].insert(query.value(0).toString());
-                }
-            }
-        }
+    SafetSQLParser localparser;
+   localparser.setWorkflow( this );
+
+
+    QString newsql = querys.at(0).trimmed();
+    SYD << tr("SAFET_NEW_VERSION  newsql %1").arg(newsql);
+    localparser.setStr( newsql );
+
+    localparser.parse();
+    Q_ASSERT_X(localparser.error() ==  SafetParser::CORRECT, "createXMLDocument",
+                                qPrintable(tr("NO es correcta la sentencia SQL: <%1> ").arg(documentsource())));
+
+    // ******************************************************************************************** NEW
+    QString ornew = oroptions.at(0);
+    QSqlQuery queryFilter( SafetYAWL::currentDb );
+    QString command = QString("SELECT %6,%1 FROM %2 WHERE %3%4%5")
+            .arg(localparser.getFields().at(1))
+            .arg(localparser.getTablesource())
+            .arg(localparser.getFields().at(1))
+            .arg(ope)
+            .arg(SafetYAWL::addQuotes(ornew))
+            .arg(localparser.getFields().at(0));
+
+
+    SYD << tr("SAFET_NEW_VERSION  command %1").arg(command);
+    queryFilter.prepare(  command );
+   bool executed = queryFilter.exec();
+   if (!executed ) {
+        SafetYAWL::streamlog << SafetLog::Error << tr("New Problema con la secuencia, no se ejecut¿ correctamente la sentencia SQL: \"%1\"").arg(command);
+        return;
     }
+
+	   while (queryFilter.next()) {
+   	       set.insert(queryFilter.value(0).toString());
+   	}
+
+
+
+    // QUERY NO FILTER ******************************************************************************************** NEW
+   bool calculateDrop = true;
+   SafetPort *outport = node->outport();
+   Q_CHECK_PTR(outport);  
+   if (outport->getConnectionlist().count() > 0 ) {
+       SafetConnection *conn = outport->getConnectionlist().at(0);
+       Q_CHECK_PTR(conn);
+       if (conn->source().compare("final", Qt::CaseInsensitive) == 0){
+	       SYD << tr("SAFET_NEW_VERSION ...calculateDrop is equal to false for %1").arg(node->id());
+           calculateDrop = false;
+       }
+   }
+
+   if (calculateDrop == true ) {
+	    QSqlQuery queryNoFilter( SafetYAWL::currentDb );
+	    
+    QString command1 = QString("SELECT %6,%1 FROM %2 WHERE %1 NOT IN (SELECT %1 FROM %2 WHERE %3%4%5)")
+            .arg(localparser.getFields().at(1))
+            .arg(localparser.getTablesource())
+            .arg(localparser.getFields().at(1))
+            .arg(ope)
+            .arg(SafetYAWL::addQuotes(ornew))
+            .arg(localparser.getFields().at(0));
+
+
+
+    SYD << tr("SAFET_NEW_VERSION  command1 %1").arg(command1);
+    queryNoFilter.prepare(  command1 );
+   executed = queryNoFilter.exec();
+   if (!executed ) {
+        SafetYAWL::streamlog << SafetLog::Error << tr("New Problema con la secuencia, no se ejecut¿ correctamente la sentencia SQL: \"%1\"").arg(command);
+        return;
+    }
+	keyfilter = query.record().fieldName(1)+ope+SafetYAWL::addQuotes(ornew);
+	SYD << tr("SAFET_NEW_VERSION keyfilter %1").arg(keyfilter);
+        SafetPort *outport = node->outport();
+        Q_CHECK_PTR( outport );
+        outport->setFilterkey( keyfilter );
+
+	while (queryNoFilter.next()) {
+   	       dropkeys[ keyfilter ].insert(queryNoFilter.value(0).toString());
+   	}
+   }
+
+   // ******************************************************************************* QUERY NO FILTER
+
+        
+   // ******************************************************************************* NEW
+
     checkPatternWithOthers(pattern,querys,
                            optionlists,set,
                            found,node,
                            curroption,path,ipath);
+
 }
 
 

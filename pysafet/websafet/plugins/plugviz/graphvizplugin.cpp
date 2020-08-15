@@ -491,14 +491,14 @@ QString graphvizPlugin::checkSES(const QString& s, ExtraInfoShow ex,
 
                       if (ntokens > 0 ) {
                           myinfo =  (checkSES("%1%<br/>",Porc,curshow).arg(porc*100,0,'f',2)
-                                     +checkSES("Tareas: %1<br/>",Tokens,curshow).arg(tokens));
+                                     +checkSES("Casos %1<br/>",Tokens,curshow).arg(tokens));
                                    //  +checkSES("Total: %1",Total,curshow).arg(total));
 
                       }
                       else  {
                           if ( !showheretokens ) {
                               myinfo =  (checkSES(" %1%<br/>",Porc,curshow).arg(porc*100,0,'f',2)
-                                         +checkSES("Tareas: %1<br/>",Tokens,curshow).arg(tokens));
+                                         +checkSES("Casos %1<br/>",Tokens,curshow).arg(tokens));
                                          //+checkSES("Total: %1",Total,curshow).arg(total));
 
 

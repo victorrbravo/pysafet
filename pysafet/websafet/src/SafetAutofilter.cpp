@@ -123,7 +123,13 @@ QList<SafetTask*> SafetAutofilter::createTasks(const QString& prefix) {
                       .arg(s);
               title = localparser.getFields().at(0);
               if ( myperiod == SafetAutofilter::Week) {
+		 if ( nweek >= 0 &&  nweek < 10 ) {
+		 
+                  title = title.remove("_")+tr("Week_0%1").arg(nweek);
+		 } else {
+
                   title = title.remove("_")+tr("Week_%1").arg(nweek);
+		 }
                   nweek++;
               }
 	      else if ( myperiod == SafetAutofilter::Day) {

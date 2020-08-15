@@ -874,11 +874,17 @@ QString SafetYAWL::getDocumentID(const QSqlQuery& query, bool withext) {
 
 QString SafetYAWL::addQuotes(const QString& value) {
     QString result;
-
+    QRegExp rx("\\d+");
     bool addquotes =  !(SafetYAWL::canTypeConvert(value, QVariant::Bool)
                         && !SafetYAWL::canTypeConvert(value, QVariant::Int)
-                        && !value.startsWith("("));
+                        && !value.startsWith("("))
+	    		&& !value.startsWith("'");
 
+	if (value.indexOf(rx) == 0 ) {
+		addquotes = false;
+	}
+
+	
     if ( addquotes ) {
          result = "'"+ value + "'";
     }

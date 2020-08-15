@@ -1161,13 +1161,12 @@ QString  MainWindow::convertCSV(const QString& csv) {
     foreach(QString line, lines) {                            
             QStringList values = line.split(rx);
             int count = 0;
-            if (fields.length() != values.length()) {
-                SafetYAWL::streamlog
-                << SafetLog::Error <<
+            if (values.length() > fields.length() ) {
+                SYD  <<
                 tr("CSV File bad format line: %3 field len:%1 values len:%2")
                 .arg(fields.length()).arg(values.length())
                 .arg(count);        
-                return result;
+                continue;
             }
 	    QString newaction = "";
             foreach(QString value, values) {
@@ -1202,7 +1201,8 @@ QString  MainWindow::convertCSV(const QString& csv) {
                 count++;
             }
 	    newaction = nameoperation + " " + newaction.trimmed();
-            result += newaction + SafetYAWL::LISTSEPARATORCHARACTER;
+            //result += newaction + SafetYAWL::LISTSEPARATORCHARACTER;
+            result += newaction + "\n"; // replace by return carrierge 
     }
     return result;
 }
@@ -3772,9 +3772,6 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
      if (pos >= 0 ) {
 
 
-
-
-         SYD << tr("MainWindow::toInputForm........ *SIGN (FIRMAR DOCUMENTO) evaluating rx....passed!");
          QString idvariable = rx.cap(1);
          QString iduser = rx.cap(2);
          QString idflow = rx.cap(3);
@@ -3811,91 +3808,19 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
                                                                                           fields,dcount,
                                                                                           SafetWorkflow::JSON, idkey);
 
-
-
           SYD << QString("...MainWindow::toInputForm....getDocuments...(After) fields.count():|%1|")
                  .arg(fields.count());
 
          QString documents = mydoc.documents();
          QString derror;
 
+            bool ok;
 
+            QString result;
 
-         SafetVariable* myvar = MainWindow::configurator->getWorkflows().at(0)->searchVariable(idvariable);
-
-         QList<SafetWorkflow::InfoSigner> infosigners = MainWindow::configurator->getWorkflows()
-                 .at(0)->getSignersDocument(myvar,idkey,derror);
-
-         SYD << tr(".........MainWindow::toInputForm..........*SIGN (FIRMAR DOCUMENTO).....infosigners.count():|%1|")
-                .arg(infosigners.count());
-
-
-         SYD << tr(".........MainWindow::toInputForm..........*SIGN (FIRMAR DOCUMENTO).....derror:|%1|")
-                .arg(derror);
-
-         InflowFirmaDoc dlg(NULL);
-
-         dlg.setAvailableFiles(mydoc.availableFiles());
-         QString documentid;
-         long fieldno = 0;
-
-
-
-         SYD << tr("......MainWindow::toInputForm....................FIRMARDOCUMENTO....idkey:|%1|")
-                .arg(idkey);
-
-         if (myvar != NULL ) {
-
-             myvar->getXMLDocument(idkey,fieldno, documentid);
-
-             SYD << tr("......MainWindow::toInputForm....................FIRMARDOCUMENTO....documentid:|%1|")
-                    .arg(documentid);
-
-             SYD << tr("......MainWindow::toInputForm....................***documentid:|%1|").arg(documentid);
-
-         }
-
-
-
-            SYD << tr("......MainWindow::toInputForm....................**documents:|%1|")
-                .arg(documents);
-
-
-             QString _cursigners;
-             dlg.loadSignersInfo(infosigners);
-             dlg.generateJScriptreports(documents,fields,1,_cursigners, infosigners);
-             bool ok;
-             SYD << tr("......MainWindow::toInputForm............signers:\n|%1|").arg(dlg.currentSigners());
-
-             SYD << tr("......MainWindow::toInputForm....................InflowFirmaDoc...(3)");
-             dlg.executeJSCodeAfterLoad(ok);
-             SYD << tr("......MainWindow::toInputForm....................InflowFirmaDoc...(5)");
-             dlg.loadReportTemplate(documentid);
-             dlg.savepdf();
-
-
-
-         SYD << tr("......MainWindow::toInputForm....................pass.....InflowFirmaDoc...(1)");
-
-         QString result;
-
-         if (dlg.availableFiles().count() > 0 ) {
-
-
-             SYD << tr("......MainWindow::toInputForm..................YES AVAILABLEFILE....");
-                 result = documents+SafetYAWL::LISTSEPARATORCHARACTER+documentid+SafetYAWL::LISTSEPARATORCHARACTER+
-                         dlg.availableFiles().at(0);
-         }
-         else {
-             SYD << tr("......MainWindow::toInputForm..................NO AVAILABLEFILE....");
-
-             result = documents+SafetYAWL::LISTSEPARATORCHARACTER+documentid;
-         }
-
-         SYD << tr("......MainWindow::toInputForm....*SIGN (FIRMAR DOCUMENTO) result:\n|%1|")
-                .arg(result);
-
-         return result;
+//            result = documents+SafetYAWL::LISTSEPARATORCHARACTER+documentid;
+            result = documents+SafetYAWL::LISTSEPARATORCHARACTER;
+            return result;
 
      }
 
@@ -3926,15 +3851,12 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
      _listprincipaltitle = "**SAFET**" + newaction;
 
 
-
      parser.setStr( QString(newaction).replace("{",Safet::BRACKETOPENMARK).replace("}",Safet::BRACKETCLOSEMARK) );
      QString str = "agregar,eliminar,actualizar,mostrar";
      QString commandstr = "INSERT INTO,DELETE,UPDATE,SELECT";
      parser.setCommands(str.split(","),commandstr.split(","));
 
      QString xml = parser.toXml();
-
-
 
      SYD  << tr("*Cadena XML generada de la entrada: \n\"%1\"").arg(xml);
      if (issignaction) {
@@ -3947,8 +3869,6 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
      parser.processInput( xml.toLatin1() );
 
      parser.openXml(filepath + "/" + filename);
-     //QStringList names = parser.loadNameConfs();
-
      parser.loadNameConfs();
 
      QStringList results;
@@ -4084,8 +4004,6 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
 
          SYD  << tr("..............MainWindow::cargar_flujo_de_trabajo.....data....DATA (2)....");
 
-
-
      }
      else {
          SYD  << tr("..............MainWindow::toInputForm....*noenviarcorreo*..NO OK!");
@@ -4117,7 +4035,6 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
 
      if ( !mypostaction.isEmpty() ) {
 
-
          QString currfile = SafetYAWL::pathconf + "/" + "templates" + "/" + mypostaction;
          SYD << tr("...........MainWindow::toInputForm...evaluating EVALPOSTACTION....file:|%1|")
                 .arg(currfile);
@@ -4143,9 +4060,7 @@ QString  MainWindow::toInputForm(const QString& action,bool withpermises) {
          QString curremail;
          QRegExp rx(Safet::EMAIL_PATTERN);
          int pos = MainWindow::currentrealname.indexOf(rx);
-
          SYD << tr("....CURRREALNAME:|%1|").arg(MainWindow::currentrealname);
-
 
          if (pos == -1) {
              SYW << tr("Parece que no se encuentra configura su correo de usuario correctamente. "
